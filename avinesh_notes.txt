@@ -1,0 +1,2 @@
+https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-premier.html
+https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-premier.html

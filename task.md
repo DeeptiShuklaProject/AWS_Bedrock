@@ -1,0 +1,6 @@
+- `[x]` Copy implementation plan to workspace
+- `[x]` Create `markdown_download.md` skill guide
+- `[x]` Create `download_docs.py` downloader script
+- `[x]` Test the downloader on a small subset of the pages
+- `[x]` Perform full download of the documentation structure
+- `[x]` Create walkthrough of completed changes

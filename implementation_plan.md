@@ -1,59 +1,74 @@
 # AWS Bedrock Interactive Documentation Portal & Q&A Agent
 
-The goal is to build an interactive, beautiful local web application that serves the downloaded AWS Bedrock markdown files as a responsive HTML document portal, coupled with a Retrieval-Augmented Generation (RAG) AI Chat Agent that answers questions using the documentation.
+The goal is to build an interactive, beautiful local web application that serves multiple downloaded markdown knowledge bases as a responsive HTML document portal, coupled with a Retrieval-Augmented Generation (RAG) AI Chat Agent that answers questions using the selected documentation.
 
-## Proposed Architecture
+## Proposed Architecture (Multi-KB RAG)
 
 ```mermaid
 graph TD
     User([User Browser]) -->|Read Docs / Nav| React[React + Vite Frontend]
+    User -->|Select KB Dropdown| React
     User -->|Ask Question| React
-    React -->|Get Nav & Doc Content| Fast[FastAPI Python Backend]
-    React -->|API Chat Query| Fast
-    Fast -->|Scan & Serve| MD[(doc_replica_amazon/ *.md)]
-    Fast -->|Retrieve Context| RAG[RAG Vector Search Engine]
-    RAG -->|Read Docs| MD
+    React -->|Get Nav & Content for Selected KB| Fast[FastAPI Python Backend]
+    React -->|API Chat Query with KB ID| Fast
+    Fast -->|Scan & Serve| MD[(doc_replica_*/ *.md)]
+    Fast -->|Retrieve Context from Selected KB| RAG[RAG Vector Search Engine]
+    RAG -->|Read Docs from Selected KB| MD
     RAG -->|Compute Embeddings & Ask Q| Gemini[Gemini API]
 ```
 
 ### 1. Frontend (React + Vite)
 * **Design & Theme**: Sleek zinc/dark mode style with glassmorphism panels, smooth micro-animations, and responsive layouts.
-* **Doc Reader**: Left sidebar showing the collapsible navigation tree; center area rendering markdown files.
-* **Chat Panel**: An interactive chatbot panel on the right showing agent responses with source citations (links to relevant documentation pages).
+* **KB Selector**: A top-bar dropdown allowing the user to select which Knowledge Base to load (e.g. AWS Bedrock Guide, Boto3 SDK, Terraform, etc.).
+* **Doc Reader**: Left sidebar showing the collapsible navigation tree for the selected KB; center area rendering markdown files.
+* **Chat Panel**: An interactive chatbot panel on the right showing agent responses with source citations (links to relevant documentation pages in the selected KB).
 
 ### 2. Backend (FastAPI Python)
-* **Directory Scan API**: Scans the `doc_replica_amazon/` directory and generates a clean hierarchical JSON for the sidebar menu.
-* **Document Serve API**: Serves the raw/HTML content of the requested markdown files.
-* **AI Chat API (`/api/chat`)**: Reads the query, performs semantic search over the docs, builds a prompt context, and queries Gemini (`gemini-2.5-flash`) for the answer.
+* **Dynamic KB Scan API**: Detects all directories matching `doc_replica_*` and returns them as available KBs.
+* **Directory Scan API**: Scans the chosen KB directory (e.g. `doc_replica_amazon/` or `doc_replica_boto3/`) and generates a clean hierarchical JSON for the sidebar menu.
+* **Document Serve API**: Serves the raw/HTML content of the requested markdown file within the selected KB.
+* **AI Chat API (`/api/chat`)**: Performs semantic search over the selected KB's markdown files, builds a prompt context, and queries Gemini (`gemini-2.5-flash`) for the answer.
 
 ### 3. Semantic Search Engine (`rag_engine.py`)
-* A lightweight semantic indexer that splits the `.md` files into text chunks.
+* A lightweight semantic indexer that splits the `.md` files of each KB into text chunks.
 * Computes vector embeddings using the official Google GenAI SDK (`text-embedding-004`).
-* Caches embeddings locally in `doc_replica_amazon/embeddings_cache.json` for lightning-fast lookups without recalculating them.
+* Caches embeddings locally in `kb_doc_replica_amazon/backend/embeddings_<kb_id>_cache.json` for lightning-fast lookups.
 
 ---
 
-## Proposed Directory Layout
-
-We will create a new directory `doc_viewer/` at the root of your workspace:
+## Directory Layout (Multi-KB Parallel Folders)
 
 ```
-doc_viewer/
-├── backend/
-│   ├── app.py                # FastAPI Server
-│   ├── rag_engine.py         # semantic search and Gemini agent logic
-│   └── requirements.txt      # Python dependencies (fastapi, uvicorn, google-genai)
-└── frontend/
-    ├── package.json
-    ├── vite.config.js
-    └── src/
-        ├── App.jsx           # Main Portal Layout
-        ├── main.jsx
-        ├── index.css         # Styling system
-        └── components/
-            ├── Sidebar.jsx   # Collapsible sidebar nav tree
-            ├── DocReader.jsx # Markdown renderer panel
-            └── ChatPanel.jsx # Q&A AI agent panel
+/Users/nishantsaxena/workspace/wscs_bedrock/
+├── doc_replica_amazon/           # KB 1: Official AWS Bedrock Guide
+│   ├── download_docs.py
+│   └── ...
+│
+├── doc_replica_terraform/        # KB 2: Terraform AWS Provider Docs
+│   └── ...
+│
+├── doc_replica_boto3/            # KB 3: Boto3 (Python SDK) Official Docs
+│   └── ...
+│
+├── doc_replica_general/          # KB 4: General Bedrock scripts and notes
+│   └── ...
+│
+└── kb_doc_replica_amazon/        # [New] The Web Application folder
+    ├── backend/
+    │   ├── app.py                # FastAPI Server (supports multiple doc_replica_* folders)
+    │   ├── rag_engine.py         # Multi-KB semantic search and Gemini agent logic
+    │   └── requirements.txt      # Python dependencies (fastapi, uvicorn, google-genai)
+    └── frontend/
+        ├── package.json
+        ├── vite.config.js
+        └── src/
+            ├── App.jsx           # Main Portal Layout (with KB Selector Dropdown)
+            ├── main.jsx
+            ├── index.css         # Styling system
+            └── components/
+                ├── Sidebar.jsx   # Collapsible sidebar nav tree
+                ├── DocReader.jsx # Markdown renderer panel
+                └── ChatPanel.jsx # Q&A AI agent panel
 ```
 
 ---

@@ -1,0 +1,9 @@
+- `[x]` Initialize Python FastAPI backend inside `kb_doc_replica_amazon/backend`
+- `[x]` Implement `rag_engine.py` using Gemini API for document chunking & semantic search
+- `[x]` Implement `app.py` FastAPI server with file structure, content, and chat APIs
+- `[x]` Initialize React + Vite frontend inside `kb_doc_replica_amazon/frontend`
+- `[x]` Create React CSS theme and layout
+- `[x]` Implement React components (Sidebar tree, DocReader, ChatPanel)
+- `[x]` Integrate frontend and backend
+- `[ ]` Verify the application works correctly using browser/manual validation
+- `[ ]` Create walkthrough of changes

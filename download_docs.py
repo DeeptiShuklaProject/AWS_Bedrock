@@ -102,7 +102,7 @@ def download_file(url, dest_path, retries=5, backoff=2.0):
 
 def main():
     parser = argparse.ArgumentParser(description="AWS Bedrock Documentation Downloader")
-    parser.add_argument("--output", default="bedrock_userguide_markdown", help="Destination folder for markups")
+    parser.add_argument("--output", default="doc_replica_amazon", help="Destination folder for markups")
     parser.add_argument("--threads", type=int, default=10, help="Number of concurrent download threads")
     parser.add_argument("--section", default=None, help="Filter to only download this top-level category section")
     parser.add_argument("--dry-run", action="store_true", help="List directories and files without downloading")

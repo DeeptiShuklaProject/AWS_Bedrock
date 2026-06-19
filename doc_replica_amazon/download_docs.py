@@ -101,8 +101,9 @@ def download_file(url, dest_path, retries=5, backoff=2.0):
     return False, "failed (max retries reached)"
 
 def main():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     parser = argparse.ArgumentParser(description="AWS Bedrock Documentation Downloader")
-    parser.add_argument("--output", default="doc_replica_amazon", help="Destination folder for markups")
+    parser.add_argument("--output", default=script_dir, help="Destination folder for markups")
     parser.add_argument("--threads", type=int, default=10, help="Number of concurrent download threads")
     parser.add_argument("--section", default=None, help="Filter to only download this top-level category section")
     parser.add_argument("--dry-run", action="store_true", help="List directories and files without downloading")
@@ -113,15 +114,15 @@ def main():
     print("Loading Table of Contents...")
     toc_data = None
     
-    # Try reading from a local copy in the workspace first, then fall back to fetching online
-    local_toc_path = "toc-contents.json"
+    # Try reading from a local copy in the output folder first, then fall back to fetching online
+    local_toc_path = os.path.join(args.output, "toc-contents.json")
     if os.path.exists(local_toc_path):
         try:
             with open(local_toc_path, "r", encoding="utf-8") as f:
                 toc_data = json.load(f)
-            print("Loaded Table of Contents from local toc-contents.json")
+            print(f"Loaded Table of Contents from local {local_toc_path}")
         except Exception as e:
-            print(f"Warning: Could not parse local toc-contents.json: {e}")
+            print(f"Warning: Could not parse local {local_toc_path}: {e}")
             
     if not toc_data:
         try:

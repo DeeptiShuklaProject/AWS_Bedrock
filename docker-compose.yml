@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./aura_docs/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    command: uvicorn app:app --host 0.0.0.0 --port 8000 --reload
+    environment:
+      - WORKSPACE_DIR=/workspace
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      # Mount source code for hot-reloading
+      - ./aura_docs/backend:/app
+      # Mount the workspace directory to scan doc_replica_* folders
+      - /Users/nishantsaxena/workspace/wscs_bedrock:/workspace
+      # Mount your local AWS credentials so the Boto3 client can query Bedrock
+      - ~/.aws:/root/.aws:ro
+
+  frontend:
+    build:
+      context: ./aura_docs/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    volumes:
+      # Mount source code for hot-reloading
+      - ./aura_docs/frontend:/app
+      # Exclude node_modules to use container-installed dependencies
+      - /app/node_modules
+    depends_on:
+      - backend

@@ -1,0 +1,449 @@
+import React, { useState, useMemo } from 'react';
+import { parseMarkdown } from '../utils/markdownParser';
+import { Play, Send, Sliders, Code, Database, RefreshCw } from 'lucide-react';
+
+// ==========================================
+// 1. Code Playground Widget
+// ==========================================
+const CodePlaygroundWidget = ({ initialCode }) => {
+  const [code, setCode] = useState(initialCode ? initialCode.trim() : '');
+  const [output, setOutput] = useState('');
+  const [isRunning, setIsRunning] = useState(false);
+  const [success, setSuccess] = useState(null);
+
+  const handleRunCode = async () => {
+    setIsRunning(true);
+    setSuccess(null);
+    try {
+      const response = await fetch('/api/playground/run-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+      const data = await response.json();
+      if (data.success) {
+        setSuccess(true);
+        setOutput(data.stdout || data.stderr ? `${data.stdout}${data.stderr}` : 'Code executed successfully (no output).');
+      } else {
+        setSuccess(false);
+        setOutput(data.stderr || 'Execution failed.');
+      }
+    } catch (e) {
+      setSuccess(false);
+      setOutput(`Error running script: ${e.message}`);
+    } finally {
+      setIsRunning(false);
+    }
+  };
+
+  return (
+    <div className="widget-card code-widget">
+      <div className="widget-header">
+        <div className="widget-title">
+          <Code size={16} />
+          <span>Interactive Python Console</span>
+        </div>
+        <button 
+          onClick={handleRunCode} 
+          className="widget-btn run-btn"
+          disabled={isRunning}
+        >
+          {isRunning ? <RefreshCw size={14} className="loader-spinner" /> : <Play size={14} />}
+          <span>Run Snippet</span>
+        </button>
+      </div>
+      <textarea
+        className="widget-textarea code-editor"
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        rows={6}
+        spellCheck="false"
+      />
+      {output && (
+        <div className={`widget-console ${success === false ? 'console-error' : 'console-success'}`}>
+          <div className="console-header">Output:</div>
+          <pre>{output}</pre>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ==========================================
+// 2. Bedrock API Playground Widget
+// ==========================================
+const ApiPlaygroundWidget = ({ rawData }) => {
+  let config = {};
+  try {
+    config = JSON.parse(rawData);
+  } catch (e) {
+    config = {};
+  }
+
+  const [modelId, setModelId] = useState(config.modelId || 'anthropic.claude-3-haiku-20240307-v1:0');
+  const [prompt, setPrompt] = useState(config.prompt || 'Explain the concept of temperature in LLMs in one sentence.');
+  const [temperature, setTemperature] = useState(config.temperature || 0.7);
+  const [maxTokens, setMaxTokens] = useState(config.maxTokens || 300);
+  const [output, setOutput] = useState('');
+  const [isRunning, setIsRunning] = useState(false);
+  const [success, setSuccess] = useState(null);
+
+  const handleRunInference = async () => {
+    setIsRunning(true);
+    setSuccess(null);
+    try {
+      const response = await fetch('/api/playground/invoke', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model_id: modelId, prompt, temperature, max_tokens: maxTokens })
+      });
+      const data = await response.json();
+      if (data.success) {
+        setSuccess(true);
+        setOutput(data.output);
+      } else {
+        setSuccess(false);
+        setOutput(`Error: ${data.error}`);
+      }
+    } catch (e) {
+      setSuccess(false);
+      setOutput(`Connection Error: ${e.message}`);
+    } finally {
+      setIsRunning(false);
+    }
+  };
+
+  return (
+    <div className="widget-card api-widget">
+      <div className="widget-header">
+        <div className="widget-title">
+          <Database size={16} />
+          <span>Bedrock API Playground (Local AWS Client)</span>
+        </div>
+        <button 
+          onClick={handleRunInference} 
+          className="widget-btn run-btn"
+          disabled={isRunning}
+        >
+          {isRunning ? <RefreshCw size={14} className="loader-spinner" /> : <Send size={14} />}
+          <span>Send Payload</span>
+        </button>
+      </div>
+
+      <div className="widget-body">
+        <div className="widget-field">
+          <label>Model ID:</label>
+          <select 
+            value={modelId} 
+            onChange={(e) => setModelId(e.target.value)}
+            className="widget-select"
+          >
+            <option value="anthropic.claude-3-haiku-20240307-v1:0">Claude 3 Haiku</option>
+            <option value="anthropic.claude-3-sonnet-20240229-v1:0">Claude 3 Sonnet</option>
+            <option value="meta.llama3-8b-instruct-v1:0">Llama 3 8B Instruct</option>
+            <option value="amazon.titan-text-express-v1">Titan Text Express</option>
+          </select>
+        </div>
+
+        <div className="widget-field">
+          <label>Prompt:</label>
+          <textarea
+            className="widget-textarea prompt-editor"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            rows={2}
+          />
+        </div>
+
+        <div className="widget-row">
+          <div className="widget-field flex-1">
+            <label>Temperature: {temperature}</label>
+            <input 
+              type="range" 
+              min="0.0" 
+              max="1.0" 
+              step="0.1" 
+              value={temperature}
+              onChange={(e) => setTemperature(parseFloat(e.target.value))}
+              className="widget-slider"
+            />
+          </div>
+          <div className="widget-field flex-1">
+            <label>Max Tokens: {maxTokens}</label>
+            <input 
+              type="range" 
+              min="50" 
+              max="1000" 
+              step="50" 
+              value={maxTokens}
+              onChange={(e) => setMaxTokens(parseInt(e.target.value))}
+              className="widget-slider"
+            />
+          </div>
+        </div>
+      </div>
+
+      {output && (
+        <div className={`widget-console ${success === false ? 'console-error' : 'console-success'}`}>
+          <div className="console-header">Model Response:</div>
+          <pre style={{ whiteSpace: 'pre-wrap' }}>{output}</pre>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ==========================================
+// 3. Model Parameter Tester Widget
+// ==========================================
+const ModelParamTesterWidget = ({ rawData }) => {
+  let initialConfig = {};
+  try {
+    initialConfig = JSON.parse(rawData);
+  } catch (e) {
+    initialConfig = {};
+  }
+
+  const [temp, setTemp] = useState(initialConfig.temperature || 0.7);
+  const [topP, setTopP] = useState(initialConfig.topP || 0.9);
+  const [model, setModel] = useState(initialConfig.modelId || 'anthropic.claude-3-sonnet');
+
+  // Compute mock request payload dynamically based on inputs
+  const simulatedPayload = useMemo(() => {
+    return JSON.stringify({
+      modelId: model,
+      inferenceConfig: {
+        temperature: temp,
+        topP: topP,
+        maxTokens: 500
+      }
+    }, null, 2);
+  }, [temp, topP, model]);
+
+  return (
+    <div className="widget-card tester-widget">
+      <div className="widget-header">
+        <div className="widget-title">
+          <Sliders size={16} />
+          <span>Live Parameter Configurator</span>
+        </div>
+      </div>
+      <div className="widget-row">
+        <div className="widget-params flex-1">
+          <div className="widget-field">
+            <label>Model Profile:</label>
+            <select 
+              value={model} 
+              onChange={(e) => setModel(e.target.value)}
+              className="widget-select"
+            >
+              <option value="anthropic.claude-3-sonnet">Claude 3 Sonnet</option>
+              <option value="meta.llama3-70b">Llama 3 70B</option>
+              <option value="mistral.mixtral-8x7b">Mixtral 8x7B</option>
+            </select>
+          </div>
+
+          <div className="widget-field">
+            <label>Temperature: {temp}</label>
+            <input 
+              type="range" 
+              min="0.0" 
+              max="1.0" 
+              step="0.05" 
+              value={temp}
+              onChange={(e) => setTemp(parseFloat(e.target.value))}
+              className="widget-slider"
+            />
+          </div>
+
+          <div className="widget-field">
+            <label>Top P: {topP}</label>
+            <input 
+              type="range" 
+              min="0.0" 
+              max="1.0" 
+              step="0.05" 
+              value={topP}
+              onChange={(e) => setTopP(parseFloat(e.target.value))}
+              className="widget-slider"
+            />
+          </div>
+        </div>
+
+        <div className="widget-payload flex-1">
+          <div className="payload-header">Simulated API Payload:</div>
+          <pre className="payload-code">{simulatedPayload}</pre>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ==========================================
+// 4. Interactive Widget Router
+// ==========================================
+const InteractiveWidget = ({ type, rawData }) => {
+  switch (type) {
+    case 'code-playground':
+      return <CodePlaygroundWidget initialCode={rawData} />;
+    case 'api-playground':
+      return <ApiPlaygroundWidget rawData={rawData} />;
+    case 'model-param-tester':
+      return <ModelParamTesterWidget rawData={rawData} />;
+    default:
+      return (
+        <div className="widget-card" style={{ borderLeft: '3px solid var(--danger)' }}>
+          <div className="console-error" style={{ padding: '12px' }}>
+            Unsupported widget type: <strong>{type}</strong>
+          </div>
+        </div>
+      );
+  }
+};
+
+// ==========================================
+// 5. Main DocReader Coordinator
+// ==========================================
+const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc }) => {
+  
+  // Segment-based parser that splits markdown text and inserts live React widgets
+  const renderSegments = useMemo(() => {
+    if (!docContent) return null;
+
+    const segments = [];
+    let lastIndex = 0;
+    let match;
+    
+    // Regular expression matching: ```widget:type \n contents \n ```
+    const widgetRegex = /```widget:([a-zA-Z0-9_-]+)\n([\s\S]*?)\n```/g;
+
+    while ((match = widgetRegex.exec(docContent)) !== null) {
+      const textBefore = docContent.substring(lastIndex, match.index);
+      if (textBefore.trim()) {
+        segments.push({ type: 'markdown', content: textBefore });
+      }
+      
+      segments.push({
+        type: 'widget',
+        widgetType: match[1],
+        content: match[2]
+      });
+      
+      lastIndex = widgetRegex.lastIndex;
+    }
+    
+    const textAfter = docContent.substring(lastIndex);
+    if (textAfter.trim() || segments.length === 0) {
+      segments.push({ type: 'markdown', content: textAfter });
+    }
+
+    return segments;
+  }, [docContent]);
+
+  // Intercept relative link clicks to navigate within the app
+  const handleContentClick = (e) => {
+    const link = e.target.closest('a');
+    if (link && link.classList.contains('doc-link')) {
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      
+      if (href && !href.startsWith('http') && !href.startsWith('#')) {
+        let resolvedPath = href;
+        if (activeDoc && activeDoc.includes('/')) {
+          const activeDir = activeDoc.substring(0, activeDoc.lastIndexOf('/'));
+          resolvedPath = `${activeDir}/${href}`;
+        }
+        
+        const parts = resolvedPath.split('/');
+        const stack = [];
+        for (const part of parts) {
+          if (part === '.' || part === '') continue;
+          if (part === '..') {
+            stack.pop();
+          } else {
+            stack.push(part);
+          }
+        }
+        onSelectDoc(stack.join('/'));
+      }
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="doc-panel" style={{ alignItems: 'center', justifyContent: 'center' }}>
+        <div className="loader-spinner" style={{ width: '32px', height: '32px' }}></div>
+        <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>Loading document...</p>
+      </div>
+    );
+  }
+
+  if (!activeDoc) {
+    return (
+      <div className="doc-panel">
+        <div className="doc-welcome">
+          <div className="welcome-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80" height="80" fill="none" style={{ margin: '0 auto' }}>
+              <defs>
+                <linearGradient id="welcomeDiagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#ff79c6" />
+                  <stop offset="50%" stopColor="#bd93f9" />
+                  <stop offset="100%" stopColor="#00f2fe" />
+                </linearGradient>
+                <radialGradient id="welcomePinkRadial" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#ff79c6" stopOpacity="0.5" />
+                  <stop offset="60%" stopColor="#bd93f9" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#bd93f9" stopOpacity="0" />
+                </radialGradient>
+                <radialGradient id="welcomeTealRadial" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stopColor="#00f2fe" stopOpacity="0.4" />
+                  <stop offset="60%" stopColor="#50fa7b" stopOpacity="0.15" />
+                  <stop offset="100%" stopColor="#50fa7b" stopOpacity="0" />
+                </radialGradient>
+              </defs>
+              <circle className="aura-wave-1" cx="12" cy="12" r="9.5" fill="url(#welcomePinkRadial)" />
+              <circle className="aura-wave-2" cx="12" cy="12" r="8.5" fill="url(#welcomeTealRadial)" />
+              <path d="M5.5 6.5h6l3.5 3.5v9.5a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1z" stroke="url(#welcomeDiagGrad)" strokeWidth="1.5" strokeLinejoin="round" opacity="0.45" />
+              <path d="M8.5 3.5H14l3.5 3.5V17.5a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z" stroke="url(#welcomeDiagGrad)" strokeWidth="1.8" strokeLinejoin="round" />
+              <path d="M14 3.5V7h3.5" stroke="url(#welcomeDiagGrad)" strokeWidth="1.8" strokeLinejoin="round" />
+              <path d="M11 9.5h3.5M11 12h3.5M11 14.5h2" stroke="url(#welcomeDiagGrad)" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </div>
+          <h1 className="welcome-title">AuraDocs</h1>
+          <p className="welcome-desc">
+            Select a document from the left navigation tree to begin reading, 
+            or toggle the AI Assistant on the right to perform semantic questions across the guide.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="doc-panel" onClick={handleContentClick}>
+      <article className="doc-content">
+        {renderSegments && renderSegments.map((segment, idx) => {
+          if (segment.type === 'markdown') {
+            const html = parseMarkdown(segment.content);
+            return (
+              <div 
+                key={idx} 
+                dangerouslySetInnerHTML={{ __html: html }} 
+              />
+            );
+          } else {
+            return (
+              <InteractiveWidget 
+                key={idx} 
+                type={segment.widgetType} 
+                rawData={segment.content} 
+              />
+            );
+          }
+        })}
+      </article>
+    </div>
+  );
+};
+
+export default DocReader;

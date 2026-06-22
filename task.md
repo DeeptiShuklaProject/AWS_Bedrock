@@ -5,5 +5,5 @@
 - `[x]` Create React CSS theme and layout
 - `[x]` Implement React components (Sidebar tree, DocReader, ChatPanel)
 - `[x]` Integrate frontend and backend
-- `[ ]` Verify the application works correctly using browser/manual validation
-- `[ ]` Create walkthrough of changes
+- `[x]` Verify the application works correctly using browser/manual validation
+- `[x]` Create walkthrough of changes

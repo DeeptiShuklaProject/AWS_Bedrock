@@ -1,0 +1,114 @@
+
+> kb-doc-replica-frontend@0.1.0 dev
+> vite
+
+
+  VITE v5.4.21  ready in 108 ms
+
+  ➜  Local:   http://localhost:3000/
+  ➜  Network: use --host to expose
+9:00:52 PM [vite] hmr update /src/components/DocReader.jsx
+9:01:07 PM [vite] hmr update /src/index.css
+9:04:47 PM [vite] vite.config.js changed, restarting server...
+9:04:47 PM [vite] server restarted.
+10:11:38 PM [vite] hmr update /src/App.jsx
+10:11:46 PM [vite] hmr update /src/components/DocReader.jsx
+10:14:25 PM [vite] page reload index.html
+10:14:38 PM [vite] hmr update /src/App.jsx
+10:14:44 PM [vite] hmr update /src/components/DocReader.jsx
+10:18:46 PM [vite] hmr update /src/index.css
+10:19:01 PM [vite] hmr update /src/index.css
+10:19:10 PM [vite] hmr update /src/index.css
+10:19:28 PM [vite] hmr update /src/index.css
+10:19:41 PM [vite] hmr update /src/index.css
+10:19:59 PM [vite] hmr update /src/index.css
+10:20:20 PM [vite] hmr update /src/index.css
+10:23:11 PM [vite] hmr update /src/App.jsx
+10:23:26 PM [vite] hmr update /src/components/DocReader.jsx
+10:23:33 PM [vite] page reload index.html
+10:29:52 PM [vite] hmr update /src/App.jsx
+10:30:16 PM [vite] hmr update /src/components/DocReader.jsx
+10:30:16 PM [vite] Internal server error: /Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/src/components/DocReader.jsx: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (418:6)
+
+  416 |           </p>
+  417 |         </div>
+> 418 |       </div>
+      |       ^
+  419 |     );
+  420 |   }
+  421 |
+  Plugin: vite:react-babel
+  File: /Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/src/components/DocReader.jsx:418:6
+  416|            </p>
+  417|          </div>
+  418|        </div>
+     |        ^
+  419|      );
+  420|    }
+      at constructor (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:365:19)
+      at JSXParserMixin.raise (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:6616:19)
+      at JSXParserMixin.jsxParseElementAt (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:4754:18)
+      at JSXParserMixin.jsxParseElement (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:4761:17)
+      at JSXParserMixin.parseExprAtom (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:4771:19)
+      at JSXParserMixin.parseExprSubscripts (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11098:23)
+      at JSXParserMixin.parseUpdate (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11083:21)
+      at JSXParserMixin.parseMaybeUnary (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11063:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10916:61)
+      at JSXParserMixin.parseExprOps (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10921:23)
+      at JSXParserMixin.parseMaybeConditional (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10898:23)
+      at JSXParserMixin.parseMaybeAssign (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10848:21)
+      at /Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10817:39
+      at JSXParserMixin.allowInAnd (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12443:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10817:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12510:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11692:28)
+      at JSXParserMixin.parseExprAtom (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11348:23)
+      at JSXParserMixin.parseExprAtom (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:4776:20)
+      at JSXParserMixin.parseExprSubscripts (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11098:23)
+      at JSXParserMixin.parseUpdate (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11083:21)
+      at JSXParserMixin.parseMaybeUnary (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11063:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10916:61)
+      at JSXParserMixin.parseExprOps (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10921:23)
+      at JSXParserMixin.parseMaybeConditional (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10898:23)
+      at JSXParserMixin.parseMaybeAssign (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10848:21)
+      at JSXParserMixin.parseExpressionBase (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10801:23)
+      at /Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10797:39
+      at JSXParserMixin.allowInAnd (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12438:16)
+      at JSXParserMixin.parseExpression (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:10797:17)
+      at JSXParserMixin.parseReturnStatement (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13159:28)
+      at JSXParserMixin.parseStatementContent (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12815:21)
+      at JSXParserMixin.parseStatementLike (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12784:17)
+      at JSXParserMixin.parseStatementListItem (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12764:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13333:61)
+      at JSXParserMixin.parseBlockBody (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13326:10)
+      at JSXParserMixin.parseBlock (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13314:10)
+      at JSXParserMixin.parseStatementContent (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12875:21)
+      at JSXParserMixin.parseStatementLike (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12784:17)
+      at JSXParserMixin.parseStatementOrSloppyAnnexBFunctionDeclaration (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12774:17)
+      at JSXParserMixin.parseIfStatement (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13147:28)
+      at JSXParserMixin.parseStatementContent (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12813:21)
+      at JSXParserMixin.parseStatementLike (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12784:17)
+      at JSXParserMixin.parseStatementListItem (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12764:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13333:61)
+      at JSXParserMixin.parseBlockBody (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13326:10)
+      at JSXParserMixin.parseBlock (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:13314:10)
+      at JSXParserMixin.parseFunctionBody (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12117:24)
+      at JSXParserMixin.parseArrowExpression (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:12092:10)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/@babel/parser/lib/index.js:11704:12)
+10:31:01 PM [vite] hmr update /src/components/DocReader.jsx
+10:31:17 PM [vite] page reload index.html
+10:33:31 PM [vite] hmr update /src/index.css
+10:34:35 PM [vite] hmr update /src/App.jsx
+10:34:58 PM [vite] hmr update /src/components/DocReader.jsx
+12:32:33 PM [vite] hmr update /src/components/DocReader.jsx
+12:32:33 PM [vite] hmr update /src/App.jsx
+12:32:33 PM [vite] vite.config.js changed, restarting server...
+(!) Could not auto-determine entry point from rollupOptions or html files and there are no explicit optimizeDeps.include patterns. Skipping dependency pre-bundling.
+12:32:33 PM [vite] server restarted.
+12:43:51 PM [vite] error while updating dependencies:
+Error: ENOENT: no such file or directory, open '/Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/.vite/deps_temp_bbc37a9b/_metadata.json'
+    at Object.writeFileSync (node:fs:2415:20)
+    at Object.commit (file:///Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50757:19)
+    at commitProcessing (file:///Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50259:32)
+    at runOptimizer (file:///Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50295:15)
+    at onCrawlEnd (file:///Users/nishantsaxena/workspace/wscs_bedrock/kb_doc_replica_amazon/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:50467:9)

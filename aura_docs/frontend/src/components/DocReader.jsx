@@ -1,6 +1,12 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { parseMarkdown } from '../utils/markdownParser';
 import { Play, Send, Sliders, Code, Database, RefreshCw } from 'lucide-react';
+
+const getYoutubeId = (url) => {
+  if (!url) return null;
+  const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+  return match ? match[1] : null;
+};
 
 // ==========================================
 // 1. Code Playground Widget
@@ -295,11 +301,14 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentSeconds, setCurrentSeconds] = useState(0);
+  const [shouldAutoplay, setShouldAutoplay] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (!selectedKb || !transcriptPath) return;
+
+    setShouldAutoplay(false);
 
     const fetchTranscript = async () => {
       setLoading(true);
@@ -323,12 +332,6 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
 
     fetchTranscript();
   }, [transcriptPath, selectedKb]);
-
-  const getYoutubeId = (url) => {
-    if (!url) return null;
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
-    return match ? match[1] : null;
-  };
 
   const videoId = data ? getYoutubeId(data.video_url) : null;
 
@@ -377,7 +380,7 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
             <iframe
               width="100%"
               height="360"
-              src={`https://www.youtube.com/embed/${videoId}?start=${currentSeconds}&autoplay=1`}
+              src={`https://www.youtube.com/embed/${videoId}?start=${currentSeconds}${shouldAutoplay ? '&autoplay=1' : ''}`}
               title={data.title}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -412,6 +415,7 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
                   onClick={() => {
                     setCurrentSeconds(item.seconds);
                     setActiveIndex(idx);
+                    setShouldAutoplay(true);
                   }}
                   className={`timeline-item ${isActive ? 'active' : ''}`}
                   style={{
@@ -524,10 +528,12 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb }
   const handleContentClick = (e) => {
     const link = e.target.closest('a');
     if (link && link.classList.contains('doc-link')) {
-      e.preventDefault();
       const href = link.getAttribute('href');
+      const isExternal = href && (href.startsWith('http') || href.startsWith('//'));
+      const isAnchor = href && href.startsWith('#');
       
-      if (href && !href.startsWith('http') && !href.startsWith('#')) {
+      if (href && !isExternal && !isAnchor) {
+        e.preventDefault();
         let resolvedPath = href;
         if (activeDoc && activeDoc.includes('/')) {
           const activeDir = activeDoc.substring(0, activeDoc.lastIndexOf('/'));

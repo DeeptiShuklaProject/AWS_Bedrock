@@ -82,6 +82,10 @@ export function parseMarkdown(mdText) {
       if (url.endsWith(".html")) {
         targetUrl = url.replace(".html", ".md");
       }
+      const isExternal = url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//');
+      if (isExternal) {
+        return `<a href="${targetUrl}" class="doc-link external-link" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+      }
       return `<a href="${targetUrl}" class="doc-link">${linkText}</a>`;
     });
 

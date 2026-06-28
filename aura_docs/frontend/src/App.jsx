@@ -34,12 +34,40 @@ const App = () => {
     localStorage.setItem('kb-theme', theme);
   }, [theme]);
 
-  // Save selected KB selection to localStorage
+  // Sync selected KB and activeDoc to localStorage and URL search parameters
   useEffect(() => {
-    if (selectedKb) {
-      localStorage.setItem('kb-selected-id', selectedKb);
+    if (!selectedKb) return;
+    localStorage.setItem('kb-selected-id', selectedKb);
+    if (activeDoc) {
+      localStorage.setItem(`kb-active-doc-${selectedKb}`, activeDoc);
     }
-  }, [selectedKb]);
+    
+    const url = new URL(window.location.href);
+    const urlKb = url.searchParams.get('kb');
+    const urlDoc = url.searchParams.get('doc');
+    
+    let changed = false;
+    if (urlKb !== selectedKb) {
+      url.searchParams.set('kb', selectedKb);
+      changed = true;
+    }
+    
+    if (activeDoc) {
+      if (urlDoc !== activeDoc) {
+        url.searchParams.set('doc', activeDoc);
+        changed = true;
+      }
+    } else {
+      if (urlDoc && urlKb !== selectedKb) {
+        url.searchParams.delete('doc');
+        changed = true;
+      }
+    }
+    
+    if (changed) {
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [selectedKb, activeDoc]);
 
   // Load KBs and Config on startup
   useEffect(() => {
@@ -60,18 +88,26 @@ const App = () => {
         const data = await response.json();
         setKbs(data);
         if (data.length > 0) {
-          const cachedKb = localStorage.getItem('kb-selected-id');
-          const hasCached = data.some(kb => kb.id === cachedKb);
-          if (hasCached) {
-            setSelectedKb(cachedKb);
+          const params = new URLSearchParams(window.location.search);
+          const urlKb = params.get('kb');
+          const hasUrlKb = data.some(kb => kb.id === urlKb);
+          
+          if (hasUrlKb) {
+            setSelectedKb(urlKb);
           } else {
-            // Fallback default (prioritize Custom Notes, then Bedrock)
-            const notesKb = data.find(kb => kb.id === 'doc_replica_notes');
-            if (notesKb) {
-              setSelectedKb(notesKb.id);
+            const cachedKb = localStorage.getItem('kb-selected-id');
+            const hasCached = data.some(kb => kb.id === cachedKb);
+            if (hasCached) {
+              setSelectedKb(cachedKb);
             } else {
-              const bedrockKb = data.find(kb => kb.id === 'doc_replica_amazon');
-              setSelectedKb(bedrockKb ? bedrockKb.id : data[0].id);
+              // Fallback default (prioritize Custom Notes, then Bedrock)
+              const notesKb = data.find(kb => kb.id === 'doc_replica_notes');
+              if (notesKb) {
+                setSelectedKb(notesKb.id);
+              } else {
+                const bedrockKb = data.find(kb => kb.id === 'doc_replica_amazon');
+                setSelectedKb(bedrockKb ? bedrockKb.id : data[0].id);
+              }
             }
           }
         }
@@ -96,28 +132,66 @@ const App = () => {
       try {
         const response = await fetch(`/api/kbs/${selectedKb}/navigation`);
         const data = await response.json();
-        setNavItems(data);
+        
+        // Normalize all href paths to use forward slashes
+        const normalizePaths = (items) => {
+          if (!items) return items;
+          return items.map(item => {
+            const newItem = { ...item };
+            if (newItem.href) {
+              newItem.href = newItem.href.replace(/\\/g, '/');
+            }
+            if (newItem.contents) {
+              newItem.contents = normalizePaths(newItem.contents);
+            }
+            return newItem;
+          });
+        };
+        const normalizedData = normalizePaths(data);
+        setNavItems(normalizedData);
         
         // Reset chat state
         setMessages([]);
         
-        // Auto-select the first document in the tree as the home page
-        if (data && data.length > 0) {
-          const findFirstDoc = (items) => {
-            for (const item of items) {
-              if (item.href) return item.href;
-              if (item.contents && item.contents.length > 0) {
-                const found = findFirstDoc(item.contents);
-                if (found) return found;
-              }
-            }
-            return '';
-          };
-          const firstDoc = findFirstDoc(data);
-          setActiveDoc(firstDoc);
+        // Helper to check if a document path exists in the navigation tree
+        const checkDocExists = (items, targetHref) => {
+          if (!items) return false;
+          for (const item of items) {
+            if (item.href === targetHref) return true;
+            if (item.contents && checkDocExists(item.contents, targetHref)) return true;
+          }
+          return false;
+        };
+        
+        // Determine which active doc to select (URL bookmark, cached doc, or first item)
+        const params = new URLSearchParams(window.location.search);
+        const urlKb = params.get('kb');
+        const urlDoc = params.get('doc') ? params.get('doc').replace(/\\/g, '/') : null;
+        
+        if (urlKb === selectedKb && urlDoc && checkDocExists(normalizedData, urlDoc)) {
+          setActiveDoc(urlDoc);
         } else {
-          setActiveDoc('');
-          setDocContent('');
+          const cachedDoc = localStorage.getItem(`kb-active-doc-${selectedKb}`);
+          const normalizedCachedDoc = cachedDoc ? cachedDoc.replace(/\\/g, '/') : null;
+          if (normalizedCachedDoc && checkDocExists(normalizedData, normalizedCachedDoc)) {
+            setActiveDoc(normalizedCachedDoc);
+          } else if (normalizedData && normalizedData.length > 0) {
+            const findFirstDoc = (items) => {
+              for (const item of items) {
+                if (item.href) return item.href;
+                if (item.contents && item.contents.length > 0) {
+                  const found = findFirstDoc(item.contents);
+                  if (found) return found;
+                }
+              }
+              return '';
+            };
+            const firstDoc = findFirstDoc(normalizedData);
+            setActiveDoc(firstDoc);
+          } else {
+            setActiveDoc('');
+            setDocContent('');
+          }
         }
       } catch (e) {
         console.error('Failed to load navigation:', e);
@@ -136,7 +210,8 @@ const App = () => {
     const fetchDoc = async () => {
       setDocLoading(true);
       try {
-        const response = await fetch(`/api/kbs/${selectedKb}/document?path=${encodeURIComponent(activeDoc)}`);
+        const normalizedDoc = activeDoc.replace(/\\/g, '/');
+        const response = await fetch(`/api/kbs/${selectedKb}/document?path=${encodeURIComponent(normalizedDoc)}`);
         if (!response.ok) throw new Error('Document not found');
         const data = await response.json();
         setDocContent(data.content);

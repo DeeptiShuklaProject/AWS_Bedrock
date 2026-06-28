@@ -12,13 +12,13 @@
 **AuraDocs** is a local-first documentation portal with an AI chat assistant. It reads markdown files from `doc_replica_*` folders and renders them in a web UI. There are two sub-projects:
 
 1. **AuraDocs Portal** (`wscs_bedrock/aura_docs/`) — Full-stack React + FastAPI app
-2. **Bedrock Developer Handbook** (`sample_notes_bedrock_aws/`) — Standalone HTML/JS handbook built from official AWS docs, custom organized developer notes, and YouTube tutorial transcripts (sibling directory to `wscs_bedrock/`)
+2. **Bedrock Developer Handbook** (`notes_bedrock_aws/` or `sample_notes_bedrock_aws/`) — Standalone HTML/JS handbook built from official AWS docs, custom organized developer notes, and YouTube tutorial transcripts (sibling directory to `wscs_bedrock/`)
 
 ### Architecture
 
 ```
 workspace/
-├── sample_notes_bedrock_aws/     # Standalone Handbook project
+├── notes_bedrock_aws/            # Standalone Handbook project (or sample_notes_bedrock_aws/)
 │   ├── index.html                # Handbook main reader
 │   ├── data.js                   # Handbook database (contains all 34 structured topics)
 │   └── style.css                 # Handbook styles
@@ -84,7 +84,7 @@ workspace/
   - `model-param-tester` — temperature/topP configurator with live payload preview
 - **Link Navigation**: Clicks on `doc-link` anchors are intercepted by `handleContentClick` in DocReader. Relative paths are resolved against `activeDoc`'s directory. `../` traversal is supported.
 
-#### Standalone Handbook (`sample_notes_bedrock_aws/`)
+#### Standalone Handbook (`notes_bedrock_aws/` or `sample_notes_bedrock_aws/`)
 - Pure HTML/CSS/JS (no framework, no build step, just open `index.html`)
 - All content lives in `data.js` as a structured JS object (`HANDBOOK_DATA`)
 - Content source: Curated blend of official AWS Bedrock docs, custom notes organized like local developer references, and YouTube tutorial transcripts (AWS Bedrock + Agent Core course)

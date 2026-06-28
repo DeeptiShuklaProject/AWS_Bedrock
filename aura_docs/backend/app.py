@@ -32,7 +32,8 @@ def get_kb_display_name(kb_id: str) -> str:
         "amazon": "AWS Bedrock User Guide",
         "terraform": "Terraform AWS Provider",
         "boto3": "Boto3 (Python SDK) Docs",
-        "general": "General Bedrock Skills"
+        "general": "General Bedrock Skills",
+        "youtube": "YouTube Course Transcripts"
     }
     return mapping.get(suffix, suffix.replace("_", " ").title())
 

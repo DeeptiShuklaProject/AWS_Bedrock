@@ -12,7 +12,7 @@
 **AuraDocs** is a local-first documentation portal with an AI chat assistant. It reads markdown files from `doc_replica_*` folders and renders them in a web UI. There are two sub-projects:
 
 1. **AuraDocs Portal** (`aura_docs/`) — Full-stack React + FastAPI app
-2. **Bedrock Developer Handbook** (`sample_notes_bedrock_aws/`) — Standalone HTML/JS handbook built from official AWS docs, study notes, and YouTube tutorial transcripts
+2. **Bedrock Developer Handbook** (`sample_notes_bedrock_aws/`) — Standalone HTML/JS handbook built from official AWS docs, custom organized developer notes, and YouTube tutorial transcripts
 
 ### Architecture
 
@@ -82,7 +82,7 @@ wscs_bedrock/
 #### Standalone Handbook (`sample_notes_bedrock_aws/`)
 - Pure HTML/CSS/JS (no framework, no build step, just open `index.html`)
 - All content lives in `data.js` as a structured JS object (`HANDBOOK_DATA`)
-- Content source: Curated blend of official AWS Bedrock docs, developer notes, and YouTube tutorial transcripts (AWS Bedrock + Agent Core course)
+- Content source: Curated blend of official AWS Bedrock docs, custom notes organized like local developer references, and YouTube tutorial transcripts (AWS Bedrock + Agent Core course)
 - 34 topics across 2 parts:
   - **Part 1** (24 topics): Bedrock Foundations — Inference, Converse API, Tool Use, RAG, KB, Guardrails, Strands SDK
   - **Part 2** (10 topics): Agent Core — Runtime, Memory, Gateway, Identity, Observability, Evaluations, Policy

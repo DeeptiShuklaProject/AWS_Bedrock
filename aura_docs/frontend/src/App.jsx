@@ -88,6 +88,10 @@ const App = () => {
   useEffect(() => {
     if (!selectedKb) return;
     
+    // Immediately clear stale doc state to prevent cross-KB fetch race condition
+    setActiveDoc('');
+    setDocContent('');
+    
     const fetchNavigation = async () => {
       try {
         const response = await fetch(`/api/kbs/${selectedKb}/navigation`);

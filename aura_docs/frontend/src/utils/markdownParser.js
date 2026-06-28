@@ -51,22 +51,31 @@ export function parseMarkdown(mdText) {
   };
 
   const parseInline = (text) => {
-    // 1. Escape HTML entities partially (to avoid issues with generic tags)
-    let safeText = text
+    // 1. Strip HTML anchor bookmark tags (e.g. <a name="section-id"></a>) — they're invisible navigation targets
+    let safeText = text.replace(/<a\s+name="[^"]*"\s*>\s*<\/a>/gi, '');
+
+    // 2. Strip any remaining self-closing or empty HTML tags that shouldn't display
+    safeText = safeText.replace(/<a\s+[^>]*>\s*<\/a>/gi, '');
+
+    // 3. Escape remaining HTML entities (to avoid rendering arbitrary tags)
+    safeText = safeText
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
-    // 2. Inline Code: `code`
+    // 4. Inline Code: `code`
     safeText = safeText.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
 
-    // 3. Bold: **text**
+    // 5. Bold: **text**
     safeText = safeText.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
 
-    // 4. Italic: *text*
+    // 6. Italic: *text*
     safeText = safeText.replace(/\*([^*]+)\*/g, "<em>$1</em>");
 
-    // 5. Links: [text](url)
+    // 7. Image markdown: ![alt](src) — MUST run before link regex to avoid ![alt](src) matching as a link
+    safeText = safeText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="doc-img" />');
+
+    // 8. Links: [text](url)
     safeText = safeText.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
       // If the link points to a .html file, replace it with .md so our reader handles it
       let targetUrl = url;
@@ -75,9 +84,6 @@ export function parseMarkdown(mdText) {
       }
       return `<a href="${targetUrl}" class="doc-link">${linkText}</a>`;
     });
-
-    // 6. Image markdown: ![alt](src)
-    safeText = safeText.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="doc-img" />');
 
     return safeText;
   };

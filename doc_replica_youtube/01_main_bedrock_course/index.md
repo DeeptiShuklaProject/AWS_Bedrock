@@ -8,7 +8,7 @@ Detailed breakdown of the 4-hour developer masterclass.
 
 ---
 
-## Detailed Transcript Bookmarks & Timestamp Outline
+## Detailed Transcript Bookmarks & Outline
 
 | Timestamp | Topic ID | Topic Name | Concepts Covered |
 |-----------|----------|------------|------------------|
@@ -29,3 +29,13 @@ Detailed breakdown of the 4-hour developer masterclass.
 
 ## Skills Covered
 Refer to the **[Handbook Outline](handbook-outline.md)** to see details, definitions, and code examples for each of the 34 skills taught in this video.
+
+---
+
+## Interactive Transcript Timeline
+
+```widget:transcript-timeline
+{
+  "transcriptPath": "01_main_bedrock_course/transcript.json"
+}
+```

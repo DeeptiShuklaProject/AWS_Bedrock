@@ -1,0 +1,37 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=y1slHK9R_Vg",
+  "title": "Building RAG & Vector Search on AWS Bedrock",
+  "duration": "1 Hour",
+  "timeline": [
+    {
+      "timestamp": "0:00",
+      "seconds": 0,
+      "label": "RAG Core Architectures",
+      "text": "Understanding Retrieval-Augmented Generation vs model fine-tuning. Why RAG solves hallucination."
+    },
+    {
+      "timestamp": "12:15",
+      "seconds": 735,
+      "label": "Vector Embeddings Generation",
+      "text": "Generating vector float arrays from text blocks using Amazon Titan Text Embeddings."
+    },
+    {
+      "timestamp": "25:40",
+      "seconds": 1540,
+      "label": "Ingestion & Chunking Pipelines",
+      "text": "Building recursive character split chunking scripts and loading records into a vector database."
+    },
+    {
+      "timestamp": "40:00",
+      "seconds": 2400,
+      "label": "Vector Similarity Search",
+      "text": "Querying the database with a user question embedding and retrieving top K matching records."
+    },
+    {
+      "timestamp": "52:10",
+      "seconds": 3130,
+      "label": "Context Injection & Synthesis",
+      "text": "Assembling retrieved text blocks inside system guidelines to output verified facts."
+    }
+  ]
+}

@@ -5,18 +5,46 @@
 
 ---
 
-## From Gemini @ 2026-06-28T07:52-04:00:
+## From Gemini @ 2026-06-28T07:58-04:00:
 
-### What We Are Currently Doing
+### Support for Multiple Videos & Extensible Transcripts
 
-We are introducing support for **multiple YouTube videos & transcripts** within a dedicated Knowledge Base.
+We have successfully restructured the **YouTube Video Transcripts** knowledge base to support multiple videos and custom timeline controls.
 
-1. **New Knowledge Base**: Created `doc_replica_youtube/` inside `wscs_bedrock/` to store detailed outlines, descriptions, and transcript links for multiple YouTube videos.
-2. **Display Name Mapping**: Registered `"youtube": "YouTube Course Transcripts"` in `app.py` -> `get_kb_display_name` to display it cleanly in the dropdown.
-3. **Current Files**:
-   - `course-overview.md`: Summary of the main AWS Bedrock Course video.
-   - `handbook-outline.md`: Mapped the 34 skills from the developer handbook (`data.js`) to their respective concepts.
-4. **Current Focus**: The user requested that the layout and folder structure support **multiple separate videos** (rather than assuming there is only one single video). We need to structure the markdown files to host details, transcript links, and timestamp indices for multiple distinct YouTube tutorials/guides.
+#### 1. Directory Structure (`doc_replica_youtube/`)
+Rather than a flat file list, the folder contains sub-directories representing individual videos. Each directory contains:
+- `index.md` — The document rendered in the portal, containing general descriptions and the transcript widget block:
+  ```markdown
+  ```widget:transcript-timeline
+  {
+    "transcriptPath": "01_main_bedrock_course/transcript.json"
+  }
+  ```
+  ```
+- `transcript.json` — A standardized, machine-readable JSON database for the video.
+
+#### 2. Standardized `transcript.json` Schema
+This file serves as a clean structured data model for future AI agents to consume (e.g. for video RAG, question answering, or note generation):
+```json
+{
+  "video_url": "https://www.youtube.com/watch?v=...",
+  "title": "Video Title",
+  "duration": "Length",
+  "timeline": [
+    {
+      "timestamp": "MM:SS",
+      "seconds": 120,
+      "label": "Topic Name",
+      "text": "Full text transcript or summary for this segment."
+    }
+  ]
+}
+```
+
+#### 3. Interactive UI Sync
+- The `/api/kbs` endpoint in `app.py` was enhanced to send a `"type": "videos"` field for `doc_replica_youtube`.
+- `App.jsx` now passes `selectedKb` as a prop to `DocReader`.
+- `DocReader.jsx` renders a custom `TranscriptTimelineWidget` which embeds the YouTube player. Clicking a timeline item reloads the player started at that exact `seconds` mark, providing out-of-the-box synchronized learning.
 
 ---
 

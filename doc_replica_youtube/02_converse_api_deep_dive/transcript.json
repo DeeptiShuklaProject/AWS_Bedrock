@@ -1,0 +1,37 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=y1slHK9R_Vg",
+  "title": "AWS Bedrock Converse API Deep Dive",
+  "duration": "45 Minutes",
+  "timeline": [
+    {
+      "timestamp": "0:00",
+      "seconds": 0,
+      "label": "Introduction",
+      "text": "Overview of the session. Why the new Converse API replaces the legacy InvokeModel endpoints."
+    },
+    {
+      "timestamp": "7:30",
+      "seconds": 450,
+      "label": "Converse Payload Details",
+      "text": "Structuring the system prompt arrays, user messages, assistant responses, and inference configuration objects."
+    },
+    {
+      "timestamp": "18:15",
+      "seconds": 1095,
+      "label": "Streaming Mode Implementation",
+      "text": "Writing converse_stream async iterations in Python to stream token blocks back to a client UI."
+    },
+    {
+      "timestamp": "30:00",
+      "seconds": 1800,
+      "label": "Multi-Model Benchmarks",
+      "text": "Testing the same payload against Anthropic Claude 3 Haiku, Sonnet, and Amazon Nova Light to compare response times."
+    },
+    {
+      "timestamp": "40:20",
+      "seconds": 2420,
+      "label": "Summary & Best Practices",
+      "text": "Handling client exceptions, exponential backoffs for throttling, and setting token limits."
+    }
+  ]
+}

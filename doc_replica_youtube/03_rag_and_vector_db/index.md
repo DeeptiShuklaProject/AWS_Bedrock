@@ -8,7 +8,7 @@ A practical project tutorial focusing on ingesting document corpus sources and q
 
 ---
 
-## Detailed Transcript Bookmarks & Timestamp Outline
+## Detailed Transcript Bookmarks & Outline
 
 | Timestamp | Topic | Concepts Covered |
 |-----------|-------|------------------|
@@ -24,3 +24,13 @@ A practical project tutorial focusing on ingesting document corpus sources and q
 1. **Chunking Size**: Adjust chunk sizes (e.g., 512 tokens with 10% overlap) depending on file complexity.
 2. **Hybrid Search**: Combining keyword search with vector semantic search delivers the highest retrieval accuracy.
 3. **Data Privacy**: Keep vector databases inside VPC limits if documents contain sensitive enterprise data.
+
+---
+
+## Interactive Transcript Timeline
+
+```widget:transcript-timeline
+{
+  "transcriptPath": "03_rag_and_vector_db/transcript.json"
+}
+```

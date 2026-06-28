@@ -1,0 +1,79 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=y1slHK9R_Vg",
+  "title": "Amazon Bedrock & Agent Core Developer Course",
+  "duration": "4 Hours",
+  "timeline": [
+    {
+      "timestamp": "0:00:00",
+      "seconds": 0,
+      "label": "Introduction to Serverless AI",
+      "text": "Welcome to the Amazon Bedrock course. Today we're learning serverless AI, starting from the basic foundations of what foundation models are and how AWS handles hosting."
+    },
+    {
+      "timestamp": "0:15:30",
+      "seconds": 930,
+      "label": "Navigating the Playground",
+      "text": "Let's open the AWS Console model playgrounds. You'll see how to select Claude, Nova, or Llama and test queries instantly without writing any code."
+    },
+    {
+      "timestamp": "0:32:00",
+      "seconds": 1920,
+      "label": "Controlling Personas (System Prompts)",
+      "text": "System prompts set the rules and persona for the assistant. Here we'll configure system guidelines to limit response scopes and secure behavior."
+    },
+    {
+      "timestamp": "0:50:15",
+      "seconds": 3015,
+      "label": "Programmatic Inference with Converse API",
+      "text": "To invoke models from Python, we call the converse endpoint in boto3. This provides a unified request-response interface."
+    },
+    {
+      "timestamp": "1:10:00",
+      "seconds": 4200,
+      "label": "Inference Configurations (Temperature & Tokens)",
+      "text": "We tune temperature to adjust randomness, and max tokens to control output length. A temperature of 0.0 guarantees exact, repeatable JSON outputs."
+    },
+    {
+      "timestamp": "1:28:45",
+      "seconds": 5325,
+      "label": "State in Multi-Turn Chats",
+      "text": "LLMs are stateless. To support an ongoing chat, we must preserve and append the messages history array on each invocation."
+    },
+    {
+      "timestamp": "1:45:00",
+      "seconds": 6300,
+      "label": "Tokens & Billing Optimization",
+      "text": "Calculating token metrics is critical for cost. We look at input vs output tokens and discuss sliding window history pruning."
+    },
+    {
+      "timestamp": "2:02:10",
+      "seconds": 7330,
+      "label": "Tool Use (Function Calling)",
+      "text": "Tool Use lets models trigger local APIs. We define input JSON schemas and implement the two-step request-execution loop."
+    },
+    {
+      "timestamp": "2:40:00",
+      "seconds": 9600,
+      "label": "Vector Embeddings & RAG Ingestion",
+      "text": "We chunk documents, create Titan Text Embeddings, index them in a vector database, and perform semantic document retrieval."
+    },
+    {
+      "timestamp": "3:15:30",
+      "seconds": 11730,
+      "label": "Bedrock Guardrails & PII Masking",
+      "text": "Safety filter configuration. We mask PII, apply custom blocklists, and evaluate inputs before forwarding requests."
+    },
+    {
+      "timestamp": "3:40:00",
+      "seconds": 13200,
+      "label": "Bedrock Agent Architectures",
+      "text": "Overview of building fully autonomous agents with action groups and knowledge base integrations."
+    },
+    {
+      "timestamp": "4:00:00",
+      "seconds": 14400,
+      "label": "Bedrock Agent Core",
+      "text": "Deep dive into Agent runtime orchestrators, memory persistence, tracing reasoning steps, and configuring IAM policies."
+    }
+  ]
+}

@@ -8,7 +8,7 @@ An intermediate-level guide looking strictly at the Converse API syntax, paramet
 
 ---
 
-## Detailed Transcript Bookmarks & Timestamp Outline
+## Detailed Transcript Bookmarks & Outline
 
 | Timestamp | Topic | Concepts Covered |
 |-----------|-------|------------------|
@@ -24,3 +24,13 @@ An intermediate-level guide looking strictly at the Converse API syntax, paramet
 1. **Model Agnostic**: Use the same code for Claude, Nova, Llama, and Cohere.
 2. **Error Safety**: Converse API returns specific error codes for rate limits (`ThrottlingException`) or access issues (`AccessDeniedException`).
 3. **Structured Messages**: Always format history as an alternating array of `user` and `assistant` roles.
+
+---
+
+## Interactive Transcript Timeline
+
+```widget:transcript-timeline
+{
+  "transcriptPath": "02_converse_api_deep_dive/transcript.json"
+}
+```

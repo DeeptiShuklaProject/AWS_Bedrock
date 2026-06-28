@@ -280,9 +280,187 @@ const ModelParamTesterWidget = ({ rawData }) => {
 };
 
 // ==========================================
-// 4. Interactive Widget Router
+// 4. Transcript Timeline Widget
 // ==========================================
-const InteractiveWidget = ({ type, rawData }) => {
+const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
+  let config = {};
+  try {
+    config = JSON.parse(rawData);
+  } catch (e) {
+    config = {};
+  }
+
+  const { transcriptPath } = config;
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [currentSeconds, setCurrentSeconds] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (!selectedKb || !transcriptPath) return;
+
+    const fetchTranscript = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`/api/kbs/${selectedKb}/document?path=${encodeURIComponent(transcriptPath)}`);
+        if (!response.ok) throw new Error('Transcript file not found');
+        const resJson = await response.json();
+        const parsed = JSON.parse(resJson.content);
+        setData(parsed);
+        if (parsed.timeline && parsed.timeline.length > 0) {
+          setCurrentSeconds(parsed.timeline[0].seconds || 0);
+        }
+      } catch (err) {
+        console.error('Failed to load transcript:', err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTranscript();
+  }, [transcriptPath, selectedKb]);
+
+  const getYoutubeId = (url) => {
+    if (!url) return null;
+    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+    return match ? match[1] : null;
+  };
+
+  const videoId = data ? getYoutubeId(data.video_url) : null;
+
+  const filteredTimeline = useMemo(() => {
+    if (!data || !data.timeline) return [];
+    if (!searchQuery.trim()) return data.timeline;
+    const query = searchQuery.toLowerCase();
+    return data.timeline.filter(
+      item =>
+        item.label.toLowerCase().includes(query) ||
+        item.text.toLowerCase().includes(query)
+    );
+  }, [data, searchQuery]);
+
+  if (loading) {
+    return (
+      <div className="widget-card flex items-center justify-center p-6" style={{ minHeight: '100px', gap: '12px' }}>
+        <RefreshCw size={18} className="loader-spinner" />
+        <span style={{ color: 'var(--text-secondary)' }}>Loading transcript timeline...</span>
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="widget-card" style={{ borderLeft: '3px solid var(--danger)' }}>
+        <div className="console-error" style={{ padding: '12px' }}>
+          Failed to load transcript timeline: <strong>{error || 'No data'}</strong>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="widget-card transcript-widget">
+      <div className="widget-header">
+        <div className="widget-title">
+          <Play size={16} />
+          <span>{data.title} ({data.duration})</span>
+        </div>
+      </div>
+
+      <div className="widget-body" style={{ flexDirection: 'column', gap: '16px' }}>
+        {videoId && (
+          <div className="video-player-container" style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--border-color)', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+            <iframe
+              width="100%"
+              height="360"
+              src={`https://www.youtube.com/embed/${videoId}?start=${currentSeconds}&autoplay=1`}
+              title={data.title}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              style={{ display: 'block' }}
+            ></iframe>
+          </div>
+        )}
+
+        <div className="transcript-search-box" style={{ position: 'relative' }}>
+          <input
+            type="text"
+            placeholder="Search transcript topics or content..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="widget-textarea"
+            style={{ height: '36px', padding: '8px 12px', fontSize: '0.9rem', borderRadius: '6px' }}
+          />
+        </div>
+
+        <div className="timeline-list" style={{ maxHeight: '350px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '8px', paddingRight: '4px' }}>
+          {filteredTimeline.length === 0 ? (
+            <div style={{ padding: '16px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+              No matches found for "{searchQuery}"
+            </div>
+          ) : (
+            filteredTimeline.map((item, idx) => {
+              const isActive = item.seconds === currentSeconds;
+              return (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    setCurrentSeconds(item.seconds);
+                    setActiveIndex(idx);
+                  }}
+                  className={`timeline-item ${isActive ? 'active' : ''}`}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '4px',
+                    padding: '10px 14px',
+                    borderRadius: '6px',
+                    background: isActive ? 'var(--hover-bg)' : 'rgba(255, 255, 255, 0.02)',
+                    borderLeft: isActive ? '3px solid var(--accent-color)' : '3px solid transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontWeight: '600', color: isActive ? 'var(--accent-color)' : 'var(--text-primary)', fontSize: '0.95rem' }}>
+                      {item.label}
+                    </span>
+                    <span 
+                      className="badge" 
+                      style={{ 
+                        fontSize: '0.8rem', 
+                        padding: '2px 8px', 
+                        borderRadius: '10px', 
+                        background: isActive ? 'var(--accent-color)' : 'var(--border-color)', 
+                        color: isActive ? '#fff' : 'var(--text-secondary)',
+                        fontWeight: '600'
+                      }}
+                    >
+                      {item.timestamp}
+                    </span>
+                  </div>
+                  <p style={{ margin: '0', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+                    {item.text}
+                  </p>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ==========================================
+// 5. Interactive Widget Router
+// ==========================================
+const InteractiveWidget = ({ type, rawData, selectedKb }) => {
   switch (type) {
     case 'code-playground':
       return <CodePlaygroundWidget initialCode={rawData} />;
@@ -290,6 +468,8 @@ const InteractiveWidget = ({ type, rawData }) => {
       return <ApiPlaygroundWidget rawData={rawData} />;
     case 'model-param-tester':
       return <ModelParamTesterWidget rawData={rawData} />;
+    case 'transcript-timeline':
+      return <TranscriptTimelineWidget rawData={rawData} selectedKb={selectedKb} />;
     default:
       return (
         <div className="widget-card" style={{ borderLeft: '3px solid var(--danger)' }}>
@@ -302,9 +482,9 @@ const InteractiveWidget = ({ type, rawData }) => {
 };
 
 // ==========================================
-// 5. Main DocReader Coordinator
+// 6. Main DocReader Coordinator
 // ==========================================
-const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc }) => {
+const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb }) => {
   
   // Segment-based parser that splits markdown text and inserts live React widgets
   const renderSegments = useMemo(() => {
@@ -437,6 +617,7 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc }) => {
                 key={idx} 
                 type={segment.widgetType} 
                 rawData={segment.content} 
+                selectedKb={selectedKb}
               />
             );
           }

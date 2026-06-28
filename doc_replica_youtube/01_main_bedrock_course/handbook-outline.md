@@ -12,7 +12,7 @@ This directory maps all 34 handbook sections to their core concepts and video le
 | **2** | Navigating the Model Playground | AWS web console overview, system prompts, playground parameters. | Interactive testing |
 | **3** | Controlling Persona via System Prompts | Setting guardrails, boundaries, rules, and tones using prompts. | Prompt Engineering |
 | **4** | Programmatic Inference (Converse API) | Invoking models using Python (`boto3`) and Converse API. | API Invocation |
-| **5** | Inference Configurations | Adjusting parameters (Temperature, Max Tokens, topP). | Generation Tuning |
+| **5** | Inference Configurations | Adjusting parameters (Temperature, Max Tokens, topP). | Tuning |
 | **6** | State in Multi-Turn Conversations | Handling conversation history arrays in a stateless API environment. | State Management |
 | **7** | Tokens & Cost Optimization | Calculating input/output tokens, optimizing pricing strategy. | Cost Management |
 | **8** | Tool Use (Function Calling) Concept | Theoretical workflow of executing local code on behalf of the model. | Extensibility |

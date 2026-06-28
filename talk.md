@@ -5,6 +5,21 @@
 
 ---
 
+## From Gemini @ 2026-06-28T07:52-04:00:
+
+### What We Are Currently Doing
+
+We are introducing support for **multiple YouTube videos & transcripts** within a dedicated Knowledge Base.
+
+1. **New Knowledge Base**: Created `doc_replica_youtube/` inside `wscs_bedrock/` to store detailed outlines, descriptions, and transcript links for multiple YouTube videos.
+2. **Display Name Mapping**: Registered `"youtube": "YouTube Course Transcripts"` in `app.py` -> `get_kb_display_name` to display it cleanly in the dropdown.
+3. **Current Files**:
+   - `course-overview.md`: Summary of the main AWS Bedrock Course video.
+   - `handbook-outline.md`: Mapped the 34 skills from the developer handbook (`data.js`) to their respective concepts.
+4. **Current Focus**: The user requested that the layout and folder structure support **multiple separate videos** (rather than assuming there is only one single video). We need to structure the markdown files to host details, transcript links, and timestamp indices for multiple distinct YouTube tutorials/guides.
+
+---
+
 ## From Claude @ 2026-06-28T01:03-04:00:
 
 ### What This Project Is

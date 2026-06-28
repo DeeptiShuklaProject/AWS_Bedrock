@@ -11,35 +11,40 @@
 
 **AuraDocs** is a local-first documentation portal with an AI chat assistant. It reads markdown files from `doc_replica_*` folders and renders them in a web UI. There are two sub-projects:
 
-1. **AuraDocs Portal** (`aura_docs/`) — Full-stack React + FastAPI app
-2. **Bedrock Developer Handbook** (`sample_notes_bedrock_aws/`) — Standalone HTML/JS handbook built from official AWS docs, custom organized developer notes, and YouTube tutorial transcripts
+1. **AuraDocs Portal** (`wscs_bedrock/aura_docs/`) — Full-stack React + FastAPI app
+2. **Bedrock Developer Handbook** (`sample_notes_bedrock_aws/`) — Standalone HTML/JS handbook built from official AWS docs, custom organized developer notes, and YouTube tutorial transcripts (sibling directory to `wscs_bedrock/`)
 
 ### Architecture
 
 ```
-wscs_bedrock/
-├── doc_replica_amazon/          # KB: AWS Bedrock official docs (markdown)
-├── doc_replica_notes/           # KB: Personal study notes (markdown)
-├── aura_docs/                   # The AuraDocs web app
-│   ├── backend/
-│   │   ├── app.py               # FastAPI server (serves docs, chat, playground)
-│   │   ├── rag_engine.py        # Gemini-powered RAG semantic search
-│   │   └── requirements.txt     # Python deps
-│   └── frontend/
-│       ├── src/
-│       │   ├── App.jsx           # Main layout (KB selector, routing)
-│       │   ├── components/
-│       │   │   ├── Sidebar.jsx   # Collapsible nav tree
-│       │   │   ├── DocReader.jsx # Markdown renderer + interactive widgets
-│       │   │   └── ChatPanel.jsx # AI Q&A chat panel
-│       │   ├── utils/
-│       │   │   └── markdownParser.js  # Custom regex-based markdown→HTML parser
-│       │   └── index.css         # Full design system (themes, glassmorphism)
-│       ├── vite.config.js        # Vite config with proxy to backend:8000
-│       └── package.json
-├── docker-compose.yml            # Docker orchestration (needs path fix for Windows)
-├── talk.md                       # THIS FILE — AI communication log
-└── README.md                     # Project overview
+workspace/
+├── sample_notes_bedrock_aws/     # Standalone Handbook project
+│   ├── index.html                # Handbook main reader
+│   ├── data.js                   # Handbook database (contains all 34 structured topics)
+│   └── style.css                 # Handbook styles
+└── wscs_bedrock/                 # AuraDocs Portal project
+    ├── doc_replica_amazon/       # KB: AWS Bedrock official docs (markdown)
+    ├── doc_replica_notes/        # KB: Personal study notes (markdown)
+    ├── aura_docs/                # The AuraDocs web app
+    │   ├── backend/
+    │   │   ├── app.py            # FastAPI server (serves docs, chat, playground)
+    │   │   ├── rag_engine.py     # Gemini-powered RAG semantic search
+    │   │   └── requirements.txt  # Python deps
+    │   └── frontend/
+    │       ├── src/
+    │       │   ├── App.jsx        # Main layout (KB selector, routing)
+    │       │   ├── components/
+    │       │   │   ├── Sidebar.jsx   # Collapsible nav tree
+    │       │   │   ├── DocReader.jsx # Markdown renderer + interactive widgets
+    │       │   │   └── ChatPanel.jsx # AI Q&A chat panel
+    │       │   ├── utils/
+    │       │   │   └── markdownParser.js  # Custom regex markdown parser
+    │       │   └── index.css      # Full design system (themes, glassmorphism)
+    │       ├── vite.config.js     # Vite config with proxy to backend:8000
+    │       └── package.json
+    ├── docker-compose.yml         # Docker orchestration (needs path fix for Windows)
+    ├── talk.md                    # THIS FILE — AI communication log
+    └── README.md                  # Project overview
 ```
 
 ### Key Conventions

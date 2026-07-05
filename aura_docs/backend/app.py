@@ -33,7 +33,9 @@ def get_kb_display_name(kb_id: str) -> str:
         "terraform": "Terraform AWS Provider",
         "boto3": "Boto3 (Python SDK) Docs",
         "general": "General Bedrock Skills",
-        "youtube": "YouTube Course Transcripts"
+        "youtube": "YouTube Course Transcripts",
+        "aws_bedrock": "AWS Bedrock AgentCore",
+        "aws-bedrock": "AWS Bedrock AgentCore"
     }
     return mapping.get(suffix, suffix.replace("_", " ").title())
 

@@ -124,6 +124,7 @@ const App = () => {
   useEffect(() => {
     if (!selectedKb) return;
     
+    let active = true;
     // Immediately clear stale doc state to prevent cross-KB fetch race condition
     setActiveDoc('');
     setDocContent('');
@@ -132,6 +133,8 @@ const App = () => {
       try {
         const response = await fetch(`/api/kbs/${selectedKb}/navigation`);
         const data = await response.json();
+        
+        if (!active) return;
         
         // Normalize all href paths to use forward slashes
         const normalizePaths = (items) => {
@@ -195,18 +198,24 @@ const App = () => {
         }
       } catch (e) {
         console.error('Failed to load navigation:', e);
-        setActiveDoc('');
-        setDocContent('');
+        if (active) {
+          setActiveDoc('');
+          setDocContent('');
+        }
       }
     };
     
     fetchNavigation();
+    return () => {
+      active = false;
+    };
   }, [selectedKb]);
 
   // Load Document Content when activeDoc changes
   useEffect(() => {
     if (!selectedKb || !activeDoc) return;
     
+    let active = true;
     const fetchDoc = async () => {
       setDocLoading(true);
       try {
@@ -214,16 +223,25 @@ const App = () => {
         const response = await fetch(`/api/kbs/${selectedKb}/document?path=${encodeURIComponent(normalizedDoc)}`);
         if (!response.ok) throw new Error('Document not found');
         const data = await response.json();
-        setDocContent(data.content);
+        if (active) {
+          setDocContent(data.content);
+        }
       } catch (e) {
         console.error('Failed to load document:', e);
-        setDocContent(`# Error\nCould not load document: ${activeDoc}`);
+        if (active) {
+          setDocContent(`# Error\nCould not load document: ${activeDoc}`);
+        }
       } finally {
-        setDocLoading(false);
+        if (active) {
+          setDocLoading(false);
+        }
       }
     };
     
     fetchDoc();
+    return () => {
+      active = false;
+    };
   }, [activeDoc, selectedKb]);
 
   // Toggle theme

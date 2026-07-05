@@ -1,0 +1,37 @@
+{
+  "video_url": "https://www.youtube.com/watch?v=epWeri7OQi8",
+  "title": "Build Agents on AWS - Step By Step with Demo",
+  "duration": "40 Minutes",
+  "timeline": [
+    {
+      "timestamp": "0:00",
+      "seconds": 0,
+      "label": "Introduction & Agent Architecture",
+      "text": "Overview of autonomous agentic workflows on AWS. Understanding the orchestrator, memory stores, Action Groups, and Knowledge Bases."
+    },
+    {
+      "timestamp": "6:15",
+      "seconds": 375,
+      "label": "Setting Up AWS Resources & IAM Roles",
+      "text": "Creating secure execution roles in IAM. Granting Bedrock model invoke access, Lambda execute rights, and S3 read permissions to the agent principal."
+    },
+    {
+      "timestamp": "14:30",
+      "seconds": 870,
+      "label": "Creating Action Groups & Lambda Functions",
+      "text": "Writing the backend business logic in Python for AWS Lambda. Structuring the OpenAPI JSON specification so Bedrock understands the tool's schemas."
+    },
+    {
+      "timestamp": "25:00",
+      "seconds": 1500,
+      "label": "Attaching Knowledge Bases (RAG Integration)",
+      "text": "Connecting the agent to an Amazon Bedrock Knowledge Base. Setting up semantic document search as a fallback retrieval tool for private corporate files."
+    },
+    {
+      "timestamp": "32:45",
+      "seconds": 1965,
+      "label": "Deploying & Testing the Agent (Demo)",
+      "text": "Deploying agent drafts, setting session IDs, running sample queries, and inspecting reasoning traces (preprocessing, orchestration, postprocessing)."
+    }
+  ]
+}

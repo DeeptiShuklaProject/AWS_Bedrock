@@ -185,3 +185,35 @@ Each course video in the `doc_replica_youtube/` directory is accompanied by a `t
 - **Concepts:** Context assembling, source citation.
 - **Details:** Building the final prompt. Wraps the user question with the retrieved chunks and formats system guidelines instructing the model to answer *only* from the context.
 - **Takeaway:** Clearly formatting retrieved sources in the prompt structure improves answer quality.
+
+---
+
+## 5. Video 4: Build Agents on AWS - Step By Step with Demo (40 Minutes)
+**URL:** [https://www.youtube.com/watch?v=epWeri7OQi8](https://www.youtube.com/watch?v=epWeri7OQi8)
+
+### Course Portions Breakdown
+
+#### 0:00 - Introduction & Agent Architecture
+- **Concepts:** Autonomous agents, orchestration loop, memory structures.
+- **Details:** Explains the conceptual building blocks of AI Agents on AWS: Orchestration engines, Action Groups (API tools), Knowledge Bases, and session/history persistence.
+- **Takeaway:** AWS Agents utilize a ReAct (Reasoning and Acting) planner to analyze user input and call tools dynamically.
+
+#### 6:15 - Setting Up AWS Resources & IAM Roles
+- **Concepts:** AWS IAM permissions, trust policies.
+- **Details:** Configuring granular IAM permissions so the Agent orchestrator has the authority to invoke specified foundation models, write session traces to CloudWatch, and execute target Lambda actions.
+- **Takeaway:** Restricting IAM roles to specific resource ARNs is key to secure production agent deployment.
+
+#### 14:30 - Creating Action Groups & Lambda Functions
+- **Concepts:** Action execution handlers, OpenAPI JSON schema.
+- **Details:** Writing Lambda code in Python to process custom requests. Building standard OpenAPI 3.0 schemas defining the tool parameters so Bedrock knows exactly what inputs to pass to the function.
+- **Takeaway:** OpenAPI schemas are the bridge connecting the LLM planner to actual executable Python code.
+
+#### 25:00 - Attaching Knowledge Bases (RAG Integration)
+- **Concepts:** S3 synchronization, semantic data search.
+- **Details:** Connecting document repositories directly to the agent so that it can autonomously query private company documents during its planning cycle.
+- **Takeaway:** Attaching a Knowledge Base provides the Agent with a fallback data source to answer questions requiring private information.
+
+#### 32:45 - Deploying & Testing the Agent (Demo)
+- **Concepts:** Session tracing, orchestration debug.
+- **Details:** Interactive testing of the deployed agent in the AWS Console. Step-by-step trace inspection of how the prompt goes through preprocessing, orchestration, and postprocessing.
+- **Takeaway:** Examining traces is the primary method for debugging agent decision-making loops and tool execution errors.

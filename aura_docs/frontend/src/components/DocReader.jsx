@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { parseMarkdown } from '../utils/markdownParser';
-import { Play, Send, Sliders, Code, Database, RefreshCw } from 'lucide-react';
+import { Play, Send, Sliders, Code, Database, RefreshCw, Edit3, Check } from 'lucide-react';
 
 const getYoutubeId = (url) => {
   if (!url) return null;
@@ -304,6 +304,9 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
   const [shouldAutoplay, setShouldAutoplay] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
+  const [userNotes, setUserNotes] = useState({});
+  const [editingNoteSec, setEditingNoteSec] = useState(null);
+  const [tempNoteText, setTempNoteText] = useState('');
 
   useEffect(() => {
     if (!selectedKb || !transcriptPath) return;
@@ -321,6 +324,16 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
         setData(parsed);
         if (parsed.timeline && parsed.timeline.length > 0) {
           setCurrentSeconds(parsed.timeline[0].seconds || 0);
+          
+          // Load user notes for each timeline item
+          const loadedNotes = {};
+          parsed.timeline.forEach(item => {
+            const saved = localStorage.getItem(`transcript-note-${transcriptPath}-${item.seconds}`);
+            if (saved) {
+              loadedNotes[item.seconds] = saved;
+            }
+          });
+          setUserNotes(loadedNotes);
         }
       } catch (err) {
         console.error('Failed to load transcript:', err);
@@ -332,6 +345,20 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
 
     fetchTranscript();
   }, [transcriptPath, selectedKb]);
+
+  const saveNote = (sec, text) => {
+    if (text.trim() === '') {
+      localStorage.removeItem(`transcript-note-${transcriptPath}-${sec}`);
+      setUserNotes(prev => {
+        const updated = { ...prev };
+        delete updated[sec];
+        return updated;
+      });
+    } else {
+      localStorage.setItem(`transcript-note-${transcriptPath}-${sec}`, text);
+      setUserNotes(prev => ({ ...prev, [sec]: text }));
+    }
+  };
 
   const videoId = data ? getYoutubeId(data.video_url) : null;
 
@@ -451,6 +478,121 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
                   <p style={{ margin: '0', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
                     {item.text}
                   </p>
+
+                  {/* Notes display */}
+                  {userNotes[item.seconds] && (
+                    <div 
+                      onClick={(e) => e.stopPropagation()} 
+                      style={{ 
+                        marginTop: '8px', 
+                        padding: '8px 10px', 
+                        borderRadius: '6px', 
+                        background: 'rgba(99, 102, 241, 0.08)', 
+                        borderLeft: '3px solid var(--accent-color)', 
+                        fontSize: '0.85rem' 
+                      }}
+                    >
+                      <strong style={{ color: 'var(--accent-color)', display: 'block', fontSize: '0.75rem', marginBottom: '2px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>My Understanding</strong>
+                      <span style={{ color: 'var(--text-primary)', whiteSpace: 'pre-wrap' }}>{userNotes[item.seconds]}</span>
+                    </div>
+                  )}
+
+                  {/* Notes editor */}
+                  {editingNoteSec === item.seconds ? (
+                    <div 
+                      onClick={(e) => e.stopPropagation()} 
+                      style={{ 
+                        marginTop: '8px', 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        gap: '6px' 
+                      }}
+                    >
+                      <textarea
+                        value={tempNoteText}
+                        onChange={(e) => setTempNoteText(e.target.value)}
+                        placeholder="Type your notes or key takeaways here..."
+                        className="widget-textarea"
+                        style={{ 
+                          height: '60px', 
+                          padding: '6px 8px', 
+                          fontSize: '0.8rem', 
+                          borderRadius: '4px',
+                          border: '1px solid var(--accent-color)',
+                          background: 'rgba(0,0,0,0.2)',
+                          color: 'var(--text-primary)',
+                          outline: 'none',
+                          resize: 'vertical'
+                        }}
+                      />
+                      <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                        <button 
+                          onClick={() => setEditingNoteSec(null)}
+                          style={{ 
+                            background: 'rgba(255,255,255,0.05)', 
+                            border: '1px solid var(--border-color)', 
+                            color: 'var(--text-secondary)', 
+                            padding: '3px 8px', 
+                            borderRadius: '4px', 
+                            fontSize: '0.75rem', 
+                            cursor: 'pointer' 
+                          }}
+                        >
+                          Cancel
+                        </button>
+                        <button 
+                          onClick={() => {
+                            saveNote(item.seconds, tempNoteText);
+                            setEditingNoteSec(null);
+                          }}
+                          style={{ 
+                            background: 'var(--accent-color)', 
+                            border: 'none', 
+                            color: '#fff', 
+                            padding: '3px 8px', 
+                            borderRadius: '4px', 
+                            fontSize: '0.75rem', 
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px'
+                          }}
+                        >
+                          <Check size={12} />
+                          Save
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '6px' }}>
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setEditingNoteSec(item.seconds);
+                          setTempNoteText(userNotes[item.seconds] || '');
+                        }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--accent-color)',
+                          fontSize: '0.75rem',
+                          cursor: 'pointer',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '4px',
+                          opacity: 0.8,
+                          padding: '2px 4px',
+                          borderRadius: '4px',
+                          transition: 'opacity 0.2s'
+                        }}
+                        onMouseEnter={(e) => e.target.style.opacity = 1}
+                        onMouseLeave={(e) => e.target.style.opacity = 0.8}
+                      >
+                        <Edit3 size={12} />
+                        {userNotes[item.seconds] ? 'Edit Understanding' : 'Add Understanding'}
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })

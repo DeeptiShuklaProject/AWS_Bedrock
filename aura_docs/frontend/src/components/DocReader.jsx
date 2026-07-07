@@ -1,6 +1,7 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { parseMarkdown } from '../utils/markdownParser';
 import { Play, Send, Sliders, Code, Database, RefreshCw, Edit3, Check } from 'lucide-react';
+import mermaid from 'mermaid';
 
 const getYoutubeId = (url) => {
   if (!url) return null;
@@ -627,12 +628,93 @@ const InteractiveWidget = ({ type, rawData, selectedKb }) => {
   }
 };
 
+
+// ==========================================
+// 5.5 Mermaid Diagram Renderer
+// ==========================================
+const MermaidDiagram = ({ code }) => {
+  const [svg, setSvg] = useState('');
+  const [error, setError] = useState(null);
+  const elementId = useRef(`mermaid-${Math.floor(Math.random() * 1000000)}`);
+
+  useEffect(() => {
+    let active = true;
+    const renderChart = async () => {
+      try {
+        setError(null);
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'dark',
+          securityLevel: 'loose',
+          themeVariables: {
+            background: '#1e1e2e',
+            primaryColor: '#bb9af7',
+            primaryTextColor: '#c0caf5',
+            lineColor: '#565f89'
+          }
+        });
+        await mermaid.parse(code);
+        const { svg: renderedSvg } = await mermaid.render(elementId.current, code);
+        if (active) {
+          setSvg(renderedSvg);
+        }
+      } catch (err) {
+        console.error("Mermaid parse error:", err);
+        if (active) {
+          setError(err.message || 'Failed to parse Mermaid diagram.');
+        }
+      }
+    };
+
+    renderChart();
+    return () => {
+      active = false;
+    };
+  }, [code]);
+
+  if (error) {
+    return (
+      <div className="widget-card" style={{ borderLeft: '3px solid var(--danger)', margin: '16px 0' }}>
+        <div className="console-error" style={{ padding: '12px', fontSize: '0.85rem' }}>
+          <strong>Mermaid Diagram Error:</strong>
+          <pre style={{ marginTop: '8px', whiteSpace: 'pre-wrap', fontFamily: 'monospace', fontSize: '0.8rem' }}>{error}</pre>
+        </div>
+      </div>
+    );
+  }
+
+  if (!svg) {
+    return (
+      <div className="widget-card" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px', margin: '16px 0' }}>
+        <div className="loader-spinner" style={{ width: '20px', height: '20px' }}></div>
+      </div>
+    );
+  }
+
+  return (
+    <div 
+      className="mermaid-diagram-container"
+      style={{
+        background: 'rgba(30, 30, 46, 0.4)',
+        border: '1px solid var(--border-color)',
+        borderRadius: '8px',
+        padding: '16px',
+        margin: '16px 0',
+        display: 'flex',
+        justifyContent: 'center',
+        overflowX: 'auto'
+      }}
+      dangerouslySetInnerHTML={{ __html: svg }} 
+    />
+  );
+};
+
 // ==========================================
 // 6. Main DocReader Coordinator
 // ==========================================
-const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb }) => {
+const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb, theme }) => {
   
-  // Segment-based parser that splits markdown text and inserts live React widgets
+  // Segment-based parser that splits markdown text and inserts live React widgets / Mermaid diagrams
   const renderSegments = useMemo(() => {
     if (!docContent) return null;
 
@@ -640,22 +722,29 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb }
     let lastIndex = 0;
     let match;
     
-    // Regular expression matching: ```widget:type \n contents \n ```
-    const widgetRegex = /```widget:([a-zA-Z0-9_-]+)\n([\s\S]*?)\n```/g;
+    // Regular expression matching either ```widget:type \n contents \n ``` or ```mermaid \n contents \n ```
+    const blockRegex = /```(?:widget:([a-zA-Z0-9_-]+)|(mermaid))\n([\s\S]*?)\n```/g;
 
-    while ((match = widgetRegex.exec(docContent)) !== null) {
+    while ((match = blockRegex.exec(docContent)) !== null) {
       const textBefore = docContent.substring(lastIndex, match.index);
       if (textBefore.trim()) {
         segments.push({ type: 'markdown', content: textBefore });
       }
       
-      segments.push({
-        type: 'widget',
-        widgetType: match[1],
-        content: match[2]
-      });
+      if (match[2] === 'mermaid') {
+        segments.push({
+          type: 'mermaid',
+          content: match[3]
+        });
+      } else {
+        segments.push({
+          type: 'widget',
+          widgetType: match[1],
+          content: match[3]
+        });
+      }
       
-      lastIndex = widgetRegex.lastIndex;
+      lastIndex = blockRegex.lastIndex;
     }
     
     const textAfter = docContent.substring(lastIndex);
@@ -757,6 +846,13 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb }
               <div 
                 key={idx} 
                 dangerouslySetInnerHTML={{ __html: html }} 
+              />
+            );
+          } else if (segment.type === 'mermaid') {
+            return (
+              <MermaidDiagram 
+                key={idx} 
+                code={segment.content} 
               />
             );
           } else {

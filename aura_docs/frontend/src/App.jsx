@@ -415,6 +415,7 @@ const App = () => {
           isLoading={docLoading} 
           onSelectDoc={setActiveDoc}
           selectedKb={selectedKb}
+          theme={theme}
         />
 
         {/* AI Chat Agent (Only render if key is active) */}

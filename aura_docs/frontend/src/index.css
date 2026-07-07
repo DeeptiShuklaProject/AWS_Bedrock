@@ -983,3 +983,51 @@ body {
   }
 }
 
+/* ================================================= */
+/* Custom Mermaid Contrast & Legibility Overrides   */
+/* ================================================= */
+.mermaid-diagram-container {
+  color: #c0caf5 !important;
+}
+
+/* Force all text inside node elements to be clearly readable */
+.mermaid-diagram-container text,
+.mermaid-diagram-container p,
+.mermaid-diagram-container span,
+.mermaid-diagram-container div,
+.mermaid-diagram-container .nodeLabel {
+  fill: #c0caf5 !important;
+  color: #c0caf5 !important;
+}
+
+/* Subgraph labels are on a light background, so make them dark & bold */
+.mermaid-diagram-container .subgraphLabel,
+.mermaid-diagram-container .subgraphLabel * {
+  fill: #18181b !important;
+  color: #18181b !important;
+  font-weight: 800 !important;
+}
+
+/* Make connection lines (arrows) high-contrast and clear */
+.mermaid-diagram-container .edgePath .path {
+  stroke: #bb9af7 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Style connection markers (arrowheads) */
+.mermaid-diagram-container marker path,
+.mermaid-diagram-container .marker {
+  fill: #bb9af7 !important;
+  stroke: #bb9af7 !important;
+}
+
+/* Make edge labels readable */
+.mermaid-diagram-container .edgeLabel,
+.mermaid-diagram-container .edgeLabel * {
+  fill: #fafafa !important;
+  color: #fafafa !important;
+  background-color: #1a1b26 !important;
+}
+
+
+

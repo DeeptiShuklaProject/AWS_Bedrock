@@ -1,0 +1,5 @@
+Lesson 10: IAM User Setup
+
+1. Write user and policy attachment definitions.
+2. Plan and apply the resource.
+3. Validate user creation in the AWS IAM Dashboard.

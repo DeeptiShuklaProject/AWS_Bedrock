@@ -1,0 +1,5 @@
+Lesson 04: NAT Gateway Setup
+
+1. Add Private Subnets, Route Tables, and Elastic IP definitions.
+2. Confirm the dependency setup (NAT Gateway requires EIP and Internet Gateway).
+3. Apply changes and verify routing tables.

@@ -26,18 +26,22 @@ class ChatRequest(BaseModel):
 
 def get_kb_display_name(kb_id: str) -> str:
     """Map kb_id suffix to a clean display name."""
-    suffix = kb_id.replace("doc_replica_", "")
     mapping = {
-        "notes": "Nishu @Work",
-        "amazon": "AWS Bedrock User Guide",
-        "terraform": "Terraform AWS Provider",
-        "boto3": "Boto3 (Python SDK) Docs",
-        "general": "General Bedrock Skills",
-        "youtube": "YouTube Course Transcripts",
-        "aws_bedrock": "AWS Bedrock AgentCore",
-        "aws-bedrock": "AWS Bedrock AgentCore"
+        "doc_replica_notes": "Nishu @Work",
+        "doc_replica_amazon": "AWS Bedrock User Guide",
+        "doc_replica_terraform": "Terraform AWS Provider",
+        "doc_replica_boto3": "Boto3 (Python SDK) Docs",
+        "doc_replica_general": "General Bedrock Skills",
+        "doc_replica_youtube": "YouTube Course Transcripts",
+        "doc_replica_aws-bedrock": "AWS Bedrock AgentCore",
+        "doc_replica_aws_bedrock": "AWS Bedrock AgentCore",
+        "doc_replica_lambda": "AWS Lambda Developer Guide",
+        "doc_uday_advance_notes": "Uday Advance Notes"
     }
-    return mapping.get(suffix, suffix.replace("_", " ").title())
+    if kb_id in mapping:
+        return mapping[kb_id]
+    suffix = kb_id.replace("doc_replica_", "").replace("doc_uday_", "")
+    return suffix.replace("_", " ").title()
 
 @app.get("/api/config")
 def get_config():
@@ -51,7 +55,7 @@ def list_knowledge_bases():
     if os.path.exists(WORKSPACE_DIR):
         for name in os.listdir(WORKSPACE_DIR):
             full_path = os.path.join(WORKSPACE_DIR, name)
-            if os.path.isdir(full_path) and name.startswith("doc_replica_"):
+            if os.path.isdir(full_path) and name.startswith("doc_"):
                 kbs.append({
                     "id": name,
                     "name": get_kb_display_name(name)

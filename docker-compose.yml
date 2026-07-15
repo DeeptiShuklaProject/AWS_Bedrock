@@ -15,7 +15,7 @@ services:
       # Mount source code for hot-reloading
       - ./aura_docs/backend:/app
       # Mount the workspace directory to scan doc_replica_* folders
-      - /Users/nishantsaxena/workspace/wscs_bedrock:/workspace
+      - .:/workspace
       # Mount your local AWS credentials so the Boto3 client can query Bedrock
       - ~/.aws:/root/.aws:ro
 
@@ -24,7 +24,7 @@ services:
       context: ./aura_docs/frontend
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "8888:3000"
     environment:
       - BACKEND_URL=http://backend:8000
     volumes:

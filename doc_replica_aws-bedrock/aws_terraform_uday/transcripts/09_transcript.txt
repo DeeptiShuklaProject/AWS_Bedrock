@@ -1,0 +1,5 @@
+Lesson 09: Firewall Configuration
+
+1. Create the Security Group rules.
+2. Attach the security group ID to the `security_groups` argument in `aws_instance`.
+3. Apply changes and verify firewall settings.

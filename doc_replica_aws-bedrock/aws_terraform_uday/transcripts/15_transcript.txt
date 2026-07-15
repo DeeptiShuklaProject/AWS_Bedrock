@@ -1,0 +1,4 @@
+Lesson 15: CLI setup guide
+
+1. Download CLI binary.
+2. Validate with `terraform --version`.

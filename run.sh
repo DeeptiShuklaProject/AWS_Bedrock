@@ -19,5 +19,5 @@ docker compose ps
 
 echo "=========================================="
 echo "AuraDocs is now running successfully!"
-echo "👉 Open: http://localhost:3000"
+echo "👉 Open: http://localhost:8888"
 echo "=========================================="

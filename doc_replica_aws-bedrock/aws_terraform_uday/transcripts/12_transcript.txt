@@ -1,0 +1,4 @@
+Lesson 12: MariaDB Provisioning
+
+1. Write MariaDB db instance schema.
+2. Initialize and apply.

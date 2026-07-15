@@ -1,0 +1,81 @@
+Tech_Stack:
+  - NodeJS
+  - React
+  - TypeScript
+  - AWS (Elastic Beanstalk)
+  - CI/CD (buildspec.yml, appspec.yml)
+Destination_Directory: "aws_codepipeline"
+Playlist_URL: "https://www.youtube.com/playlist?list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW"
+Videos:
+  - Episode_01:
+      Title: "AWS CodePipeline tutorial | Build a CI/CD Pipeline on AWS"
+      URL: "https://www.youtube.com/watch?v=NwzJCSPSPZs&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=1"
+      Tech: "NodeJS, AWS CodePipeline, Elastic Beanstalk"
+  - Episode_02:
+      Title: "Build a CI/CD Pipeline for a React App | AWS CodePipeline Full Tutorial"
+      URL: "https://www.youtube.com/watch?v=zkNdHv1iMgY&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=2"
+      Tech: "React, NodeJS, AWS CodePipeline"
+  - Episode_03:
+      Title: "Continuous Deployment Of Web Application Using AWS CodePipeline & CodeBuild"
+      URL: "https://www.youtube.com/watch?v=bIDDjfRYGU0&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=3"
+      Tech: "NodeJS, AWS CodeBuild, AWS CodePipeline"
+  - Episode_04:
+      Title: "Batch Processing Example using Amazon Data Pipeline | S3 to DynamoDB using Amazon EMR"
+      URL: "https://www.youtube.com/watch?v=txrG-w6oN1M&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=4"
+      Tech: "AWS Data Pipeline, EMR, DynamoDB, S3"
+  - Episode_05:
+      Title: "AWS Services | AWS CodePipeline | AWS CodeDeploy | AWS CodeBuild | CodeCommit | AWS DevOps"
+      URL: "https://www.youtube.com/watch?v=h0p4dxuwv1s&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=5"
+      Tech: "AWS DevOps, CodeDeploy, CodeBuild, CodeCommit"
+  - Episode_06:
+      Title: "AWS CodeBuild | AWS ECR | Push Docker Image to ECR | AWS CodeBuild Example"
+      URL: "https://www.youtube.com/watch?v=3CcGtRidF9c&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=6"
+      Tech: "AWS CodeBuild, AWS ECR, Docker"
+  - Episode_07:
+      Title: "CI/CD on AWS with CodePipeline and Terraform (Part 1)"
+      URL: "https://www.youtube.com/watch?v=JwTP3wZHYnU&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=7"
+      Tech: "AWS CodePipeline, Terraform"
+  - Episode_08:
+      Title: "CI/CD on AWS with CodePipeline and Terraform (Part 2)"
+      URL: "https://www.youtube.com/watch?v=JwTP3wZHYnU&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=8"
+      Tech: "AWS CodePipeline, Terraform"
+  - Episode_09:
+      Title: "SonarQube Server Installation Linux"
+      URL: "https://www.youtube.com/watch?v=BuGaeDoiCcs&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=9"
+      Tech: "SonarQube, Linux"
+  - Episode_10:
+      Title: "CICD using AWS CodePipeline and Elastic Beanstalk"
+      URL: "https://www.youtube.com/watch?v=b50k35Dh4xc&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=10"
+      Tech: "AWS CodePipeline, Elastic Beanstalk, DevOps"
+  - Episode_11:
+      Title: "Create MERN CI/CD using codepipeline, codebuild, codedeploy and s3 bucket (Part 1)"
+      URL: "https://www.youtube.com/watch?v=CW7FqX3qhgA&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=11"
+      Tech: "NodeJS, React, MongoDB, Express, AWS S3, CodePipeline"
+  - Episode_12:
+      Title: "AWS DevOps Tutorial | Full Course | CI CD on AWS"
+      URL: "https://www.youtube.com/watch?v=kwhWFRNN3kg&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=12"
+      Tech: "AWS DevOps, CodePipeline, CodeBuild, CodeDeploy"
+  - Episode_13:
+      Title: "Nat King Cole - King Of Christmas"
+      URL: "https://www.youtube.com/watch?v=yzGFPQQj9BQ&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=13"
+      Tech: "N/A"
+  - Episode_14:
+      Title: "AWS CodePipeline: Pipeline to deploy AWS Lambda Function with CloudFormation"
+      URL: "https://www.youtube.com/watch?v=UlX38mVvMy8&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=14"
+      Tech: "AWS CodePipeline, Lambda, CloudFormation"
+  - Episode_15:
+      Title: "AWS Advanced - REST API for S3 with API Gateway"
+      URL: "https://www.youtube.com/watch?v=dir1HtgbwzY&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=15"
+      Tech: "AWS API Gateway, S3, REST API"
+  - Episode_16:
+      Title: "AWS CodeDeploy | Pipeline | Setup | Deploy application on EC2 using GitHub as source"
+      URL: "https://www.youtube.com/watch?v=KoNWlnx6E1I&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=16"
+      Tech: "AWS CodeDeploy, EC2, GitHub"
+  - Episode_17:
+      Title: "DEVOPS CI/CD PROJECT | GITHUB | JAVA | MAVEN | JENKINS | AWS | LINUX"
+      URL: "https://www.youtube.com/watch?v=OfgYSrOTJ7c&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=17"
+      Tech: "Java, Maven, Jenkins, AWS, Linux"
+  - Episode_18:
+      Title: "AWS API Gateway & AWS Lambda | AWS Serverless tutorial | Part II"
+      URL: "https://www.youtube.com/watch?v=xJvfcg9dW4U&list=PLYaGyqgf-ksFRh-qXcjUTtqcVFv2hjHbW&index=18"
+      Tech: "AWS API Gateway, Lambda, Serverless"

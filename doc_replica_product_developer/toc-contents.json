@@ -1,0 +1,67 @@
+{
+  "contents": [
+    {
+      "title": "Full Stack Developer",
+      "contents": [
+        {
+          "title": "1. Introduction to Full Stack",
+          "href": "doc_replica_fullstackdeveloper/introduction.md"
+        },
+        {
+          "title": "2. Backend API Development (FastAPI/Django)",
+          "contents": [
+            {
+              "title": "Backend Introduction & Overview",
+              "href": "doc_replica_fullstackdeveloper/backend/introduction.md"
+            },
+            {
+              "title": "FastAPI Architecture & Setup",
+              "href": "doc_replica_fullstackdeveloper/backend/fastapi-guide.md"
+            },
+            {
+              "title": "Django & DRF APIs",
+              "href": "doc_replica_fullstackdeveloper/backend/django-guide.md"
+            },
+            {
+              "title": "API Testing & Debugging",
+              "href": "doc_replica_fullstackdeveloper/backend/testing-debugging.md"
+            }
+          ]
+        },
+        {
+          "title": "3. Frontend React Development",
+          "contents": [
+            {
+              "title": "Frontend React Architecture",
+              "href": "doc_replica_fullstackdeveloper/frontend/introduction.md"
+            },
+            {
+              "title": "Data Ingestion (Hooks)",
+              "href": "doc_replica_fullstackdeveloper/frontend/hooks.md"
+            },
+            {
+              "title": "Interactive Forms & Grids",
+              "href": "doc_replica_fullstackdeveloper/frontend/components.md"
+            },
+            {
+              "title": "Client State Management",
+              "href": "doc_replica_fullstackdeveloper/frontend/state-management.md"
+            }
+          ]
+        },
+        {
+          "title": "4. Connected Databases & Integration",
+          "href": "doc_replica_fullstackdeveloper/database-guide.md"
+        }
+      ]
+    },
+    {
+      "title": "Data Engineer",
+      "href": "doc_replica_dataengineer/introduction.md"
+    },
+    {
+      "title": "AI/ML",
+      "href": "doc_replica_AI_ML/introduction.md"
+    }
+  ]
+}

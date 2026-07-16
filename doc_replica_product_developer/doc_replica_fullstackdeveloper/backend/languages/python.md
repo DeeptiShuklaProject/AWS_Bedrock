@@ -183,31 +183,110 @@ graph TD
 * **Global Interpreter Lock (GIL)**: A mutex ensuring only one thread executes Python bytecode at a time, protecting internal reference counters.
 * **Garbage Collection**: Reclaims memory using **reference counting** immediately when counters hit zero, backed by a generational collector to resolve cyclical dependencies.
 
-### 3.2 Decorators (Metaprogramming)
-Decorators wrap functions to extend or modify their behavior without modifying the source function code directly.
+### 3.2 Essential Python Decorators
+Decorators wrap functions or classes to extend or modify their behavior. Here is an explanation of the most important decorators in the standard library:
+
+#### 3.2.1 `@functools.wraps` (Metadata Preserver)
+When wrapping a function inside a custom decorator, the original function's name and docstring are lost. `@functools.wraps` copies this metadata back to the wrapper.
 
 ```python
-import time
 import functools
 
-def execution_logger(func):
-    @functools.wraps(func)
+def my_decorator(func):
+    @functools.wraps(func)  # Without this, help(say_hello) would output 'wrapper'
     def wrapper(*args, **kwargs):
-        start_time = time.perf_counter()
-        result = func(*args, **kwargs)
-        end_time = time.perf_counter()
-        print(f"Function {func.__name__} executed in {end_time - start_time:.4f} seconds.")
-        return result
+        print("Before function call")
+        return func(*args, **kwargs)
     return wrapper
 
-@execution_logger
-def process_database_query(query_id):
-    time.sleep(0.1)
-    return f"Result for query {query_id}"
+@my_decorator
+def say_hello():
+    """Prints a friendly greeting."""
+    print("Hello!")
+
+print(say_hello.__name__)  # Prints: say_hello
+print(say_hello.__doc__)   # Prints: Prints a friendly greeting.
+```
+
+#### 3.2.2 `@property` (Encapsulation Getter/Setter)
+Declares methods as getters, setters, or deleters, allowing properties to be accessed like variables while executing custom validation code.
+
+```python
+class TemperatureSensor:
+    def __init__(self, celsius: float):
+        self._celsius = celsius
+
+    @property
+    def fahrenheit(self) -> float:
+        """Getter for fahrenheit."""
+        return (self._celsius * 9/5) + 32
+
+    @property
+    def celsius(self) -> float:
+        """Getter for celsius."""
+        return self._celsius
+
+    @celsius.setter
+    def celsius(self, value: float):
+        """Setter with validation."""
+        if value < -273.15:
+            raise ValueError("Temperature below absolute zero is impossible.")
+        self._celsius = value
+```
+
+#### 3.2.3 `@classmethod` vs `@staticmethod`
+* **`@classmethod`**: Receives the class (`cls`) as the first argument. Used for factory patterns.
+* **`@staticmethod`**: Receives no automatic arguments. Used for isolated helper functions.
+
+```python
+class User:
+    def __init__(self, username, status):
+        self.username = username
+        self.status = status
+
+    @classmethod
+    def create_guest(cls, username):
+        """Classmethod factory creating a guest user."""
+        return cls(username, "Guest")
+
+    @staticmethod
+    def is_valid_username(name):
+        """Helper method with no dependency on instance or class state."""
+        return len(name) >= 3
+```
+
+#### 3.2.4 `@functools.lru_cache` (Memoization Caching)
+Caches execution results of a function based on the arguments passed, dramatically speeding up recursive or expensive computation loops.
+
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=128)
+def fibonacci(n):
+    if n < 2:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+```
+
+#### 3.2.5 `@contextmanager` (Generator Context Manager)
+Allows creating context managers using a simple generator function, bypassing the need to write custom class blocks.
+
+```python
+from contextlib import contextmanager
+
+@contextmanager
+def db_transaction_scope():
+    print("BEGIN TRANSACTION")
+    try:
+        yield
+        print("COMMIT")
+    except Exception:
+        print("ROLLBACK")
+        raise
 ```
 
 ### 3.3 Advanced Decorators in Modern AI: The `@tool` Decorator
-In modern LLM and Agentic AI architectures (such as **LangChain** and **CrewAI**), the `@tool` decorator is a critical pattern. It transforms standard Python functions into structured tools that an agent can invoke, auto-generating the underlying JSON schemas from function signatures and docstrings.
+In modern agentic frameworks (such as **LangChain** and **CrewAI**), the `@tool` decorator is a critical pattern. It transforms standard Python functions into structured tools that an agent can invoke, auto-generating the underlying JSON schemas from function signatures and docstrings.
 
 ```python
 from langchain_core.tools import tool
@@ -242,10 +321,6 @@ def stream_large_log_file(file_path):
         for line in file:
             if "ERROR" in line:
                 yield line.strip()
-
-# Iterates line by line without loading the entire file into memory
-# for error_log in stream_large_log_file("server.log"):
-#     print(f"Alert: {error_log}")
 ```
 
 ### 3.5 Advanced Object-Oriented Programming (OOP)
@@ -304,16 +379,12 @@ async def fetch_api_data(endpoint, delay):
     return {"endpoint": endpoint, "data": 200}
 
 async def main():
-    # Execute API requests concurrently
     results = await asyncio.gather(
         fetch_api_data("users", 1.5),
         fetch_api_data("orders", 1.0),
         fetch_api_data("products", 0.5)
     )
     print(f"All operations complete: {len(results)} tasks.")
-
-# Run event loop
-# asyncio.run(main())
 ```
 
 ### 4.2 Multithreading vs. Multiprocessing
@@ -324,22 +395,104 @@ async def main():
 
 ## 5. Phase 5: Python Library Ecosystem
 
-### 5.1 Web & API Frameworks
-* **`FastAPI`**: Modern, fast web framework based on ASGI, supporting automatic OpenAPI generation and async execution.
-* **`Django`**: Batteries-included framework with an integrated ORM, admin dashboard, and security features.
-* **`Flask`**: Micro-framework focused on simplicity and modular extension.
+### 5.1 Web & API Engines
+Backend architectures rely on different web framework structures depending on scope and performance needs.
+
+| Framework | Architecture | Async? | ORM Included? | Best For |
+| :--- | :--- | :--- | :--- | :--- |
+| **FastAPI** | ASGI Microframework | Native support | No | Fast microservices, real-time channels, OpenAI docs. |
+| **Django** | WSGI / ASGI Monolith | Limited (added 3.0) | Yes (Django ORM) | Heavy applications, relational backends, admin dashboards. |
+| **Flask** | WSGI Microframework | No | No | Small APIs, prototype applications, custom setups. |
+
+#### FastAPI Code Structure
+```python
+from fastapi import FastAPI, Depends
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class UserPayload(BaseModel):
+    username: str
+    email: str
+
+@app.post("/users")
+async def create_user(payload: UserPayload):
+    # Dynamic schema validation is handled by Pydantic
+    return {"status": "success", "user": payload.username}
+```
 
 ### 5.2 Data Science & Machine Learning
 * **`NumPy`**: Fundamental package for scientific computing with support for multi-dimensional arrays and matrix algebra.
 * **`Pandas`**: Data manipulation library providing high-performance DataFrame objects.
-* **`Matplotlib` / `Seaborn`**: Visualization libraries for generating plots and statistical graphics.
 * **`Scikit-Learn`**: Machine learning library for classification, regression, clustering, and data preprocessing.
+
+```python
+import numpy as np
+import pandas as pd
+
+# NumPy Vectorization
+array = np.array([[1, 2], [3, 4]])
+doubled = array * 2  # Vectorized operation
+
+# Pandas Filtering
+df = pd.DataFrame({
+    "user_id": [101, 102, 103],
+    "balance": [1200.0, 80.0, 500.0]
+})
+premium_users = df[df["balance"] > 100.0]  # Fast vector boolean filtering
+```
 
 ### 5.3 Utility & Database Clients
 * **`Pydantic`**: Data validation and settings management using Python type annotations.
 * **`SQLAlchemy`**: SQL Toolkit and Object-Relational Mapper (ORM) providing powerful database operations.
 * **`Requests` / `HTTPX`**: Standard HTTP clients for executing remote API requests.
 
+```python
+from pydantic import BaseModel, EmailStr, field_validator
+
+class UserCreate(BaseModel):
+    username: str
+    email: EmailStr
+    age: int
+
+    @field_validator("age")
+    @classmethod
+    def validate_age(cls, value: int):
+        if value < 18:
+            raise ValueError("User must be an adult.")
+        return value
+```
+
 ### 5.4 LLM & Agentic AI
-* **`LangChain`**: Framework for building context-aware applications powered by LLMs (Chains, Agents, Retrievers).
-* **`CrewAI`**: Orchestration library for role-playing, autonomous AI agent teams.
+Libraries to orchestrate Large Language Models (LLMs) and autonomous agent workflows.
+
+* **`LangChain`**: Standard framework for chains, prompts, vector indexes, and agentic workflows.
+* **`CrewAI`**: Framework for orchestrating teams of role-playing, autonomous AI agents.
+
+```python
+# CrewAI Agent Orchestration Configuration
+from crewai import Agent, Task, Crew, Process
+
+# Define a researcher agent
+researcher = Agent(
+    role="Senior Research Analyst",
+    goal="Extract technical installation steps for technologies",
+    backstory="You are an expert technical writer and sysadmin.",
+    verbose=True,
+    memory=True
+)
+
+# Define task
+task = Task(
+    description="Document pgAdmin installation requirements.",
+    expected_output="A markdown table detailing installation steps.",
+    agent=researcher
+)
+
+# Assemble Crew
+crew = Crew(
+    agents=[researcher],
+    tasks=[task],
+    process=Process.sequential
+)
+```

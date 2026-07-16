@@ -105,30 +105,6 @@ agent-core invoke --prompt "Hello, agent! How are you?"
 
 ---
 
-## 📊 Visual CLI Reference
-
-Let's look at the outputs from the configure and invoke steps.
-
-![Figure 8-1: Terminal configure session](images/agent_section_13.png)
-*Caption: Interacting with the Bedrock CLI setup wizard.*
-- **What to Observe:** The wizard prompts for runtime details and deployment targets.
-- **Why it Matters:** Automates Dockerfile generation, reducing manual setup errors.
-
-![Figure 8-2: Invoking the agent endpoint](images/agent_section_17.png)
-*Caption: Terminal output from the invoke command.*
-- **What to Observe:** The response text and the generated `session_id`.
-- **Why it Matters:** Confirms that the container is running and communicating with the model.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Container build fails due to Docker Desktop not running.
-  - **Resolution:** Verify that your local Docker daemon is running and active before launching local runs.
-- **Mistake:** Invocation fails with authorization errors on model access.
-  - **Resolution:** Double-check that you have requested and been granted access to the Claude models in your Bedrock console (as described in Chapter 3).
-
----
-
 ## 📝 Practical Exercise
 Run `agent-core configure -e src/main.py` in your terminal, complete the setup wizard, and check that `bedrock_agent_core.yaml` is created.
 

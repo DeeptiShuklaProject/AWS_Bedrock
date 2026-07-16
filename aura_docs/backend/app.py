@@ -227,6 +227,12 @@ def get_kb_document(kb_id: str, path: str = Query(..., description="Relative pat
     if not os.path.exists(target_path) or not os.path.isfile(target_path):
         raise HTTPException(status_code=404, detail=f"Document {path} not found")
         
+    # Check if the file is an image or other binary asset
+    ext = os.path.splitext(target_path)[1].lower()
+    if ext in (".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".ico"):
+        from fastapi.responses import FileResponse
+        return FileResponse(target_path)
+        
     try:
         with open(target_path, "r", encoding="utf-8") as f:
             content = f.read()

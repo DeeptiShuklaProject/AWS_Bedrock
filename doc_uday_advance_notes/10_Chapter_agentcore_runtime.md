@@ -101,25 +101,6 @@ The table below summarizes the runtime parameters for AgentCore:
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at how the runtime manages deployment sessions.
-
-![Figure 10-1: Compute Runtime Container Settings](images/agent_section_3.png)
-*Caption: Deployment metrics for the compute runtime container.*
-- **What to Observe:** The memory limits, timeouts, and execution constraints defined for the runtime VM.
-- **Why it Matters:** Helps developers allocate appropriate resources for their application workflows.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Writing files to the local filesystem `/tmp` and expecting them to be persistent across days.
-  - **Resolution:** Because sessions terminate after 8 hours, write any persistent files to S3.
-- **Mistake:** Synchronous request timeouts for tasks taking longer than 15 minutes.
-  - **Resolution:** Configure the request to use streaming to avoid gateway timeouts.
-
----
-
 ## 📝 Practical Exercise
 Create a script named `session_persistence.py` in your sandbox directory. Write code that saves a JSON file containing a counter value to `/tmp/counter.json` and updates it on subsequent requests using the same session ID. Verify that the counter increments on subsequent calls.
 

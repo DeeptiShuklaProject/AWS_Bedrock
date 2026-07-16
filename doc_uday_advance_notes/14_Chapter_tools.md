@@ -133,25 +133,6 @@ registry.register_tool("lookup_warranty_status", lookup_warranty_status)
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at the tool definitions in our editor:
-
-![Figure 14-1: Custom tool decorator code structure](images/agent_section_12.png)
-*Caption: Tool declarations and schemas.*
-- **What to Observe:** The import statements and schema properties defined for the tool.
-- **Why it Matters:** The model uses the tool description and parameter schema to decide when and how to call the tool.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Invalid JSON Schema formatting (e.g. missing `inputSchema` key), causing model validation errors.
-  - **Resolution:** Verify your schemas match the Bedrock parameters specification.
-- **Mistake:** Tool functions throwing unhandled exceptions, crashing the agent runtime.
-  - **Resolution:** Wrap tool execution steps in try-except blocks to catch exceptions and return the error message to the model.
-
----
-
 ## 📝 Practical Exercise
 Add a new tool named `calculate_tax` that accepts a `subtotal` (number) and a `tax_rate` (number), calculates the total, and returns the result as a string.
 

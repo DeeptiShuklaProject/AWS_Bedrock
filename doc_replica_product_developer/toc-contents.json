@@ -8,44 +8,130 @@
           "href": "doc_replica_fullstackdeveloper/introduction.md"
         },
         {
-          "title": "2. Backend API Development (FastAPI/Django)",
+          "title": "2. Backend Architecture",
           "contents": [
             {
-              "title": "Backend Introduction & Overview",
+              "title": "2.1 Backend Introduction & Overview",
               "href": "doc_replica_fullstackdeveloper/backend/introduction.md"
             },
             {
-              "title": "FastAPI Architecture & Setup",
-              "href": "doc_replica_fullstackdeveloper/backend/fastapi-guide.md"
+              "title": "2.2 Core Languages",
+              "contents": [
+                {
+                  "title": "2.2.1 Python Backend Engineering",
+                  "href": "doc_replica_fullstackdeveloper/backend/languages/python.md"
+                },
+                {
+                  "title": "2.2.2 Java Backend Engineering",
+                  "href": "doc_replica_fullstackdeveloper/backend/languages/java.md"
+                },
+                {
+                  "title": "2.2.3 Node.js Backend Engineering",
+                  "href": "doc_replica_fullstackdeveloper/backend/languages/nodejs.md"
+                },
+                {
+                  "title": "2.2.4 Go Backend Engineering",
+                  "href": "doc_replica_fullstackdeveloper/backend/languages/go.md"
+                }
+              ]
             },
             {
-              "title": "Django & DRF APIs",
-              "href": "doc_replica_fullstackdeveloper/backend/django-guide.md"
+              "title": "2.3 Database Systems",
+              "contents": [
+                {
+                  "title": "2.3.1 SQL Relational Databases",
+                  "href": "doc_replica_fullstackdeveloper/backend/databases/sql.md"
+                },
+                {
+                  "title": "2.3.2 NoSQL Databases",
+                  "href": "doc_replica_fullstackdeveloper/backend/databases/nosql.md"
+                },
+                {
+                  "title": "2.3.3 Caching & Key-Value (Redis)",
+                  "href": "doc_replica_fullstackdeveloper/backend/databases/caching.md"
+                }
+              ]
             },
             {
-              "title": "API Testing & Debugging",
-              "href": "doc_replica_fullstackdeveloper/backend/testing-debugging.md"
+              "title": "2.4 API Frameworks",
+              "contents": [
+                {
+                  "title": "2.4.1 FastAPI Web Framework",
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/fastapi.md"
+                },
+                {
+                  "title": "2.4.2 Django & DRF Framework",
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/django.md"
+                },
+                {
+                  "title": "2.4.3 Spring Boot Framework",
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/springboot.md"
+                },
+                {
+                  "title": "2.4.4 Express.js Framework",
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/express.md"
+                }
+              ]
             }
           ]
         },
         {
-          "title": "3. Frontend React Development",
+          "title": "3. Frontend Architecture",
           "contents": [
             {
-              "title": "Frontend React Architecture",
+              "title": "3.1 Frontend Introduction & Overview",
               "href": "doc_replica_fullstackdeveloper/frontend/introduction.md"
             },
             {
-              "title": "Data Ingestion (Hooks)",
-              "href": "doc_replica_fullstackdeveloper/frontend/hooks.md"
+              "title": "3.2 Core Languages",
+              "contents": [
+                {
+                  "title": "3.2.1 HTML5 & CSS3 Foundations",
+                  "href": "doc_replica_fullstackdeveloper/frontend/languages/html-css.md"
+                },
+                {
+                  "title": "3.2.2 JavaScript ES6+",
+                  "href": "doc_replica_fullstackdeveloper/frontend/languages/javascript.md"
+                },
+                {
+                  "title": "3.2.3 TypeScript Engineering",
+                  "href": "doc_replica_fullstackdeveloper/frontend/languages/typescript.md"
+                }
+              ]
             },
             {
-              "title": "Interactive Forms & Grids",
-              "href": "doc_replica_fullstackdeveloper/frontend/components.md"
+              "title": "3.3 SPA Frameworks",
+              "contents": [
+                {
+                  "title": "3.3.1 React Library",
+                  "href": "doc_replica_fullstackdeveloper/frontend/frameworks/react.md"
+                },
+                {
+                  "title": "3.3.2 Next.js Framework",
+                  "href": "doc_replica_fullstackdeveloper/frontend/frameworks/nextjs.md"
+                },
+                {
+                  "title": "3.3.3 Vue.js & Angular Architectures",
+                  "href": "doc_replica_fullstackdeveloper/frontend/frameworks/vue-angular.md"
+                }
+              ]
             },
             {
-              "title": "Client State Management",
-              "href": "doc_replica_fullstackdeveloper/frontend/state-management.md"
+              "title": "3.4 State & Data Ingestion",
+              "contents": [
+                {
+                  "title": "3.4.1 Custom Hooks Ingestion",
+                  "href": "doc_replica_fullstackdeveloper/frontend/state-ingestion/hooks-ingestion.md"
+                },
+                {
+                  "title": "3.4.2 Context API & Zustand",
+                  "href": "doc_replica_fullstackdeveloper/frontend/state-ingestion/context-zustand.md"
+                },
+                {
+                  "title": "3.4.3 Redux Toolkit Global State",
+                  "href": "doc_replica_fullstackdeveloper/frontend/state-ingestion/redux.md"
+                }
+              ]
             }
           ]
         },

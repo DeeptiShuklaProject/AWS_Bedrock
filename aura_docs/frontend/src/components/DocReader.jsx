@@ -709,6 +709,34 @@ const MermaidDiagram = ({ code }) => {
   );
 };
 
+// Helper to resolve relative image paths to the FastAPI static document server endpoint
+const resolveHtmlImages = (html, activeDoc, selectedKb) => {
+  if (!html) return html;
+  return html.replace(/<img\s+([^>]*?)src="([^"]+)"([^>]*?)>/gi, (match, prefix, src, suffix) => {
+    if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:') || src.startsWith('/')) {
+      return match;
+    }
+    let resolvedPath = src;
+    if (activeDoc && activeDoc.includes('/')) {
+      const activeDir = activeDoc.substring(0, activeDoc.lastIndexOf('/'));
+      resolvedPath = `${activeDir}/${src}`;
+    }
+    const parts = resolvedPath.split('/');
+    const stack = [];
+    for (const part of parts) {
+      if (part === '.' || part === '') continue;
+      if (part === '..') {
+        stack.pop();
+      } else {
+        stack.push(part);
+      }
+    }
+    const finalPath = stack.join('/');
+    const newSrc = `/api/kbs/${selectedKb}/document?path=${encodeURIComponent(finalPath)}`;
+    return `<img ${prefix}src="${newSrc}"${suffix}>`;
+  });
+};
+
 // ==========================================
 // 6. Main DocReader Coordinator
 // ==========================================
@@ -841,7 +869,7 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb, 
       <article className="doc-content">
         {renderSegments && renderSegments.map((segment, idx) => {
           if (segment.type === 'markdown') {
-            const html = parseMarkdown(segment.content);
+            const html = resolveHtmlImages(parseMarkdown(segment.content), activeDoc, selectedKb);
             return (
               <div 
                 key={idx} 

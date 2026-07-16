@@ -109,25 +109,6 @@ CMD ["python", "src/main.py"]
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at the deployment logs in CodeBuild:
-
-![Figure 15-1: CodeBuild Pipeline Logs](images/agent_section_16.png)
-*Caption: Build logs and status outputs in AWS CodeBuild.*
-- **What to Observe:** The build steps showing package compilation, image tag tagging, and ECR pushing.
-- **Why it Matters:** Verifies that the container image was compiled successfully.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Copying local virtual environments or temporary build directories into the image, increasing size and compile times.
-  - **Resolution:** Use a `.dockerignore` file to exclude files like `.venv/` and `__pycache__/`.
-- **Mistake:** Missing ECR permissions in your CLI role.
-  - **Resolution:** Ensure your IAM role has the `ecr:InitiateLayerUpload`, `ecr:UploadLayerPart`, and `ecr:PutImage` permissions.
-
----
-
 ## 📝 Practical Exercise
 Create a `.dockerignore` file in your sandbox directory and add rules to exclude `.git/` and virtual environments from container builds.
 

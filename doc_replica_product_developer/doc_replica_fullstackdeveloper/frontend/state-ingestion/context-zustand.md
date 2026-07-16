@@ -1,4 +1,4 @@
-# Client-Side State Management
+# Context API vs Zustand stores
 
 As frontend applications scale, sharing state between deeply nested components becomes complex. Pass-through props (prop drilling) should be avoided in favor of dedicated state management patterns.
 
@@ -55,12 +55,12 @@ Zustand is a lightweight, high-performance state management library based on sim
 import create from 'zustand';
 
 export const useStore = create((set) => ({
-  products: [],
+  items: [],
   cart: [],
   
   // Actions to mutate state
-  setProducts: (items) => set({ products: items }),
-  addToCart: (product) => set((state) => ({ cart: [...state.cart, product] })),
+  setItems: (list) => set({ items: list }),
+  addToCart: (item) => set((state) => ({ cart: [...state.cart, item] })),
   clearCart: () => set({ cart: [] }),
 }));
 ```

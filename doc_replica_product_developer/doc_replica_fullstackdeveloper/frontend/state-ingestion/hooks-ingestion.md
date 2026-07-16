@@ -17,7 +17,7 @@ graph TD
 
 ---
 
-## 2. Code Implementation: `useApi`
+## 2. Code Implementation: `useApi` Custom Hook
 
 Below is a complete, reusable custom hook supporting `loading`, `error`, `data`, and a manual `refetch` function.
 

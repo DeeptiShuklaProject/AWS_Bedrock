@@ -207,25 +207,6 @@ aws sts get-caller-identity
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at the outputs from the verification steps:
-
-![Figure 2-1: Verification of AWS CLI authentication](images/agent_section_11.png)
-*Caption: Output from the STS caller identity check.*
-- **What to Observe:** The JSON structure containing the Account ID and user ARN.
-- **Why it Matters:** Confirming these details ensures that subsequent deployment commands can access AWS resources.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Command not found error for `python` or `aws`.
-  - **Resolution:** Restart your terminal to refresh the environment variables. If the error persists, manually add the executable directories to your system's `PATH` variables.
-- **Mistake:** Docker command fails with a connection error.
-  - **Resolution:** Verify Docker Desktop is open and the Docker daemon status is active.
-
----
-
 ## 📝 Practical Exercise
 Open your terminal and run the verification commands for Git, Python, `uv`, AWS CLI, and Docker. Copy the outputs into a text file named `pre_req_check.txt` in your sandbox directory to confirm your environment is ready.
 

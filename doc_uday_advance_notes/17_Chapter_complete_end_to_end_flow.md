@@ -101,25 +101,6 @@ The execution sequence flows through these steps:
 
 ---
 
-## 📊 Live Integration Screen
-
-Let's look at the web interface of an integrated application:
-
-![Figure 17-1: Live Chat and Execution Logs](images/aws_bedrock_agentcore_loaded.png)
-*Caption: The React interface interacting with the Bedrock AgentCore Runtime.*
-- **What to Observe:** The chat window displaying streaming responses alongside runtime execution logs.
-- **Why it Matters:** Verifies that the client application, compute runtime, and downstream tools are integrated and functioning.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Broken JWT signatures causing requests to fail during token validation.
-  - **Resolution:** Double-check that your Gateway configuration trusts the Cognito identity provider.
-- **Mistake:** Downstream tool executions failing due to missing IAM permissions.
-  - **Resolution:** Verify your agent role's policy has the required permissions to invoke the downstream service or Lambda function.
-
----
-
 ## 📝 Practical Exercise
 Trace an execution error through the sequence diagram. Determine which component failed if your agent returns a `403 Forbidden` error after a tool invocation.
 

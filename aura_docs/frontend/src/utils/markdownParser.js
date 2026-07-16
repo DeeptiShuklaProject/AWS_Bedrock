@@ -30,7 +30,7 @@ export function parseMarkdown(mdText) {
           const cells = row.split("|").slice(1, -1).map(c => c.trim());
           if (rowIndex === 0) {
             html.push("<thead><tr>" + cells.map(c => `<th>${parseInline(c)}</th>`).join("") + "</tr></thead>");
-          } else if (rowIndex === 1 && cells.every(c => c.startsWith("-"))) {
+          } else if (rowIndex === 1 && cells.every(c => c.startsWith("-") || c.startsWith(":"))) {
             // It's the alignment separator line, skip
             return;
           } else {

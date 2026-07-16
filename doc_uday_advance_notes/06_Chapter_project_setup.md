@@ -88,25 +88,6 @@ Follow these steps to configure your environment.
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at the terminal environment after package synchronization:
-
-![Figure 6-1: Terminal session showcasing venv activation](images/agent_section_11.png)
-*Caption: Terminal environment showing the active virtual environment.*
-- **What to Observe:** The environment prefix (e.g. `(.venv)`) indicating that dependencies are isolated.
-- **Why it Matters:** Virtual environments keep dependencies isolated, preventing version conflicts with other Python projects on your machine.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Running package synchronization commands before activating the virtual environment.
-  - **Resolution:** Verify that your terminal prompt displays the virtual environment prefix (e.g. `(.venv)`) before running `uv sync`.
-- **Mistake:** Python version mismatch during build compile.
-  - **Resolution:** Verify that your system's Python version matches the requirements defined in your `pyproject.toml` settings.
-
----
-
 ## 📝 Practical Exercise
 Initialize a new virtual environment using `uv venv`, activate it, and run `uv pip list` to check the installed packages.
 

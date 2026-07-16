@@ -157,30 +157,6 @@ Now, create the role that your agent will assume at runtime.
 
 ---
 
-## 📊 Visual Reference and Screenshots
-
-Let's look at the configuration in the AWS console.
-
-![Figure 3-1: Trust Relationships configuration in IAM Role](images/agent_section_16.png)
-*Caption: Trust relationship policy configuration in the IAM Console.*
-- **What to Observe:** The trust relationship statement designating the `agentcore.amazonaws.com` service principal.
-- **Why it Matters:** Allows the AgentCore runtime service to assume this role when executing your agent container.
-
-![Figure 3-2: Model Access Table in Amazon Bedrock Console](images/agent_section_13.png)
-*Caption: Requesting model access in the Bedrock Console.*
-- **What to Observe:** The access table showing granted statuses for Claude models.
-- **Why it Matters:** Invocations will fail with authorization errors if model access is not requested.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** A common error is entering `lambda.amazonaws.com` instead of `agentcore.amazonaws.com` in the trust policy, preventing AgentCore from assuming the role.
-  - **Resolution:** Navigate to the trust relationships tab of your role, click Edit, and verify the principal service matches `agentcore.amazonaws.com`.
-- **Mistake:** Access denied errors on model calls.
-  - **Resolution:** Check that your model access request status displays as "Access granted" and matches the region configured in your CLI credentials.
-
----
-
 ## 📝 Practical Exercise
 Navigate to the Bedrock Console, request access for the Claude 3.5 Sonnet model, and verify that the status updates to "Access granted". Take a screenshot of your active access table and save it in your project's `images/` directory.
 

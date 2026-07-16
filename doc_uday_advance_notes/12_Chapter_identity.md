@@ -128,25 +128,6 @@ def lambda_handler(event, context):
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at how identity is configured in the Gateway dashboard:
-
-![Figure 12-1: Identity Providers and Access Tokens](images/agent_section_6.png)
-*Caption: Identity Provider and Token Mappings in the Gateway Console.*
-- **What to Observe:** The OAuth trust mappings and client scopes.
-- **Why it Matters:** Restricts API access to authenticated users, protecting downstream databases and model execution costs.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Running tools locally without passing a mock `userContext` payload.
-  - **Resolution:** Modify your test files to mock standard user context objects when testing tools locally.
-- **Mistake:** Access tokens are expired, causing requests to fail.
-  - **Resolution:** Verify your client app handles Cognito refresh token exchanges to renew expired access tokens.
-
----
-
 ## 📝 Practical Exercise
 Modify the Lambda tool code to log the extracted `actor_id` to standard output. Verify that the script compiles without errors.
 

@@ -148,25 +148,6 @@ def run_agent_workflow_traced(user_prompt: str, session_id: str):
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at the traces exported to the CloudWatch dashboard:
-
-![Figure 16-1: CloudWatch ServiceLens Traces](images/agent_section_7.png)
-*Caption: Timeline analysis of spans in AWS CloudWatch.*
-- **What to Observe:** The trace timeline showing the latency of the model call and tool execution steps.
-- **Why it Matters:** Allows developers to identify bottlenecks and trace execution errors.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Unregistered child spans that render as disconnected traces in the dashboard.
-  - **Resolution:** Verify that child spans inherit the active parent context.
-- **Mistake:** Neglecting to record token metrics from model responses.
-  - **Resolution:** Always read token usage objects from model metadata and log them to monitor costs.
-
----
-
 ## 📝 Practical Exercise
 Add a child span named `tool:database_lookup` inside `run_agent_workflow_traced`. Simulate a database lookup latency of `0.02` seconds and verify that the span prints the duration on completion.
 

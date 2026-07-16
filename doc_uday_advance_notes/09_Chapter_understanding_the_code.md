@@ -247,14 +247,6 @@ sequenceDiagram
 
 ---
 
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Attempting to access `context.session_id` directly without checking if the attribute exists, throwing an `AttributeError` when run locally.
-  - **Resolution:** Use `getattr(context, "session_id", "default")` to handle local testing.
-- **Mistake:** Logs are written to files instead of stdout, preventing CloudWatch from capturing them.
-  - **Resolution:** Configure your logging handler to output to `sys.stdout`.
-
----
-
 ## 📝 Practical Exercise
 Modify `execute_with_retry` to simulate a temporary error on the first invocation attempt. Verify that the agent logs the warning and successfully returns the response on the second attempt.
 

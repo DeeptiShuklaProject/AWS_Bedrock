@@ -109,25 +109,6 @@ To register downstream tools with the Gateway, define them in a configuration fi
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at how the Gateway maps tool configurations in the AWS console:
-
-![Figure 11-1: Gateway Tool Configurations](images/agent_section_5.png)
-*Caption: Registered tools and server configurations in the Gateway Console.*
-- **What to Observe:** The MCP tool servers list and associated IAM roles.
-- **Why it Matters:** Allows developers to register and update tools without modifying the core agent codebase.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Ambiguous tool descriptions that cause semantic routing to miss relevant prompts.
-  - **Resolution:** Write descriptive docstrings detailing when the tool should be called and what parameters it accepts.
-- **Mistake:** Missing Lambda resource permissions.
-  - **Resolution:** Configure the trust policy to allow the Gateway service principal (`gateway.agentcore.amazonaws.com`) to invoke the function.
-
----
-
 ## 📝 Practical Exercise
 Add a second tool configuration to the `gateway_config.json` file named `check_inventory`. Define its parameters and verify the JSON file matches formatting requirements.
 

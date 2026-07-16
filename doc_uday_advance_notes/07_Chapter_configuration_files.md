@@ -126,25 +126,6 @@ runtime_settings:
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at how these properties are structured in the generated configuration:
-
-![Figure 7-1: Configuration properties defined in the generated YAML file](images/agent_section_14.png)
-*Caption: Active deployment properties defined in bedrock_agent_core.yaml.*
-- **What to Observe:** The key-value structure mapping local entrypoint files and IAM role ARNs.
-- **Why it Matters:** Modifying these properties allows you to customize your deployment configurations.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Accidentally committing your `.env` file to your Git repository, exposing sensitive credentials.
-  - **Resolution:** Add `.env` to your project's `.gitignore` file.
-- **Mistake:** Specifying an invalid value for `entry_point` in your configuration.
-  - **Resolution:** Verify that the file path matches the location of your main execution script (e.g. `src/main.py`).
-
----
-
 ## 📝 Practical Exercise
 Create a local `.env` file, populate it with your active AWS region, and write a Python script named `test_env.py` to read and print the environment properties using `os.getenv`.
 

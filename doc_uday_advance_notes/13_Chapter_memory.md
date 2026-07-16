@@ -201,25 +201,6 @@ class MemoryManager:
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at memory persistence in action:
-
-![Figure 13-1: Long-Term Memory verification](images/agent_section_18.png)
-*Caption: Recalling user facts in a new terminal session.*
-- **What to Observe:** The agent greets the user and references their learning goals from a prior session.
-- **Why it Matters:** Verifies that the long-term memory store successfully loaded the user's profile context during initialization.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Parallel session updates overwriting DynamoDB profile data.
-  - **Resolution:** Implement optimistic locking using an incremental `version` attribute in your schema.
-- **Mistake:** Appending raw conversation history from past sessions directly to the prompt context.
-  - **Resolution:** Always use compacted profile data or episodic retrieval to keep prompt sizes small.
-
----
-
 ## 📝 Practical Exercise
 Add support for detecting a user's location (e.g., "I live in New York") in the `run_end_of_session_compaction` function, saving the location claim to the user's long-term profile.
 

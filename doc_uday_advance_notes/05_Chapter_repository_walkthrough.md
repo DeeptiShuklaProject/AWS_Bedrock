@@ -116,25 +116,6 @@ def my_agent_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
 
 ---
 
-## 📊 Visual Workspace Reference
-
-Let's look at how these entry points are organized inside our editor:
-
-![Figure 5-1: Project Structure in editor](images/agent_section_12.png)
-*Caption: Code entrypoint structure and imports.*
-- **What to Observe:** The import statements and decorator registrations.
-- **Why it Matters:** Decorator wrapping simplifies setup by removing the need to write custom Flask or FastAPI routing loops.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Setting the wrong path for your entrypoint file in your configuration.
-  - **Resolution:** Double-check that your entrypoint file path in `bedrock_agent_core.yaml` matches the location of your script (e.g., `src/main.py`).
-- **Mistake:** Importing `BedrockAgentCoreApp` without installing the SDK package.
-  - **Resolution:** Verify that you have activated your virtual environment and run the package installation commands before running your code.
-
----
-
 ## 📝 Practical Exercise
 Create a file named `scratch_walkthrough.py` in your project's `scratch/` directory. Copy the entrypoint code shown in this chapter, add a logging statement that prints the payload keys, and verify the file runs without syntax errors.
 

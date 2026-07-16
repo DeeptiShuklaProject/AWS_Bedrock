@@ -102,25 +102,6 @@ agentcore-samples/
 
 ---
 
-## 📊 Visual Reference
-
-Let's look at the directory structure as rendered in our editor:
-
-![Figure 4-1: Visual Directory structure inside VS Code](images/agent_section_14.png)
-*Caption: Directory tree structure of the cloned repository in VS Code.*
-- **What to Observe:** The organization of directories under `examples/` and files like `pyproject.toml`.
-- **Why it Matters:** Provides a standardized structure for deploying and scaling multiple agent configurations.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Git clone command fails with a connection timeout.
-  - **Resolution:** Verify your internet connection and check if Git is allowed through your firewall. If you are behind an enterprise proxy, configure Git's HTTP proxy settings.
-- **Mistake:** Navigating into a non-existent directory.
-  - **Resolution:** Ensure you spell the folder name correctly: `cd agentcore-samples`.
-
----
-
 ## 📝 Practical Exercise
 Clone the repository, navigate into the directory, and run the directory listing command to verify the structure matches the layout shown in this chapter.
 

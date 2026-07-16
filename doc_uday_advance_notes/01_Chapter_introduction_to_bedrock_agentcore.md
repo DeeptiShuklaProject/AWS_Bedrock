@@ -136,30 +136,6 @@ The diagram below illustrates the 7 core components of the Bedrock AgentCore inf
 
 ---
 
-## 📊 System Screenshots
-
-Let's review the visual interfaces of the Bedrock AgentCore system.
-
-![Figure 1-1: Persistent Memory Demo](images/agent_section_1.png)
-*Caption: Terminal output demonstrating memory persistence across user sessions.*
-- **What to Observe:** The terminal log shows the agent recalling the user's name ("Johnny") and exam interests in a completely new chat session.
-- **Why it Matters:** Verifies that the runtime session isolation and long-term memory services are integrated and functioning.
-
-![Figure 1-2: CLI Configuration Setup](images/agent_section_2.png)
-*Caption: File layout and configuration files in VS Code.*
-- **What to Observe:** The left side shows the older console wizard; the right side shows standard code files, including `main.py` and configuration YAMLs managed in VS Code.
-- **Why it Matters:** Illustrates the shift to code-first practices, allowing for automated testing and CI/CD integration.
-
----
-
-## 🛠️ Common Mistakes & Troubleshooting
-- **Mistake:** Attempting to build production-grade, custom-orchestrated agents using the legacy console-first Bedrock Agents wizard.
-  - **Resolution:** Migrate your reasoning code to standard Python scripts and use the `agentcore` CLI toolchain to package and deploy your application.
-- **Mistake:** Deploying an agent to an AWS region that does not support Bedrock AgentCore.
-  - **Resolution:** Verify region availability and configure your AWS CLI to target supported regions (such as `us-east-1` or `us-west-2`).
-
----
-
 ## 📝 Practical Exercise
 1. Create a workspace directory named `agentcore_workbook/` on your computer.
 2. Inside the directory, create a text file named `architecture_notes.txt`.

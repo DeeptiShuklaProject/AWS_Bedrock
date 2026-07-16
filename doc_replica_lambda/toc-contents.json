@@ -5,6 +5,10 @@
       "href": "welcome.html"
     },
     {
+      "title": "AWS Lambda Course",
+      "href": "lambda.html"
+    },
+    {
       "title": "Agent setup guide",
       "href": "agent-setup-guide.html"
     },

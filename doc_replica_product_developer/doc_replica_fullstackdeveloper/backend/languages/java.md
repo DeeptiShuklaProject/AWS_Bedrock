@@ -1,6 +1,8 @@
-# Java Backend Engineering
+# Java Backend Engineering Master Guide
 
 Java is a statically typed, class-based, object-oriented programming language designed for platform independence. In enterprise backends, Java is the industry standard for secure, reliable, and high-performance applications.
+
+---
 
 ## Installation & Downloads
 
@@ -20,7 +22,209 @@ To install Java (JDK) on your machine:
 
 ---
 
-## 1. Java Virtual Machine (JVM) Architecture
+## 1. Phase 1: Beginner Fundamentals
+
+### 1.1 Strong Static Typing & Variables
+Java is a statically typed language, which means all variables must be declared with a specific data type before they can be used. This type checking is enforced by the compiler at compile-time.
+
+*   **Primitive Types**: Direct data values stored in stack memory.
+    *   `int`: 32-bit signed integer (`int count = 5;`)
+    *   `double`: 64-bit double-precision floating-point (`double price = 19.99;`)
+    *   `boolean`: Logical state (`boolean active = true;`)
+    *   `char`: Single 16-bit Unicode character (`char flag = 'A';`)
+*   **Reference Types**: Store references to object memory addresses allocated on the heap.
+    *   `String`: Immutable sequence of characters (`String name = "AuraDocs";`)
+    *   `Array`: Fixed-size container of homogeneous elements (`int[] numbers = {1, 2, 3};`)
+
+```java
+public class FundamentalsDemo {
+    public static void main(String[] args) {
+        int primitiveVar = 42;
+        String referenceVar = "Java Guide";
+        
+        System.out.println("Primitive Value: " + primitiveVar);
+        System.out.println("Reference Value: " + referenceVar);
+    }
+}
+```
+
+### 1.2 Operators
+*   **Arithmetic**: `+`, `-`, `*`, `/`, `%` (modulo).
+*   **Comparison**: `==`, `!=`, `>`, `<`, `>=`, `<=`.
+*   **Logical**: `&&` (AND), `||` (OR), `!` (NOT).
+
+### 1.3 Control Flow
+*   **Conditional Blocks**: `if-else` and `switch` statements.
+*   **Loops**: `for`, `while`, and `do-while` loops.
+
+```java
+public class ControlFlowDemo {
+    public static void main(String[] args) {
+        int score = 85;
+        
+        // Conditional Check
+        if (score >= 90) {
+            System.out.println("Grade: A");
+        } else if (score >= 80) {
+            System.out.println("Grade: B");
+        } else {
+            System.out.println("Grade: C");
+        }
+
+        // For Loop
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Loop index: " + i);
+        }
+
+        // While Loop
+        int countdown = 3;
+        while (countdown > 0) {
+            System.out.println("Countdown: " + countdown);
+            countdown--;
+        }
+    }
+}
+```
+
+### 1.4 Methods & Method Overloading
+A method is a block of code that runs only when it is called. Java supports **Method Overloading**, which allows multiple methods to share the same name but with different parameter signatures.
+
+```java
+public class Calculator {
+    // Add two integers
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    // Add three integers (Overloaded signature)
+    public int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    // Add two doubles (Overloaded type signature)
+    public double add(double a, double b) {
+        return a + b;
+    }
+}
+```
+
+---
+
+## 2. Phase 2: Intermediate Core Java
+
+### 2.1 The Four Pillars of OOP
+1.  **Encapsulation**: Hiding internal state by declaring fields `private` and exposing access via public getters/setters.
+2.  **Inheritance**: Sharing behaviors and states between superclasses and subclasses using the `extends` keyword.
+3.  **Polymorphism**: The ability for objects of different classes to respond to the same method call (Compile-time via Overloading; Runtime via Overriding).
+4.  **Abstraction**: Hiding structural implementation details using abstract classes and interfaces.
+
+### 2.2 Access Modifiers & Inner Classes
+Access modifiers control class and member visibility:
+
+*   **`private`**: Visible only within the declaring class.
+*   **`default` (package-private)**: Visible only within classes of the same package.
+*   **`protected`**: Visible within the same package and to subclasses in other packages.
+*   **`public`**: Accessible from any other class in the application classpath.
+
+```java
+public class OuterConfig {
+    private String secretKey = "ENC_XYZ";
+
+    // Static nested class
+    public static class DatabaseConfig {
+        public void init() {
+            System.out.println("Configuring database drivers...");
+        }
+    }
+
+    // Inner class (has implicit reference to OuterConfig instance)
+    public class Decryptor {
+        public void decrypt() {
+            // Direct access to outer class private fields
+            System.out.println("Decrypting key: " + secretKey);
+        }
+    }
+}
+```
+
+### 2.3 Interface Contracts vs. Abstract Classes
+*   **Abstract Class**: Can contain instance state, variables, and constructors. Supports single inheritance.
+*   **Interface**: Represents a structural contract. Supports multiple inheritance, default methods, static methods, and private helpers.
+
+```java
+public interface PaymentGateway {
+    // Abstract method declaration
+    void processPayment(double amount);
+
+    // Default method (since Java 8)
+    default void refundPayment(double amount) {
+        logTransaction("REFUND", amount);
+        System.out.println("Refunding: $" + amount);
+    }
+
+    // Private helper method (since Java 9)
+    private void logTransaction(String type, double amount) {
+        System.out.println("[GATEWAY AUDIT] " + type + " : $" + amount);
+    }
+}
+```
+
+### 2.4 Exception Handling (Checked vs Unchecked)
+*   **Checked Exceptions**: Checked at compile-time (e.g., `IOException`). Must be caught or declared in the method signature.
+*   **Unchecked Exceptions**: Occur at runtime (e.g., `NullPointerException`). Inherit from `RuntimeException`.
+
+```java
+public class ExceptionDemo {
+    public void readLogFile(String path) throws java.io.IOException {
+        if (path == null) {
+            throw new IllegalArgumentException("Path cannot be null."); // Unchecked
+        }
+        // Throws Checked IOException if file is missing
+        java.nio.file.Files.readAllLines(java.nio.file.Paths.get(path));
+    }
+}
+```
+
+---
+
+## 3. Phase 3: Collections & Functional Streams
+
+### 3.1 Collections Framework
+
+| Interface | Main Implementations | Ordered? | Keys/Values Unique? | Thread-Safe? |
+| :--- | :--- | :--- | :--- | :--- |
+| **List** | `ArrayList`, `LinkedList` | Yes | No | No (use `CopyOnWriteArrayList` if needed) |
+| **Set** | `HashSet`, `TreeSet` | No (TreeSet is sorted) | Yes | No |
+| **Map** | `HashMap`, `TreeMap` | No (TreeMap is sorted) | Keys Unique | No (use `ConcurrentHashMap` for threads) |
+
+### 3.2 Streams API (Functional Pipeline)
+Streams process collections declaratively.
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamsDemo {
+    public static void main(String[] args) {
+        List<String> items = Arrays.asList("Laptop", "Keyboard", "Monitor", "Mouse");
+
+        // Declarative filtering and modification pipeline
+        List<String> filtered = items.stream()
+            .filter(name -> name.startsWith("M"))
+            .map(String::toUpperCase)
+            .collect(Collectors.toList());
+
+        System.out.println(filtered); // Output: [MONITOR, MOUSE]
+    }
+}
+```
+
+---
+
+## 4. Phase 4: Advanced Engine & Language Features
+
+### 4.1 JVM Architecture & Garbage Collection
 
 ```mermaid
 graph TD
@@ -36,186 +240,108 @@ graph TD
     ExecutionEngine --> GarbageCollector[Garbage Collector: G1 / ZGC]
 ```
 
-### Core Architecture:
-* **Bytecode Platform Independence**: Code is compiled into `.class` files containing JVM bytecode, which can run on any OS with a compatible Java Runtime Environment (JRE).
-* **Just-In-Time (JIT) Compiler**: Dynamically compiles frequently executed bytecode to native machine code at runtime to achieve near-C++ performance.
-* **Garbage Collection (GC)**: Heap memory is managed automatically using advanced GC algorithms like G1 (Garbage-First) or ZGC (Z Garbage Collector), which divide the heap into generations to optimize sweep speed.
+*   **Bytecode compilation**: Compiled `.class` bytecode is platform independent.
+*   **Heap vs Stack**:
+    *   **Stack**: Stores primitive types and references to object memory. Thread-local.
+    *   **Heap**: Stores allocated objects. Shared across threads.
+*   **Garbage Collectors**:
+    *   **G1 GC**: Divides heap into regions; cleans regions with less active data first.
+    *   **ZGC (Z Garbage Collector)**: Ultra-low latency garbage collector designed for multi-gigabyte heaps, running GC pauses concurrent with application execution.
 
----
-
-## 2. Advanced Object-Oriented Programming (OOP) in Java
-
-Java enforces a strict class-based Object-Oriented paradigm. Beyond the basic pillars, enterprise backend engineering relies on advanced compiler behaviors, interface contracts, polymorphism models, and modern constructs like sealed classes and records.
-
-### 2.1 Encapsulation, Access Modifiers, and Inner Classes
-
-Java provides four levels of visibility to control access to class members:
-* **`private`**: Accessible only within the declaring class.
-* **`default` (package-private)**: Accessible only within classes in the same package (no modifier used).
-* **`protected`**: Accessible within the same package and by subclasses in other packages.
-* **`public`**: Accessible from any other class in the application.
+### 4.2 Multi-Threading, Concurrency, and Virtual Threads
+*   **Traditional Threading**: Standard thread maps directly to an OS thread.
+*   **Virtual Threads (Java 21+)**: Light-weight user-mode threads managed by the JVM instead of the OS, allowing millions of concurrent tasks to execute concurrently.
 
 ```java
-public class OuterConfig {
-    private String secretKey = "ENC_XYZ";
-    protected String environment = "PRODUCTION";
+import java.util.concurrent.Executors;
 
-    // 1. Static Nested Class: Does not hold a reference to the outer instance
-    public static class DatabaseConfig {
-        public void load() {
-            System.out.println("Loading DB configs...");
-        }
-    }
-
-    // 2. Inner (Non-Static) Class: Holds an implicit reference to the outer instance
-    public class Decryptor {
-        public void decrypt() {
-            // Can access private outer members directly
-            System.out.println("Decrypting key " + secretKey);
+public class ThreadingDemo {
+    public static void main(String[] args) {
+        // Using Java 21 Virtual Thread Executor
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            executor.submit(() -> {
+                System.out.println("Running task inside virtual thread: " + Thread.currentThread());
+            });
         }
     }
 }
 ```
 
-### 2.2 Interface Contracts vs. Abstract Classes (Java 8 to 17+)
-
-| Feature | Interface (Java 8/11/17) | Abstract Class |
-| :--- | :--- | :--- |
-| **Multiple Inheritance** | Yes, a class can implement multiple interfaces. | No, a class can inherit only one abstract class. |
-| **State / Variables** | Constant fields only (`public static final`). | Can hold instance state (fields of any modifier). |
-| **Constructor** | Cannot have constructors. | Can have constructors (called via `super()`). |
-| **Methods** | Can have `abstract`, `default`, `static` (Java 8+), and `private` (Java 9+) methods. | Can have abstract, non-abstract, final, static, private, etc. |
+### 4.3 Generics
+Generics enforce compile-time type-safety for reusable classes and methods.
 
 ```java
-// Modern Interface Contract (Java 9+)
-public interface PaymentGateway {
-    // Abstract method (mandatory)
-    void processPayment(double amount);
+// Reusable Generic Container
+public class Box<T> {
+    private T value;
 
-    // Default method (optional implementation override)
-    default void refundPayment(double amount) {
-        logTransaction("REFUND", amount);
-        System.out.println("Refunding payment of $" + amount);
-    }
-
-    // Private utility method inside interface (helper logic sharing)
-    private void logTransaction(String type, double amount) {
-        System.out.println("[GATEWAY AUDIT] " + type + " : $" + amount);
-    }
+    public void set(T value) { this.value = value; }
+    public T get() { return value; }
 }
 ```
 
-### 2.3 Dynamic Polymorphism & Method Dispatch
-
-Dynamic (runtime) polymorphism allows a subclass to provide a specific implementation of a method defined in its parent class (Method Overriding). The JVM resolves overridden methods at runtime using a virtual method table (vtable) and dispatch bytecode (`invokevirtual`).
-
-```mermaid
-graph TD
-    Client[Client Code] -->|Calls calculateTax| BaseItem[BaseItem Reference]
-    BaseItem -->|Dynamic Dispatch| ElectronicItem[ElectronicItem Class at Runtime]
-    BaseItem -->|Dynamic Dispatch| ApparelItem[ApparelItem Class at Runtime]
-```
+### 4.4 Modern Language Features (Java 16/17+)
+*   **Records (Java 16+)**: Immutable data classes containing default getters, constructors, `toString()`, `hashCode()`, and `equals()`.
+*   **Sealed Classes (Java 17+)**: Pre-define exactly which classes can extend or implement a class/interface.
 
 ```java
-// Abstract base representing dynamic method contracts
-public abstract class BaseItem {
-    private String name;
-    private double val;
-
-    public BaseItem(String name, double val) {
-        this.name = name;
-        this.val = val;
-    }
-
-    public String getName() { return name; }
-    public double getVal() { return val; }
-
-    public abstract void calculateTax();
-}
-
-public class ElectronicItem extends BaseItem {
-    public ElectronicItem(String name, double val) { super(name, val); }
-
-    @Override
-    public void calculateTax() {
-        System.out.println("Applying 18% electronics tax to " + getName());
-    }
-}
-
-public class ApparelItem extends BaseItem {
-    public ApparelItem(String name, double val) { super(name, val); }
-
-    @Override
-    public void calculateTax() {
-        System.out.println("Applying 5% apparel tax to " + getName());
-    }
-}
-```
-
-### 2.4 Modern Java OOP: Records & Sealed Class Hierarchies (Java 16/17+)
-
-* **Records (Java 16+)**: Immutable data carrier classes that automatically generate fields, getters, `equals()`, `hashCode()`, and `toString()`.
-* **Sealed Classes (Java 17+)**: Restrict subclassing to a specific, predefined set of classes, which is extremely useful for Domain Modeling.
-
-```java
-// 1. Record for Immutable API DTOs
+// 1. Record DTO
 public record UserResponse(String userId, String email, String role) {}
 
-// 2. Sealed Class Hierarchy
-public sealed abstract class WebhookRequest permits StripeRequest, PaypalRequest {
-    public abstract void execute();
-}
+// 2. Sealed Hierarchy
+public sealed interface Webhook permits StripeWebhook, PaypalWebhook {}
 
-public final class StripeRequest extends WebhookRequest {
-    @Override
-    public void execute() { System.out.println("Handling Stripe Webhook"); }
-}
-
-public final class PaypalRequest extends WebhookRequest {
-    @Override
-    public void execute() { System.out.println("Handling PayPal Webhook"); }
-}
+public final class StripeWebhook implements Webhook {}
+public final class PaypalWebhook implements Webhook {}
 ```
 
 ---
 
-## 3. Java Collections Framework & Streams
+## 5. Phase 5: Java Enterprise Ecosystem
 
-### Collections API
-Java provides a highly structured hierarchy of lists, sets, and maps:
-* **`ArrayList` / `LinkedList`**: Sequential element storage.
-* **`HashSet` / `TreeSet`**: Mathematical set representation.
-* **`HashMap` / `ConcurrentHashMap`**: Key-value data access. `ConcurrentHashMap` uses bucket-level locking to support safe multithreaded operations.
+### 5.1 Build Tools (Maven & Gradle)
+Build tools organize third-party dependencies, test pipelines, and compilation steps.
 
-### Stream API (Functional Processing)
-Java Streams allow declarative processing of collections using filter, map, and reduce pipelines.
+*   **Maven (`pom.xml`)**: XML configuration tracking dependencies.
+*   **Gradle (`build.gradle`)**: Groovy or Kotlin DSL scripts.
+
+### 5.2 Spring Boot Integration
+Spring Boot is the standard framework for enterprise Java web applications, relying heavily on Dependency Injection (DI) and annotations to decouple components.
 
 ```java
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
-public class StreamDemo {
+@SpringBootApplication
+public class EnterpriseApplication {
     public static void main(String[] args) {
-        List<BaseItem> items = Arrays.asList(
-            new ElectronicItem("Laptop", 1200.00),
-            new ElectronicItem("Keyboard", 80.00),
-            new ElectronicItem("Monitor", 300.00)
-        );
+        SpringApplication.run(EnterpriseApplication.class, args);
+    }
+}
 
-        // Filter items costing more than 100, extract names, collect to List
-        List<String> premiumItemNames = items.stream()
-            .filter(item -> item.getVal() > 100.00)
-            .map(BaseItem::getName)
-            .collect(Collectors.toList());
+// Controller layer handling HTTP routing
+@RestController
+@RequestMapping("/api/v1")
+class UserController {
+    private final UserService userService;
 
-        System.out.println(premiumItemNames); // Output: [Laptop, Monitor]
+    // Dependency injection
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping("/users/{id}")
+    public UserResponse getUser(@PathVariable String id) {
+        return userService.fetchUser(id);
+    }
+}
+
+@Service
+class UserService {
+    public UserResponse fetchUser(String id) {
+        return new UserResponse(id, "user@domain.com", "Admin");
     }
 }
 ```
-
----
-
-## 4. Java Enterprise Best Practices
-* **Spring Boot Integration**: Leverage Spring dependency injection (`@Autowired`, `@Service`, `@Repository`) to decouple controller handlers from data access layers.
-* **Maven / Gradle Dependency Managers**: Organize remote libraries, compile workflows, and packaging (JAR/WAR creation) declaratively.

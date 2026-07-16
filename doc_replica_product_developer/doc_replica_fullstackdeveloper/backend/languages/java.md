@@ -43,18 +43,81 @@ graph TD
 
 ---
 
-## 2. Object-Oriented Programming (OOP) & Inheritance
+## 2. Advanced Object-Oriented Programming (OOP) in Java
 
-Java enforces strict OOP principles: Encapsulation, Inheritance, Polymorphism, and Abstraction.
+Java enforces a strict class-based Object-Oriented paradigm. Beyond the basic pillars, enterprise backend engineering relies on advanced compiler behaviors, interface contracts, polymorphism models, and modern constructs like sealed classes and records.
 
-### Code Demonstration: Polymorphism & Interfaces
+### 2.1 Encapsulation, Access Modifiers, and Inner Classes
+
+Java provides four levels of visibility to control access to class members:
+* **`private`**: Accessible only within the declaring class.
+* **`default` (package-private)**: Accessible only within classes in the same package (no modifier used).
+* **`protected`**: Accessible within the same package and by subclasses in other packages.
+* **`public`**: Accessible from any other class in the application.
+
 ```java
-// ItemService.java (Interface for Abstraction)
-public interface ItemService {
-    void processItem(String id);
-}
+public class OuterConfig {
+    private String secretKey = "ENC_XYZ";
+    protected String environment = "PRODUCTION";
 
-// BaseItem.java (Inheritance & Encapsulation)
+    // 1. Static Nested Class: Does not hold a reference to the outer instance
+    public static class DatabaseConfig {
+        public void load() {
+            System.out.println("Loading DB configs...");
+        }
+    }
+
+    // 2. Inner (Non-Static) Class: Holds an implicit reference to the outer instance
+    public class Decryptor {
+        public void decrypt() {
+            // Can access private outer members directly
+            System.out.println("Decrypting key " + secretKey);
+        }
+    }
+}
+```
+
+### 2.2 Interface Contracts vs. Abstract Classes (Java 8 to 17+)
+
+| Feature | Interface (Java 8/11/17) | Abstract Class |
+| :--- | :--- | :--- |
+| **Multiple Inheritance** | Yes, a class can implement multiple interfaces. | No, a class can inherit only one abstract class. |
+| **State / Variables** | Constant fields only (`public static final`). | Can hold instance state (fields of any modifier). |
+| **Constructor** | Cannot have constructors. | Can have constructors (called via `super()`). |
+| **Methods** | Can have `abstract`, `default`, `static` (Java 8+), and `private` (Java 9+) methods. | Can have abstract, non-abstract, final, static, private, etc. |
+
+```java
+// Modern Interface Contract (Java 9+)
+public interface PaymentGateway {
+    // Abstract method (mandatory)
+    void processPayment(double amount);
+
+    // Default method (optional implementation override)
+    default void refundPayment(double amount) {
+        logTransaction("REFUND", amount);
+        System.out.println("Refunding payment of $" + amount);
+    }
+
+    // Private utility method inside interface (helper logic sharing)
+    private void logTransaction(String type, double amount) {
+        System.out.println("[GATEWAY AUDIT] " + type + " : $" + amount);
+    }
+}
+```
+
+### 2.3 Dynamic Polymorphism & Method Dispatch
+
+Dynamic (runtime) polymorphism allows a subclass to provide a specific implementation of a method defined in its parent class (Method Overriding). The JVM resolves overridden methods at runtime using a virtual method table (vtable) and dispatch bytecode (`invokevirtual`).
+
+```mermaid
+graph TD
+    Client[Client Code] -->|Calls calculateTax| BaseItem[BaseItem Reference]
+    BaseItem -->|Dynamic Dispatch| ElectronicItem[ElectronicItem Class at Runtime]
+    BaseItem -->|Dynamic Dispatch| ApparelItem[ApparelItem Class at Runtime]
+```
+
+```java
+// Abstract base representing dynamic method contracts
 public abstract class BaseItem {
     private String name;
     private double val;
@@ -70,21 +133,47 @@ public abstract class BaseItem {
     public abstract void calculateTax();
 }
 
-// ElectronicItem.java (Concrete Subclass)
-public class ElectronicItem extends BaseItem implements ItemService {
-    public ElectronicItem(String name, double val) {
-        super(name, val);
-    }
+public class ElectronicItem extends BaseItem {
+    public ElectronicItem(String name, double val) { super(name, val); }
 
     @Override
     public void calculateTax() {
         System.out.println("Applying 18% electronics tax to " + getName());
     }
+}
+
+public class ApparelItem extends BaseItem {
+    public ApparelItem(String name, double val) { super(name, val); }
 
     @Override
-    public void processItem(String id) {
-        System.out.println("Processing Electronic item code: " + id);
+    public void calculateTax() {
+        System.out.println("Applying 5% apparel tax to " + getName());
     }
+}
+```
+
+### 2.4 Modern Java OOP: Records & Sealed Class Hierarchies (Java 16/17+)
+
+* **Records (Java 16+)**: Immutable data carrier classes that automatically generate fields, getters, `equals()`, `hashCode()`, and `toString()`.
+* **Sealed Classes (Java 17+)**: Restrict subclassing to a specific, predefined set of classes, which is extremely useful for Domain Modeling.
+
+```java
+// 1. Record for Immutable API DTOs
+public record UserResponse(String userId, String email, String role) {}
+
+// 2. Sealed Class Hierarchy
+public sealed abstract class WebhookRequest permits StripeRequest, PaypalRequest {
+    public abstract void execute();
+}
+
+public final class StripeRequest extends WebhookRequest {
+    @Override
+    public void execute() { System.out.println("Handling Stripe Webhook"); }
+}
+
+public final class PaypalRequest extends WebhookRequest {
+    @Override
+    public void execute() { System.out.println("Handling PayPal Webhook"); }
 }
 ```
 

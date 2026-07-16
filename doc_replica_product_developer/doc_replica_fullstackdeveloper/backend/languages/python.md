@@ -121,3 +121,124 @@ for error_log in stream_large_log_file("server.log"):
 * **`json` / `pydantic`**: Used to parse and validate incoming JSON request payloads.
 * **`logging`**: Provides levels (`INFO`, `WARNING`, `ERROR`, `CRITICAL`) for audit trails.
 * **`sys` / `os`**: Read environment configurations and container specifications.
+
+---
+
+## 5. Advanced Object-Oriented Programming (OOP) in Python
+
+Python is a multi-paradigm language that supports advanced Object-Orient Oriented Programming (OOP). Understanding Python's dynamic object model, inheritance resolution, and encapsulation protocols is critical for writing robust backend architectures.
+
+### 5.1 Encapsulation, Properties, and Name Mangling
+
+Python uses specific naming conventions for access control:
+* **Public**: Accessible from anywhere (e.g., `self.name`).
+* **Protected** (`_attribute`): Indicates the attribute is internal and should not be accessed directly outside the class or its subclasses.
+* **Private** (`__attribute`): Enforces **Name Mangling** (rewrites `__attribute` to `_ClassName__attribute`) to prevent direct modification and accidental subclass overrides.
+
+The `@property` decorator allows developers to create getters and setters, exposing method calls as clean attributes while enforcing data validation rules.
+
+```python
+class DatabaseConnection:
+    def __init__(self, host: str, port: int):
+        self.host = host          # Public
+        self._is_connected = False # Protected
+        self.__password = None    # Private (mangled to _DatabaseConnection__password)
+
+    @property
+    def password(self) -> str:
+        raise AttributeError("Password is write-only for security reasons.")
+
+    @password.setter
+    def password(self, val: str):
+        if len(val) < 8:
+            raise ValueError("Database password must be at least 8 characters.")
+        self.__password = val
+
+    def get_raw_password(self):
+        return self.__password
+
+# Usage
+conn = DatabaseConnection("localhost", 5432)
+conn.password = "supersecret123"  # Calls setter
+# print(conn.__password)          # Raises AttributeError
+print(conn.get_raw_password())    # Prints: supersecret123
+```
+
+### 5.2 Magic (Dunder) Methods & Custom Behaviors
+
+Dunder (Double Underscore) methods allow user-defined classes to hook into Python's built-in operators, protocols, and standard behaviors.
+
+* `__init__`: Constructor.
+* `__str__` vs `__repr__`: `__str__` returns a user-friendly string representation; `__repr__` returns an unambiguous representation (useful for debugging/logging).
+* `__call__`: Allows instances to be called like functions.
+* `__enter__` / `__exit__`: Hooks into the `with` statement context manager.
+
+```python
+class QueryTransaction:
+    def __init__(self, tx_id: str):
+        self.tx_id = tx_id
+        self.queries = []
+
+    def __repr__(self):
+        return f"QueryTransaction(tx_id='{self.tx_id}', query_count={len(self.queries)})"
+
+    def __call__(self, query: str):
+        self.queries.append(query)
+        print(f"Executing: {query} inside transaction {self.tx_id}")
+
+    def __enter__(self):
+        print(f"--- START TRANSACTION {self.tx_id} ---")
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type:
+            print(f"!!! ROLLBACK TRANSACTION {self.tx_id} due to: {exc_val} !!!")
+            return False  # Propagate exception
+        print(f"--- COMMIT TRANSACTION {self.tx_id} ---")
+        return True
+
+# Usage
+with QueryTransaction("tx_999") as tx:
+    tx("INSERT INTO users (name) VALUES ('Alice')")
+    tx("UPDATE audit_logs SET status = 'active'")
+    # repr usage
+    print(tx)  # Prints: QueryTransaction(tx_id='tx_999', query_count=2)
+```
+
+### 5.3 Inheritance, Method Resolution Order (MRO), and Abstract Classes
+
+* **Abstract Base Classes (ABCs)**: Define strict interfaces using the `abc` module and `@abstractmethod` decorator to mandate specific implementations in subclasses.
+* **Method Resolution Order (MRO)**: Python uses the **C3 Linearization** algorithm to determine search order in multiple inheritance. Developers call `super()` to delegate method resolution dynamically.
+
+```mermaid
+graph TD
+    BillingService[BillingService Class] --> BaseService[BaseService ABC]
+    BillingService --> LoggingMixIn[LoggingMixIn Mixin]
+    BaseService --> ABC[abc.ABC Module]
+    LoggingMixIn --> Object[object Base]
+    ABC --> Object
+```
+
+```python
+from abc import ABC, abstractmethod
+
+class BaseService(ABC):
+    @abstractmethod
+    def execute(self, payload: dict) -> dict:
+        pass
+
+class LoggingMixIn:
+    def log(self, message: str):
+        print(f"[AUDIT LOG] {message}")
+
+# Multiple Inheritance: BillingService inherits from BaseService and LoggingMixIn
+class BillingService(BaseService, LoggingMixIn):
+    def execute(self, payload: dict) -> dict:
+        self.log(f"Processing billing payload: {payload}")
+        amount = payload.get("amount", 0)
+        return {"status": "success", "amount_charged": amount}
+
+# Inspection of MRO
+print(BillingService.__mro__)
+# (<class 'BillingService'>, <class 'BaseService'>, <class 'abc.ABC'>, <class 'LoggingMixIn'>, <class 'object'>)
+```

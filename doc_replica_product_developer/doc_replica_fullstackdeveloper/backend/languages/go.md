@@ -111,9 +111,77 @@ func main() {
 }
 ```
 
+## 4. Loops in Go: For and While Equivalents
+
+Go only has one looping construct: the `for` loop. However, it is highly versatile and can represent traditional loops, while-loop equivalents, infinite loops, and range-based collections traversal.
+
+### 4.1 Traditional Three-Component Loop
+Used for iterating with a counter variable.
+```go
+package main
+
+import "fmt"
+
+func main() {
+	for i := 0; i < 3; i++ {
+		fmt.Printf("Iteration: %d\n", i)
+	}
+}
+```
+
+### 4.2 While-Loop Equivalent
+In Go, omitting the initialization and post statements transforms the `for` loop into a `while` loop.
+```go
+package main
+
+import "fmt"
+
+func main() {
+	count := 3
+	for count > 0 {
+		fmt.Printf("Countdown: %d\n", count)
+		count--
+	}
+}
+```
+
+### 4.3 Infinite Loop
+Omitting all components creates an infinite loop, typically exited using a `break` or `return`.
+```go
+package main
+
+import "fmt"
+
+func main() {
+	count := 0
+	for {
+		fmt.Println("Running...")
+		count++
+		if count >= 3 {
+			break
+		}
+	}
+}
+```
+
+### 4.4 For-Range Loop
+Used to iterate over slices, arrays, maps, strings, or channels.
+```go
+package main
+
+import "fmt"
+
+func main() {
+	languages := []string{"Go", "Python", "Java"}
+	for index, name := range languages {
+		fmt.Printf("Index: %d, Value: %s\n", index, name)
+	}
+}
+```
+
 ---
 
-## 4. Key Go Frameworks & Tools
+## 5. Key Go Frameworks & Tools
 * **Gin / Fiber**: High-performance HTTP routers for API routing.
 * **Go Modules**: Dependency management configured in `go.mod`.
 * **Gofmt**: In-built code formatter to enforce a single code style.

@@ -1,95 +1,29 @@
-# AI / ML Developer Guide
+# AI & Machine Learning Master Learning Portal
 
-Welcome to the AI / ML Developer guide. This document serves as a comprehensive reference for training ML models, deploying neural networks, and building generative AI applications using Large Language Models (LLMs).
-
----
-
-## 1. Machine Learning Workflow
-
-A standard Machine Learning system requires robust pipelines for data preparation, model training, evaluation, and serving.
-
-```mermaid
-graph TD
-    A[Raw Data] -->|Preprocess / Feature Eng| B[Feature Vector Store]
-    B -->|Split Data| C[Train/Val Datasets]
-    C -->|Fit Parameters| D[Model Training]
-    D -->|Evaluate Metrics| E[Model Validation]
-    E -->|Deploy API| F[Production Inference Serving]
-```
-
-### Core ML Metrics
-
-| Task | Common Algorithms | Primary Metrics | Key Considerations |
-| :--- | :--- | :--- | :--- |
-| **Classification** | Logistic Regression, Random Forest, XGBoost | Accuracy, Precision, Recall, F1-Score, ROC-AUC | Imbalanced classes (use F1/Precision-Recall curve instead of Accuracy) |
-| **Regression** | Linear Regression, Ridge, Lasso, Gradient Boosting | MSE, RMSE, MAE, R-Squared | Outlier sensitivity (use MAE if outliers are present) |
-| **Generative AI** | GPT-4, Gemini 2.5, Claude 3.5, Llama 3 | BLEU, ROUGE, Cosine Similarity, Ragas | Hallucinations, latency, context window limits |
+Welcome to the comprehensive, industry-grade AI & Machine Learning Documentation Portal. This repository contains the complete learning path, core mathematics, algorithms, and production architectures designed to take you from a complete beginner to a production-ready AI/ML Engineer.
 
 ---
 
-## 2. Deep Learning & Computer Vision
+## 🗺️ Learning Path Structure
 
-Deep learning leverages multi-layered neural networks to extract high-level representations from unstructured inputs like text, audio, and images.
+The portal is divided into the following key focus areas:
 
-```python
-# Example: Simple Neural Network with PyTorch
-import torch
-import torch.nn as nn
-import torch.optim as optim
-
-class SimpleClassifier(nn.Module):
-    def __init__(self, input_dim, hidden_dim, output_dim):
-        super(SimpleClassifier, self).__init__()
-        self.fc1 = nn.Linear(input_dim, hidden_dim)
-        self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(hidden_dim, output_dim)
-        self.softmax = nn.LogSoftmax(dim=1)
-        
-    def forward(self, x):
-        out = self.fc1(x)
-        out = self.relu(out)
-        out = self.fc2(out)
-        out = self.softmax(out)
-        return out
-
-# Instantiate model
-model = SimpleClassifier(input_dim=10, hidden_dim=32, output_dim=2)
-print(model)
-```
-
----
-
-## 3. Retrieval-Augmented Generation (RAG)
-
-Generative AI often requires grounding in proprietary datasets to prevent hallucinations. RAG solves this by injecting relevant text chunks into the context window of an LLM.
-
-### RAG Sequence:
-1. **Ingest**: Parse documents and split them into semantic text chunks.
-2. **Embed**: Convert text chunks to vector embeddings using an embedding model (e.g., `text-embedding-004`).
-3. **Index**: Load vectors into a Vector Database (e.g., Pinecone, Chroma, pgvector).
-4. **Retrieve**: Embed user query, perform a cosine-similarity search, and retrieve top-k chunks.
-5. **Generate**: Query LLM with system prompt + retrieved context + user question.
-
-```python
-# Example: Using Gemini Client for Q&A
-from google import genai
-from google.genai import types
-
-def answer_with_gemini(user_query, retrieved_context, api_key):
-    client = genai.Client(api_key=api_key)
-    
-    system_instruction = (
-        "You are an AI/ML documentation assistant. "
-        "Answer the user query using ONLY the provided context."
-    )
-    
-    response = client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=f"CONTEXT:\n{retrieved_context}\n\nQUESTION:\n{user_query}",
-        config=types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            temperature=0.1
-        )
-    )
-    return response.text
-```
+1. **[00. Fundamentals](00_fundamentals/00-roadmap.md)**: AI/ML roadmaps, history, data preprocessing, and life-cycle models.
+2. **[01. Programming](01_programming/python.md)**: Language basics and scientific libraries (NumPy, Pandas, Matplotlib, SciPy).
+3. **[02. Mathematics](02_mathematics/linear-algebra.md)**: Vectors, matrices, probabilities, calculus, and optimization models.
+4. **[03. Machine Learning](03_machine_learning/supervised-learning.md)**: Supervised, unsupervised algorithms, SVMs, and tree ensembling.
+5. **[04. Deep Learning](04_deep_learning/transformers.md)**: Multi-layer perceptrons, backpropagation, CNNs, LSTMs, and PyTorch.
+6. **[05. Computer Vision](05_computer_vision/opencv.md)**: OpenCV, image classifications, OCRs, and YOLO frameworks.
+7. **[06. Natural Language Processing](06_nlp/gpt.md)**: Text processing, BERT, GPT, and Hugging Face.
+8. **[07. LLM Engineering](07_llm_engineering/rag.md)**: Prompt designs, RAG architecture, chunking, and Bedrock agents.
+9. **[08. AI Databases](08_ai_databases/pinecone.md)**: Vector indexes, cosine search, Pinecone, pgvector, and ChromaDB.
+10. **[09. MLOps](09_mlops/mlflow.md)**: Pipeline registries, Kubernetes orchestration, and serving.
+11. **[10. Cloud AI](10_cloud_ai/aws/sagemaker.md)**: Deep dive into AWS SageMaker, Azure ML, and Google Vertex AI.
+12. **[11. Deployment](11_deployment/fastapi.md)**: Serving APIs via FastAPI, Flask, Streamlit, and Nginx.
+13. **[12. System Design](12_system_design/llm-system-design.md)**: Chatbots, search engines, recommendation systems, and multi-agent flows.
+14. **[13. Responsible AI](13_responsible_ai/guardrails.md)**: Mitigating bias, security, guardrails, and hallucinations.
+15. **[14. Observability](14_observability/logging.md)**: LLM tracing, latency, metrics, and cost optimization.
+16. **[15. Interview Preparation](15_interview/beginner.md)**: System design and algorithm coding exercises.
+17. **[16. Production Projects](16_projects/spam-detection.md)**: 25+ real-world projects with source codes.
+18. **[17. Cheat Sheets](17_cheatsheets/pytorch.md)**: Syntax reference guides.
+19. **[18. Career Guidance](18_career_guide/learning-roadmap.md)**: Study roadmaps, resumes, and remote job strategies.

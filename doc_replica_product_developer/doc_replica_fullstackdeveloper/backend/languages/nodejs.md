@@ -77,9 +77,59 @@ async function loadItems() {
 module.exports = { loadItems };
 ```
 
+## 4. Loops in JavaScript: For and While Loops
+
+JavaScript in Node.js supports multiple looping constructs for iterating over arrays, objects, and executing conditional blocks.
+
+### 4.1 Traditional `for` Loop
+Used for iterating with a counter variable.
+```javascript
+for (let i = 0; i < 3; i++) {
+  console.log(`Index: ${i}`);
+}
+```
+
+### 4.2 `for...of` Loop
+Iterates over iterable objects (such as arrays, strings, sets, or maps).
+```javascript
+const frameworks = ['Express', 'NestJS', 'Koa'];
+for (const framework of frameworks) {
+  console.log(`Framework: ${framework}`);
+}
+```
+
+### 4.3 `for...in` Loop
+Iterates over the enumerable string properties of an object.
+```javascript
+const service = { name: 'AuthService', port: 8080 };
+for (const key in service) {
+  console.log(`${key}: ${service[key]}`);
+}
+```
+
+### 4.4 `while` Loop
+Executes a statement block as long as a specified condition evaluates to true.
+```javascript
+let count = 3;
+while (count > 0) {
+  console.log(`Countdown: ${count}`);
+  count--;
+}
+```
+
+### 4.5 `do...while` Loop
+Executes the code block once before checking the condition, ensuring at least one execution.
+```javascript
+let attempts = 0;
+do {
+  console.log("Checking service availability...");
+  attempts++;
+} while (attempts < 1);
+```
+
 ---
 
-## 4. Key Node.js Packages & Ecosystem
+## 5. Key Node.js Packages & Ecosystem
 * **Express / NestJS**: Lightweight and structured routing frameworks for building REST APIs.
 * **npm / yarn**: The largest repository of shared libraries in the world, managing dependencies via `package.json`.
 * **dotenv**: Loads configuration variables from `.env` files into `process.env`.

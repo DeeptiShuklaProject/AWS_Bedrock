@@ -71,9 +71,15 @@ public class ControlFlowDemo {
             System.out.println("Grade: C");
         }
 
-        // For Loop
+        // Traditional For Loop
         for (int i = 0; i < 3; i++) {
             System.out.println("Loop index: " + i);
+        }
+
+        // Enhanced For (For-Each) Loop
+        String[] technologies = {"Spring", "Hibernate", "Maven"};
+        for (String tech : technologies) {
+            System.out.println("Tech: " + tech);
         }
 
         // While Loop
@@ -82,6 +88,13 @@ public class ControlFlowDemo {
             System.out.println("Countdown: " + countdown);
             countdown--;
         }
+
+        // Do-While Loop
+        int attempts = 0;
+        do {
+            System.out.println("Executing task trial...");
+            attempts++;
+        } while (attempts < 1);
     }
 }
 ```

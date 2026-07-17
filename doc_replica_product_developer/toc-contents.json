@@ -49,6 +49,71 @@
                 {
                   "title": "2.3.3 Caching & Key-Value (Redis)",
                   "href": "doc_replica_fullstackdeveloper/backend/databases/caching.md"
+                },
+                {
+                  "title": "2.3.4 Database Master Guides",
+                  "contents": [
+                    {
+                      "title": "PostgreSQL Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/postgresql.md"
+                    },
+                    {
+                      "title": "MySQL Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/mysql.md"
+                    },
+                    {
+                      "title": "Oracle Database Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/oracle.md"
+                    },
+                    {
+                      "title": "Microsoft SQL Server Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/sql_server.md"
+                    },
+                    {
+                      "title": "MongoDB Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/mongodb.md"
+                    },
+                    {
+                      "title": "Redis Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/redis.md"
+                    },
+                    {
+                      "title": "SQLite Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/sqlite.md"
+                    },
+                    {
+                      "title": "Elasticsearch Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/elasticsearch.md"
+                    },
+                    {
+                      "title": "Amazon DynamoDB Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/dynamodb.md"
+                    },
+                    {
+                      "title": "Apache Cassandra Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/cassandra.md"
+                    },
+                    {
+                      "title": "MariaDB Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/mariadb.md"
+                    },
+                    {
+                      "title": "Neo4j Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/neo4j.md"
+                    },
+                    {
+                      "title": "Couchbase Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/couchbase.md"
+                    },
+                    {
+                      "title": "InfluxDB Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/influxdb.md"
+                    },
+                    {
+                      "title": "Snowflake Master Guide",
+                      "href": "doc_replica_fullstackdeveloper/backend/databases/snowflake.md"
+                    }
+                  ]
                 }
               ]
             },
@@ -138,16 +203,1697 @@
         {
           "title": "4. Connected Databases & Integration",
           "href": "doc_replica_fullstackdeveloper/database-guide.md"
+        },
+        {
+          "title": "5. Frameworks Master Guides",
+          "contents": [
+            {
+              "title": "5.1 Backend Frameworks",
+              "contents": [
+                {
+                  "title": "FastAPI Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/fastapi.md"
+                },
+                {
+                  "title": "Django Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/django.md"
+                },
+                {
+                  "title": "Express.js Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/express.md"
+                },
+                {
+                  "title": "Spring Boot Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/springboot.md"
+                },
+                {
+                  "title": "Laravel Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/laravel.md"
+                },
+                {
+                  "title": "ASP.NET Core Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/aspnet-core.md"
+                },
+                {
+                  "title": "Flask Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/flask.md"
+                },
+                {
+                  "title": "NestJS Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/nestjs.md"
+                }
+              ]
+            },
+            {
+              "title": "5.2 Frontend Frameworks",
+              "contents": [
+                {
+                  "title": "React Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/react.md"
+                },
+                {
+                  "title": "Angular Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/angular.md"
+                },
+                {
+                  "title": "Vue.js Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/vue.md"
+                },
+                {
+                  "title": "Next.js Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/nextjs.md"
+                },
+                {
+                  "title": "Nuxt.js Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/nuxt.md"
+                },
+                {
+                  "title": "SvelteKit Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/sveltekit.md"
+                }
+              ]
+            },
+            {
+              "title": "5.3 Mobile Frameworks",
+              "contents": [
+                {
+                  "title": "Flutter Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/mobile/flutter.md"
+                },
+                {
+                  "title": "React Native Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/mobile/react-native.md"
+                },
+                {
+                  "title": "Kotlin Multiplatform Master Guide",
+                  "href": "doc_replica_fullstackdeveloper/frameworks/mobile/kotlin-multiplatform.md"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "title": "Data Engineer",
-      "href": "doc_replica_dataengineer/introduction.md"
+      "contents": [
+        {
+          "title": "Data Engineering Introduction",
+          "href": "doc_replica_dataengineer/introduction.md"
+        },
+        {
+          "title": "Fundamentals",
+          "contents": [
+            {
+              "title": "Roadmap",
+              "href": "doc_replica_dataengineer/00_fundamentals/00-roadmap.md"
+            },
+            {
+              "title": "What Is Data Engineering",
+              "href": "doc_replica_dataengineer/00_fundamentals/01-what-is-data-engineering.md"
+            },
+            {
+              "title": "Data Engineer Vs Data Scientist",
+              "href": "doc_replica_dataengineer/00_fundamentals/02-data-engineer-vs-data-scientist.md"
+            },
+            {
+              "title": "Data Engineer Vs Analyst",
+              "href": "doc_replica_dataengineer/00_fundamentals/03-data-engineer-vs-analyst.md"
+            },
+            {
+              "title": "Types Of Data",
+              "href": "doc_replica_dataengineer/00_fundamentals/04-types-of-data.md"
+            },
+            {
+              "title": "Data Lifecycle",
+              "href": "doc_replica_dataengineer/00_fundamentals/05-data-lifecycle.md"
+            },
+            {
+              "title": "Etl Vs Elt",
+              "href": "doc_replica_dataengineer/00_fundamentals/06-etl-vs-elt.md"
+            },
+            {
+              "title": "Data Warehouse",
+              "href": "doc_replica_dataengineer/00_fundamentals/07-data-warehouse.md"
+            },
+            {
+              "title": "Data Lake",
+              "href": "doc_replica_dataengineer/00_fundamentals/08-data-lake.md"
+            },
+            {
+              "title": "Data Lakehouse",
+              "href": "doc_replica_dataengineer/00_fundamentals/09-data-lakehouse.md"
+            },
+            {
+              "title": "Medallion Architecture",
+              "href": "doc_replica_dataengineer/00_fundamentals/10-medallion-architecture.md"
+            }
+          ]
+        },
+        {
+          "title": "Programming",
+          "contents": [
+            {
+              "title": "Bash",
+              "href": "doc_replica_dataengineer/01_programming/bash.md"
+            },
+            {
+              "title": "Docker",
+              "href": "doc_replica_dataengineer/01_programming/docker.md"
+            },
+            {
+              "title": "Git",
+              "href": "doc_replica_dataengineer/01_programming/git.md"
+            },
+            {
+              "title": "Kubernetes",
+              "href": "doc_replica_dataengineer/01_programming/kubernetes.md"
+            },
+            {
+              "title": "Linux",
+              "href": "doc_replica_dataengineer/01_programming/linux.md"
+            },
+            {
+              "title": "Python",
+              "href": "doc_replica_dataengineer/01_programming/python.md"
+            },
+            {
+              "title": "Sql",
+              "href": "doc_replica_dataengineer/01_programming/sql.md"
+            }
+          ]
+        },
+        {
+          "title": "Databases",
+          "contents": [
+            {
+              "title": "Mongodb",
+              "href": "doc_replica_dataengineer/02_databases/mongodb.md"
+            },
+            {
+              "title": "Mysql",
+              "href": "doc_replica_dataengineer/02_databases/mysql.md"
+            },
+            {
+              "title": "Postgresql",
+              "href": "doc_replica_dataengineer/02_databases/postgresql.md"
+            },
+            {
+              "title": "Redis",
+              "href": "doc_replica_dataengineer/02_databases/redis.md"
+            },
+            {
+              "title": "Snowflake",
+              "href": "doc_replica_dataengineer/02_databases/snowflake.md"
+            }
+          ]
+        },
+        {
+          "title": "Big Data",
+          "contents": [
+            {
+              "title": "Hadoop",
+              "href": "doc_replica_dataengineer/03_big_data/hadoop.md"
+            },
+            {
+              "title": "Hdfs",
+              "href": "doc_replica_dataengineer/03_big_data/hdfs.md"
+            },
+            {
+              "title": "Hive",
+              "href": "doc_replica_dataengineer/03_big_data/hive.md"
+            },
+            {
+              "title": "Pyspark",
+              "href": "doc_replica_dataengineer/03_big_data/pyspark.md"
+            },
+            {
+              "title": "Spark Sql",
+              "href": "doc_replica_dataengineer/03_big_data/spark-sql.md"
+            },
+            {
+              "title": "Spark",
+              "href": "doc_replica_dataengineer/03_big_data/spark.md"
+            },
+            {
+              "title": "Yarn",
+              "href": "doc_replica_dataengineer/03_big_data/yarn.md"
+            }
+          ]
+        },
+        {
+          "title": "Streaming",
+          "contents": [
+            {
+              "title": "Flink",
+              "href": "doc_replica_dataengineer/04_streaming/flink.md"
+            },
+            {
+              "title": "Kafka",
+              "href": "doc_replica_dataengineer/04_streaming/kafka.md"
+            },
+            {
+              "title": "Kinesis",
+              "href": "doc_replica_dataengineer/04_streaming/kinesis.md"
+            },
+            {
+              "title": "Spark Streaming",
+              "href": "doc_replica_dataengineer/04_streaming/spark-streaming.md"
+            }
+          ]
+        },
+        {
+          "title": "Orchestration",
+          "contents": [
+            {
+              "title": "Airflow",
+              "href": "doc_replica_dataengineer/05_orchestration/airflow.md"
+            },
+            {
+              "title": "Dagster",
+              "href": "doc_replica_dataengineer/05_orchestration/dagster.md"
+            },
+            {
+              "title": "Prefect",
+              "href": "doc_replica_dataengineer/05_orchestration/prefect.md"
+            }
+          ]
+        },
+        {
+          "title": "Transformation",
+          "contents": [
+            {
+              "title": "Dbt",
+              "href": "doc_replica_dataengineer/06_transformation/dbt.md"
+            },
+            {
+              "title": "Great Expectations",
+              "href": "doc_replica_dataengineer/06_transformation/great_expectations.md"
+            }
+          ]
+        },
+        {
+          "title": "Data Lake",
+          "contents": [
+            {
+              "title": "Apache Hudi",
+              "href": "doc_replica_dataengineer/07_data_lake/apache-hudi.md"
+            },
+            {
+              "title": "Apache Iceberg",
+              "href": "doc_replica_dataengineer/07_data_lake/apache-iceberg.md"
+            },
+            {
+              "title": "Delta Lake",
+              "href": "doc_replica_dataengineer/07_data_lake/delta-lake.md"
+            }
+          ]
+        },
+        {
+          "title": "Query Engines",
+          "contents": [
+            {
+              "title": "Athena",
+              "href": "doc_replica_dataengineer/08_query_engines/athena.md"
+            },
+            {
+              "title": "Presto",
+              "href": "doc_replica_dataengineer/08_query_engines/presto.md"
+            },
+            {
+              "title": "Trino",
+              "href": "doc_replica_dataengineer/08_query_engines/trino.md"
+            }
+          ]
+        },
+        {
+          "title": "Cloud",
+          "contents": [
+            {
+              "title": "Aws",
+              "contents": [
+                {
+                  "title": "Amazon S3",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/amazon-s3.md"
+                },
+                {
+                  "title": "Athena",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/athena.md"
+                },
+                {
+                  "title": "Cloudwatch",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/cloudwatch.md"
+                },
+                {
+                  "title": "Emr",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/emr.md"
+                },
+                {
+                  "title": "Glue",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/glue.md"
+                },
+                {
+                  "title": "Iam",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/iam.md"
+                },
+                {
+                  "title": "Lambda",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/lambda.md"
+                },
+                {
+                  "title": "Redshift",
+                  "href": "doc_replica_dataengineer/09_cloud/aws/redshift.md"
+                }
+              ]
+            },
+            {
+              "title": "Azure",
+              "contents": [
+                {
+                  "title": "Data Factory",
+                  "href": "doc_replica_dataengineer/09_cloud/azure/data-factory.md"
+                },
+                {
+                  "title": "Synapse",
+                  "href": "doc_replica_dataengineer/09_cloud/azure/synapse.md"
+                }
+              ]
+            },
+            {
+              "title": "Gcp",
+              "contents": [
+                {
+                  "title": "Bigquery",
+                  "href": "doc_replica_dataengineer/09_cloud/gcp/bigquery.md"
+                },
+                {
+                  "title": "Cloud Storage",
+                  "href": "doc_replica_dataengineer/09_cloud/gcp/cloud-storage.md"
+                },
+                {
+                  "title": "Dataflow",
+                  "href": "doc_replica_dataengineer/09_cloud/gcp/dataflow.md"
+                },
+                {
+                  "title": "Dataproc",
+                  "href": "doc_replica_dataengineer/09_cloud/gcp/dataproc.md"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Data Modeling",
+          "contents": [
+            {
+              "title": "Bucketing",
+              "href": "doc_replica_dataengineer/10_data_modeling/bucketing.md"
+            },
+            {
+              "title": "Denormalization",
+              "href": "doc_replica_dataengineer/10_data_modeling/denormalization.md"
+            },
+            {
+              "title": "Normalization",
+              "href": "doc_replica_dataengineer/10_data_modeling/normalization.md"
+            },
+            {
+              "title": "Partitioning",
+              "href": "doc_replica_dataengineer/10_data_modeling/partitioning.md"
+            },
+            {
+              "title": "Snowflake Schema",
+              "href": "doc_replica_dataengineer/10_data_modeling/snowflake-schema.md"
+            },
+            {
+              "title": "Star Schema",
+              "href": "doc_replica_dataengineer/10_data_modeling/star-schema.md"
+            }
+          ]
+        },
+        {
+          "title": "Data Quality",
+          "contents": [
+            {
+              "title": "Monitoring",
+              "href": "doc_replica_dataengineer/11_data_quality/monitoring.md"
+            },
+            {
+              "title": "Profiling",
+              "href": "doc_replica_dataengineer/11_data_quality/profiling.md"
+            },
+            {
+              "title": "Testing",
+              "href": "doc_replica_dataengineer/11_data_quality/testing.md"
+            },
+            {
+              "title": "Validation",
+              "href": "doc_replica_dataengineer/11_data_quality/validation.md"
+            }
+          ]
+        },
+        {
+          "title": "Governance",
+          "contents": [
+            {
+              "title": "Catalog",
+              "href": "doc_replica_dataengineer/12_governance/catalog.md"
+            },
+            {
+              "title": "Gdpr",
+              "href": "doc_replica_dataengineer/12_governance/gdpr.md"
+            },
+            {
+              "title": "Lineage",
+              "href": "doc_replica_dataengineer/12_governance/lineage.md"
+            },
+            {
+              "title": "Metadata",
+              "href": "doc_replica_dataengineer/12_governance/metadata.md"
+            },
+            {
+              "title": "Privacy",
+              "href": "doc_replica_dataengineer/12_governance/privacy.md"
+            },
+            {
+              "title": "Rbac",
+              "href": "doc_replica_dataengineer/12_governance/rbac.md"
+            }
+          ]
+        },
+        {
+          "title": "Devops",
+          "contents": [
+            {
+              "title": "Ci Cd",
+              "href": "doc_replica_dataengineer/13_devops/ci-cd.md"
+            },
+            {
+              "title": "Github Actions",
+              "href": "doc_replica_dataengineer/13_devops/github-actions.md"
+            },
+            {
+              "title": "Helm",
+              "href": "doc_replica_dataengineer/13_devops/helm.md"
+            },
+            {
+              "title": "Terraform",
+              "href": "doc_replica_dataengineer/13_devops/terraform.md"
+            }
+          ]
+        },
+        {
+          "title": "Observability",
+          "contents": [
+            {
+              "title": "Grafana",
+              "href": "doc_replica_dataengineer/14_observability/grafana.md"
+            },
+            {
+              "title": "Logging",
+              "href": "doc_replica_dataengineer/14_observability/logging.md"
+            },
+            {
+              "title": "Metrics",
+              "href": "doc_replica_dataengineer/14_observability/metrics.md"
+            },
+            {
+              "title": "Prometheus",
+              "href": "doc_replica_dataengineer/14_observability/prometheus.md"
+            }
+          ]
+        },
+        {
+          "title": "Architecture",
+          "contents": [
+            {
+              "title": "Batch Processing",
+              "href": "doc_replica_dataengineer/15_architecture/batch-processing.md"
+            },
+            {
+              "title": "Kappa Architecture",
+              "href": "doc_replica_dataengineer/15_architecture/kappa-architecture.md"
+            },
+            {
+              "title": "Lakehouse Architecture",
+              "href": "doc_replica_dataengineer/15_architecture/lakehouse-architecture.md"
+            },
+            {
+              "title": "Lambda Architecture",
+              "href": "doc_replica_dataengineer/15_architecture/lambda-architecture.md"
+            },
+            {
+              "title": "Stream Processing",
+              "href": "doc_replica_dataengineer/15_architecture/stream-processing.md"
+            }
+          ]
+        },
+        {
+          "title": "System Design",
+          "contents": [
+            {
+              "title": "Batch Pipeline",
+              "href": "doc_replica_dataengineer/16_system_design/batch-pipeline.md"
+            },
+            {
+              "title": "Cdc",
+              "href": "doc_replica_dataengineer/16_system_design/cdc.md"
+            },
+            {
+              "title": "Event Driven",
+              "href": "doc_replica_dataengineer/16_system_design/event-driven.md"
+            },
+            {
+              "title": "Real Time Pipeline",
+              "href": "doc_replica_dataengineer/16_system_design/real-time-pipeline.md"
+            }
+          ]
+        },
+        {
+          "title": "Ai Data Engineering",
+          "contents": [
+            {
+              "title": "Embeddings",
+              "href": "doc_replica_dataengineer/17_ai_data_engineering/embeddings.md"
+            },
+            {
+              "title": "Feature Store",
+              "href": "doc_replica_dataengineer/17_ai_data_engineering/feature-store.md"
+            },
+            {
+              "title": "Ml Pipeline",
+              "href": "doc_replica_dataengineer/17_ai_data_engineering/ml-pipeline.md"
+            },
+            {
+              "title": "Rag Pipeline",
+              "href": "doc_replica_dataengineer/17_ai_data_engineering/rag-pipeline.md"
+            },
+            {
+              "title": "Vector Database",
+              "href": "doc_replica_dataengineer/17_ai_data_engineering/vector-database.md"
+            }
+          ]
+        },
+        {
+          "title": "Interview",
+          "contents": [
+            {
+              "title": "Advanced",
+              "href": "doc_replica_dataengineer/18_interview/advanced.md"
+            },
+            {
+              "title": "Beginner",
+              "href": "doc_replica_dataengineer/18_interview/beginner.md"
+            },
+            {
+              "title": "Intermediate",
+              "href": "doc_replica_dataengineer/18_interview/intermediate.md"
+            },
+            {
+              "title": "System Design",
+              "href": "doc_replica_dataengineer/18_interview/system-design.md"
+            }
+          ]
+        },
+        {
+          "title": "Projects",
+          "contents": [
+            {
+              "title": "Airflow Production Project",
+              "href": "doc_replica_dataengineer/19_projects/airflow-production-project.md"
+            },
+            {
+              "title": "Amazon Recommendation Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/amazon-recommendation-pipeline.md"
+            },
+            {
+              "title": "Banking Etl",
+              "href": "doc_replica_dataengineer/19_projects/banking-etl.md"
+            },
+            {
+              "title": "Cdc Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/cdc-pipeline.md"
+            },
+            {
+              "title": "Data Lake Project",
+              "href": "doc_replica_dataengineer/19_projects/data-lake-project.md"
+            },
+            {
+              "title": "Ecommerce Analytics",
+              "href": "doc_replica_dataengineer/19_projects/ecommerce-analytics.md"
+            },
+            {
+              "title": "End To End Data Engineering Project",
+              "href": "doc_replica_dataengineer/19_projects/end-to-end-data-engineering-project.md"
+            },
+            {
+              "title": "Fraud Detection Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/fraud-detection-pipeline.md"
+            },
+            {
+              "title": "Healthcare Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/healthcare-pipeline.md"
+            },
+            {
+              "title": "Iot Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/iot-pipeline.md"
+            },
+            {
+              "title": "Lakehouse Project",
+              "href": "doc_replica_dataengineer/19_projects/lakehouse-project.md"
+            },
+            {
+              "title": "Log Analytics Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/log-analytics-pipeline.md"
+            },
+            {
+              "title": "Netflix Data Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/netflix-data-pipeline.md"
+            },
+            {
+              "title": "Real Time Clickstream Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/real-time-clickstream-pipeline.md"
+            },
+            {
+              "title": "Social Media Analytics",
+              "href": "doc_replica_dataengineer/19_projects/social-media-analytics.md"
+            },
+            {
+              "title": "Stock Market Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/stock-market-pipeline.md"
+            },
+            {
+              "title": "Streaming Dashboard",
+              "href": "doc_replica_dataengineer/19_projects/streaming-dashboard.md"
+            },
+            {
+              "title": "Uber Event Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/uber-event-pipeline.md"
+            },
+            {
+              "title": "Video Analytics",
+              "href": "doc_replica_dataengineer/19_projects/video-analytics.md"
+            },
+            {
+              "title": "Weather Pipeline",
+              "href": "doc_replica_dataengineer/19_projects/weather-pipeline.md"
+            }
+          ]
+        },
+        {
+          "title": "Cheatsheets",
+          "contents": [
+            {
+              "title": "Airflow Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/airflow-cheatsheet.md"
+            },
+            {
+              "title": "Aws Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/aws-cheatsheet.md"
+            },
+            {
+              "title": "Docker Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/docker-cheatsheet.md"
+            },
+            {
+              "title": "Kafka Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/kafka-cheatsheet.md"
+            },
+            {
+              "title": "Linux Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/linux-cheatsheet.md"
+            },
+            {
+              "title": "Pyspark Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/pyspark-cheatsheet.md"
+            },
+            {
+              "title": "Sql Cheatsheet",
+              "href": "doc_replica_dataengineer/20_cheatsheets/sql-cheatsheet.md"
+            }
+          ]
+        },
+        {
+          "title": "Career Guide",
+          "contents": [
+            {
+              "title": "Career Path",
+              "href": "doc_replica_dataengineer/21_career_guide/career-path.md"
+            },
+            {
+              "title": "Certifications",
+              "href": "doc_replica_dataengineer/21_career_guide/certifications.md"
+            },
+            {
+              "title": "Interview Prep",
+              "href": "doc_replica_dataengineer/21_career_guide/interview-prep.md"
+            },
+            {
+              "title": "Portfolio",
+              "href": "doc_replica_dataengineer/21_career_guide/portfolio.md"
+            },
+            {
+              "title": "Production Checklist",
+              "href": "doc_replica_dataengineer/21_career_guide/production-checklist.md"
+            },
+            {
+              "title": "Study Plan",
+              "href": "doc_replica_dataengineer/21_career_guide/study-plan.md"
+            }
+          ]
+        }
+      ]
     },
     {
       "title": "AI/ML",
-      "href": "doc_replica_AI_ML/introduction.md"
+      "contents": [
+        {
+          "title": "AI & ML Introduction",
+          "href": "doc_replica_AI_ML/introduction.md"
+        },
+        {
+          "title": "Fundamentals",
+          "contents": [
+            {
+              "title": "Roadmap",
+              "href": "doc_replica_AI_ML/00_fundamentals/00-roadmap.md"
+            },
+            {
+              "title": "What Is Ai",
+              "href": "doc_replica_AI_ML/00_fundamentals/01-what-is-ai.md"
+            },
+            {
+              "title": "What Is Machine Learning",
+              "href": "doc_replica_AI_ML/00_fundamentals/02-what-is-machine-learning.md"
+            },
+            {
+              "title": "Ai Vs Ml Vs Deep Learning",
+              "href": "doc_replica_AI_ML/00_fundamentals/03-ai-vs-ml-vs-deep-learning.md"
+            },
+            {
+              "title": "Ai History",
+              "href": "doc_replica_AI_ML/00_fundamentals/04-ai-history.md"
+            },
+            {
+              "title": "Types Of Learning",
+              "href": "doc_replica_AI_ML/00_fundamentals/05-types-of-learning.md"
+            },
+            {
+              "title": "Machine Learning Workflow",
+              "href": "doc_replica_AI_ML/00_fundamentals/06-machine-learning-workflow.md"
+            },
+            {
+              "title": "Data Preprocessing",
+              "href": "doc_replica_AI_ML/00_fundamentals/07-data-preprocessing.md"
+            },
+            {
+              "title": "Feature Engineering",
+              "href": "doc_replica_AI_ML/00_fundamentals/08-feature-engineering.md"
+            },
+            {
+              "title": "Model Lifecycle",
+              "href": "doc_replica_AI_ML/00_fundamentals/09-model-lifecycle.md"
+            },
+            {
+              "title": "Math For Ai",
+              "href": "doc_replica_AI_ML/00_fundamentals/10-math-for-ai.md"
+            }
+          ]
+        },
+        {
+          "title": "Programming",
+          "contents": [
+            {
+              "title": "Python",
+              "href": "doc_replica_AI_ML/01_programming/python.md"
+            },
+            {
+              "title": "Numpy",
+              "href": "doc_replica_AI_ML/01_programming/numpy.md"
+            },
+            {
+              "title": "Pandas",
+              "href": "doc_replica_AI_ML/01_programming/pandas.md"
+            },
+            {
+              "title": "Matplotlib",
+              "href": "doc_replica_AI_ML/01_programming/matplotlib.md"
+            },
+            {
+              "title": "Seaborn",
+              "href": "doc_replica_AI_ML/01_programming/seaborn.md"
+            },
+            {
+              "title": "Scipy",
+              "href": "doc_replica_AI_ML/01_programming/scipy.md"
+            }
+          ]
+        },
+        {
+          "title": "Mathematics",
+          "contents": [
+            {
+              "title": "Linear Algebra",
+              "href": "doc_replica_AI_ML/02_mathematics/linear-algebra.md"
+            },
+            {
+              "title": "Statistics",
+              "href": "doc_replica_AI_ML/02_mathematics/statistics.md"
+            },
+            {
+              "title": "Probability",
+              "href": "doc_replica_AI_ML/02_mathematics/probability.md"
+            },
+            {
+              "title": "Calculus",
+              "href": "doc_replica_AI_ML/02_mathematics/calculus.md"
+            },
+            {
+              "title": "Optimization",
+              "href": "doc_replica_AI_ML/02_mathematics/optimization.md"
+            },
+            {
+              "title": "Information Theory",
+              "href": "doc_replica_AI_ML/02_mathematics/information-theory.md"
+            }
+          ]
+        },
+        {
+          "title": "Machine Learning",
+          "contents": [
+            {
+              "title": "Supervised Learning",
+              "href": "doc_replica_AI_ML/03_machine_learning/supervised-learning.md"
+            },
+            {
+              "title": "Unsupervised Learning",
+              "href": "doc_replica_AI_ML/03_machine_learning/unsupervised-learning.md"
+            },
+            {
+              "title": "Semi Supervised",
+              "href": "doc_replica_AI_ML/03_machine_learning/semi-supervised.md"
+            },
+            {
+              "title": "Reinforcement Learning",
+              "href": "doc_replica_AI_ML/03_machine_learning/reinforcement-learning.md"
+            },
+            {
+              "title": "Linear Regression",
+              "href": "doc_replica_AI_ML/03_machine_learning/linear-regression.md"
+            },
+            {
+              "title": "Logistic Regression",
+              "href": "doc_replica_AI_ML/03_machine_learning/logistic-regression.md"
+            },
+            {
+              "title": "Knn",
+              "href": "doc_replica_AI_ML/03_machine_learning/knn.md"
+            },
+            {
+              "title": "Naive Bayes",
+              "href": "doc_replica_AI_ML/03_machine_learning/naive-bayes.md"
+            },
+            {
+              "title": "Decision Tree",
+              "href": "doc_replica_AI_ML/03_machine_learning/decision-tree.md"
+            },
+            {
+              "title": "Random Forest",
+              "href": "doc_replica_AI_ML/03_machine_learning/random-forest.md"
+            },
+            {
+              "title": "Svm",
+              "href": "doc_replica_AI_ML/03_machine_learning/svm.md"
+            },
+            {
+              "title": "Kmeans",
+              "href": "doc_replica_AI_ML/03_machine_learning/kmeans.md"
+            },
+            {
+              "title": "Dbscan",
+              "href": "doc_replica_AI_ML/03_machine_learning/dbscan.md"
+            },
+            {
+              "title": "Pca",
+              "href": "doc_replica_AI_ML/03_machine_learning/pca.md"
+            },
+            {
+              "title": "Xgboost",
+              "href": "doc_replica_AI_ML/03_machine_learning/xgboost.md"
+            },
+            {
+              "title": "Lightgbm",
+              "href": "doc_replica_AI_ML/03_machine_learning/lightgbm.md"
+            },
+            {
+              "title": "Catboost",
+              "href": "doc_replica_AI_ML/03_machine_learning/catboost.md"
+            },
+            {
+              "title": "Model Evaluation",
+              "href": "doc_replica_AI_ML/03_machine_learning/model-evaluation.md"
+            },
+            {
+              "title": "Cross Validation",
+              "href": "doc_replica_AI_ML/03_machine_learning/cross-validation.md"
+            },
+            {
+              "title": "Hyperparameter Tuning",
+              "href": "doc_replica_AI_ML/03_machine_learning/hyperparameter-tuning.md"
+            }
+          ]
+        },
+        {
+          "title": "Deep Learning",
+          "contents": [
+            {
+              "title": "Neural Network",
+              "href": "doc_replica_AI_ML/04_deep_learning/neural-network.md"
+            },
+            {
+              "title": "Perceptron",
+              "href": "doc_replica_AI_ML/04_deep_learning/perceptron.md"
+            },
+            {
+              "title": "Activation Functions",
+              "href": "doc_replica_AI_ML/04_deep_learning/activation-functions.md"
+            },
+            {
+              "title": "Backpropagation",
+              "href": "doc_replica_AI_ML/04_deep_learning/backpropagation.md"
+            },
+            {
+              "title": "Gradient Descent",
+              "href": "doc_replica_AI_ML/04_deep_learning/gradient-descent.md"
+            },
+            {
+              "title": "Cnn",
+              "href": "doc_replica_AI_ML/04_deep_learning/cnn.md"
+            },
+            {
+              "title": "Rnn",
+              "href": "doc_replica_AI_ML/04_deep_learning/rnn.md"
+            },
+            {
+              "title": "Lstm",
+              "href": "doc_replica_AI_ML/04_deep_learning/lstm.md"
+            },
+            {
+              "title": "Gru",
+              "href": "doc_replica_AI_ML/04_deep_learning/gru.md"
+            },
+            {
+              "title": "Attention",
+              "href": "doc_replica_AI_ML/04_deep_learning/attention.md"
+            },
+            {
+              "title": "Transformers",
+              "href": "doc_replica_AI_ML/04_deep_learning/transformers.md"
+            },
+            {
+              "title": "Tensorflow",
+              "href": "doc_replica_AI_ML/04_deep_learning/tensorflow.md"
+            },
+            {
+              "title": "Keras",
+              "href": "doc_replica_AI_ML/04_deep_learning/keras.md"
+            },
+            {
+              "title": "Pytorch",
+              "href": "doc_replica_AI_ML/04_deep_learning/pytorch.md"
+            }
+          ]
+        },
+        {
+          "title": "Computer Vision",
+          "contents": [
+            {
+              "title": "Opencv",
+              "href": "doc_replica_AI_ML/05_computer_vision/opencv.md"
+            },
+            {
+              "title": "Image Classification",
+              "href": "doc_replica_AI_ML/05_computer_vision/image-classification.md"
+            },
+            {
+              "title": "Object Detection",
+              "href": "doc_replica_AI_ML/05_computer_vision/object-detection.md"
+            },
+            {
+              "title": "Image Segmentation",
+              "href": "doc_replica_AI_ML/05_computer_vision/image-segmentation.md"
+            },
+            {
+              "title": "Ocr",
+              "href": "doc_replica_AI_ML/05_computer_vision/ocr.md"
+            },
+            {
+              "title": "Face Recognition",
+              "href": "doc_replica_AI_ML/05_computer_vision/face-recognition.md"
+            },
+            {
+              "title": "Yolo",
+              "href": "doc_replica_AI_ML/05_computer_vision/yolo.md"
+            }
+          ]
+        },
+        {
+          "title": "Nlp",
+          "contents": [
+            {
+              "title": "Nlp Basics",
+              "href": "doc_replica_AI_ML/06_nlp/nlp-basics.md"
+            },
+            {
+              "title": "Text Preprocessing",
+              "href": "doc_replica_AI_ML/06_nlp/text-preprocessing.md"
+            },
+            {
+              "title": "Tokenization",
+              "href": "doc_replica_AI_ML/06_nlp/tokenization.md"
+            },
+            {
+              "title": "Word Embeddings",
+              "href": "doc_replica_AI_ML/06_nlp/word-embeddings.md"
+            },
+            {
+              "title": "Bert",
+              "href": "doc_replica_AI_ML/06_nlp/bert.md"
+            },
+            {
+              "title": "Gpt",
+              "href": "doc_replica_AI_ML/06_nlp/gpt.md"
+            },
+            {
+              "title": "T5",
+              "href": "doc_replica_AI_ML/06_nlp/t5.md"
+            },
+            {
+              "title": "Huggingface",
+              "href": "doc_replica_AI_ML/06_nlp/huggingface.md"
+            }
+          ]
+        },
+        {
+          "title": "Llm Engineering",
+          "contents": [
+            {
+              "title": "Llm Basics",
+              "href": "doc_replica_AI_ML/07_llm_engineering/llm-basics.md"
+            },
+            {
+              "title": "Prompt Engineering",
+              "href": "doc_replica_AI_ML/07_llm_engineering/prompt-engineering.md"
+            },
+            {
+              "title": "Rag",
+              "href": "doc_replica_AI_ML/07_llm_engineering/rag.md"
+            },
+            {
+              "title": "Embeddings",
+              "href": "doc_replica_AI_ML/07_llm_engineering/embeddings.md"
+            },
+            {
+              "title": "Chunking",
+              "href": "doc_replica_AI_ML/07_llm_engineering/chunking.md"
+            },
+            {
+              "title": "Retrieval",
+              "href": "doc_replica_AI_ML/07_llm_engineering/retrieval.md"
+            },
+            {
+              "title": "Reranking",
+              "href": "doc_replica_AI_ML/07_llm_engineering/reranking.md"
+            },
+            {
+              "title": "Evaluation",
+              "href": "doc_replica_AI_ML/07_llm_engineering/evaluation.md"
+            },
+            {
+              "title": "Langchain",
+              "href": "doc_replica_AI_ML/07_llm_engineering/langchain.md"
+            },
+            {
+              "title": "Llamaindex",
+              "href": "doc_replica_AI_ML/07_llm_engineering/llamaindex.md"
+            },
+            {
+              "title": "Openai",
+              "href": "doc_replica_AI_ML/07_llm_engineering/openai.md"
+            },
+            {
+              "title": "Amazon Bedrock",
+              "href": "doc_replica_AI_ML/07_llm_engineering/amazon-bedrock.md"
+            },
+            {
+              "title": "Anthropic",
+              "href": "doc_replica_AI_ML/07_llm_engineering/anthropic.md"
+            },
+            {
+              "title": "Vector Database",
+              "href": "doc_replica_AI_ML/07_llm_engineering/vector-database.md"
+            }
+          ]
+        },
+        {
+          "title": "Ai Databases",
+          "contents": [
+            {
+              "title": "Postgresql",
+              "href": "doc_replica_AI_ML/08_ai_databases/postgresql.md"
+            },
+            {
+              "title": "Mongodb",
+              "href": "doc_replica_AI_ML/08_ai_databases/mongodb.md"
+            },
+            {
+              "title": "Redis",
+              "href": "doc_replica_AI_ML/08_ai_databases/redis.md"
+            },
+            {
+              "title": "Elasticsearch",
+              "href": "doc_replica_AI_ML/08_ai_databases/elasticsearch.md"
+            },
+            {
+              "title": "Pinecone",
+              "href": "doc_replica_AI_ML/08_ai_databases/pinecone.md"
+            },
+            {
+              "title": "Weaviate",
+              "href": "doc_replica_AI_ML/08_ai_databases/weaviate.md"
+            },
+            {
+              "title": "Milvus",
+              "href": "doc_replica_AI_ML/08_ai_databases/milvus.md"
+            },
+            {
+              "title": "Chromadb",
+              "href": "doc_replica_AI_ML/08_ai_databases/chromadb.md"
+            },
+            {
+              "title": "Pgvector",
+              "href": "doc_replica_AI_ML/08_ai_databases/pgvector.md"
+            }
+          ]
+        },
+        {
+          "title": "Mlops",
+          "contents": [
+            {
+              "title": "Mlflow",
+              "href": "doc_replica_AI_ML/09_mlops/mlflow.md"
+            },
+            {
+              "title": "Kubeflow",
+              "href": "doc_replica_AI_ML/09_mlops/kubeflow.md"
+            },
+            {
+              "title": "Airflow",
+              "href": "doc_replica_AI_ML/09_mlops/airflow.md"
+            },
+            {
+              "title": "Docker",
+              "href": "doc_replica_AI_ML/09_mlops/docker.md"
+            },
+            {
+              "title": "Kubernetes",
+              "href": "doc_replica_AI_ML/09_mlops/kubernetes.md"
+            },
+            {
+              "title": "Model Serving",
+              "href": "doc_replica_AI_ML/09_mlops/model-serving.md"
+            },
+            {
+              "title": "Model Monitoring",
+              "href": "doc_replica_AI_ML/09_mlops/model-monitoring.md"
+            },
+            {
+              "title": "Feature Store",
+              "href": "doc_replica_AI_ML/09_mlops/feature-store.md"
+            }
+          ]
+        },
+        {
+          "title": "Cloud Ai",
+          "contents": [
+            {
+              "title": "Aws",
+              "contents": [
+                {
+                  "title": "Sagemaker",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/aws/sagemaker.md"
+                },
+                {
+                  "title": "Bedrock",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/aws/bedrock.md"
+                },
+                {
+                  "title": "Lambda",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/aws/lambda.md"
+                },
+                {
+                  "title": "S3",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/aws/s3.md"
+                },
+                {
+                  "title": "Cloudwatch",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/aws/cloudwatch.md"
+                }
+              ]
+            },
+            {
+              "title": "Azure",
+              "contents": [
+                {
+                  "title": "Azure Ml",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/azure/azure-ml.md"
+                }
+              ]
+            },
+            {
+              "title": "Gcp",
+              "contents": [
+                {
+                  "title": "Vertex Ai",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/gcp/vertex-ai.md"
+                },
+                {
+                  "title": "Bigquery Ml",
+                  "href": "doc_replica_AI_ML/10_cloud_ai/gcp/bigquery-ml.md"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Deployment",
+          "contents": [
+            {
+              "title": "Fastapi",
+              "href": "doc_replica_AI_ML/11_deployment/fastapi.md"
+            },
+            {
+              "title": "Flask",
+              "href": "doc_replica_AI_ML/11_deployment/flask.md"
+            },
+            {
+              "title": "Streamlit",
+              "href": "doc_replica_AI_ML/11_deployment/streamlit.md"
+            },
+            {
+              "title": "Gradio",
+              "href": "doc_replica_AI_ML/11_deployment/gradio.md"
+            },
+            {
+              "title": "Docker",
+              "href": "doc_replica_AI_ML/11_deployment/docker.md"
+            },
+            {
+              "title": "Nginx",
+              "href": "doc_replica_AI_ML/11_deployment/nginx.md"
+            },
+            {
+              "title": "Terraform",
+              "href": "doc_replica_AI_ML/11_deployment/terraform.md"
+            },
+            {
+              "title": "Github Actions",
+              "href": "doc_replica_AI_ML/11_deployment/github-actions.md"
+            }
+          ]
+        },
+        {
+          "title": "System Design",
+          "contents": [
+            {
+              "title": "Recommendation System",
+              "href": "doc_replica_AI_ML/12_system_design/recommendation-system.md"
+            },
+            {
+              "title": "Chatbot",
+              "href": "doc_replica_AI_ML/12_system_design/chatbot.md"
+            },
+            {
+              "title": "Fraud Detection",
+              "href": "doc_replica_AI_ML/12_system_design/fraud-detection.md"
+            },
+            {
+              "title": "Search Engine",
+              "href": "doc_replica_AI_ML/12_system_design/search-engine.md"
+            },
+            {
+              "title": "Voice Assistant",
+              "href": "doc_replica_AI_ML/12_system_design/voice-assistant.md"
+            },
+            {
+              "title": "Multi Agent System",
+              "href": "doc_replica_AI_ML/12_system_design/multi-agent-system.md"
+            },
+            {
+              "title": "Rag System",
+              "href": "doc_replica_AI_ML/12_system_design/rag-system.md"
+            },
+            {
+              "title": "Llm System Design",
+              "href": "doc_replica_AI_ML/12_system_design/llm-system-design.md"
+            }
+          ]
+        },
+        {
+          "title": "Responsible Ai",
+          "contents": [
+            {
+              "title": "Bias",
+              "href": "doc_replica_AI_ML/13_responsible_ai/bias.md"
+            },
+            {
+              "title": "Fairness",
+              "href": "doc_replica_AI_ML/13_responsible_ai/fairness.md"
+            },
+            {
+              "title": "Privacy",
+              "href": "doc_replica_AI_ML/13_responsible_ai/privacy.md"
+            },
+            {
+              "title": "Security",
+              "href": "doc_replica_AI_ML/13_responsible_ai/security.md"
+            },
+            {
+              "title": "Ethics",
+              "href": "doc_replica_AI_ML/13_responsible_ai/ethics.md"
+            },
+            {
+              "title": "Hallucination",
+              "href": "doc_replica_AI_ML/13_responsible_ai/hallucination.md"
+            },
+            {
+              "title": "Guardrails",
+              "href": "doc_replica_AI_ML/13_responsible_ai/guardrails.md"
+            }
+          ]
+        },
+        {
+          "title": "Ai Observability",
+          "contents": [
+            {
+              "title": "Logging",
+              "href": "doc_replica_AI_ML/14_ai_observability/logging.md"
+            },
+            {
+              "title": "Evaluation",
+              "href": "doc_replica_AI_ML/14_ai_observability/evaluation.md"
+            },
+            {
+              "title": "Prompt Monitoring",
+              "href": "doc_replica_AI_ML/14_ai_observability/prompt-monitoring.md"
+            },
+            {
+              "title": "Latency",
+              "href": "doc_replica_AI_ML/14_ai_observability/latency.md"
+            },
+            {
+              "title": "Cost Optimization",
+              "href": "doc_replica_AI_ML/14_ai_observability/cost-optimization.md"
+            }
+          ]
+        },
+        {
+          "title": "Interview",
+          "contents": [
+            {
+              "title": "Beginner",
+              "href": "doc_replica_AI_ML/15_interview/beginner.md"
+            },
+            {
+              "title": "Intermediate",
+              "href": "doc_replica_AI_ML/15_interview/intermediate.md"
+            },
+            {
+              "title": "Advanced",
+              "href": "doc_replica_AI_ML/15_interview/advanced.md"
+            },
+            {
+              "title": "Llm Interview",
+              "href": "doc_replica_AI_ML/15_interview/llm-interview.md"
+            },
+            {
+              "title": "System Design",
+              "href": "doc_replica_AI_ML/15_interview/system-design.md"
+            }
+          ]
+        },
+        {
+          "title": "Projects",
+          "contents": [
+            {
+              "title": "Spam Detection",
+              "href": "doc_replica_AI_ML/16_projects/spam-detection.md"
+            },
+            {
+              "title": "Movie Recommendation",
+              "href": "doc_replica_AI_ML/16_projects/movie-recommendation.md"
+            },
+            {
+              "title": "House Price Prediction",
+              "href": "doc_replica_AI_ML/16_projects/house-price-prediction.md"
+            },
+            {
+              "title": "Customer Churn",
+              "href": "doc_replica_AI_ML/16_projects/customer-churn.md"
+            },
+            {
+              "title": "Fraud Detection",
+              "href": "doc_replica_AI_ML/16_projects/fraud-detection.md"
+            },
+            {
+              "title": "Stock Prediction",
+              "href": "doc_replica_AI_ML/16_projects/stock-prediction.md"
+            },
+            {
+              "title": "Medical Diagnosis",
+              "href": "doc_replica_AI_ML/16_projects/medical-diagnosis.md"
+            },
+            {
+              "title": "Face Recognition",
+              "href": "doc_replica_AI_ML/16_projects/face-recognition.md"
+            },
+            {
+              "title": "Ocr System",
+              "href": "doc_replica_AI_ML/16_projects/ocr-system.md"
+            },
+            {
+              "title": "Object Detection",
+              "href": "doc_replica_AI_ML/16_projects/object-detection.md"
+            },
+            {
+              "title": "Chatbot",
+              "href": "doc_replica_AI_ML/16_projects/chatbot.md"
+            },
+            {
+              "title": "Ai Assistant",
+              "href": "doc_replica_AI_ML/16_projects/ai-assistant.md"
+            },
+            {
+              "title": "Rag Application",
+              "href": "doc_replica_AI_ML/16_projects/rag-application.md"
+            },
+            {
+              "title": "Enterprise Search",
+              "href": "doc_replica_AI_ML/16_projects/enterprise-search.md"
+            },
+            {
+              "title": "Resume Screening",
+              "href": "doc_replica_AI_ML/16_projects/resume-screening.md"
+            },
+            {
+              "title": "Sentiment Analysis",
+              "href": "doc_replica_AI_ML/16_projects/sentiment-analysis.md"
+            },
+            {
+              "title": "Document Qa",
+              "href": "doc_replica_AI_ML/16_projects/document-qa.md"
+            },
+            {
+              "title": "Voice Assistant",
+              "href": "doc_replica_AI_ML/16_projects/voice-assistant.md"
+            },
+            {
+              "title": "Image Captioning",
+              "href": "doc_replica_AI_ML/16_projects/image-captioning.md"
+            },
+            {
+              "title": "Llm Chat Application",
+              "href": "doc_replica_AI_ML/16_projects/llm-chat-application.md"
+            },
+            {
+              "title": "Multi Agent Ai System",
+              "href": "doc_replica_AI_ML/16_projects/multi-agent-ai-system.md"
+            },
+            {
+              "title": "Autonomous Research Agent",
+              "href": "doc_replica_AI_ML/16_projects/autonomous-research-agent.md"
+            },
+            {
+              "title": "Code Generation Assistant",
+              "href": "doc_replica_AI_ML/16_projects/code-generation-assistant.md"
+            },
+            {
+              "title": "Medical Ai",
+              "href": "doc_replica_AI_ML/16_projects/medical-ai.md"
+            },
+            {
+              "title": "Financial Ai",
+              "href": "doc_replica_AI_ML/16_projects/financial-ai.md"
+            }
+          ]
+        },
+        {
+          "title": "Cheatsheets",
+          "contents": [
+            {
+              "title": "Python",
+              "href": "doc_replica_AI_ML/17_cheatsheets/python.md"
+            },
+            {
+              "title": "Numpy",
+              "href": "doc_replica_AI_ML/17_cheatsheets/numpy.md"
+            },
+            {
+              "title": "Pandas",
+              "href": "doc_replica_AI_ML/17_cheatsheets/pandas.md"
+            },
+            {
+              "title": "Scikit Learn",
+              "href": "doc_replica_AI_ML/17_cheatsheets/scikit-learn.md"
+            },
+            {
+              "title": "Tensorflow",
+              "href": "doc_replica_AI_ML/17_cheatsheets/tensorflow.md"
+            },
+            {
+              "title": "Pytorch",
+              "href": "doc_replica_AI_ML/17_cheatsheets/pytorch.md"
+            },
+            {
+              "title": "Huggingface",
+              "href": "doc_replica_AI_ML/17_cheatsheets/huggingface.md"
+            },
+            {
+              "title": "Langchain",
+              "href": "doc_replica_AI_ML/17_cheatsheets/langchain.md"
+            },
+            {
+              "title": "Fastapi",
+              "href": "doc_replica_AI_ML/17_cheatsheets/fastapi.md"
+            },
+            {
+              "title": "Docker",
+              "href": "doc_replica_AI_ML/17_cheatsheets/docker.md"
+            },
+            {
+              "title": "Git",
+              "href": "doc_replica_AI_ML/17_cheatsheets/git.md"
+            },
+            {
+              "title": "Linux",
+              "href": "doc_replica_AI_ML/17_cheatsheets/linux.md"
+            },
+            {
+              "title": "Sql",
+              "href": "doc_replica_AI_ML/17_cheatsheets/sql.md"
+            }
+          ]
+        },
+        {
+          "title": "Career Guide",
+          "contents": [
+            {
+              "title": "Ai Engineer",
+              "href": "doc_replica_AI_ML/18_career_guide/ai-engineer.md"
+            },
+            {
+              "title": "Ml Engineer",
+              "href": "doc_replica_AI_ML/18_career_guide/ml-engineer.md"
+            },
+            {
+              "title": "Llm Engineer",
+              "href": "doc_replica_AI_ML/18_career_guide/llm-engineer.md"
+            },
+            {
+              "title": "Ai Architect",
+              "href": "doc_replica_AI_ML/18_career_guide/ai-architect.md"
+            },
+            {
+              "title": "Learning Roadmap",
+              "href": "doc_replica_AI_ML/18_career_guide/learning-roadmap.md"
+            },
+            {
+              "title": "Day Plan",
+              "href": "doc_replica_AI_ML/18_career_guide/90-day-plan.md"
+            },
+            {
+              "title": "Day Plan",
+              "href": "doc_replica_AI_ML/18_career_guide/180-day-plan.md"
+            },
+            {
+              "title": "Year Plan",
+              "href": "doc_replica_AI_ML/18_career_guide/1-year-plan.md"
+            },
+            {
+              "title": "Resume Guide",
+              "href": "doc_replica_AI_ML/18_career_guide/resume-guide.md"
+            },
+            {
+              "title": "Github Portfolio",
+              "href": "doc_replica_AI_ML/18_career_guide/github-portfolio.md"
+            },
+            {
+              "title": "Kaggle Guide",
+              "href": "doc_replica_AI_ML/18_career_guide/kaggle-guide.md"
+            },
+            {
+              "title": "Linkedin Optimization",
+              "href": "doc_replica_AI_ML/18_career_guide/linkedin-optimization.md"
+            },
+            {
+              "title": "Aws Certifications",
+              "href": "doc_replica_AI_ML/18_career_guide/aws-certifications.md"
+            },
+            {
+              "title": "Azure Certifications",
+              "href": "doc_replica_AI_ML/18_career_guide/azure-certifications.md"
+            },
+            {
+              "title": "Google Certifications",
+              "href": "doc_replica_AI_ML/18_career_guide/google-certifications.md"
+            },
+            {
+              "title": "Interview Prep",
+              "href": "doc_replica_AI_ML/18_career_guide/interview-prep.md"
+            },
+            {
+              "title": "Salary Guide",
+              "href": "doc_replica_AI_ML/18_career_guide/salary-guide.md"
+            },
+            {
+              "title": "Freelancing",
+              "href": "doc_replica_AI_ML/18_career_guide/freelancing.md"
+            },
+            {
+              "title": "Remote Jobs",
+              "href": "doc_replica_AI_ML/18_career_guide/remote-jobs.md"
+            },
+            {
+              "title": "Open Source Contribution",
+              "href": "doc_replica_AI_ML/18_career_guide/open-source-contribution.md"
+            },
+            {
+              "title": "Final Ai Engineer Checklist",
+              "href": "doc_replica_AI_ML/18_career_guide/final-ai-engineer-checklist.md"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

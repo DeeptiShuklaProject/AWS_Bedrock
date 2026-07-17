@@ -54,15 +54,33 @@ elif score >= 80:
 else:
     grade = "C"
 
-# For loops (iterating over collections)
+# For loop iterating over a range
 for i in range(3):
     print(f"Iteration {i}")
 
-# While loops
+# For loop iterating over a list
+frameworks = ["FastAPI", "Django", "Flask"]
+for framework in frameworks:
+    print(f"Web Framework: {framework}")
+
+# For loop iterating over dictionary key-value pairs
+user_roles = {"alice": "Admin", "bob": "Developer"}
+for user, role in user_roles.items():
+    print(f"User: {user}, Role: {role}")
+
+# While loop
 count = 3
 while count > 0:
     print(f"Countdown: {count}")
     count -= 1
+
+# Loop with an else block (unique Python feature)
+# The else block executes only if the loop completes normally (without encountering break)
+for num in range(3):
+    if num == 5:
+        break
+else:
+    print("Loop finished successfully without encountering break.")
 ```
 
 ### 1.4 Functions & Argument Passing

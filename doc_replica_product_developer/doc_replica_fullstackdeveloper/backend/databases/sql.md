@@ -102,3 +102,230 @@ CREATE INDEX idx_items_name_desc ON items(name, description);
 
 > [!TIP]
 > Do not over-index. While indices accelerate `SELECT` queries, they degrade `INSERT`, `UPDATE`, and `DELETE` execution times because the database must update the index structure for every modification.
+
+---
+
+## 4. Connecting and Querying in Backend Code
+
+To interact with SQL databases in backend development, applications use database drivers and pools to connect, perform CRUD operations, and manage transactions.
+
+### 4.1 PostgreSQL Integration
+
+#### Python (using `psycopg2`)
+```python
+import psycopg2
+
+# 1. Establish the connection
+connection = psycopg2.connect(
+    host="localhost",
+    database="mydb",
+    user="postgres",
+    password="mysecretpassword",
+    port=5432
+)
+
+try:
+    with connection.cursor() as cursor:
+        # Create table
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                email VARCHAR(100) UNIQUE NOT NULL
+            );
+        """)
+        
+        # INSERT Query (using %s placeholder to prevent SQL Injection)
+        cursor.execute(
+            "INSERT INTO users (name, email) VALUES (%s, %s) RETURNING id;",
+            ("Alice", "alice@example.com")
+        )
+        user_id = cursor.fetchone()[0]
+        print(f"Inserted Postgres User ID: {user_id}")
+        
+        # SELECT Query
+        cursor.execute("SELECT id, name, email FROM users;")
+        for row in cursor.fetchall():
+            print(f"ID: {row[0]}, Name: {row[1]}, Email: {row[2]}")
+            
+        connection.commit()  # Commit transaction
+except Exception as e:
+    connection.rollback()  # Rollback transaction on failure
+    print("Database error:", e)
+finally:
+    connection.close()  # Clean up resource
+```
+
+#### Node.js (using `pg` Pool)
+```javascript
+const { Pool } = require('pg');
+
+// Create connection pool
+const pool = new Pool({
+  host: 'localhost',
+  database: 'mydb',
+  user: 'postgres',
+  password: 'mysecretpassword',
+  port: 5432,
+  max: 20 // Max concurrent client connections
+});
+
+async function runPostgres() {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN'); // Start transaction
+
+    // INSERT Query
+    const insertRes = await client.query(
+      'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING id;',
+      ['Bob', 'bob@example.com']
+    );
+    console.log(`Inserted Node User ID: ${insertRes.rows[0].id}`);
+
+    // SELECT Query
+    const selectRes = await client.query('SELECT * FROM users;');
+    console.log('All Users:', selectRes.rows);
+
+    await client.query('COMMIT');
+  } catch (error) {
+    await client.query('ROLLBACK');
+    console.error('Transaction failed:', error.stack);
+  } finally {
+    client.release(); // Return client back to the pool
+  }
+}
+```
+
+### 4.2 MySQL Integration
+
+#### Python (using `mysql-connector-python`)
+```python
+import mysql.connector
+
+# Connect to MySQL Server
+connection = mysql.connector.connect(
+    host="localhost",
+    database="mydb",
+    user="root",
+    password="mysecretpassword"
+)
+
+try:
+    cursor = connection.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            email VARCHAR(100) UNIQUE NOT NULL
+        );
+    """)
+    
+    # Parameterized INSERT
+    cursor.execute(
+        "INSERT INTO users (name, email) VALUES (%s, %s);",
+        ("Charlie", "charlie@example.com")
+    )
+    connection.commit()
+    print(f"Inserted MySQL User ID: {cursor.lastrowid}")
+    
+    # SELECT query execution
+    cursor.execute("SELECT id, name, email FROM users;")
+    for (user_id, name, email) in cursor:
+        print(f"ID: {user_id}, Name: {name}, Email: {email}")
+except Exception as e:
+    print("MySQL Error:", e)
+finally:
+    connection.close()
+```
+
+#### Node.js (using `mysql2/promise`)
+```javascript
+const mysql = require('mysql2/promise');
+
+async function runMySQL() {
+  const connection = await mysql.createConnection({
+    host: 'localhost',
+    database: 'mydb',
+    user: 'root',
+    password: 'mysecretpassword'
+  });
+
+  try {
+    // Parameterized INSERT
+    const [result] = await connection.execute(
+      'INSERT INTO users (name, email) VALUES (?, ?);',
+      ['David', 'david@example.com']
+    );
+    console.log(`Inserted MySQL User ID: ${result.insertId}`);
+
+    // SELECT Query
+    const [rows] = await connection.query('SELECT * FROM users;');
+    console.log('Users:', rows);
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await connection.end();
+  }
+}
+```
+
+### 4.3 SQLite Integration (Serverless Local Database)
+
+#### Python (using standard library `sqlite3`)
+```python
+import sqlite3
+
+# Connect to a local database file (created automatically if missing)
+connection = sqlite3.connect("app_local.db")
+
+try:
+    cursor = connection.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL
+        );
+    """)
+    
+    # Parameterized INSERT (uses ? symbol in SQLite)
+    cursor.execute(
+        "INSERT INTO users (name, email) VALUES (?, ?);",
+        ("Eve", "eve@example.com")
+    )
+    connection.commit()
+    print(f"Inserted SQLite User ID: {cursor.lastrowid}")
+    
+    # SELECT query
+    cursor.execute("SELECT * FROM users;")
+    print(cursor.fetchall())
+except Exception as e:
+    print("SQLite Error:", e)
+finally:
+    connection.close()
+```
+
+#### Node.js (using `sqlite3`)
+```javascript
+const sqlite3 = require('sqlite3').verbose();
+
+// Open standard SQLite database in system memory
+const db = new sqlite3.Database(':memory:');
+
+db.serialize(() => {
+  db.run("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT)");
+
+  // Prepare and execute statement
+  const stmt = db.prepare("INSERT INTO users (name) VALUES (?)");
+  stmt.run("Frank");
+  stmt.finalize();
+
+  // Query database rows
+  db.all("SELECT id, name FROM users", (err, rows) => {
+    if (err) throw err;
+    console.log('SQLite Memory Users:', rows);
+  });
+});
+
+db.close();
+```

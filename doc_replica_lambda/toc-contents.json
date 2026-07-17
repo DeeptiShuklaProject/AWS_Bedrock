@@ -1,16 +1,8 @@
 {
   "contents": [
     {
-      "title": "What is AWS Lambda?",
-      "href": "welcome.html"
-    },
-    {
       "title": "AWS Lambda Course",
       "href": "lambda.html"
-    },
-    {
-      "title": "Agent setup guide",
-      "href": "agent-setup-guide.html"
     },
     {
       "title": "Functions",
@@ -1937,14 +1929,6 @@
           ]
         }
       ]
-    },
-    {
-      "title": "Lambda quotas",
-      "href": "gettingstarted-limits.html"
-    },
-    {
-      "title": "Document history",
-      "href": "lambda-releases.html"
     }
   ]
 }

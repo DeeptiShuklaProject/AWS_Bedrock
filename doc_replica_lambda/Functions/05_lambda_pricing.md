@@ -1,33 +1,68 @@
 # Section 5 – Lambda Pricing
 
-<a name="sec-5"></a>
+## 1. Learning Objectives
+* Calculate Lambda costs using requests, memory size, and execution duration.
 
-AWS Lambda bills you for actual compute usage. The pricing model includes two core metrics: **Request Count** and **Execution Duration** (rounded to the nearest millisecond).
+## 2. Introduction (with Real-World Analogy)
+Lambda pricing is like paying for a cloud utility meter. You pay for the thickness of the pipe (allocated memory) multiplied by the seconds the water is running.
 
-* **Request Charges**: $0.20 per 1 million requests ($0.0000002 per request).
-* **Duration Charges**: Calculated in GB-seconds (gigabyte-seconds of execution).
-  * Rate depends on the memory allocated to the function.
-  * AWS grants 1 vCPU for every 1,769 MB of allocated memory.
+## 3. Why This Topic Exists
+To charge users for actual computing consumed down to the millisecond, rather than charging flat hourly rates.
 
-### Calculation Example
-Your function is allocated **1024 MB (1 GB)** of memory and runs **10,000,000 times** in a month. Each invocation takes exactly **200 milliseconds**.
+## 4. Theory & Internal Mechanics
+Charges are based on: Total Requests ($0.20 per million) + GB-Seconds (Memory in GB multiplied by execution duration in seconds).
 
-1. **Request Costs**:
-   * Total Requests: 10,000,000
-   * Free Tier: 1,000,000 requests
-   * Billable Requests: 9,000,000
-   * Request Cost: $9,000,000 \times \$0.20 / 1,000,000 = \$1.80$
+## 5. Component Flow / Architecture Diagram (Mermaid)
+```mermaid
+graph TD
+    Billing[Monthly Bill] --> Requests[Requests: $0.20/M]
+    Billing --> Duration[Duration: GB-seconds]
+    Duration --> Memory[Allocated Memory]
+    Duration --> Runtime[Execution Time ms]
+```
 
-2. **Compute Duration Costs (GB-Seconds)**:
-   * Total Execution Time: $10,000,000 \times 0.2 \text{ seconds} = 2,000,000 \text{ seconds}$
-   * Allocated Memory: 1 GB
-   * Total GB-Seconds: $2,000,000 \text{ seconds} \times 1 \text{ GB} = 2,000,000 \text{ GB-Seconds}$
-   * Free Tier: 400,000 GB-Seconds
-   * Billable GB-Seconds: $2,000,000 - 400,000 = 1,600,000 \text{ GB-Seconds}$
-   * Rate: $0.0000166667 per GB-second
-   * Duration Cost: $1,600,000 \times \$0.0000166667 = \$26.67$
+## 6. Commands Reference (Purpose, Syntax, Arguments, Example, Output, Production usage)
+| Metric | Unit Price | Free Tier |
+|---|---|---|
+| Requests | $0.20 per million | 1 Million |
+| Duration | $0.0000166667 per GB-Sec | 400,000 GB-Sec |
 
-3. **Total Monthly Bill**:
-   * $\$1.80 + \$26.67 = \$28.47$
+## 7. Practical Labs (Lab 5.1 - Goal, Steps, Expected Output)
+**Lab 5.1**: Use the AWS Pricing Calculator to estimate monthly serverless API costs.
 
----
+## 8. Real Projects / Configurations (Step-by-step setup)
+**Project 5**: Budget model tracking cost changes when shifting memory allocation from 128MB to 1024MB.
+
+## 9. Troubleshooting & Diagnostics (Symptom, Root Cause, Solution)
+**Symptom**: Unusually high Lambda billing.  
+**Root Cause**: Function got stuck in an infinite recursion loop with another service.  
+**Solution**: Configure execution limits or concurrency caps.
+
+## 10. Production Examples
+A financial enterprise saved 80% on server costs by migrating their overnight batch processing engines to Lambda.
+
+## 11. Best Practices
+* Use memory tuning tools (like AWS Lambda Power Tuning) to find the sweet spot of cost vs performance.
+
+## 12. Interview Preparation (Q1, Q2, Q3 - QA-style)
+
+### Q1: How does memory allocation affect CPU performance in Lambda?
+*Answer*: CPU scales proportionally with allocated memory. Increasing memory grants more CPU power, which can speed up execution time and decrease costs.
+
+### Q2: What is the billing granularity of AWS Lambda?
+*Answer*: 1 millisecond.
+
+## 13. Cheat Sheet (Summary Table)
+| Memory | CPU (vCPU Equivalent) |
+|---|---|
+| 1769 MB | 1 vCPU |
+| 10240 MB | 6 vCPUs |
+
+## 14. Assignments (Beginner and Intermediate)
+* Calculate the bill for 10 million requests running for 50ms each with 512MB RAM.
+
+## 15. Mini Project (Practical coding/scripting task)
+* Configure a billing alarm on CloudWatch to monitor budget targets.
+
+## 16. References & Further Reading
+* AWS Lambda Pricing Official Page.

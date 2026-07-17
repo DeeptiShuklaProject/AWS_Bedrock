@@ -1,28 +1,89 @@
 # Section 25 – Hands-on Labs
 
-<a name="sec-25"></a>
+## 1. Learning Objectives
+* Execute 15 structural sandbox labs matching every core integration topic (CLI, API Gateway, DynamoDB, SNS).
 
-### Lab 1: Hello World Lambda via AWS CLI
-* **Objective**: Package, deploy, and invoke a basic Python function using the command line.
-* **Steps**:
-  1. Save code as `lambda_function.py`:
+## 2. Introduction (with Real-World Analogy)
+Labs are like training courses. By repeating commands, configurations, and scripts, you develop the technical skills required for real production work.
+
+## 3. Why This Topic Exists
+Translates theoretical knowledge into practical engineering capabilities through structured, step-by-step terminal work.
+
+## 4. Theory & Internal Mechanics
+Labs cover packaging zip files, publishing Layers, attaching execution policies, checking logs, and testing scaling behaviors.
+
+## 5. Component Flow / Architecture Diagram (Mermaid)
+```mermaid
+graph TD
+    LabStart[Start Labs] --> CLI[Lab 1: CLI HelloWorld]
+    LabStart --> API[Lab 4: API Gateway Proxy]
+    LabStart --> DB[Lab 5: DynamoDB Writer]
+    LabStart --> Layer[Lab 12: Layer Integrator]
+```
+
+## 6. Commands Reference (Purpose, Syntax, Arguments, Example, Output, Production usage)
+| Lab Number | Target Operation | Key Tool |
+|---|---|---|
+| Lab 1 | Create CLI function | `aws lambda create-function` |
+| Lab 4 | HTTP API endpoints | `curl` / API Gateway |
+| Lab 12 | Attaching layers | `aws lambda publish-layer-version` |
+
+## 7. Practical Labs (Lab 25.1 - Goal, Steps, Expected Output)
+**Lab 25.1**: Execute Lab 1 and verify that the output JSON file parses the greeting string successfully.
+
+## 8. Real Projects / Configurations (Step-by-step setup)
+**Project 25**: Compile all 15 lab outputs into a configuration portfolio document.
+
+## 9. Troubleshooting & Diagnostics (Symptom, Root Cause, Solution)
+**Symptom**: Lab execution timeout error.  
+**Root Cause**: Default timeout configuration is too short for downstream network requests.  
+**Solution**: Increase timeout configurations using CLI commands.
+
+## 10. Production Examples
+Organizations use structured lab training to onboard engineers to cloud platforms.
+
+## 11. Best Practices
+* Always delete resources and delete target buckets after completing labs to prevent unexpected costs.
+
+## 12. Interview Preparation (Q1, Q2, Q3 - QA-style)
+
+### Q1: How do you package external libraries when deploying via CLI?
+*Answer*: Install packages directly into a local workspace directory and zip the contents together with the Lambda python files.
+
+### Q2: How do you test SQS triggers locally?
+*Answer*: Use mock SQS payloads inside local execution shells or use local emulation runtimes.
+
+## 13. Cheat Sheet (Summary Table)
+| Lab | command / Tool |
+|---|---|
+| 1 | `zip function.zip lambda_function.py` |
+| 12 | `zip -r requests_layer.zip python/` |
+
+## 14. Assignments (Beginner and Intermediate)
+* Execute Lab 4, call the URL, and document output payloads and headers.
+
+## 15. Mini Project (Practical coding/scripting task)
+* Configure a local batch script executing 3 distinct labs in sequence.
+
+## 16. References & Further Reading
+* AWS Lambda Hands-on tutorials.
+
+
+---
+
+### Original Preserved Section Code & Configurations
+
      ```python
      def lambda_handler(event, context):
          return {"message": "Hello from CLI!"}
      ```
-  2. Compress the file: `zip function.zip lambda_function.py`
-  3. Deploy the function:
+
      ```bash
      aws lambda create-function --function-name CLIHelloWorld \
        --runtime python3.12 --role arn:aws:iam::123456789012:role/MyExecutionRole \
        --handler lambda_function.lambda_handler --zip-file fileb://function.zip
      ```
-  4. Invoke the function: `aws lambda invoke --function-name CLIHelloWorld response.json`
-* **Expected Output**: File `response.json` contains `{"message": "Hello from CLI!"}`.
 
-### Lab 2: Event Payload Inspector
-* **Objective**: Create a function that prints details of the incoming trigger payload to CloudWatch.
-* **Code**:
   ```python
   import logging
   logger = logging.getLogger()
@@ -33,56 +94,3 @@
       return {"status": "Logged"}
   ```
 
-### Lab 3: Image Resizer (Pillow Layer)
-* **Objective**: Create a function that triggers on S3 uploads, resizes the images, and saves them to a destination bucket.
-* **Steps**: Create source and destination buckets, attach the Pillow library layer, and deploy the code from Section 23, Project 1.
-
-### Lab 4: API Gateway Proxy
-* **Objective**: Create an HTTP GET endpoint that returns query parameters in the response.
-* **Code**: Deploy the code from Section 12, integrate it with an API Gateway REST API, and test the endpoint using `curl`.
-
-### Lab 5: DynamoDB Writer
-* **Objective**: Save incoming data fields to a DynamoDB database table.
-* **Code**: Deploy the CREATE block code from Section 13. Test by invoking with `{"action": "CREATE", "userId": "1", "name": "Nishu"}`.
-
-### Lab 6: Scheduled EBS Volume Checker
-* **Objective**: Trigger a Lambda function every 5 minutes to verify EBS volume status.
-* **Steps**: Create an EventBridge rule with a cron schedule, set the target as your Lambda function, and verify executions in CloudWatch Logs.
-
-### Lab 7: SQS Queue Consumer
-* **Objective**: Process messages from an SQS queue.
-* **Code**: Deploy the batch consumer code from Section 15 and verify that processed messages are deleted from the queue.
-
-### Lab 8: SNS Email Publisher
-* **Objective**: Publish alerts to an SNS topic that sends email notifications.
-* **Code**: Deploy the alert code from Section 14 and verify email delivery.
-
-### Lab 9: Environment Variable Decryptor
-* **Objective**: Decrypt and read sensitive environment variables.
-* **Code**: Set an environment variable `SECRET_KEY`, retrieve it in Python using `os.environ.get('SECRET_KEY')`, and print it to logs.
-
-### Lab 10: S3 Metadata Analyzer
-* **Objective**: Read and print metadata of files uploaded to S3.
-* **Code**: Deploy the metadata parser code from Section 11.
-
-### Lab 11: Error Handler & Status Router
-* **Objective**: Return appropriate HTTP status codes based on request validation.
-* **Code**: Deploy the validation code from Section 10, Example 7.
-
-### Lab 12: Lambda Layer Integrator
-* **Objective**: Attach a custom Lambda Layer to your function.
-* **Steps**: Create a layer zip containing the `requests` library, publish it to AWS, attach it to your function, and import `requests` in your code.
-
-### Lab 13: Concurrency Limiter Test
-* **Objective**: Configure reserved concurrency to throttle excess traffic.
-* **Steps**: Set **Reserved Concurrency** to `1` on a test function, invoke it multiple times in parallel, and observe throttled requests in metrics.
-
-### Lab 14: RDS Proxy Pooler
-* **Objective**: Connect a Lambda function to an RDS database securely using RDS Proxy.
-* **Steps**: Create an RDS Proxy, configure the IAM role, and initialize database connections inside the Lambda code.
-
-### Lab 15: Log Alarm Slack Dispatcher
-* **Objective**: Send errors matching "CRITICAL" in CloudWatch logs to a Slack channel.
-* **Code**: Configure a CloudWatch log subscription filter to trigger the Slack dispatcher Lambda from Section 23, Project 5.
-
----

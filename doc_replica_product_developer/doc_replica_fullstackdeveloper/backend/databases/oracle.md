@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Oracle Database. Since Oracle Database i
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Oracle Database. Since Oracle D
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Oracle Database. Since Oracle Database i
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Oracle Database. Since Oracle Datab
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Oracle Database. Since Oracle Database is 
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Oracle Database. Since Oracle Database is a re
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -128,8 +142,10 @@ SELECT * FROM users WHERE status = 'active';
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -146,8 +162,10 @@ SELECT * FROM users WHERE status = 'active';
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Oracle Database. Since Oracle Database is a rel
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Oracle Database. Since Oracle Database is a
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Oracle Database. Since Oracle Database is a r
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Oracle Database. Since Oracle Database is a rel
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Oracle Database. Since Oracle Datab
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Oracle Database. Since Oracle Database i
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Oracle Database. Since Oracle Database is a rel
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Oracle Database. Since Oracl
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Oracle Database. Since Oracle Database is
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Oracle Database. Since Oracle Datab
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Oracle Database. Since Oracle Database is a 
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Oracle Database. Since Oracle Databa
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Oracle Database. Since Oracle Database is 
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Oracle Database. Since Oracle Database
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Oracle Database')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Oracle Database')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Oracle Database')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Oracle Database. Since Oracle
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Oracle Database. Since Oracle Database 
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Oracle Database. Since Oracle Dat
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Oracle Database. Since Oracle Database is
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Oracle Database. Since Oracle Datab
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Inspect tablespace storage capacity usage status
+SELECT tablespace_name, used_space, tablespace_size FROM dba_tablespace_usage_metrics;
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Oracle Database. Since Oracle Data
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Check System Global Area (SGA) and Program Program Global Area (PGA) memory allocation stats
+SELECT name, value FROM v$parameter WHERE name IN ('sga_max_size', 'pga_aggregate_target');
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Oracle Database. Since Oracle Database is 
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Query current instance status, database role, and read-write mode
+SELECT status, database_role, open_mode FROM v$database;
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Oracle Database. Since Oracle Database 
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Oracle Database.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Oracle Database in production.
+```sql
+-- Find active sessions consuming high resources in production
+SELECT sid, serial#, status, username, schemaname FROM v$session WHERE status = 'ACTIVE';
+```
 
 ---
 

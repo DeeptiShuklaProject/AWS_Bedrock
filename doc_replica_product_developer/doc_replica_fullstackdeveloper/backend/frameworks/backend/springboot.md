@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Clear the build cache and compile the project
+./mvnw clean compile
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run checkstyle to verify code formatting
+./mvnw checkstyle:check
+```
 
 ---
 
@@ -70,11 +76,14 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Spring Boot.
-
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following curl command to download a bootstrapped Spring Boot web application:
+```bash
+# Use Spring Initializr CLI to scaffold a new project (Maven / Java 21)
+curl https://start.spring.io/starter.zip -d dependencies=web -d javaVersion=21 -o myspringapp.zip
+unzip myspringapp.zip -d myspringapp
+cd myspringapp
+```
 
 ---
 
@@ -95,8 +104,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Show dependency hierarchy tree
+./mvnw dependency:tree
+```
 
 ---
 
@@ -112,11 +123,12 @@ Here is a simple starting snippet:
 System.out.println("Hello from Spring Boot");
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Spring Boot.
-
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command using the Maven Wrapper to run the Spring Boot project:
+```bash
+# Run the Spring Boot application using Maven Wrapper
+./mvnw spring-boot:run
+```
 
 ---
 
@@ -130,8 +142,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# For Gradle: clean and test the project
+./gradlew clean test
+```
 
 ---
 
@@ -145,8 +159,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
@@ -160,8 +176,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Clear the build cache and compile the project
+./mvnw clean compile
+```
 
 ---
 
@@ -175,8 +193,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run checkstyle to verify code formatting
+./mvnw checkstyle:check
+```
 
 ---
 
@@ -190,8 +210,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Show dependency hierarchy tree
+./mvnw dependency:tree
+```
 
 ---
 
@@ -205,8 +227,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# For Gradle: clean and test the project
+./gradlew clean test
+```
 
 ---
 
@@ -220,8 +244,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
@@ -235,8 +261,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Clear the build cache and compile the project
+./mvnw clean compile
+```
 
 ---
 
@@ -250,8 +278,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run checkstyle to verify code formatting
+./mvnw checkstyle:check
+```
 
 ---
 
@@ -265,8 +295,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Show dependency hierarchy tree
+./mvnw dependency:tree
+```
 
 ---
 
@@ -280,8 +312,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# For Gradle: clean and test the project
+./gradlew clean test
+```
 
 ---
 
@@ -295,8 +329,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
@@ -310,8 +346,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Clear the build cache and compile the project
+./mvnw clean compile
+```
 
 ---
 
@@ -325,8 +363,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run checkstyle to verify code formatting
+./mvnw checkstyle:check
+```
 
 ---
 
@@ -340,8 +380,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Show dependency hierarchy tree
+./mvnw dependency:tree
+```
 
 ---
 
@@ -355,8 +397,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# For Gradle: clean and test the project
+./gradlew clean test
+```
 
 ---
 
@@ -370,8 +414,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
@@ -385,8 +431,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Clear the build cache and compile the project
+./mvnw clean compile
+```
 
 ---
 
@@ -407,8 +455,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run checkstyle to verify code formatting
+./mvnw checkstyle:check
+```
 
 ---
 
@@ -422,8 +472,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Show dependency hierarchy tree
+./mvnw dependency:tree
+```
 
 ---
 
@@ -437,8 +489,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# For Gradle: clean and test the project
+./gradlew clean test
+```
 
 ---
 
@@ -452,8 +506,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
@@ -467,8 +523,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Clear the build cache and compile the project
+./mvnw clean compile
+```
 
 ---
 
@@ -482,8 +540,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run checkstyle to verify code formatting
+./mvnw checkstyle:check
+```
 
 ---
 
@@ -497,8 +557,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Show dependency hierarchy tree
+./mvnw dependency:tree
+```
 
 ---
 
@@ -512,8 +574,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# For Gradle: clean and test the project
+./gradlew clean test
+```
 
 ---
 
@@ -527,8 +591,27 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Spring Boot.
 
-> [!NOTE]
-> Always refer to the official Spring Boot configuration guide for the latest security guidelines.
+```bash
+# Run all Spring Boot unit tests
+./mvnw test
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Use Spring Initializr CLI to scaffold a new project (Maven / Java 21)
+curl https://start.spring.io/starter.zip -d dependencies=web -d javaVersion=21 -o myspringapp.zip
+unzip myspringapp.zip -d myspringapp
+cd myspringapp
+```
+
+### Running the Application
+```bash
+# Run the Spring Boot application using Maven Wrapper
+./mvnw spring-boot:run
+```

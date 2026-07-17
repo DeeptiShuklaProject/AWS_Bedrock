@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Microsoft SQL Server. Since Microsoft SQ
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Microsoft SQL Server. Since Mic
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Microsoft SQL Server. Since Microsoft SQ
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Microsoft SQL Server. Since Microso
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Microsoft SQL Server. Since Microsoft SQL 
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Microsoft SQL Server. Since Microsoft SQL Serv
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -128,8 +142,10 @@ SELECT * FROM users WHERE status = 'active';
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -146,8 +162,10 @@ SELECT * FROM users WHERE status = 'active';
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Microsoft SQL Server. Since Microsoft SQL Serve
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Microsoft SQL Server. Since Microsoft SQL S
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Microsoft SQL Server. Since Microsoft SQL Ser
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Microsoft SQL Server. Since Microsoft SQL Serve
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Microsoft SQL Server. Since Microso
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Microsoft SQL Server. Since Microsoft SQ
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Microsoft SQL Server. Since Microsoft SQL Serve
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Microsoft SQL Server. Since 
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Microsoft SQL Server. Since Microsoft SQL
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Microsoft SQL Server. Since Microso
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Microsoft SQL Server. Since Microsoft SQL Se
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Microsoft SQL Server. Since Microsof
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Microsoft SQL Server. Since Microsoft SQL 
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Microsoft SQL Server. Since Microsoft 
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Microsoft SQL Server')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Microsoft SQL Server')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Microsoft SQL Server')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Microsoft SQL Server. Since M
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Microsoft SQL Server. Since Microsoft S
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Microsoft SQL Server. Since Micro
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Microsoft SQL Server. Since Microsoft SQL
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Microsoft SQL Server. Since Microso
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Execute full SQL database backup to local path
+BACKUP DATABASE prod_db TO DISK = 'C:\backups\prod_db.bak';
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Microsoft SQL Server. Since Micros
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Check recovery model type configured for each database
+SELECT name, recovery_model_desc FROM sys.databases;
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Microsoft SQL Server. Since Microsoft SQL 
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Run system stored procedure to diagnose blocking queries and lock trees
+EXEC sp_who2;
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Microsoft SQL Server. Since Microsoft S
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Microsoft SQL Server.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Microsoft SQL Server in production.
+```sql
+-- Retrieve SQL Server edition and service pack level details
+SELECT @@VERSION;
+```
 
 ---
 

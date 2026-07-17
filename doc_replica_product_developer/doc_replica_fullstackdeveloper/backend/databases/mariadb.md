@@ -12,8 +12,10 @@ Detailed explanation of Introduction in MariaDB. Since MariaDB is a relational d
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in MariaDB. Since MariaDB is a rel
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in MariaDB. Since MariaDB is a relational d
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in MariaDB. Since MariaDB is a relatio
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in MariaDB. Since MariaDB is a relational dat
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in MariaDB. Since MariaDB is a relational databas
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -128,8 +142,10 @@ SELECT * FROM users WHERE status = 'active';
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -146,8 +162,10 @@ SELECT * FROM users WHERE status = 'active';
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in MariaDB. Since MariaDB is a relational database
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in MariaDB. Since MariaDB is a relational data
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in MariaDB. Since MariaDB is a relational databa
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in MariaDB. Since MariaDB is a relational database
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in MariaDB. Since MariaDB is a relatio
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in MariaDB. Since MariaDB is a relational d
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in MariaDB. Since MariaDB is a relational database
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in MariaDB. Since MariaDB is a 
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in MariaDB. Since MariaDB is a relational da
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in MariaDB. Since MariaDB is a relatio
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in MariaDB. Since MariaDB is a relational datab
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in MariaDB. Since MariaDB is a relation
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in MariaDB. Since MariaDB is a relational dat
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in MariaDB. Since MariaDB is a relational
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to MariaDB')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to MariaDB')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to MariaDB')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in MariaDB. Since MariaDB is a r
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in MariaDB. Since MariaDB is a relational 
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in MariaDB. Since MariaDB is a relat
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in MariaDB. Since MariaDB is a relational da
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in MariaDB. Since MariaDB is a relatio
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Export MariaDB schema and data structure using mariadb-dump
+mariadb-dump -u root -p prod_db > backup.sql
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in MariaDB. Since MariaDB is a relati
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Query peak concurrent connections used since server startup
+SHOW STATUS LIKE 'Max_used_connections';
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in MariaDB. Since MariaDB is a relational dat
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```bash
+# Ping MariaDB server to check current online availability
+mariadb-admin ping
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in MariaDB. Since MariaDB is a relational 
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in MariaDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MariaDB in production.
+```sql
+-- Inspect thread pool configurations and usage
+SHOW VARIABLES LIKE 'thread_handling';
+```
 
 ---
 

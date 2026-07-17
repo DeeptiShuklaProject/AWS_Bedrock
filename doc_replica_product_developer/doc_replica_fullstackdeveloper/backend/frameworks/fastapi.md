@@ -55,3 +55,36 @@ def create_new_item(payload: ItemCreate, db: dict = Depends(get_database)):
 ## 3. Core Characteristics
 * **Asynchronous execution**: Natively runs `async/await` handler functions, utilizing Python's event loop to support thousands of parallel connections.
 * **Auto Docs**: Generates interactive Swagger UI documentation automatically from Pydantic schemas.
+
+---
+
+## 4. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Create project folder and navigate in
+mkdir myfastapiapp && cd myfastapiapp
+
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install FastAPI and Uvicorn server
+pip install fastapi "uvicorn[standard]"
+```
+
+### Running the Application
+```bash
+# Start the FastAPI server using Uvicorn with hot-reload enabled
+uvicorn main:app --reload
+```
+
+### Dependency Management
+```bash
+# Freeze project dependencies to requirements.txt
+pip freeze > requirements.txt
+
+# Install dependencies from requirements.txt
+pip install -r requirements.txt
+```
+

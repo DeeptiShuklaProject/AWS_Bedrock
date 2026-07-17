@@ -60,3 +60,35 @@ app.listen(3000, () => console.log('Server running on port 3000'));
 ## 3. Core Characteristics
 * **Unopinionated**: Does not enforce any specific architecture, folder layout, database ORM, or validation library. Developers are free to choose their own setups.
 * **Highly Modular**: Relies on third-party middleware packages (like `cors`, `morgan`, `helmet`) to configure routing, authentication, and security headers.
+
+---
+
+## 4. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Create project folder and navigate in
+mkdir myexpressapp && cd myexpressapp
+
+# Initialize a package.json file
+npm init -y
+
+# Install Express.js dependency
+npm install express
+```
+
+### Running the Application
+```bash
+# Start the Express.js server
+node app.js
+
+# Run using nodemon (development server with hot reload)
+npx nodemon app.js
+```
+
+### Installing Middleware Dependencies
+```bash
+# Install common Express middleware
+npm install cors dotenv helmet morgan
+```
+

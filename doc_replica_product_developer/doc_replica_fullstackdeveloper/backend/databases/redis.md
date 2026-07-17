@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Redis. Since Redis is a keyvalue databas
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Redis. Since Redis is a keyvalu
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Redis. Since Redis is a keyvalue databas
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Redis. Since Redis is a keyvalue da
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Redis. Since Redis is a keyvalue database,
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Redis. Since Redis is a keyvalue database, it 
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -128,8 +142,10 @@ GET user:100:status
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -146,8 +162,10 @@ GET user:100:status
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Redis. Since Redis is a keyvalue database, it p
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Redis. Since Redis is a keyvalue database, 
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Redis. Since Redis is a keyvalue database, it
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Redis. Since Redis is a keyvalue database, it p
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Redis. Since Redis is a keyvalue da
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Redis. Since Redis is a keyvalue databas
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Redis. Since Redis is a keyvalue database, it p
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Redis. Since Redis is a keyv
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Redis. Since Redis is a keyvalue database
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Redis. Since Redis is a keyvalue da
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Redis. Since Redis is a keyvalue database, i
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Redis. Since Redis is a keyvalue dat
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Redis. Since Redis is a keyvalue database,
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Redis. Since Redis is a keyvalue datab
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Redis')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Redis')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Redis')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Redis. Since Redis is a keyva
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Redis. Since Redis is a keyvalue databa
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Redis. Since Redis is a keyvalue 
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Redis. Since Redis is a keyvalue database
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Redis. Since Redis is a keyvalue da
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Measure network and execution latency metrics
+redis-cli --latency
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Redis. Since Redis is a keyvalue d
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check Redis memory footprint and peak utilization statistics
+redis-cli INFO memory
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Redis. Since Redis is a keyvalue database,
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Check primary-secondary replication status and replication buffer state
+redis-cli INFO replication
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Redis. Since Redis is a keyvalue databa
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Redis.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Redis in production.
+```bash
+# Monitor command execution stream in real-time
+redis-cli MONITOR
+```
 
 ---
 

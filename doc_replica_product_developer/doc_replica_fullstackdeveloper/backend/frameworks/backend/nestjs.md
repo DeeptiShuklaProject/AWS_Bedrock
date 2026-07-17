@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run unit tests
+npm run test
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run End-to-End tests
+npm run test:e2e
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Format code with Prettier
+npm run format
+```
 
 ---
 
@@ -70,11 +76,14 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in NestJS.
-
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following NestJS CLI commands to create a new application:
+```bash
+# Install NestJS CLI globally and scaffold a new project
+npm i -g @nestjs/cli
+nest new mynestapp
+cd mynestapp
+```
 
 ---
 
@@ -95,8 +104,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Generate a new controller using CLI
+nest generate controller items
+```
 
 ---
 
@@ -112,11 +123,12 @@ Here is a simple starting snippet:
 console.log('Hello from NestJS');
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in NestJS.
-
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the NestJS development server in watch mode:
+```bash
+# Start the NestJS development server in watch mode
+npm run start:dev
+```
 
 ---
 
@@ -130,8 +142,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Build the application for production
+npm run build
+```
 
 ---
 
@@ -145,8 +159,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Lint code with ESLint
+npm run lint
+```
 
 ---
 
@@ -160,8 +176,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run unit tests
+npm run test
+```
 
 ---
 
@@ -175,8 +193,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run End-to-End tests
+npm run test:e2e
+```
 
 ---
 
@@ -190,8 +210,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Format code with Prettier
+npm run format
+```
 
 ---
 
@@ -205,8 +227,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Generate a new controller using CLI
+nest generate controller items
+```
 
 ---
 
@@ -220,8 +244,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Build the application for production
+npm run build
+```
 
 ---
 
@@ -235,8 +261,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Lint code with ESLint
+npm run lint
+```
 
 ---
 
@@ -250,8 +278,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run unit tests
+npm run test
+```
 
 ---
 
@@ -265,8 +295,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run End-to-End tests
+npm run test:e2e
+```
 
 ---
 
@@ -280,8 +312,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Format code with Prettier
+npm run format
+```
 
 ---
 
@@ -295,8 +329,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Generate a new controller using CLI
+nest generate controller items
+```
 
 ---
 
@@ -310,8 +346,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Build the application for production
+npm run build
+```
 
 ---
 
@@ -325,8 +363,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Lint code with ESLint
+npm run lint
+```
 
 ---
 
@@ -340,8 +380,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run unit tests
+npm run test
+```
 
 ---
 
@@ -355,8 +397,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run End-to-End tests
+npm run test:e2e
+```
 
 ---
 
@@ -370,8 +414,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Format code with Prettier
+npm run format
+```
 
 ---
 
@@ -385,8 +431,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Generate a new controller using CLI
+nest generate controller items
+```
 
 ---
 
@@ -407,8 +455,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Build the application for production
+npm run build
+```
 
 ---
 
@@ -422,8 +472,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Lint code with ESLint
+npm run lint
+```
 
 ---
 
@@ -437,8 +489,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run unit tests
+npm run test
+```
 
 ---
 
@@ -452,8 +506,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run End-to-End tests
+npm run test:e2e
+```
 
 ---
 
@@ -467,8 +523,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Format code with Prettier
+npm run format
+```
 
 ---
 
@@ -482,8 +540,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Generate a new controller using CLI
+nest generate controller items
+```
 
 ---
 
@@ -497,8 +557,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Build the application for production
+npm run build
+```
 
 ---
 
@@ -512,8 +574,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Lint code with ESLint
+npm run lint
+```
 
 ---
 
@@ -527,8 +591,27 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in NestJS.
 
-> [!NOTE]
-> Always refer to the official NestJS configuration guide for the latest security guidelines.
+```bash
+# Run unit tests
+npm run test
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Install NestJS CLI globally and scaffold a new project
+npm i -g @nestjs/cli
+nest new mynestapp
+cd mynestapp
+```
+
+### Running the Application
+```bash
+# Start the NestJS development server in watch mode
+npm run start:dev
+```

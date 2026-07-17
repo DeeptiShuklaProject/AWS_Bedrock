@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Elasticsearch / OpenSearch. Since Elasti
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Elasticsearch / OpenSearch. Sin
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Elasticsearch / OpenSearch. Since Elasti
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Elasticsearch / OpenSearch. Since E
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Elasticsearch / OpenSearch. Since Elastics
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Elasticsearch / OpenSearch. Since Elasticsearc
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -128,8 +142,10 @@ GET /users/_search?q=status:active
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -146,8 +162,10 @@ GET /users/_search?q=status:active
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Elasticsearch / OpenSearch. Since Elasticsearch
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Elasticsearch / OpenSearch. Since Elasticse
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Elasticsearch / OpenSearch. Since Elasticsear
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Elasticsearch / OpenSearch. Since Elasticsearch
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Elasticsearch / OpenSearch. Since E
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Elasticsearch / OpenSearch. Since Elasti
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Elasticsearch / OpenSearch. Since Elasticsearch
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Elasticsearch / OpenSearch. 
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Elasticsearch / OpenSearch. Since Elastic
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Elasticsearch / OpenSearch. Since E
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Elasticsearch / OpenSearch. Since Elasticsea
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Elasticsearch / OpenSearch. Since El
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Elasticsearch / OpenSearch. Since Elastics
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Elasticsearch / OpenSearch. Since Elas
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Elasticsearch / OpenSearch')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Elasticsearch / OpenSearch')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Elasticsearch / OpenSearch')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Elasticsearch / OpenSearch. S
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Elasticsearch / OpenSearch. Since Elast
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Elasticsearch / OpenSearch. Since
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Elasticsearch / OpenSearch. Since Elastic
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Elasticsearch / OpenSearch. Since E
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Trigger manual index refresh to flush buffer memory
+curl -X POST "localhost:9200/my-index/_refresh"
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Elasticsearch / OpenSearch. Since 
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Query Elasticsearch cluster health state and active shards count
+curl -X GET "localhost:9200/_cluster/health?pretty"
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Elasticsearch / OpenSearch. Since Elastics
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# Check JVM heap memory utilization metrics and garbage collection
+curl -X GET "localhost:9200/_nodes/stats/jvm?pretty"
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Elasticsearch / OpenSearch. Since Elast
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Elasticsearch / OpenSearch.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Elasticsearch / OpenSearch in production.
+```bash
+# List all indices with storage sizing and documents count
+curl -X GET "localhost:9200/_cat/indices?v"
+```
 
 ---
 

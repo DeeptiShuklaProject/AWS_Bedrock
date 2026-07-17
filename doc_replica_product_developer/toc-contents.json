@@ -212,35 +212,35 @@
               "contents": [
                 {
                   "title": "FastAPI Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/fastapi.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/fastapi.md"
                 },
                 {
                   "title": "Django Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/django.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/django.md"
                 },
                 {
                   "title": "Express.js Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/express.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/express.md"
                 },
                 {
                   "title": "Spring Boot Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/springboot.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/springboot.md"
                 },
                 {
                   "title": "Laravel Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/laravel.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/laravel.md"
                 },
                 {
                   "title": "ASP.NET Core Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/aspnet-core.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/aspnet-core.md"
                 },
                 {
                   "title": "Flask Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/flask.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/flask.md"
                 },
                 {
                   "title": "NestJS Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/backend/nestjs.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/backend/nestjs.md"
                 }
               ]
             },
@@ -249,27 +249,27 @@
               "contents": [
                 {
                   "title": "React Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/react.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/frontend/react.md"
                 },
                 {
                   "title": "Angular Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/angular.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/frontend/angular.md"
                 },
                 {
                   "title": "Vue.js Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/vue.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/frontend/vue.md"
                 },
                 {
                   "title": "Next.js Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/nextjs.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/frontend/nextjs.md"
                 },
                 {
                   "title": "Nuxt.js Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/nuxt.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/frontend/nuxt.md"
                 },
                 {
                   "title": "SvelteKit Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/frontend/sveltekit.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/frontend/sveltekit.md"
                 }
               ]
             },
@@ -278,15 +278,15 @@
               "contents": [
                 {
                   "title": "Flutter Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/mobile/flutter.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/mobile/flutter.md"
                 },
                 {
                   "title": "React Native Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/mobile/react-native.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/mobile/react-native.md"
                 },
                 {
                   "title": "Kotlin Multiplatform Master Guide",
-                  "href": "doc_replica_fullstackdeveloper/frameworks/mobile/kotlin-multiplatform.md"
+                  "href": "doc_replica_fullstackdeveloper/backend/frameworks/mobile/kotlin-multiplatform.md"
                 }
               ]
             }

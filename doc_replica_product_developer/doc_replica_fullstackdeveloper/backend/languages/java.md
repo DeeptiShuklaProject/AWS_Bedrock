@@ -48,6 +48,13 @@ public class FundamentalsDemo {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`public class FundamentalsDemo`**: Declares a public class named `FundamentalsDemo`, which acts as the blueprint of the program.
+- **`public static void main(String[] args)`**: The main entry point of the Java application, executed by the JVM.
+- **`int primitiveVar = 42;`**: Declares a primitive integer variable allocated directly on the thread stack.
+- **`String referenceVar = "Java Guide";`**: Declares a reference type variable storing the heap memory address of a `String` object.
+
 ### 1.2 Operators
 *   **Arithmetic**: `+`, `-`, `*`, `/`, `%` (modulo).
 *   **Comparison**: `==`, `!=`, `>`, `<`, `>=`, `<=`.
@@ -99,6 +106,14 @@ public class ControlFlowDemo {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`if (score >= 90) / else if (score >= 80)`**: Branches execution flow conditionally based on integer comparisons.
+- **`for (int i = 0; i < 3; i++)`**: A traditional three-component counter loop executing the block three times.
+- **`for (String tech : technologies)`**: An enhanced for-each loop iterating through each string in the array.
+- **`while (countdown > 0)`**: Executes the statement block repeatedly as long as the condition evaluates to `true`.
+- **`do { ... } while (attempts < 1);`**: A do-while loop executing the code block at least once before evaluating the condition.
+
 ### 1.4 Methods & Method Overloading
 A method is a block of code that runs only when it is called. Java supports **Method Overloading**, which allows multiple methods to share the same name but with different parameter signatures.
 
@@ -120,6 +135,12 @@ public class Calculator {
     }
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`public int add(int a, int b)`**: Declares a method that adds two integers.
+- **`public int add(int a, int b, int c)`**: Overloads the method by changing the number of parameter arguments.
+- **`public double add(double a, double b)`**: Overloads the method by changing the parameter data types.
 
 ---
 
@@ -160,6 +181,12 @@ public class OuterConfig {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`private String secretKey = "ENC_XYZ";`**: Declares a private string field hidden from external classes.
+- **`public static class DatabaseConfig`**: Defines a static nested class that can be instantiated independently of the outer class.
+- **`public class Decryptor`**: Defines an inner class that maintains an implicit reference to an instance of `OuterConfig`, allowing direct access to its private fields.
+
 ### 2.3 Interface Contracts vs. Abstract Classes
 *   **Abstract Class**: Can contain instance state, variables, and constructors. Supports single inheritance.
 *   **Interface**: Represents a structural contract. Supports multiple inheritance, default methods, static methods, and private helpers.
@@ -182,6 +209,12 @@ public interface PaymentGateway {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`void processPayment(double amount);`**: An abstract method inside the interface contract that implementing classes must override.
+- **`default void refundPayment(double amount)`**: Implements a default method with executable logic that is shared by all classes implementing the interface.
+- **`private void logTransaction(String type, double amount)`**: Declares a private helper method inside the interface to share common utility logic internally.
+
 ### 2.4 Exception Handling (Checked vs Unchecked)
 *   **Checked Exceptions**: Checked at compile-time (e.g., `IOException`). Must be caught or declared in the method signature.
 *   **Unchecked Exceptions**: Occur at runtime (e.g., `NullPointerException`). Inherit from `RuntimeException`.
@@ -197,6 +230,12 @@ public class ExceptionDemo {
     }
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`throws java.io.IOException`**: Declares that the method may throw a checked `IOException`, forcing callers to catch or declare it.
+- **`throw new IllegalArgumentException(...)`**: Throws an unchecked runtime exception to validate method input parameters.
+- **`Files.readAllLines(...)`**: Reads file lines, potentially throwing a checked `IOException` if file operations fail.
 
 ---
 
@@ -232,6 +271,13 @@ public class StreamsDemo {
     }
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`items.stream()`**: Converts the list into a functional sequential stream of elements.
+- **`.filter(name -> name.startsWith("M"))`**: An intermediate operation filtering elements matching a predicate lambda condition.
+- **`.map(String::toUpperCase)`**: Transforms elements using a method reference.
+- **`.collect(Collectors.toList())`**: A terminal operation collecting stream outputs back into a list.
 
 ---
 
@@ -280,6 +326,11 @@ public class ThreadingDemo {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`Executors.newVirtualThreadPerTaskExecutor()`**: Creates an executor service that spawns a lightweight JVM-managed virtual thread for each task.
+- **`executor.submit(...)`**: Submits a runnable task to be executed asynchronously inside a virtual thread.
+
 ### 4.3 Generics
 Generics enforce compile-time type-safety for reusable classes and methods.
 
@@ -292,6 +343,10 @@ public class Box<T> {
     public T get() { return value; }
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`public class Box<T>`**: Declares a generic class using the type parameter `T` to enforce compile-time type-safety for elements.
 
 ### 4.4 Modern Language Features (Java 16/17+)
 *   **Records (Java 16+)**: Immutable data classes containing default getters, constructors, `toString()`, `hashCode()`, and `equals()`.
@@ -307,6 +362,12 @@ public sealed interface Webhook permits StripeWebhook, PaypalWebhook {}
 public final class StripeWebhook implements Webhook {}
 public final class PaypalWebhook implements Webhook {}
 ```
+
+### Line-by-Line Code Explanation
+
+- **`public record UserResponse(...)`**: Declares an immutable data record class containing compiler-generated constructor, getters, `equals()`, `hashCode()`, and `toString()`.
+- **`public sealed interface Webhook permits ...`**: Restricts implementation of the `Webhook` interface strictly to specified classes (`StripeWebhook`, `PaypalWebhook`).
+- **`public final class StripeWebhook`**: Declares a terminal implementation class that cannot be further extended.
 
 ---
 
@@ -358,3 +419,12 @@ class UserService {
     }
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`@SpringBootApplication`**: Bootstraps component scanning, auto-configuration, and property loading.
+- **`SpringApplication.run(...)`**: Starts the internal Spring container engine.
+- **`@RestController` / `@RequestMapping`**: Declares a web router controller mapping requests starting with `/api/v1`.
+- **`public UserController(UserService userService)`**: Resolves dependency injection through constructor wiring.
+- **`@GetMapping("/users/{id}")`**: Maps GET requests containing path variables to the handler method.
+- **`@Service`**: Registers the business service component in Spring's ApplicationContext.

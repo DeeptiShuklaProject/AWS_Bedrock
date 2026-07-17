@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run code linting
+ng lint
+```
 
 ---
 
@@ -49,8 +53,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Build the project for production deployment
+ng build --configuration production
+```
 
 ---
 
@@ -69,11 +75,14 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Angular.
-
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following command to install the Angular CLI and scaffold a new project:
+```bash
+# Install Angular CLI globally and create a new project
+npm install -g @angular/cli
+ng new myangularapp
+cd myangularapp
+```
 
 ---
 
@@ -93,8 +102,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new component using Angular CLI
+ng generate component components/item-list
+```
 
 ---
 
@@ -110,11 +121,12 @@ Here is a simple starting snippet:
 console.log('Hello from Angular');
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Angular.
-
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to run the Angular development server:
+```bash
+# Start the Angular development server and open in browser
+ng serve --open
+```
 
 ---
 
@@ -128,8 +140,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new service
+ng generate service services/api
+```
 
 ---
 
@@ -143,8 +157,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
@@ -158,8 +174,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run code linting
+ng lint
+```
 
 ---
 
@@ -173,8 +191,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Build the project for production deployment
+ng build --configuration production
+```
 
 ---
 
@@ -188,8 +208,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new component using Angular CLI
+ng generate component components/item-list
+```
 
 ---
 
@@ -203,8 +225,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new service
+ng generate service services/api
+```
 
 ---
 
@@ -218,8 +242,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
@@ -233,8 +259,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run code linting
+ng lint
+```
 
 ---
 
@@ -248,8 +276,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Build the project for production deployment
+ng build --configuration production
+```
 
 ---
 
@@ -263,8 +293,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new component using Angular CLI
+ng generate component components/item-list
+```
 
 ---
 
@@ -278,8 +310,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new service
+ng generate service services/api
+```
 
 ---
 
@@ -293,8 +327,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
@@ -308,8 +344,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run code linting
+ng lint
+```
 
 ---
 
@@ -323,8 +361,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Build the project for production deployment
+ng build --configuration production
+```
 
 ---
 
@@ -338,8 +378,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new component using Angular CLI
+ng generate component components/item-list
+```
 
 ---
 
@@ -353,8 +395,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new service
+ng generate service services/api
+```
 
 ---
 
@@ -368,8 +412,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
@@ -383,8 +429,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run code linting
+ng lint
+```
 
 ---
 
@@ -405,8 +453,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Build the project for production deployment
+ng build --configuration production
+```
 
 ---
 
@@ -420,8 +470,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new component using Angular CLI
+ng generate component components/item-list
+```
 
 ---
 
@@ -435,8 +487,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new service
+ng generate service services/api
+```
 
 ---
 
@@ -450,8 +504,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
@@ -465,8 +521,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run code linting
+ng lint
+```
 
 ---
 
@@ -480,8 +538,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Build the project for production deployment
+ng build --configuration production
+```
 
 ---
 
@@ -495,8 +555,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new component using Angular CLI
+ng generate component components/item-list
+```
 
 ---
 
@@ -510,8 +572,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Generate a new service
+ng generate service services/api
+```
 
 ---
 
@@ -525,8 +589,27 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Angular.
 
-> [!NOTE]
-> Always refer to the official Angular configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with Karma
+ng test
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Install Angular CLI globally and create a new project
+npm install -g @angular/cli
+ng new myangularapp
+cd myangularapp
+```
+
+### Running the Application
+```bash
+# Start the Angular development server and open in browser
+ng serve --open
+```

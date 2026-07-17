@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Snowflake (Data Warehouse). Since Snowfl
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Snowflake (Data Warehouse). Sin
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Snowflake (Data Warehouse). Since Snowfl
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Snowflake (Data Warehouse). Since S
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Snowflake (Data Warehouse). Since Snowflak
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Snowflake (Data Warehouse). Since Snowflake (D
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -128,8 +142,10 @@ GET /users/_search?q=status:active
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -146,8 +162,10 @@ GET /users/_search?q=status:active
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Snowflake (Data Warehouse). Since Snowflake (Da
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Snowflake (Data Warehouse). Since Snowflake
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Snowflake (Data Warehouse). Since Snowflake (
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Snowflake (Data Warehouse). Since Snowflake (Da
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Snowflake (Data Warehouse). Since S
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Snowflake (Data Warehouse). Since Snowfl
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Snowflake (Data Warehouse). Since Snowflake (Da
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Snowflake (Data Warehouse). 
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Snowflake (Data Warehouse). Since Snowfla
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Snowflake (Data Warehouse). Since S
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Snowflake (Data Warehouse). Since Snowflake 
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Snowflake (Data Warehouse). Since Sn
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Snowflake (Data Warehouse). Since Snowflak
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Snowflake (Data Warehouse). Since Snow
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Snowflake (Data Warehouse)')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Snowflake (Data Warehouse)')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Snowflake (Data Warehouse)')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Snowflake (Data Warehouse). S
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Snowflake (Data Warehouse). Since Snowf
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Snowflake (Data Warehouse). Since
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Snowflake (Data Warehouse). Since Snowfla
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Snowflake (Data Warehouse). Since S
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Snowflake (Data Warehouse). Since 
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Show data storage volume sizing metrics
+SHOW STORAGE PROPERTIES;
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Snowflake (Data Warehouse). Since Snowflak
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- List virtual warehouses and check auto-suspend status
+SHOW WAREHOUSES;
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Snowflake (Data Warehouse). Since Snowf
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Snowflake (Data Warehouse).
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Snowflake (Data Warehouse) in production.
+```sql
+-- Check warehouse query load metrics history
+SELECT * FROM table(information_schema.warehouse_load_history(dateadd('hour',-1,current_timestamp())));
+```
 
 ---
 

@@ -76,6 +76,12 @@ func main() {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`type Item struct`**: Defines a custom structure type named `Item` grouping ID, Name, and Description.
+- **`func (item *Item) ModifyDescription(...)`**: Declares a method with a pointer receiver `*Item`, enabling mutations of the actual struct fields in memory rather than a copy.
+- **`myResource := Item{...}`**: Creates and initializes an instance of `Item`.
+
 ---
 
 ## 3. Concurrency in Action: Goroutines & Channels
@@ -111,6 +117,14 @@ func main() {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`dataChannel chan<- string`**: Defines a write-only string channel parameter for worker routines.
+- **`dataChannel <- ...`**: Sends a formatted string payload into the channel.
+- **`dataChannel := make(chan string, 3)`**: Creates a buffered channel of type `string` with a capacity of `3`.
+- **`go fetchDatabaseRecord(...)`**: Launches a new concurrent goroutine execution thread managed by the Go runtime scheduler.
+- **`record := <-dataChannel`**: Blocks and receives a string message from the channel.
+
 ## 4. Loops in Go: For and While Equivalents
 
 Go only has one looping construct: the `for` loop. However, it is highly versatile and can represent traditional loops, while-loop equivalents, infinite loops, and range-based collections traversal.
@@ -129,6 +143,10 @@ func main() {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`for i := 0; i < 3; i++`**: Implements a traditional three-component loop in Go.
+
 ### 4.2 While-Loop Equivalent
 In Go, omitting the initialization and post statements transforms the `for` loop into a `while` loop.
 ```go
@@ -144,6 +162,10 @@ func main() {
 	}
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`for count > 0`**: Implements a conditional loop equivalent to a `while` loop by omitting initialization and post statements.
 
 ### 4.3 Infinite Loop
 Omitting all components creates an infinite loop, typically exited using a `break` or `return`.
@@ -164,6 +186,11 @@ func main() {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`for {`**: Initiates an infinite loop in Go.
+- **`break`**: Terminates the loop execution.
+
 ### 4.4 For-Range Loop
 Used to iterate over slices, arrays, maps, strings, or channels.
 ```go
@@ -178,6 +205,10 @@ func main() {
 	}
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`for index, name := range languages`**: Iterates over a slice, unpacking both index and element value on each iteration.
 
 ---
 

@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run dotnet build to verify compile-time errors
+dotnet build
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run unit tests in the project
+dotnet test
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Watch for changes and rebuild during development
+dotnet watch run
+```
 
 ---
 
@@ -70,11 +76,13 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in ASP.NET Core.
-
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following CLI command to scaffold a new ASP.NET Core Web API project:
+```bash
+# Create a new ASP.NET Core Web API project
+dotnet new webapi -n MyAspNetCoreApp
+cd MyAspNetCoreApp
+```
 
 ---
 
@@ -95,8 +103,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Publish the project to a folder for release
+dotnet publish -c Release -o ./publish
+```
 
 ---
 
@@ -112,11 +122,12 @@ Here is a simple starting snippet:
 System.out.println("Hello from ASP.NET Core");
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in ASP.NET Core.
-
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command in the project root directory to start the development server:
+```bash
+# Run the ASP.NET Core project in development mode
+dotnet run
+```
 
 ---
 
@@ -130,8 +141,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a new Entity Framework migration
+dotnet ef migrations add InitialCreate
+```
 
 ---
 
@@ -145,8 +158,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Update database to the latest EF migration
+dotnet ef database update
+```
 
 ---
 
@@ -160,8 +175,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a NuGet package dependency
+dotnet add package Microsoft.EntityFrameworkCore
+```
 
 ---
 
@@ -175,8 +192,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# List installed NuGet packages
+dotnet list package
+```
 
 ---
 
@@ -190,8 +209,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run dotnet build to verify compile-time errors
+dotnet build
+```
 
 ---
 
@@ -205,8 +226,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run unit tests in the project
+dotnet test
+```
 
 ---
 
@@ -220,8 +243,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Watch for changes and rebuild during development
+dotnet watch run
+```
 
 ---
 
@@ -235,8 +260,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Publish the project to a folder for release
+dotnet publish -c Release -o ./publish
+```
 
 ---
 
@@ -250,8 +277,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a new Entity Framework migration
+dotnet ef migrations add InitialCreate
+```
 
 ---
 
@@ -265,8 +294,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Update database to the latest EF migration
+dotnet ef database update
+```
 
 ---
 
@@ -280,8 +311,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a NuGet package dependency
+dotnet add package Microsoft.EntityFrameworkCore
+```
 
 ---
 
@@ -295,8 +328,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# List installed NuGet packages
+dotnet list package
+```
 
 ---
 
@@ -310,8 +345,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run dotnet build to verify compile-time errors
+dotnet build
+```
 
 ---
 
@@ -325,8 +362,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run unit tests in the project
+dotnet test
+```
 
 ---
 
@@ -340,8 +379,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Watch for changes and rebuild during development
+dotnet watch run
+```
 
 ---
 
@@ -355,8 +396,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Publish the project to a folder for release
+dotnet publish -c Release -o ./publish
+```
 
 ---
 
@@ -370,8 +413,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a new Entity Framework migration
+dotnet ef migrations add InitialCreate
+```
 
 ---
 
@@ -385,8 +430,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Update database to the latest EF migration
+dotnet ef database update
+```
 
 ---
 
@@ -407,8 +454,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a NuGet package dependency
+dotnet add package Microsoft.EntityFrameworkCore
+```
 
 ---
 
@@ -422,8 +471,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# List installed NuGet packages
+dotnet list package
+```
 
 ---
 
@@ -437,8 +488,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run dotnet build to verify compile-time errors
+dotnet build
+```
 
 ---
 
@@ -452,8 +505,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Run unit tests in the project
+dotnet test
+```
 
 ---
 
@@ -467,8 +522,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Watch for changes and rebuild during development
+dotnet watch run
+```
 
 ---
 
@@ -482,8 +539,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Publish the project to a folder for release
+dotnet publish -c Release -o ./publish
+```
 
 ---
 
@@ -497,8 +556,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a new Entity Framework migration
+dotnet ef migrations add InitialCreate
+```
 
 ---
 
@@ -512,8 +573,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Update database to the latest EF migration
+dotnet ef database update
+```
 
 ---
 
@@ -527,8 +590,35 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in ASP.NET Core.
 
-> [!NOTE]
-> Always refer to the official ASP.NET Core configuration guide for the latest security guidelines.
+```bash
+# Add a NuGet package dependency
+dotnet add package Microsoft.EntityFrameworkCore
+```
 
 ---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Scaffold a new ASP.NET Core Web API project
+dotnet new webapi -n MyAspNetCoreApp
+cd MyAspNetCoreApp
+```
+
+### Running the Application
+```bash
+# Run the ASP.NET Core project in development mode
+dotnet run
+```
+
+### Common Operations
+```bash
+# Restore package dependencies
+dotnet restore
+
+# Build the project to verify compile-time correctness
+dotnet build
+```
+
 

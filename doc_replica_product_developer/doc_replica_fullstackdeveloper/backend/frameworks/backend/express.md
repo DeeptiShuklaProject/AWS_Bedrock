@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in dependencies
+npm audit
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run the test suite using Jest
+npm test
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Format code using Prettier
+npx prettier --write "src/**/*.js"
+```
 
 ---
 
@@ -70,11 +76,14 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Express.js.
-
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following commands to initialize a new Node.js project and install Express:
+```bash
+# Initialize a Node.js project and install Express.js
+mkdir myexpressapp && cd myexpressapp
+npm init -y
+npm install express
+```
 
 ---
 
@@ -95,8 +104,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run ESLint to check for code quality issues
+npx eslint src/
+```
 
 ---
 
@@ -112,11 +123,12 @@ Here is a simple starting snippet:
 console.log('Hello from Express.js');
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Express.js.
-
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the Express server:
+```bash
+# Run the Express server using node
+node app.js
+```
 
 ---
 
@@ -130,8 +142,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Prune development dependencies for production
+npm prune --production
+```
 
 ---
 
@@ -145,8 +159,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Clean the npm cache
+npm cache clean --force
+```
 
 ---
 
@@ -160,8 +176,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Update all package dependencies to their latest versions
+npx npm-check-updates -u && npm install
+```
 
 ---
 
@@ -175,8 +193,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in dependencies
+npm audit
+```
 
 ---
 
@@ -190,8 +210,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run the test suite using Jest
+npm test
+```
 
 ---
 
@@ -205,8 +227,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Format code using Prettier
+npx prettier --write "src/**/*.js"
+```
 
 ---
 
@@ -220,8 +244,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run ESLint to check for code quality issues
+npx eslint src/
+```
 
 ---
 
@@ -235,8 +261,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Prune development dependencies for production
+npm prune --production
+```
 
 ---
 
@@ -250,8 +278,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Clean the npm cache
+npm cache clean --force
+```
 
 ---
 
@@ -265,8 +295,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Update all package dependencies to their latest versions
+npx npm-check-updates -u && npm install
+```
 
 ---
 
@@ -280,8 +312,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in dependencies
+npm audit
+```
 
 ---
 
@@ -295,8 +329,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run the test suite using Jest
+npm test
+```
 
 ---
 
@@ -310,8 +346,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Format code using Prettier
+npx prettier --write "src/**/*.js"
+```
 
 ---
 
@@ -325,8 +363,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run ESLint to check for code quality issues
+npx eslint src/
+```
 
 ---
 
@@ -340,8 +380,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Prune development dependencies for production
+npm prune --production
+```
 
 ---
 
@@ -355,8 +397,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Clean the npm cache
+npm cache clean --force
+```
 
 ---
 
@@ -370,8 +414,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Update all package dependencies to their latest versions
+npx npm-check-updates -u && npm install
+```
 
 ---
 
@@ -385,8 +431,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in dependencies
+npm audit
+```
 
 ---
 
@@ -407,8 +455,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run the test suite using Jest
+npm test
+```
 
 ---
 
@@ -422,8 +472,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Format code using Prettier
+npx prettier --write "src/**/*.js"
+```
 
 ---
 
@@ -437,8 +489,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run ESLint to check for code quality issues
+npx eslint src/
+```
 
 ---
 
@@ -452,8 +506,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Prune development dependencies for production
+npm prune --production
+```
 
 ---
 
@@ -467,8 +523,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Clean the npm cache
+npm cache clean --force
+```
 
 ---
 
@@ -482,8 +540,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Update all package dependencies to their latest versions
+npx npm-check-updates -u && npm install
+```
 
 ---
 
@@ -497,8 +557,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in dependencies
+npm audit
+```
 
 ---
 
@@ -512,8 +574,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Run the test suite using Jest
+npm test
+```
 
 ---
 
@@ -527,8 +591,27 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Express.js.
 
-> [!NOTE]
-> Always refer to the official Express.js configuration guide for the latest security guidelines.
+```bash
+# Format code using Prettier
+npx prettier --write "src/**/*.js"
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Initialize a Node.js project and install Express.js
+mkdir myexpressapp && cd myexpressapp
+npm init -y
+npm install express
+```
+
+### Running the Application
+```bash
+# Run the Express server using node
+node app.js
+```

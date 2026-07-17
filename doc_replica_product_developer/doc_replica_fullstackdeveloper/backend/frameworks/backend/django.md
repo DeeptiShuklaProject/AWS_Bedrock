@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a new application inside the project
+python manage.py startapp myapp
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Start the Django shell for debugging
+python manage.py shell
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Run the test suite
+python manage.py test
+```
 
 ---
 
@@ -70,11 +76,14 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Django.
-
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following CLI command to install Django and scaffold a new project:
+```bash
+# Install Django and create a new Django project
+pip install django django-filter djangorestframework
+django-admin startproject mydjangoapp
+cd mydjangoapp
+```
 
 ---
 
@@ -95,8 +104,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Collect static files for production deployment
+python manage.py collectstatic --noinput
+```
 
 ---
 
@@ -112,11 +123,12 @@ Here is a simple starting snippet:
 print('Hello from Django')
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Django.
-
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the local Django development server:
+```bash
+# Start the Django development server
+python manage.py runserver
+```
 
 ---
 
@@ -130,8 +142,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a superuser account for the admin panel
+python manage.py createsuperuser
+```
 
 ---
 
@@ -145,8 +159,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check the project settings and configuration
+python manage.py check
+```
 
 ---
 
@@ -160,8 +176,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Show current applied and unapplied migrations
+python manage.py showmigrations
+```
 
 ---
 
@@ -175,8 +193,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in project configuration
+python manage.py check --deploy
+```
 
 ---
 
@@ -190,8 +210,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a new application inside the project
+python manage.py startapp myapp
+```
 
 ---
 
@@ -205,8 +227,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Start the Django shell for debugging
+python manage.py shell
+```
 
 ---
 
@@ -220,8 +244,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Run the test suite
+python manage.py test
+```
 
 ---
 
@@ -235,8 +261,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Collect static files for production deployment
+python manage.py collectstatic --noinput
+```
 
 ---
 
@@ -250,8 +278,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a superuser account for the admin panel
+python manage.py createsuperuser
+```
 
 ---
 
@@ -265,8 +295,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check the project settings and configuration
+python manage.py check
+```
 
 ---
 
@@ -280,8 +312,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Show current applied and unapplied migrations
+python manage.py showmigrations
+```
 
 ---
 
@@ -295,8 +329,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in project configuration
+python manage.py check --deploy
+```
 
 ---
 
@@ -310,8 +346,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a new application inside the project
+python manage.py startapp myapp
+```
 
 ---
 
@@ -325,8 +363,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Start the Django shell for debugging
+python manage.py shell
+```
 
 ---
 
@@ -340,8 +380,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Run the test suite
+python manage.py test
+```
 
 ---
 
@@ -355,8 +397,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Collect static files for production deployment
+python manage.py collectstatic --noinput
+```
 
 ---
 
@@ -370,8 +414,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a superuser account for the admin panel
+python manage.py createsuperuser
+```
 
 ---
 
@@ -385,8 +431,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check the project settings and configuration
+python manage.py check
+```
 
 ---
 
@@ -407,8 +455,10 @@ print(response.choices[0].message.content)
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Show current applied and unapplied migrations
+python manage.py showmigrations
+```
 
 ---
 
@@ -422,8 +472,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check for security vulnerabilities in project configuration
+python manage.py check --deploy
+```
 
 ---
 
@@ -437,8 +489,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a new application inside the project
+python manage.py startapp myapp
+```
 
 ---
 
@@ -452,8 +506,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Start the Django shell for debugging
+python manage.py shell
+```
 
 ---
 
@@ -467,8 +523,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Run the test suite
+python manage.py test
+```
 
 ---
 
@@ -482,8 +540,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Collect static files for production deployment
+python manage.py collectstatic --noinput
+```
 
 ---
 
@@ -497,8 +557,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Create a superuser account for the admin panel
+python manage.py createsuperuser
+```
 
 ---
 
@@ -512,8 +574,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Check the project settings and configuration
+python manage.py check
+```
 
 ---
 
@@ -527,8 +591,38 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Django.
 
-> [!NOTE]
-> Always refer to the official Django configuration guide for the latest security guidelines.
+```bash
+# Show current applied and unapplied migrations
+python manage.py showmigrations
+```
 
 ---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Install Django and its dependencies
+pip install django djangorestframework
+
+# Scaffold a new Django project
+django-admin startproject myproject
+cd myproject
+```
+
+### Running the Application
+```bash
+# Start the local Django development server
+python manage.py runserver
+```
+
+### Common Operations
+```bash
+# Generate SQL migrations based on model changes
+python manage.py makemigrations
+
+# Apply migrations to database
+python manage.py migrate
+```
+
 

@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Amazon DynamoDB. Since Amazon DynamoDB i
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Amazon DynamoDB. Since Amazon D
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Amazon DynamoDB. Since Amazon DynamoDB i
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Amazon DynamoDB. Since Amazon Dynam
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Amazon DynamoDB. Since Amazon DynamoDB is 
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Amazon DynamoDB. Since Amazon DynamoDB is a no
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -128,8 +142,10 @@ GET /users/_search?q=status:active
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -146,8 +162,10 @@ GET /users/_search?q=status:active
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Amazon DynamoDB. Since Amazon DynamoDB is a nos
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Amazon DynamoDB. Since Amazon DynamoDB is a
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Amazon DynamoDB. Since Amazon DynamoDB is a n
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Amazon DynamoDB. Since Amazon DynamoDB is a nos
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Amazon DynamoDB. Since Amazon Dynam
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Amazon DynamoDB. Since Amazon DynamoDB i
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Amazon DynamoDB. Since Amazon DynamoDB is a nos
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Amazon DynamoDB. Since Amazo
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Amazon DynamoDB. Since Amazon DynamoDB is
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Amazon DynamoDB. Since Amazon Dynam
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Amazon DynamoDB. Since Amazon DynamoDB is a 
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Amazon DynamoDB. Since Amazon Dynamo
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Amazon DynamoDB. Since Amazon DynamoDB is 
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Amazon DynamoDB. Since Amazon DynamoDB
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Amazon DynamoDB')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Amazon DynamoDB')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Amazon DynamoDB')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Amazon DynamoDB. Since Amazon
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Amazon DynamoDB. Since Amazon DynamoDB 
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Amazon DynamoDB. Since Amazon Dyn
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Amazon DynamoDB. Since Amazon DynamoDB is
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Amazon DynamoDB. Since Amazon Dynam
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Configure Time-To-Live (TTL) expiration attribute on tables
+aws dynamodb update-time-to-live --table-name UsersTable --time-to-live-specification "Enabled=true,AttributeName=ttl"
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Amazon DynamoDB. Since Amazon Dyna
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Describe table throughput capacity settings and schema details
+aws dynamodb describe-table --table-name UsersTable
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Amazon DynamoDB. Since Amazon DynamoDB is 
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# List DynamoDB tables configured on local dev environment
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Amazon DynamoDB. Since Amazon DynamoDB 
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Amazon DynamoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Amazon DynamoDB in production.
+```bash
+# Retrieve specific item by partition key via AWS CLI
+aws dynamodb get-item --table-name UsersTable --key '{"UserID": {"S": "123"}}'
+```
 
 ---
 

@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -49,8 +53,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -69,11 +75,14 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in SvelteKit.
-
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following commands to create a SvelteKit app:
+```bash
+# Scaffold a SvelteKit project
+npm create svelte@latest mysvelteapp
+cd mysvelteapp
+npm install
+```
 
 ---
 
@@ -93,8 +102,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -110,11 +121,12 @@ Here is a simple starting snippet:
 console.log('Hello from SvelteKit');
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in SvelteKit.
-
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the SvelteKit development server:
+```bash
+# Start the development server and open in browser
+npm run dev -- --open
+```
 
 ---
 
@@ -128,8 +140,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -143,8 +157,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -158,8 +174,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -173,8 +191,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -188,8 +208,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -203,8 +225,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -218,8 +242,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -233,8 +259,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -248,8 +276,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -263,8 +293,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -278,8 +310,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -293,8 +327,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -308,8 +344,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -323,8 +361,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -338,8 +378,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -353,8 +395,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -368,8 +412,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -383,8 +429,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -405,8 +453,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -420,8 +470,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -435,8 +487,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -450,8 +504,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -465,8 +521,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -480,8 +538,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
@@ -495,8 +555,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Preview production bundle locally
+npm run preview
+```
 
 ---
 
@@ -510,8 +572,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Check Svelte types and syntax
+npm run check
+```
 
 ---
 
@@ -525,8 +589,27 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in SvelteKit.
 
-> [!NOTE]
-> Always refer to the official SvelteKit configuration guide for the latest security guidelines.
+```bash
+# Build SvelteKit application for production
+npm run build
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Scaffold a SvelteKit project
+npm create svelte@latest mysvelteapp
+cd mysvelteapp
+npm install
+```
+
+### Running the Application
+```bash
+# Start the development server and open in browser
+npm run dev -- --open
+```

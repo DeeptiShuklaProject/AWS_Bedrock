@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -49,8 +53,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -69,11 +75,13 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Nuxt.js.
-
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following command to create a new Nuxt project:
+```bash
+# Scaffold a new Nuxt application
+npx nuxi@latest init mynuxtapp
+cd mynuxtapp
+```
 
 ---
 
@@ -93,8 +101,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -110,11 +120,12 @@ Here is a simple starting snippet:
 console.log('Hello from Nuxt.js');
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Nuxt.js.
-
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the Nuxt local development server:
+```bash
+# Start the Nuxt development server
+npm run dev -- -o
+```
 
 ---
 
@@ -128,8 +139,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -143,8 +156,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -158,8 +173,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -173,8 +190,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -188,8 +207,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -203,8 +224,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -218,8 +241,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -233,8 +258,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -248,8 +275,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -263,8 +292,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -278,8 +309,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -293,8 +326,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -308,8 +343,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -323,8 +360,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -338,8 +377,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -353,8 +394,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -368,8 +411,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -383,8 +428,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -405,8 +452,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -420,8 +469,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -435,8 +486,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -450,8 +503,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -465,8 +520,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
@@ -480,8 +537,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Clear Nuxt development cache
+npx nuxi cleanup
+```
 
 ---
 
@@ -495,8 +554,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Build the Nuxt application for production
+npm run build
+```
 
 ---
 
@@ -510,8 +571,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Preview the production build locally
+npm run preview
+```
 
 ---
 
@@ -525,8 +588,26 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Nuxt.js.
 
-> [!NOTE]
-> Always refer to the official Nuxt.js configuration guide for the latest security guidelines.
+```bash
+# Generate a static site output
+npx nuxi generate
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Scaffold a new Nuxt application
+npx nuxi@latest init mynuxtapp
+cd mynuxtapp
+```
+
+### Running the Application
+```bash
+# Start the Nuxt development server
+npm run dev -- -o
+```

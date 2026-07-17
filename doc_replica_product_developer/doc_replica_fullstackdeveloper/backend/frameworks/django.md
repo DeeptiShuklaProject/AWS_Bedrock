@@ -51,3 +51,35 @@ class ItemViewSet(viewsets.ModelViewSet):
 ## 3. Core Characteristics
 * **Batteries Included**: Includes built-in ORM, admin dashboard, user auth system, form generation, and cross-site scripting (XSS/CSRF) security protections.
 * **Declarative Schema Migrations**: Detects changes in python models and creates/applies corresponding SQL scripts automatically.
+
+---
+
+## 4. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Install Django and its dependencies
+pip install django djangorestframework
+
+# Scaffold a new Django project
+django-admin startproject myproject
+
+# Navigate into the project folder
+cd myproject
+```
+
+### Running the Development Server
+```bash
+# Start the local Django development server
+python manage.py runserver
+```
+
+### Database Migrations
+```bash
+# Generate SQL migration scripts based on Python models
+python manage.py makemigrations
+
+# Apply migrations to update database schema
+python manage.py migrate
+```
+

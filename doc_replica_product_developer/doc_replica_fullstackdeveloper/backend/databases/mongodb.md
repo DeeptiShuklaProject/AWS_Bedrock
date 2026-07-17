@@ -12,8 +12,10 @@ Detailed explanation of Introduction in MongoDB. Since MongoDB is a document dat
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in MongoDB. Since MongoDB is a doc
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in MongoDB. Since MongoDB is a document dat
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in MongoDB. Since MongoDB is a documen
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in MongoDB. Since MongoDB is a document datab
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in MongoDB. Since MongoDB is a document database,
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -128,8 +142,10 @@ db.users.find({ "status": "active" })
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -146,8 +162,10 @@ db.users.find({ "status": "active" })
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in MongoDB. Since MongoDB is a document database, 
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in MongoDB. Since MongoDB is a document databa
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in MongoDB. Since MongoDB is a document database
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in MongoDB. Since MongoDB is a document database, 
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in MongoDB. Since MongoDB is a documen
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in MongoDB. Since MongoDB is a document dat
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in MongoDB. Since MongoDB is a document database, 
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in MongoDB. Since MongoDB is a 
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in MongoDB. Since MongoDB is a document data
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in MongoDB. Since MongoDB is a documen
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in MongoDB. Since MongoDB is a document databas
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in MongoDB. Since MongoDB is a document
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in MongoDB. Since MongoDB is a document datab
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in MongoDB. Since MongoDB is a document d
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to MongoDB')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to MongoDB')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to MongoDB')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in MongoDB. Since MongoDB is a d
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in MongoDB. Since MongoDB is a document da
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in MongoDB. Since MongoDB is a docum
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in MongoDB. Since MongoDB is a document data
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in MongoDB. Since MongoDB is a documen
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Perform logical backup dump of the production database
+mongodump --uri="mongodb://localhost:27017/prod_db" --out=/backups/
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in MongoDB. Since MongoDB is a docume
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Display memory utilization statistics for the current MongoDB server instance
+mongosh --eval "db.serverStatus().mem"
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in MongoDB. Since MongoDB is a document datab
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Check replica set config status and replication lag metrics
+mongosh --eval "rs.status()"
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in MongoDB. Since MongoDB is a document da
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in MongoDB.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling MongoDB in production.
+```bash
+# Monitor active running queries and operations consuming resources
+mongosh --eval "db.currentOp()"
+```
 
 ---
 

@@ -77,6 +77,13 @@ async function loadItems() {
 module.exports = { loadItems };
 ```
 
+### Line-by-Line Code Explanation
+
+- **`const fs = require('fs').promises;`**: Imports Node's built-in file system module utilizing Promise-based API endpoints.
+- **`async function loadItems()`**: Declares an asynchronous function executing inside Node's event loop.
+- **`await fs.readFile(...)`**: Non-blocking asynchronous read operation yielding thread control back to libuv pool until file stream completes.
+- **`module.exports = { loadItems };`**: Exports the handler using standard CommonJS syntax.
+
 ## 4. Loops in JavaScript: For and While Loops
 
 JavaScript in Node.js supports multiple looping constructs for iterating over arrays, objects, and executing conditional blocks.
@@ -89,6 +96,10 @@ for (let i = 0; i < 3; i++) {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`for (let i = 0; i < 3; i++)`**: Sets up a standard three-component loop with a block-scoped iterator variable `i` declared via `let`.
+
 ### 4.2 `for...of` Loop
 Iterates over iterable objects (such as arrays, strings, sets, or maps).
 ```javascript
@@ -98,6 +109,10 @@ for (const framework of frameworks) {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`for (const framework of frameworks)`**: Iterates over array elements, assigning the value of each element sequentially to the local constant.
+
 ### 4.3 `for...in` Loop
 Iterates over the enumerable string properties of an object.
 ```javascript
@@ -106,6 +121,10 @@ for (const key in service) {
   console.log(`${key}: ${service[key]}`);
 }
 ```
+
+### Line-by-Line Code Explanation
+
+- **`for (const key in service)`**: Iterates over the keys/properties of the object sequentially.
 
 ### 4.4 `while` Loop
 Executes a statement block as long as a specified condition evaluates to true.
@@ -117,6 +136,10 @@ while (count > 0) {
 }
 ```
 
+### Line-by-Line Code Explanation
+
+- **`while (count > 0)`**: Executes the loop body repeatedly as long as the condition evaluates to `true`.
+
 ### 4.5 `do...while` Loop
 Executes the code block once before checking the condition, ensuring at least one execution.
 ```javascript
@@ -126,6 +149,10 @@ do {
   attempts++;
 } while (attempts < 1);
 ```
+
+### Line-by-Line Code Explanation
+
+- **`do { ... } while (attempts < 1);`**: Executes the block once first, then checks the conditional expression to decide whether to repeat.
 
 ---
 

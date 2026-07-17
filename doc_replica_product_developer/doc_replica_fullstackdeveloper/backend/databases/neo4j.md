@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Neo4j. Since Neo4j is a graph database, 
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Neo4j. Since Neo4j is a graph d
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Neo4j. Since Neo4j is a graph database, 
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Neo4j. Since Neo4j is a graph datab
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Neo4j. Since Neo4j is a graph database, it
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Neo4j. Since Neo4j is a graph database, it pro
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -128,8 +142,10 @@ GET /users/_search?q=status:active
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -146,8 +162,10 @@ GET /users/_search?q=status:active
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Neo4j. Since Neo4j is a graph database, it prov
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Neo4j. Since Neo4j is a graph database, it 
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Neo4j. Since Neo4j is a graph database, it pr
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Neo4j. Since Neo4j is a graph database, it prov
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Neo4j. Since Neo4j is a graph datab
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Neo4j. Since Neo4j is a graph database, 
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Neo4j. Since Neo4j is a graph database, it prov
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Neo4j. Since Neo4j is a grap
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Neo4j. Since Neo4j is a graph database, i
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Neo4j. Since Neo4j is a graph datab
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Neo4j. Since Neo4j is a graph database, it p
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Neo4j. Since Neo4j is a graph databa
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Neo4j. Since Neo4j is a graph database, it
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Neo4j. Since Neo4j is a graph database
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Neo4j')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Neo4j')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Neo4j')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Neo4j. Since Neo4j is a graph
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Neo4j. Since Neo4j is a graph database,
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Neo4j. Since Neo4j is a graph dat
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Neo4j. Since Neo4j is a graph database, i
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Neo4j. Since Neo4j is a graph datab
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Take physical offline backup of the Neo4j database instance
+neo4j-admin backup --database=neo4j --to=/backups
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Neo4j. Since Neo4j is a graph data
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// Check active database queries and transaction locking states
+SHOW TRANSACTIONS;
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Neo4j. Since Neo4j is a graph database, it
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```cypher
+// List databases configured on the Neo4j cluster instance
+SHOW DATABASES;
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Neo4j. Since Neo4j is a graph database,
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Neo4j.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Neo4j in production.
+```bash
+# Inspect Neo4j system environment details and home directory
+neo4j-admin dbms info
+```
 
 ---
 

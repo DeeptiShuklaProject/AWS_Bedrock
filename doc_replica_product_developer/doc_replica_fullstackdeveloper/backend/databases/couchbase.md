@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Couchbase. Since Couchbase is a document
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Couchbase. Since Couchbase is a
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Couchbase. Since Couchbase is a document
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Couchbase. Since Couchbase is a doc
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Couchbase. Since Couchbase is a document d
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Couchbase. Since Couchbase is a document datab
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -128,8 +142,10 @@ db.users.find({ "status": "active" })
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -146,8 +162,10 @@ db.users.find({ "status": "active" })
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Couchbase. Since Couchbase is a document databa
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Couchbase. Since Couchbase is a document da
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Couchbase. Since Couchbase is a document data
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Couchbase. Since Couchbase is a document databa
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Couchbase. Since Couchbase is a doc
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Couchbase. Since Couchbase is a document
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Couchbase. Since Couchbase is a document databa
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Couchbase. Since Couchbase i
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Couchbase. Since Couchbase is a document 
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Couchbase. Since Couchbase is a doc
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Couchbase. Since Couchbase is a document dat
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Couchbase. Since Couchbase is a docu
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Couchbase. Since Couchbase is a document d
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Couchbase. Since Couchbase is a docume
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Couchbase')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Couchbase')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Couchbase')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Couchbase. Since Couchbase is
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Couchbase. Since Couchbase is a documen
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Couchbase. Since Couchbase is a d
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Couchbase. Since Couchbase is a document 
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Couchbase. Since Couchbase is a doc
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Couchbase. Since Couchbase is a do
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Create full backup of Couchbase bucket data to local path
+cbbackup http://localhost:8091 /backups -u Admin -p password
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Couchbase. Since Couchbase is a document d
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# Retrieve general cluster configuration and health status
+couchbase-cli server-info -c localhost:8091 -u Admin -p password
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Couchbase. Since Couchbase is a documen
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Couchbase.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Couchbase in production.
+```bash
+# List active Couchbase data buckets and RAM allocations
+couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
+```
 
 ---
 

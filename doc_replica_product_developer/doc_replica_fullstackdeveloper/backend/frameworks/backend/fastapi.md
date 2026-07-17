@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run tests with pytest
+pytest
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run code linting with Ruff
+ruff check .
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run static type checking with Mypy
+mypy .
+```
 
 ---
 
@@ -70,11 +76,13 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in FastAPI.
-
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following command to install FastAPI and Uvicorn:
+```bash
+# Create project directory and install FastAPI with Uvicorn
+mkdir myfastapiapp && cd myfastapiapp
+pip install fastapi "uvicorn[standard]"
+```
 
 ---
 
@@ -95,8 +103,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Generate database migrations with Alembic
+alembic revision --autogenerate -m "Initial migration"
+```
 
 ---
 
@@ -112,11 +122,12 @@ Here is a simple starting snippet:
 print('Hello from FastAPI')
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in FastAPI.
-
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the FastAPI application server with hot-reload:
+```bash
+# Run the FastAPI app using Uvicorn server (auto-reloading enabled)
+uvicorn main:app --reload
+```
 
 ---
 
@@ -130,8 +141,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Apply migrations using Alembic
+alembic upgrade head
+```
 
 ---
 
@@ -145,8 +158,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Format code using black
+black .
+```
 
 ---
 
@@ -160,8 +175,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run the server under Gunicorn for production
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+```
 
 ---
 
@@ -175,8 +192,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run tests with pytest
+pytest
+```
 
 ---
 
@@ -190,8 +209,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run code linting with Ruff
+ruff check .
+```
 
 ---
 
@@ -205,8 +226,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run static type checking with Mypy
+mypy .
+```
 
 ---
 
@@ -220,8 +243,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Generate database migrations with Alembic
+alembic revision --autogenerate -m "Initial migration"
+```
 
 ---
 
@@ -235,8 +260,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Apply migrations using Alembic
+alembic upgrade head
+```
 
 ---
 
@@ -250,8 +277,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Format code using black
+black .
+```
 
 ---
 
@@ -265,8 +294,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run the server under Gunicorn for production
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+```
 
 ---
 
@@ -280,8 +311,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run tests with pytest
+pytest
+```
 
 ---
 
@@ -295,8 +328,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run code linting with Ruff
+ruff check .
+```
 
 ---
 
@@ -310,8 +345,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run static type checking with Mypy
+mypy .
+```
 
 ---
 
@@ -325,8 +362,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Generate database migrations with Alembic
+alembic revision --autogenerate -m "Initial migration"
+```
 
 ---
 
@@ -340,8 +379,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Apply migrations using Alembic
+alembic upgrade head
+```
 
 ---
 
@@ -355,8 +396,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Format code using black
+black .
+```
 
 ---
 
@@ -370,8 +413,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run the server under Gunicorn for production
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+```
 
 ---
 
@@ -385,8 +430,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run tests with pytest
+pytest
+```
 
 ---
 
@@ -407,8 +454,10 @@ print(response.choices[0].message.content)
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run code linting with Ruff
+ruff check .
+```
 
 ---
 
@@ -422,8 +471,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run static type checking with Mypy
+mypy .
+```
 
 ---
 
@@ -437,8 +488,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Generate database migrations with Alembic
+alembic revision --autogenerate -m "Initial migration"
+```
 
 ---
 
@@ -452,8 +505,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Apply migrations using Alembic
+alembic upgrade head
+```
 
 ---
 
@@ -467,8 +522,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Format code using black
+black .
+```
 
 ---
 
@@ -482,8 +539,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run the server under Gunicorn for production
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
+```
 
 ---
 
@@ -497,8 +556,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run tests with pytest
+pytest
+```
 
 ---
 
@@ -512,8 +573,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run code linting with Ruff
+ruff check .
+```
 
 ---
 
@@ -527,8 +590,26 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in FastAPI.
 
-> [!NOTE]
-> Always refer to the official FastAPI configuration guide for the latest security guidelines.
+```bash
+# Run static type checking with Mypy
+mypy .
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Create project directory and install FastAPI with Uvicorn
+mkdir myfastapiapp && cd myfastapiapp
+pip install fastapi "uvicorn[standard]"
+```
+
+### Running the Application
+```bash
+# Run the FastAPI app using Uvicorn server (auto-reloading enabled)
+uvicorn main:app --reload
+```

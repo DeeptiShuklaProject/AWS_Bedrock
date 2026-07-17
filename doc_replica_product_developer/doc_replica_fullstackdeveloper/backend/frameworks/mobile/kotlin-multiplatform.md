@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -49,8 +53,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -69,11 +75,13 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Kotlin Multiplatform.
-
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following git command to clone the official Kotlin Multiplatform template:
+```bash
+# Clone the official Kotlin Multiplatform template project
+git clone https://github.com/Kotlin/kotlin-multiplatform-template.git mykmpapp
+cd mykmpapp
+```
 
 ---
 
@@ -93,8 +101,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -110,11 +120,12 @@ Here is a simple starting snippet:
 System.out.println("Hello from Kotlin Multiplatform");
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Kotlin Multiplatform.
-
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following Gradle command to compile and run the desktop target application:
+```bash
+# Compile and run the desktop target
+./gradlew :composeApp:run
+```
 
 ---
 
@@ -128,8 +139,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -143,8 +156,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -158,8 +173,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -173,8 +190,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -188,8 +207,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -203,8 +224,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -218,8 +241,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -233,8 +258,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -248,8 +275,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -263,8 +292,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -278,8 +309,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -293,8 +326,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -308,8 +343,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -323,8 +360,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -338,8 +377,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -353,8 +394,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -368,8 +411,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -383,8 +428,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -405,8 +452,10 @@ console.log(completion.choices[0].message.content);
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -420,8 +469,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -435,8 +486,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -450,8 +503,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -465,8 +520,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -480,8 +537,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
@@ -495,8 +554,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Run tests on all platform targets
+./gradlew test
+```
 
 ---
 
@@ -510,8 +571,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Clean gradle build cache
+./gradlew clean
+```
 
 ---
 
@@ -525,8 +588,26 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Kotlin Multiplatform.
 
-> [!NOTE]
-> Always refer to the official Kotlin Multiplatform configuration guide for the latest security guidelines.
+```bash
+# Compile all targets
+./gradlew assemble
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Clone the official Kotlin Multiplatform template project
+git clone https://github.com/Kotlin/kotlin-multiplatform-template.git mykmpapp
+cd mykmpapp
+```
+
+### Running the Application
+```bash
+# Compile and run the desktop target
+./gradlew :composeApp:run
+```

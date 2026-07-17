@@ -12,8 +12,10 @@ Detailed explanation of Introduction in Apache Cassandra. Since Apache Cassandra
 ### 1.2 Practical Operations & Best Practices
 Production setup guidelines for Introduction in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -25,8 +27,10 @@ Detailed explanation of Database Fundamentals in Apache Cassandra. Since Apache 
 ### 2.2 Practical Operations & Best Practices
 Production setup guidelines for Database Fundamentals in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -46,8 +50,10 @@ graph TD
 ### 3.2 Practical Operations & Best Practices
 Production setup guidelines for Internal Architecture in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -71,8 +77,10 @@ Detailed explanation of Installation in Apache Cassandra. Since Apache Cassandra
 ### 4.2 Practical Operations & Best Practices
 Production setup guidelines for Installation in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -84,8 +92,10 @@ Detailed explanation of Database Creation in Apache Cassandra. Since Apache Cass
 ### 5.2 Practical Operations & Best Practices
 Production setup guidelines for Database Creation in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -97,8 +107,10 @@ Detailed explanation of Data Types in Apache Cassandra. Since Apache Cassandra i
 ### 6.2 Practical Operations & Best Practices
 Production setup guidelines for Data Types in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -110,8 +122,10 @@ Detailed explanation of Tables in Apache Cassandra. Since Apache Cassandra is a 
 ### 7.2 Practical Operations & Best Practices
 Production setup guidelines for Tables in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -128,8 +142,10 @@ GET /users/_search?q=status:active
 ### 8.2 Practical Operations & Best Practices
 Production setup guidelines for CRUD Operations in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -146,8 +162,10 @@ GET /users/_search?q=status:active
 ### 9.2 Practical Operations & Best Practices
 Production setup guidelines for SQL Queries in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -159,8 +177,10 @@ Detailed explanation of Joins in Apache Cassandra. Since Apache Cassandra is a c
 ### 10.2 Practical Operations & Best Practices
 Production setup guidelines for Joins in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -172,8 +192,10 @@ Detailed explanation of Functions in Apache Cassandra. Since Apache Cassandra is
 ### 11.2 Practical Operations & Best Practices
 Production setup guidelines for Functions in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -185,8 +207,10 @@ Detailed explanation of Indexes in Apache Cassandra. Since Apache Cassandra is a
 ### 12.2 Practical Operations & Best Practices
 Production setup guidelines for Indexes in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -198,8 +222,10 @@ Detailed explanation of Views in Apache Cassandra. Since Apache Cassandra is a c
 ### 13.2 Practical Operations & Best Practices
 Production setup guidelines for Views in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -211,8 +237,10 @@ Detailed explanation of Stored Procedures in Apache Cassandra. Since Apache Cass
 ### 14.2 Practical Operations & Best Practices
 Production setup guidelines for Stored Procedures in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -224,8 +252,10 @@ Detailed explanation of Transactions in Apache Cassandra. Since Apache Cassandra
 ### 15.2 Practical Operations & Best Practices
 Production setup guidelines for Transactions in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -237,8 +267,10 @@ Detailed explanation of Locks in Apache Cassandra. Since Apache Cassandra is a c
 ### 16.2 Practical Operations & Best Practices
 Production setup guidelines for Locks in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -250,8 +282,10 @@ Detailed explanation of Performance Optimization in Apache Cassandra. Since Apac
 ### 17.2 Practical Operations & Best Practices
 Production setup guidelines for Performance Optimization in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -263,8 +297,10 @@ Detailed explanation of Replication in Apache Cassandra. Since Apache Cassandra 
 ### 18.2 Practical Operations & Best Practices
 Production setup guidelines for Replication in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -276,8 +312,10 @@ Detailed explanation of High Availability in Apache Cassandra. Since Apache Cass
 ### 19.2 Practical Operations & Best Practices
 Production setup guidelines for High Availability in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -289,8 +327,10 @@ Detailed explanation of Security in Apache Cassandra. Since Apache Cassandra is 
 ### 20.2 Practical Operations & Best Practices
 Production setup guidelines for Security in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -302,8 +342,10 @@ Detailed explanation of Backup & Restore in Apache Cassandra. Since Apache Cassa
 ### 21.2 Practical Operations & Best Practices
 Production setup guidelines for Backup & Restore in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -315,8 +357,10 @@ Detailed explanation of Monitoring in Apache Cassandra. Since Apache Cassandra i
 ### 22.2 Practical Operations & Best Practices
 Production setup guidelines for Monitoring in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -328,8 +372,10 @@ Detailed explanation of Cloud Services in Apache Cassandra. Since Apache Cassand
 ### 23.2 Practical Operations & Best Practices
 Production setup guidelines for Cloud Services in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -347,8 +393,10 @@ print('Connected to Apache Cassandra')
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -366,8 +414,10 @@ print('Connected to Apache Cassandra')
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -385,8 +435,10 @@ print('Connected to Apache Cassandra')
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -406,8 +458,10 @@ graph TD
 ### 27.2 Practical Operations & Best Practices
 Production setup guidelines for Production Architecture in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -419,8 +473,10 @@ Detailed explanation of Real Industry Use Cases in Apache Cassandra. Since Apach
 ### 28.2 Practical Operations & Best Practices
 Production setup guidelines for Real Industry Use Cases in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -432,8 +488,10 @@ Detailed explanation of Common Errors in Apache Cassandra. Since Apache Cassandr
 ### 29.2 Practical Operations & Best Practices
 Production setup guidelines for Common Errors in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -445,8 +503,10 @@ Detailed explanation of Interview Questions in Apache Cassandra. Since Apache Ca
 ### 30.2 Practical Operations & Best Practices
 Production setup guidelines for Interview Questions in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -458,8 +518,10 @@ Detailed explanation of Cheat Sheet in Apache Cassandra. Since Apache Cassandra 
 ### 31.2 Practical Operations & Best Practices
 Production setup guidelines for Cheat Sheet in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 
@@ -471,8 +533,10 @@ Detailed explanation of Hands-on Projects in Apache Cassandra. Since Apache Cass
 ### 32.2 Practical Operations & Best Practices
 Production setup guidelines for Hands-on Projects in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check read/write request latency and table operations metrics
+nodetool tablestats
+```
 
 ---
 
@@ -484,8 +548,10 @@ Detailed explanation of Practice Exercises in Apache Cassandra. Since Apache Cas
 ### 33.2 Practical Operations & Best Practices
 Production setup guidelines for Practice Exercises in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Check status of cluster nodes and ownership across partitions
+nodetool status
+```
 
 ---
 
@@ -497,8 +563,10 @@ Detailed explanation of Comparison in Apache Cassandra. Since Apache Cassandra i
 ### 34.2 Practical Operations & Best Practices
 Production setup guidelines for Comparison in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# Display node uptime, heap size, and system info
+nodetool info
+```
 
 ---
 
@@ -510,8 +578,10 @@ Detailed explanation of Final Summary in Apache Cassandra. Since Apache Cassandr
 ### 35.2 Practical Operations & Best Practices
 Production setup guidelines for Final Summary in Apache Cassandra.
 
-> [!NOTE]
-> Ensure you configure memory limits and monitor disk capacity when scaling Apache Cassandra in production.
+```bash
+# List keyspaces and column families structure
+cqlsh -e "DESCRIBE KEYSPACES;"
+```
 
 ---
 

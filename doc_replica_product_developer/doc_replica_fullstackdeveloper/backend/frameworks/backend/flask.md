@@ -14,8 +14,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 1.2 Operations & Verification
 Production and verification best practices for Introduction in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Show available Flask CLI routes
+flask routes
+```
 
 ---
 
@@ -29,8 +31,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 2.2 Operations & Verification
 Production and verification best practices for Why Use This Framework? in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run database migrations with Flask-Migrate
+flask db migrate -m "Init database"
+```
 
 ---
 
@@ -50,8 +54,10 @@ graph TD
 ### 3.2 Operations & Verification
 Production and verification best practices for Architecture in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Upgrade database with Flask-Migrate
+flask db upgrade
+```
 
 ---
 
@@ -70,11 +76,13 @@ flowchart TD
     C --> D[Run local server]
 ```
 
-### 4.2 Operations & Verification
-Production and verification best practices for Installation in Flask.
-
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+### 4.2 Project Scaffolding & Setup
+Run the following command to initialize and install Flask:
+```bash
+# Create directory and install Flask
+mkdir myflaskapp && cd myflaskapp
+pip install Flask
+```
 
 ---
 
@@ -95,8 +103,10 @@ src/
 ### 5.2 Operations & Verification
 Production and verification best practices for Project Structure in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with pytest
+pytest tests/
+```
 
 ---
 
@@ -112,11 +122,12 @@ Here is a simple starting snippet:
 print('Hello from Flask')
 ```
 
-### 6.2 Operations & Verification
-Production and verification best practices for Getting Started in Flask.
-
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+### 6.2 Running the Application
+Run the following command to start the Flask development server:
+```bash
+# Start the Flask development server with debug mode enabled
+flask run --debug
+```
 
 ---
 
@@ -130,8 +141,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 7.2 Operations & Verification
 Production and verification best practices for Core Concepts in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run code style checks with Flake8
+flake8 src/
+```
 
 ---
 
@@ -145,8 +158,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 8.2 Operations & Verification
 Production and verification best practices for Routing in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Start the production WSGI server using Gunicorn
+gunicorn -b 0.0.0.0:8000 app:app
+```
 
 ---
 
@@ -160,8 +175,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 9.2 Operations & Verification
 Production and verification best practices for Middleware in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Show available Flask CLI routes
+flask routes
+```
 
 ---
 
@@ -175,8 +192,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 10.2 Operations & Verification
 Production and verification best practices for Request & Response Lifecycle in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run database migrations with Flask-Migrate
+flask db migrate -m "Init database"
+```
 
 ---
 
@@ -190,8 +209,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 11.2 Operations & Verification
 Production and verification best practices for Dependency Injection (if supported) in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Upgrade database with Flask-Migrate
+flask db upgrade
+```
 
 ---
 
@@ -205,8 +226,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 12.2 Operations & Verification
 Production and verification best practices for Configuration in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with pytest
+pytest tests/
+```
 
 ---
 
@@ -220,8 +243,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 13.2 Operations & Verification
 Production and verification best practices for Database Integration in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run code style checks with Flake8
+flake8 src/
+```
 
 ---
 
@@ -235,8 +260,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 14.2 Operations & Verification
 Production and verification best practices for Authentication in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Start the production WSGI server using Gunicorn
+gunicorn -b 0.0.0.0:8000 app:app
+```
 
 ---
 
@@ -250,8 +277,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 15.2 Operations & Verification
 Production and verification best practices for Authorization in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Show available Flask CLI routes
+flask routes
+```
 
 ---
 
@@ -265,8 +294,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 16.2 Operations & Verification
 Production and verification best practices for Validation in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run database migrations with Flask-Migrate
+flask db migrate -m "Init database"
+```
 
 ---
 
@@ -280,8 +311,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 17.2 Operations & Verification
 Production and verification best practices for Error Handling in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Upgrade database with Flask-Migrate
+flask db upgrade
+```
 
 ---
 
@@ -295,8 +328,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 18.2 Operations & Verification
 Production and verification best practices for Caching in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with pytest
+pytest tests/
+```
 
 ---
 
@@ -310,8 +345,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 19.2 Operations & Verification
 Production and verification best practices for Security in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run code style checks with Flake8
+flake8 src/
+```
 
 ---
 
@@ -325,8 +362,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 20.2 Operations & Verification
 Production and verification best practices for Performance Optimization in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Start the production WSGI server using Gunicorn
+gunicorn -b 0.0.0.0:8000 app:app
+```
 
 ---
 
@@ -340,8 +379,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 21.2 Operations & Verification
 Production and verification best practices for Testing in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Show available Flask CLI routes
+flask routes
+```
 
 ---
 
@@ -355,8 +396,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 22.2 Operations & Verification
 Production and verification best practices for Deployment in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run database migrations with Flask-Migrate
+flask db migrate -m "Init database"
+```
 
 ---
 
@@ -370,8 +413,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 23.2 Operations & Verification
 Production and verification best practices for Monitoring in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Upgrade database with Flask-Migrate
+flask db upgrade
+```
 
 ---
 
@@ -385,8 +430,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 24.2 Operations & Verification
 Production and verification best practices for Microservices in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with pytest
+pytest tests/
+```
 
 ---
 
@@ -407,8 +454,10 @@ print(response.choices[0].message.content)
 ### 25.2 Operations & Verification
 Production and verification best practices for AI Integration in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run code style checks with Flake8
+flake8 src/
+```
 
 ---
 
@@ -422,8 +471,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 26.2 Operations & Verification
 Production and verification best practices for Production Architecture in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Start the production WSGI server using Gunicorn
+gunicorn -b 0.0.0.0:8000 app:app
+```
 
 ---
 
@@ -437,8 +488,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 27.2 Operations & Verification
 Production and verification best practices for Best Practices in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Show available Flask CLI routes
+flask routes
+```
 
 ---
 
@@ -452,8 +505,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 28.2 Operations & Verification
 Production and verification best practices for Common Errors in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run database migrations with Flask-Migrate
+flask db migrate -m "Init database"
+```
 
 ---
 
@@ -467,8 +522,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 29.2 Operations & Verification
 Production and verification best practices for Interview Questions in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Upgrade database with Flask-Migrate
+flask db upgrade
+```
 
 ---
 
@@ -482,8 +539,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 30.2 Operations & Verification
 Production and verification best practices for Cheat Sheet in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run unit tests with pytest
+pytest tests/
+```
 
 ---
 
@@ -497,8 +556,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 31.2 Operations & Verification
 Production and verification best practices for Hands-on Projects in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Run code style checks with Flake8
+flake8 src/
+```
 
 ---
 
@@ -512,8 +573,10 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 32.2 Operations & Verification
 Production and verification best practices for Learning Roadmap in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Start the production WSGI server using Gunicorn
+gunicorn -b 0.0.0.0:8000 app:app
+```
 
 ---
 
@@ -527,8 +590,26 @@ Configure security headers, rate limiting, and follow proper coding guidelines t
 ### 33.2 Operations & Verification
 Production and verification best practices for Final Summary in Flask.
 
-> [!NOTE]
-> Always refer to the official Flask configuration guide for the latest security guidelines.
+```bash
+# Show available Flask CLI routes
+flask routes
+```
 
 ---
 
+---
+
+## 34. Project Creation & Execution Commands
+
+### Scaffolding a New Project
+```bash
+# Create directory and install Flask
+mkdir myflaskapp && cd myflaskapp
+pip install Flask
+```
+
+### Running the Application
+```bash
+# Start the Flask development server with debug mode enabled
+flask run --debug
+```

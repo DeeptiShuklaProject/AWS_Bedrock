@@ -5,104 +5,104 @@
       "href": "welcome.html"
     },
     {
-      "title": "Module 1 - Introduction to Docker",
-      "href": "Module_01_Introduction/introduction.html"
+      "title": "Module 1 - Introduction to Containers & Docker",
+      "href": "Module_01_Introduction_to_Containers_and_Docker/introduction.html"
     },
     {
-      "title": "Module 2 - Docker Fundamentals",
-      "href": "Module_02_Fundamentals/fundamentals.html"
+      "title": "Module 2 - Container Fundamentals",
+      "href": "Module_02_Container_Fundamentals/fundamentals.html"
     },
     {
       "title": "Module 3 - Docker Architecture & Internals",
-      "href": "Module_03_Architecture/architecture.html"
+      "href": "Module_03_Docker_Architecture_and_Internals/architecture.html"
     },
     {
-      "title": "Module 4 - Prerequisites",
-      "href": "Module_04_Prerequisites/prerequisites.html"
+      "title": "Module 4 - Installation & Environment Setup",
+      "href": "Module_04_Installation_and_Environment_Setup/setup.html"
     },
     {
-      "title": "Module 5 - Environment Setup",
-      "href": "Module_05_Environment_Setup/setup.html"
+      "title": "Module 5 - Docker CLI & Essential Commands",
+      "href": "Module_05_Docker_CLI_and_Essential_Commands/cli_commands.html"
     },
     {
-      "title": "Module 6 - Configuration & daemon.json",
-      "href": "Module_06_Configuration/configuration.html"
+      "title": "Module 6 - Images, Layers & Registries",
+      "href": "Module_06_Images_Layers_and_Registries/images_registries.html"
     },
     {
-      "title": "Module 7 - Core Concepts",
-      "href": "Module_07_Core_Concepts/core_concepts.html"
+      "title": "Module 7 - Containers & Lifecycle Management",
+      "href": "Module_07_Containers_and_Lifecycle_Management/lifecycle.html"
     },
     {
-      "title": "Module 8 - Deep Dive: Storage, Networks & Drivers",
-      "href": "Module_08_Deep_Dive/deep_dive.html"
+      "title": "Module 8 - Docker Networking (Deep Dive)",
+      "href": "Module_08_Docker_Networking_Deep_Dive/networking.html"
     },
     {
-      "title": "Module 9 - Hands-on Labs",
-      "href": "Module_09_Hands-on_Labs/labs.html"
+      "title": "Module 9 - Docker Storage (Volumes & Bind Mounts)",
+      "href": "Module_09_Docker_Storage_Volumes_and_Bind_Mounts/storage.html"
     },
     {
-      "title": "Module 10 - Real-World Projects",
-      "href": "Module_10_Real_Projects/projects.html"
+      "title": "Module 10 - Dockerfile Mastery",
+      "href": "Module_10_Dockerfile_Mastery/dockerfile.html"
     },
     {
-      "title": "Module 11 - Docker Best Practices",
-      "href": "Module_11_Best_Practices/best_practices.html"
+      "title": "Module 11 - Docker Compose",
+      "href": "Module_11_Docker_Compose/compose.html"
     },
     {
-      "title": "Module 12 - Container Design Patterns",
-      "href": "Module_12_Design_Patterns/design_patterns.html"
+      "title": "Module 12 - Multi-Container Application Development",
+      "href": "Module_12_Multi-Container_Application_Development/multi_container.html"
     },
     {
-      "title": "Module 13 - Docker Security & Hardening",
-      "href": "Module_13_Security/security.html"
+      "title": "Module 13 - Docker Security",
+      "href": "Module_13_Docker_Security/security.html"
     },
     {
-      "title": "Module 14 - Performance Optimization",
-      "href": "Module_14_Performance/performance.html"
+      "title": "Module 14 - Docker Performance & Optimization",
+      "href": "Module_14_Docker_Performance_and_Optimization/performance.html"
     },
     {
-      "title": "Module 15 - Debugging & Troubleshooting",
-      "href": "Module_15_Debugging/debugging.html"
+      "title": "Module 15 - Logging, Monitoring & Observability",
+      "href": "Module_15_Logging_Monitoring_and_Observability/monitoring.html"
     },
     {
-      "title": "Module 16 - Containerized Testing",
-      "href": "Module_16_Testing/testing.html"
+      "title": "Module 16 - Debugging & Troubleshooting",
+      "href": "Module_16_Debugging_and_Troubleshooting/debugging.html"
     },
     {
-      "title": "Module 17 - Deployment & Orchestration",
-      "href": "Module_17_Deployment/deployment.html"
+      "title": "Module 17 - Testing Containerized Applications",
+      "href": "Module_17_Testing_Containerized_Applications/testing.html"
     },
     {
-      "title": "Module 18 - CI/CD Integration",
-      "href": "Module_18_CI_CD/cicd.html"
+      "title": "Module 18 - CI/CD with Docker",
+      "href": "Module_18_CI_CD_with_Docker/cicd.html"
     },
     {
-      "title": "Module 19 - Cloud Integration (AWS)",
-      "href": "Module_19_Cloud_Integration/cloud.html"
+      "title": "Module 19 - Docker in AWS, Azure & GCP",
+      "href": "Module_19_Docker_in_AWS_Azure_and_GCP/cloud.html"
     },
     {
-      "title": "Module 20 - Industry Architecture",
-      "href": "Module_20_Industry_Architecture/industry_architecture.html"
+      "title": "Module 20 - Enterprise Architecture & Production Patterns",
+      "href": "Module_20_Enterprise_Architecture_and_Production_Patterns/enterprise.html"
     },
     {
-      "title": "Module 21 - Common Interview Questions",
-      "href": "Module_21_Common_Interview_Questions/interview_questions.html"
+      "title": "Module 21 - Design Patterns & Anti-Patterns",
+      "href": "Module_21_Design_Patterns_and_Anti-Patterns/design_patterns.html"
     },
     {
-      "title": "Module 22 - Cheat Sheets & Reference Guides",
-      "href": "Module_22_Cheat_Sheets/cheat_sheets.html"
+      "title": "Module 22 - Best Practices & Interview Preparation",
+      "href": "Module_22_Best_Practices_and_Interview_Preparation/interview_prep.html"
     },
     {
-      "title": "Module 23 - FAQs & Common Confusions",
-      "href": "Module_23_FAQs/faqs.html"
+      "title": "Module 23 - Real-World Case Studies",
+      "href": "Module_23_Real-World_Case_Studies/case_studies.html"
     },
     {
-      "title": "Module 24 - Capstone Project",
-      "href": "Module_24_Capstone_Project/capstone.html"
+      "title": "Module 24 - Enterprise Capstone Project",
+      "href": "Module_24_Enterprise_Capstone_Project/capstone.html"
     },
     {
-      "title": "Module 25 - Final Industry Preparation",
-      "href": "Module_25_Final_Industry_Preparation/prep.html"
+      "title": "Module 25 - Final Review, Certification Guide & Career Preparation",
+      "href": "Module_25_Final_Review_Certification_Guide_and_Career_Preparation/prep.html"
     }
   ]
 }

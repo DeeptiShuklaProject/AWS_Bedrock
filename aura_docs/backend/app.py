@@ -345,33 +345,36 @@ class RunCodeRequest(BaseModel):
 
 @app.post("/api/playground/run-code")
 def run_code_playground(request: RunCodeRequest):
-    """Execute Python code locally and return stdout/stderr."""
+    """Execute Python code in a safe, isolated subprocess and return stdout/stderr."""
+    import subprocess
     import sys
-    import io
-    
-    old_stdout = sys.stdout
-    old_stderr = sys.stderr
-    redirected_output = sys.stdout = io.StringIO()
-    redirected_error = sys.stderr = io.StringIO()
     
     try:
-        # Execute the code block locally
-        exec(request.code, {"__name__": "__main__"})
-        sys.stdout = old_stdout
-        sys.stderr = old_stderr
+        # Run python code in a subprocess with a timeout of 5 seconds to prevent infinite loops
+        result = subprocess.run(
+            [sys.executable, "-c", request.code],
+            capture_output=True,
+            text=True,
+            timeout=5.0
+        )
         return {
-            "success": True,
-            "stdout": redirected_output.getvalue(),
-            "stderr": redirected_error.getvalue()
+            "success": result.returncode == 0,
+            "stdout": result.stdout,
+            "stderr": result.stderr
         }
-    except Exception as e:
-        sys.stdout = old_stdout
-        sys.stderr = old_stderr
+    except subprocess.TimeoutExpired:
         return {
             "success": False,
-            "stdout": redirected_output.getvalue(),
-            "stderr": redirected_error.getvalue() + str(e)
+            "stdout": "",
+            "stderr": "Execution timed out (maximum 5 seconds allowed)."
         }
+    except Exception as e:
+        return {
+            "success": False,
+            "stdout": "",
+            "stderr": f"Execution failed: {str(e)}"
+        }
+
 
 if __name__ == "__main__":
     import uvicorn

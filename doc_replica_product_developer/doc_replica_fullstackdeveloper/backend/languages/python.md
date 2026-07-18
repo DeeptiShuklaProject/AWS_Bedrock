@@ -616,3 +616,1829 @@ crew = Crew(
 - **`Agent(...)`**: Configures an autonomous crew agent with specific roles, goals, and backstories.
 - **`Task(...)`**: Sets requirements, expected outputs, and links them to the assigned agent.
 - **`Crew(...)`**: Coordinates agents and tasks into a sequential execution workflow.
+
+# Python for AI Agents (Beginner to Advanced)
+
+## Why Python is the Language of AI
+
+Python is the standard language of AI and Agentic development. While other languages offer high execution speed (like C++ or Rust) or native web integration (like JavaScript), Python strikes a balance that makes it irreplaceable:
+
+<InfoCard title="Ecosystem Domination">
+Python hosts the entire machine learning and LLM stack (PyTorch, Hugging Face, LangChain, Pydantic, Boto3, FastAPI).
+</InfoCard>
+
+<InfoCard title="Syntax Simplicity">
+AI development is highly iterative. Writing prompts, parsing schemas, and routing logic must be written and tested rapidly. Python's clean syntax allows developers to write code that reads like pseudo-code.
+</InfoCard>
+
+<InfoCard title="C-Bindings Performance">
+Heavy calculations (such as tensor math, matrix multiplications, or vector similarity computations) are executed in high-performance C/C++ backends under the hood. Python acts as a developer-friendly glue layer.
+</InfoCard>
+
+<InfoCard title="First-Class Framework Support">
+Modern agent runtimes (such as Amazon Bedrock AgentCore and Strands) are built from the ground up to consume and execute Python functions natively inside virtualized environments.
+</InfoCard>
+
+---
+
+## Python Concepts Needed for AI Agents
+
+### Variables
+<ProgressTracker currentSection={1} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Variables are labels bound to memory locations containing values. Python uses dynamic typing, meaning variable types are resolved at runtime rather than compile-time.
+
+**Why do we need it?**
+In AI agents, variables are used to track conversational context, extract model payloads, hold active session IDs, and configure prompt parameters.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+variable_name = value
+```
+
+```python
+prompt_input = "Search for AWS Bedrock pricing"
+session_ttl_seconds = 28800
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="prompt_input = \"Search for AWS Bedrock pricing\"\nsession_ttl_seconds = 28800\nprint(f'Prompt: {prompt_input}')\nprint(f'Session TTL: {session_ttl_seconds}s')" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 20-21, variables are extracted dynamically from payload and context parameters:
+```python
+prompt = payload.get("prompt", "")
+session_id = getattr(context, "session_id", "local-session-123")
+```
+</InfoCard>
+
+<Tip>
+- Use snake_case for variable names.
+- Keep variable scopes as localized as possible.
+- Use constants (uppercase) for configurations that shouldn't change.
+</Tip>
+
+<Warning>
+- Reusing global variables inside functions without specifying `global`, which can lead to reference bugs.
+- Variable shadow/collisions (e.g. naming a variable `list` or `dict`, overriding Python built-ins).
+</Warning>
+
+<Quiz 
+  question="Which of the following describes Python's variable typing system?" 
+  options={["Static typing: Types are declared at write-time and enforced by compiler.", "Dynamic typing: Variable labels point to memory objects whose types are resolved at runtime.", "Duck typing: Variables are immutable and typed on first assignment.", "Strict typing: Types are determined by the folder directory structure."]} 
+  answerIndex={1} 
+  explanation="Python resolves variable types dynamically at runtime. Variable names are labels bound to memory locations containing values." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What does dynamic typing mean in Python, and how does Python manage object references?" a="Dynamic typing means variables do not have static types; they point to objects in memory that have types. When you assign `x = 10` and then `x = \"text\"`, Python simply rebinds the label `x` from an integer object to a string object, updating the reference count of each object." />
+</InterviewQuestions>
+
+### Functions
+<ProgressTracker currentSection={2} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Functions are reusable blocks of code that execute a specific action. Python support variable arguments (*args, **kwargs), default parameters, and first-class function objects.
+
+**Why do we need it?**
+AI Agent tools are registered as Python functions. LLM frameworks inspect function signatures and docstrings to generate JSON schemas.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+def function_name(param1, param2=default_val, *args, **kwargs):
+    return result
+```
+
+```python
+def generate_prompt(task, context=""):
+    return f"Task: {task}\nContext: {context}"
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="def generate_prompt(task, context=\"\"):\n    return f\"Task: {task}\\nContext: {context}\"\n\nprint(generate_prompt(\"Summarize logs\", \"Error at 12:00\"))" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 34, functions define tools that agents can run:
+```python
+def get_user_details(user_id: str) -> dict:
+    return {"user_id": user_id, "role": "developer"}
+```
+</InfoCard>
+
+<Tip>
+- Define explicit parameter names and use docstrings for LLM tool binding.
+- Avoid mutable default arguments like `list` or `dict`.
+</Tip>
+
+<Warning>
+- Using `history=[]` as a default argument. Python instantiates mutable default parameters once, causing state leak between function calls.
+</Warning>
+
+<Quiz 
+  question="Why are mutable default arguments (like history=[]) dangerous in Python functions?" 
+  options={["They consume double the memory on execution.", "They raise a SyntaxError at compile time.", "They are instantiated only once when the module is loaded, causing state to leak between subsequent calls.", "They cannot be passed to LLM tool schemas."]} 
+  answerIndex={2} 
+  explanation="Mutable default parameters are evaluated once when the function is defined, meaning the same object is shared across all subsequent invocations." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why are mutable default arguments dangerous in Python?" a="Mutable defaults are evaluated once at function definition time. Subsequent calls modify the same object, leaking state." />
+</InterviewQuestions>
+
+### Classes
+<ProgressTracker currentSection={3} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Classes are blueprints for creating objects. They bundle data (attributes) and behavior (methods) together.
+
+**Why do we need it?**
+Agents maintain memory, state, client sessions, and tools inside structured class instances.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+class Agent:
+    def __init__(self, name):
+        self.name = name
+```
+
+```python
+class Memory:
+    def __init__(self):
+        self.history = []
+    def add(self, msg):
+        self.history.append(msg)
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="class Memory:\n    def __init__(self):\n        self.history = []\n    def add(self, msg):\n        self.history.append(msg)\n\nmem = Memory()\nmem.add(\"Hello agent\")\nprint(mem.history)" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep02_production_supervisor.py` line 12, agents are defined as classes inheriting from a base Agent:
+```python
+class SupervisorAgent(BaseAgent):
+    def __init__(self, team_members):
+        super().__init__("Supervisor")
+        self.team = team_members
+```
+</InfoCard>
+
+<Tip>
+- Always initialize attributes inside `__init__`.
+- Keep class responsibilities single and focused.
+</Tip>
+
+<Warning>
+- Defining instance variables as class variables, sharing state across all instances accidentally.
+</Warning>
+
+<Quiz 
+  question="What is the primary difference between __new__ and __init__ in Python classes?" 
+  options={["__new__ initializes the attributes; __init__ allocates the memory.", "__new__ creates the object instance and returns it; __init__ configures the instance attributes.", "__new__ is only for static methods; __init__ is for instance methods.", "There is no difference; they are aliases."]} 
+  answerIndex={1} 
+  explanation="__new__ is the constructor creator which returns the new instance, while __init__ initializes the fields on that instance." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What is the difference between class variables and instance variables?" a="Class variables are shared by all instances of a class. Instance variables are unique to each instance." />
+</InterviewQuestions>
+
+### OOP
+<ProgressTracker currentSection={4} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Object-Oriented Programming (OOP) uses encapsulation, inheritance, polymorphism, and abstraction to structure programs.
+
+**Why do we need it?**
+Different types of agents (e.g. Supervisor, Worker, Auditor) share base agent interfaces while overriding execution steps.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+class WorkerAgent(BaseAgent):
+    def execute(self):
+        pass
+```
+
+```python
+class BaseAgent:
+    def run(self):
+        raise NotImplementedError()
+
+class SimpleAgent(BaseAgent):
+    def run(self):
+        return "Running task"
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="class BaseAgent:\n    def run(self):\n        raise NotImplementedError()\n\nclass SimpleAgent(BaseAgent):\n    def run(self):\n        return \"Running task\"\n\nagent = SimpleAgent()\nprint(agent.run())" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep02_production_supervisor.py` line 45, polymorphism is used to run different agent routines concurrently:
+```python
+for agent in self.team:
+    agent.execute(task)
+```
+</InfoCard>
+
+<Tip>
+- Use Abstract Base Classes (ABCs) to enforce tool/agent schemas.
+- Prefer composition over inheritance where applicable.
+</Tip>
+
+<Warning>
+- Deep inheritance hierarchies that make code fragile and difficult to trace.
+</Warning>
+
+<Quiz 
+  question="What algorithm does Python use to determine Method Resolution Order (MRO) in multiple inheritance?" 
+  options={["A* Search Algorithm", "Depth First Search", "C3 Linearization Algorithm", "Kruskal's Algorithm"]} 
+  answerIndex={2} 
+  explanation="Python uses the C3 Linearization algorithm to construct a deterministic Method Resolution Order (MRO) list for class lookups." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What algorithm does Python use to determine Method Resolution Order (MRO) in multiple inheritance?" a="Python uses the C3 Linearization algorithm to construct a deterministic list for class lookups." />
+</InterviewQuestions>
+
+### Modules
+<ProgressTracker currentSection={5} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+A module is a file containing Python definitions and statements. The file name is the module name with the suffix `.py` appended.
+
+**Why do we need it?**
+Splitting code into modules keeps tools, prompts, database logic, and agent definitions organized and importable.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+# File: tools.py
+def call_tool(): pass
+
+# File: main.py
+import tools
+```
+
+```python
+# Save as agent_math.py
+def add_numbers(a, b):
+    return a + b
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Since this is a module, we show local import simulation\nimport math\nprint(math.sqrt(16))" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 5, prompt templates are loaded from a dedicated module:
+```python
+from prompts.agent_prompts import SYSTEM_INSTRUCTION
+```
+</InfoCard>
+
+<Tip>
+- Keep modules focused on a single concern (e.g. tools, clients, schemas).
+- Avoid wildcard imports like `from module import *`.
+</Tip>
+
+<Warning>
+- Circular imports where module A imports B and B imports A, causing runtime failures.
+</Warning>
+
+<Quiz 
+  question="How can you resolve circular import dependency errors in Python?" 
+  options={["Rename all modules to use capital letters.", "Refactor dependencies, use dynamic imports inside functions, or place imports at the bottom of the file.", "Delete the __init__.py files from both modules.", "Use wildcards (from module import *) everywhere."]} 
+  answerIndex={1} 
+  explanation="Circular dependencies can be fixed by refactoring shared code into a third module, executing dynamic imports at runtime inside functions, or reorganizing code structure." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How do you prevent code in a module from running when imported?" a="Wrap the execution code block in an `if __name__ == '__main__':` block." />
+</InterviewQuestions>
+
+### Packages
+<ProgressTracker currentSection={6} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Packages are namespaces containing multiple modules, structured using directories and designated by `__init__.py` files.
+
+**Why do we need it?**
+Complex agent runtimes are distributed as packages containing subpackages for memory, tools, and LLM providers.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```
+my_package/
+    __init__.py
+    agent.py
+    tools/
+        __init__.py
+        web_search.py
+```
+
+```python
+# package init exposes API endpoints
+from .agent import RouterAgent
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Simulate package import using standard library packages\nimport os.path\nprint(os.path.join(\"usr\", \"bin\"))" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Exposing primary endpoints in `__init__.py` simplifies agent imports:
+```python
+from my_agent_framework.core.agents import Agent
+from my_agent_framework.core.tasks import Task
+```
+</InfoCard>
+
+<Tip>
+- Keep `__init__.py` files light and only use them to expose high-level APIs.
+- Design clean package directory hierarchies.
+</Tip>
+
+<Warning>
+- Omitting `__init__.py` in packages intended for legacy Python installations (before namespace packaging was introduced).
+</Warning>
+
+<Quiz 
+  question="What is the purpose of __init__.py in a Python package?" 
+  options={["It is used to compile the package to binary C code.", "It initializes the virtual environment parameters.", "It tells Python that the directory should be treated as a package, allowing package-level imports and api exposing.", "It registers the package with the global PyPI index."]} 
+  answerIndex={2} 
+  explanation="An __init__.py file designates a directory as a Python package, executing automatically when the package is imported." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What is the role of __init__.py in a Python package?" a="It signals to Python that the directory is a package, and executes package-level initializations." />
+</InterviewQuestions>
+
+### Decorators
+<ProgressTracker currentSection={7} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Decorators modify or wrap function behaviors without changing their core source code. They take a function as input and return a wrapper function.
+
+**Why do we need it?**
+Decorators (like `@tool` or `@app.invoke`) register functions in LLM registries, automatically parse schemas, and log inputs/outputs.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+```
+
+```python
+import functools
+def log_call(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__}")
+        return func(*args, **kwargs)
+    return wrapper
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="import functools\ndef log_call(func):\n    @functools.wraps(func)\n    def wrapper(*args, **kwargs):\n        print(f\"Calling {func.__name__}\")\n        return func(*args, **kwargs)\n    return wrapper\n\n@log_call\ndef say_hi():\n    print(\"Hello!\")\n\nsay_hi()" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 12, `@app.invoke` registers agent handlers dynamically:
+```python
+@app.invoke(name="agent_runtime")
+def handle_agent(payload, context):
+    # handler code
+```
+</InfoCard>
+
+<Tip>
+- Always use `@functools.wraps(func)` to preserve function metadata (docstring, name, annotations).
+- Use decorators for clean cross-cutting concerns like logging and security checks.
+</Tip>
+
+<Warning>
+- Forgetting to return the wrapper function from the decorator.
+- Losing metadata because `@functools.wraps` was omitted.
+</Warning>
+
+<Quiz 
+  question="Why should you use @functools.wraps(func) when writing a custom decorator wrapper?" 
+  options={["To speed up function execution.", "To bypass the Global Interpreter Lock (GIL).", "To preserve the original function's name, docstring, and signature metadata.", "To automatically catch runtime errors."]} 
+  answerIndex={2} 
+  explanation="@functools.wraps copies the original function metadata (name, docstring, arguments) to the wrapper function so that introspection libraries can still read it." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why should you use @functools.wraps(func) when writing a custom decorator wrapper?" a="It copies the original function's name, docstring, and annotations metadata to the wrapper function, avoiding introspection breakage." />
+</InterviewQuestions>
+
+### Context Managers
+<ProgressTracker currentSection={8} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Context Managers manage resource allocation and cleanup using `with` blocks. They implement `__enter__` and `__exit__` magic methods.
+
+**Why do we need it?**
+Agents use context managers to guarantee clean-up of database connections, remote API sessions, vector store indices, and sandbox runtimes.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+with open('file.txt', 'r') as f:
+    content = f.read()
+```
+
+```python
+class SandboxSession:
+    def __enter__(self):
+        print("Allocating sandbox")
+        return self
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        print("Destroying sandbox")
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="class SandboxSession:\n    def __enter__(self):\n        print(\"Allocating sandbox\")\n        return self\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        print(\"Destroying sandbox\")\n\nwith SandboxSession():\n    print(\"Executing user code inside sandbox\")" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Ensuring remote clients are closed after agent execution:
+```python
+with httpx.Client() as client:
+    response = client.post("https://api.bedrock.com/v1", json=payload)
+```
+</InfoCard>
+
+<Tip>
+- Use `@contextlib.contextmanager` for quick, generator-based context managers.
+- Always clean up resources in `__exit__` even if exceptions are raised.
+</Tip>
+
+<Warning>
+- Swallowing exceptions in `__exit__` by returning `True` without checking if it is safe to do so.
+</Warning>
+
+<Quiz 
+  question="In class-based Context Managers, what return value from __exit__ suppresses exceptions raised inside the with block?" 
+  options={["None", "True", "False", "raise"]} 
+  answerIndex={1} 
+  explanation="Returning True from __exit__ tells Python to catch/suppress the exception; returning False allows the exception to bubble up." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What does returning True from __exit__ do in a context manager?" a="It suppresses the exception raised inside the `with` block, preventing it from bubbling up." />
+</InterviewQuestions>
+
+### Exception Handling
+<ProgressTracker currentSection={9} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Exception handling manages runtime errors using `try`, `except`, `else`, and `finally` blocks.
+
+**Why do we need it?**
+LLM calls fail due to rate limits, format errors, or model hallucinations. Exception blocks catch and execute fallbacks.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+try:
+    # execute code
+except ExceptionType as e:
+    # handle error
+finally:
+    # cleanup code
+```
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    result = 0
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    result = 0\nprint(f'Result: {result}')" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 67, rate limits are managed dynamically:
+```python
+try:
+    response = bedrock_client.invoke_model(**kwargs)
+except bedrock_client.exceptions.ThrottlingException:
+    time.sleep(2) # Backoff
+```
+</InfoCard>
+
+<Tip>
+- Avoid bare `except:` clauses as they catch system exit exceptions.
+- Derive custom exceptions (like `TokenLimitException`) from `Exception`.
+</Tip>
+
+<Warning>
+- Using bare `except:` which catches keyboard interrupts and prevents script termination.
+</Warning>
+
+<Quiz 
+  question="Why is using a bare except: clause considered a dangerous anti-pattern?" 
+  options={["It causes memory leaks.", "It raises a TypeError.", "It catches all exceptions, including system-interrupt signals like KeyboardInterrupt, making it impossible to stop execution.", "It is ignored by Python at runtime."]} 
+  answerIndex={2} 
+  explanation="A bare except: clause catches BaseException, which includes SystemExit and KeyboardInterrupt, preventing the user from interrupting the script." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why is using a bare except: clause considered a dangerous anti-pattern?" a="It catches BaseException, including KeyboardInterrupt and SystemExit, making it impossible to stop the program normally." />
+</InterviewQuestions>
+
+### Typing
+<ProgressTracker currentSection={10} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Python typing provides type hinting metadata for variables and function signatures, used by static analyzers like `mypy`.
+
+**Why do we need it?**
+Pydantic and FastAPI read type hints (like `List[str]` or `Union[int, str]`) to generate schemas and validate input fields.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+x: int = 10
+def run_agent(name: str) -> dict:
+    return {}
+```
+
+```python
+from typing import List, Dict, Optional
+def parse_tags(tags: List[str]) -> Optional[str]:
+    return tags[0] if tags else None
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="from typing import List, Optional\ndef parse_tags(tags: List[str]) -> Optional[str]:\n    return tags[0] if tags else None\n\nprint(parse_tags([\"agent\", \"mcp\"]))" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Defining strict type schemas for agent tools ensures LLMs invoke them correctly:
+```python
+def query_db(query: str, limit: int = 10) -> List[Dict[str, Any]]:
+    # database query
+```
+</InfoCard>
+
+<Tip>
+- Use type hints for public APIs and tool helper signatures.
+- Use `mypy` to validate typing compliance during CI/CD pipelines.
+</Tip>
+
+<Warning>
+- Relying on type hints to enforce constraints at runtime without using validation libraries like Pydantic.
+</Warning>
+
+<Quiz 
+  question="Does Python enforce type hints (e.g. x: int) at runtime by default?" 
+  options={["Yes, Python raises a TypeError if the value doesn't match the annotation.", "No, type hints are ignored during execution; static analysis must be run separately using tools like mypy.", "Yes, but only inside FastAPI routers.", "Only if the virtual environment is activated."]} 
+  answerIndex={1} 
+  explanation="Python does not check types at runtime. Type hints are metadata used by static analyzers (like mypy), IDEs, or frameworks like Pydantic." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Does Python enforce type hints at runtime?" a="No. Type hints are completely ignored by the interpreter at runtime. They are only metadata for IDEs and static checkers." />
+</InterviewQuestions>
+
+### Async Programming
+<ProgressTracker currentSection={11} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Asynchronous programming uses an event loop, `async` / `await` keywords, and coroutines to run concurrent non-blocking IO operations.
+
+**Why do we need it?**
+Agents invoke multiple LLMs, web search APIs, and databases concurrently. Async execution speeds up execution time dramatically.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+async def fetch():
+    await asyncio.sleep(1)
+```
+
+```python
+import asyncio
+async def main():
+    print("Hello async")
+    await asyncio.sleep(0.1)
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="import asyncio\nasync def main():\n    print(\"Hello async\")\n    await asyncio.sleep(0.1)\n\n# Run main loop\nasyncio.run(main())" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Running worker operations concurrently in `ep02_production_supervisor.py`:
+```python
+async def run_workers(tasks):
+    results = await asyncio.gather(*[worker.run(t) for t in tasks])
+    return results
+```
+</InfoCard>
+
+<Tip>
+- Never call blocking synchronous functions (like `time.sleep()`) in async functions; use `await asyncio.sleep()` instead.
+- Use `asyncio.gather` to execute tasks concurrently.
+</Tip>
+
+<Warning>
+- Stalling the event loop by calling blocking synchronous functions inside coroutines.
+</Warning>
+
+<Quiz 
+  question="Which of the following should you avoid inside an asynchronous function?" 
+  options={["Using the await keyword.", "Calling synchronous blocking functions like time.sleep() or requests.get().", "Using asyncio.gather().", "Returning a dictionary."]} 
+  answerIndex={1} 
+  explanation="Synchronous blocking calls stall the entire event loop, preventing other concurrent tasks from executing. Use non-blocking async counterparts." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What happens if you block the asyncio event loop with a call like time.sleep(5)?" a="The entire event loop freezes, blocking all other running concurrent tasks from executing for 5 seconds." />
+</InterviewQuestions>
+
+### Dataclasses
+<ProgressTracker currentSection={12} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Dataclasses provide a decorator `@dataclass` that automatically adds special methods like `__init__` and `__repr__` to classes.
+
+**Why do we need it?**
+Dataclasses act as clean, lightweight records to hold agent payloads, configuration parameters, and execution state.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+from dataclasses import dataclass
+@dataclass
+class AgentConfig:
+    model: str
+    max_tokens: int
+```
+
+```python
+from dataclasses import dataclass
+@dataclass
+class User:
+    username: str
+    user_id: int
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="from dataclasses import dataclass\n@dataclass\nclass User:\n    username: str\n    user_id: int\n\nu = User(\"agent_dev\", 99)\nprint(u)" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Defining task specifications in `ep02_production_supervisor.py`:
+```python
+@dataclass
+class AgentTask:
+    task_id: str
+    prompt: str
+    temperature: float = 0.7
+```
+</InfoCard>
+
+<Tip>
+- Use `frozen=True` to create immutable dataclasses that are hashable.
+- Provide default values for optional configurations.
+</Tip>
+
+<Warning>
+- Using mutable types (like lists/dicts) as default field values without using `default_factory`.
+</Warning>
+
+<Quiz 
+  question="How do you make a Python dataclass immutable and hashable?" 
+  options={["Pass frozen=True to the @dataclass decorator.", "Use the readonly keyword.", "Store the class inside a tuple.", "Define all fields as private."]} 
+  answerIndex={0} 
+  explanation="Using @dataclass(frozen=True) automatically generates code that prevents attribute mutation and defines a __hash__ method." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How do you make a Python dataclass immutable and hashable?" a="Set the `frozen=True` argument in the decorator: `@dataclass(frozen=True)`." />
+</InterviewQuestions>
+
+### Enums
+<ProgressTracker currentSection={13} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Enums are sets of symbolic names bound to unique, constant values, inheriting from the `Enum` base class.
+
+**Why do we need it?**
+Enums categorize worker statuses (e.g. `PENDING`, `RUNNING`, `SUCCESS`) and target models in agent routing logic.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+from enum import Enum
+class Role(Enum):
+    USER = "user"
+    AGENT = "agent"
+```
+
+```python
+from enum import Enum
+class Status(Enum):
+    ACTIVE = 1
+    INACTIVE = 2
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="from enum import Enum\nclass Status(Enum):\n    ACTIVE = 1\n    INACTIVE = 2\n\nprint(Status.ACTIVE.name)\nprint(Status.ACTIVE.value)" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Managing agent orchestration workflows in `ep02_production_supervisor.py`:
+```python
+class StepStatus(str, Enum):
+    NOT_STARTED = "NOT_STARTED"
+    IN_PROGRESS = "IN_PROGRESS"
+    COMPLETED = "COMPLETED"
+```
+</InfoCard>
+
+<Tip>
+- Inherit from both `str` and `Enum` to make values directly JSON serializable.
+- Use uppercase names for Enum members.
+</Tip>
+
+<Warning>
+- Comparing Enum members directly with primitive types without extracting `.value` (if they are not str-subclassed).
+</Warning>
+
+<Quiz 
+  question="Why is inheriting from both str and Enum (e.g. class Role(str, Enum)) a best practice for API states?" 
+  options={["It speeds up comparison operators.", "It allows the enum members to be serialized directly to JSON as plain strings.", "It bypasses pydantic validation.", "It makes the enum hashable."]} 
+  answerIndex={1} 
+  explanation="Inheriting from str ensures that enum values can be serialized directly into JSON outputs without needing custom serialization logic." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why is inheriting from both str and Enum (e.g., class Role(str, Enum)) helpful in APIs?" a="It allows the enum members to be serialized directly as plain strings in JSON outputs without requiring custom serializers." />
+</InterviewQuestions>
+
+### Logging
+<ProgressTracker currentSection={14} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Logging tracks runtime events. Python's built-in `logging` module offers custom handlers, formatters, and logging levels.
+
+**Why do we need it?**
+JSON logging captures prompt executions, execution paths, database latencies, and tool trace logs in production environments.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.info("Log message")
+```
+
+```python
+import logging
+logger = logging.getLogger("AgentLogger")
+logger.warning("Tool timeout detected")
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="import logging\nlogging.basicConfig(level=logging.INFO)\nlogger = logging.getLogger(\"AgentDemo\")\nlogger.info(\"Simple test log\")" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep05_auth_middleware.py` line 15, request handling logs route details:
+```python
+logger.info("Incoming agent invocation", extra={"session_id": session_id, "route": route})
+```
+</InfoCard>
+
+<Tip>
+- Use structured JSON formatters to feed logs directly into Log Search Engines.
+- Log exceptions using `logger.exception` to capture full tracebacks.
+</Tip>
+
+<Warning>
+- Using print statements instead of logs in production code, which clutter standard outputs and lack severity labels.
+</Warning>
+
+<Quiz 
+  question="Why is structured JSON logging preferred over plaintext logging for production agents?" 
+  options={["JSON logging takes less disk space.", "Plaintext logs cannot be read on Windows.", "JSON logs group metadata into a single parseable line, enabling instant filtering and analysis in log search engines.", "JSON logs automatically mask all passwords."]} 
+  answerIndex={2} 
+  explanation="Log aggregators like CloudWatch or Elasticsearch parse JSON properties natively, allowing instant querying by session ID, module, or log level." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why is structured JSON logging preferred over plaintext logging for production agents?" a="Log aggregators parse JSON keys natively, making it fast and easy to query logs by session, module, or user ID." />
+</InterviewQuestions>
+
+### Environment Variables
+<ProgressTracker currentSection={15} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Environment variables are configuration values defined in the system shell process environment.
+
+**Why do we need it?**
+API keys (like `GEMINI_API_KEY` or `OPENAI_API_KEY`) and server configurations must be kept secure, out of code repository commits.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+import os
+api_key = os.getenv("GEMINI_API_KEY")
+```
+
+```python
+import os
+port = int(os.environ.get("PORT", 8000))
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="import os\nprint(\"Current HOME directory:\", os.environ.get(\"USERPROFILE\", \"Unknown\"))" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 14, system clients are configured using environment variables:
+```python
+bedrock_client = boto3.client("bedrock-runtime", region_name=os.getenv("AWS_DEFAULT_REGION", "us-east-1"))
+```
+</InfoCard>
+
+<Tip>
+- Always provide sensible default fallbacks when retrieving optional environment variables.
+- Never commit files containing hardcoded keys to code repositories.
+</Tip>
+
+<Warning>
+- Hardcoding secret tokens directly into source files, risking severe security breaches when code is pushed to public remotes.
+</Warning>
+
+<Quiz 
+  question="What is a major security risk regarding environment variables in code?" 
+  options={["Retrieving values with os.environ.get() causes memory fragmentation.", "Hardcoding secret keys/API tokens directly in code files instead of using environment variables, risking leaks to public repositories.", "Environment variables can only hold integers.", "They are cleared every time a function finishes execution."]} 
+  answerIndex={1} 
+  explanation="Hardcoding secrets in source files allows anyone with access to the source code repository to read them. Env variables keep secrets separated from code." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How do you securely configure credentials in local development vs production environments?" a="Use `.env` files for local setups (added to `.gitignore`) and system/cloud parameter stores in production." />
+</InterviewQuestions>
+
+### Virtual Environments
+<ProgressTracker currentSection={16} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Virtual environments isolate python package libraries installed on a system, keeping project dependencies clean and separated.
+
+**Why do we need it?**
+Agents need specific, locked versions of libraries like `pydantic` or `langchain` that could conflict with global system packages.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Unix
+.venv\Scripts\activate     # On Windows
+```
+
+```bash
+python -m venv my_env
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Simulate checking current virtual env prefix\nimport sys\nprint(\"Virtual environment path:\", sys.prefix)" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Standard runtimes activate virtual environments before execution:
+```bash
+# Production deployment script
+cd /app && source .venv/bin/activate && python main.py
+```
+</InfoCard>
+
+<Tip>
+- Always create and activate virtual environments before installing packages.
+- Exclude virtual environment folders (like `.venv`) in `.gitignore`.
+</Tip>
+
+<Warning>
+- Installing dependencies globally using root/administrator privileges, breaking system tools.
+</Warning>
+
+<Quiz 
+  question="How does activating a virtual environment affect import resolution?" 
+  options={["It copies the entire python interpreter to the root directory.", "It overrides global imports by prepending the virtual environment path to the shell's PATH, resolving imports from its site-packages.", "It compiles python code to C++.", "It blocks all standard library imports."]} 
+  answerIndex={1} 
+  explanation="Activation configures environment variables so that pip installations and python execution refer to the isolated folder structure." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How does activating a virtual environment affect import resolution?" a="It updates the environment shell's PATH, ensuring python loads imports from the virtual env's `site-packages` directory instead of global paths." />
+</InterviewQuestions>
+
+### Pip
+<ProgressTracker currentSection={17} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Pip is the package installer for Python. It downloads and manages libraries from the Python Package Index (PyPI).
+
+**Why do we need it?**
+Pip installs agent dependencies, including SDK clients, database drivers, and serialization libraries.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```bash
+pip install package_name
+pip install -r requirements.txt
+```
+
+```bash
+pip install requests pydantic
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Show installed packages demo\nimport pkg_resources\nfor dist in list(pkg_resources.working_set)[:5]:\n    print(f'{dist.project_name} ({dist.version})')" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Installing packages dynamically in sandbox runtimes:
+```python
+subprocess.run(["pip", "install", "-r", "requirements.txt"])
+```
+</InfoCard>
+
+<Tip>
+- Pin package versions in `requirements.txt` to prevent breaking changes on updates.
+- Use editable mode `pip install -e .` for local package development.
+</Tip>
+
+<Warning>
+- Installing packages without pinning versions, causing dependency drifts and build errors in deployment pipelines.
+</Warning>
+
+<Quiz 
+  question="What is the difference between pip install and pip install -e .?" 
+  options={["Editable mode (-e) installs the package as a read-only symlink.", "Editable mode (-e) allows modifying the package source code directly without reinstalling to see changes.", "Editable mode disables sub-dependency resolution.", "Standard install downloads code from GitHub only."]} 
+  answerIndex={1} 
+  explanation="Editable install symlinks the source code directory, ensuring changes to the local files are immediately reflected in imports." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What is the difference between pip install and pip install -e .?" a="Editable mode (-e) installs the local directory as a symbolic link, so source file modifications are immediately reflected in imports without reinstalling." />
+</InterviewQuestions>
+
+### UV
+<ProgressTracker currentSection={18} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+UV is a fast, modern package installer and resolver written in Rust, designed to replace pip, pip-tools, and virtualenv.
+
+**Why do we need it?**
+Speeding up agent deployment times and virtual environment creation in containerized execution clusters.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```bash
+uv pip install -r requirements.txt
+uv venv
+```
+
+```bash
+uv pip install httpx pydantic
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Show uv command simulation\nprint(\"UV executes concurrent Rust resolutions, downloading libraries rapidly.\")" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Running Docker deployments using UV:
+```dockerfile
+RUN pip install uv && uv pip install --system -r requirements.txt
+```
+</InfoCard>
+
+<Tip>
+- Use UV in CI/CD pipelines to speed up build processes.
+- Keep dependencies cached globally for optimal deployment performance.
+</Tip>
+
+<Warning>
+- Expecting UV to fix broken dependency requirements that have no valid resolved paths.
+</Warning>
+
+<Quiz 
+  question="What makes UV faster than traditional pip?" 
+  options={["It ignores sub-dependency resolution.", "It is written in Rust, compiling dependencies concurrently and caching globally using hard links.", "It only installs binary wheel files.", "It executes in the browser."]} 
+  answerIndex={1} 
+  explanation="UV implements state-of-the-art Rust architecture with parallel dependency fetching, caching, and linking for high performance." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What makes UV faster than traditional pip?" a="UV is built in Rust. It utilizes parallel dependency fetching, a global cache, and hard links instead of copy operations." />
+</InterviewQuestions>
+
+### Poetry
+<ProgressTracker currentSection={19} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Poetry is a dependency management and packaging tool in Python that locks dependency versions in a deterministic file.
+
+**Why do we need it?**
+Ensuring reproducible builds for agent platforms by locking all sub-dependencies with cryptographic hashes.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```toml
+# pyproject.toml
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain = "*"
+```
+
+```bash
+poetry add pydantic
+poetry install
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Poetry simulation\nprint(\"Poetry uses poetry.lock to resolve and pin dependencies.\")" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Production agent templates use poetry to publish core toolkits:
+```bash
+poetry build
+poetry publish
+```
+</InfoCard>
+
+<Tip>
+- Always commit `poetry.lock` to ensure all developers run identical library versions.
+- Keep dependencies categorized under groups (e.g. dev, test).
+</Tip>
+
+<Warning>
+- Manually editing `poetry.lock` instead of using `poetry add` or `poetry update`.
+</Warning>
+
+<Quiz 
+  question="What is the difference between pyproject.toml and poetry.lock?" 
+  options={["pyproject.toml is used on Windows, poetry.lock on Unix.", "pyproject.toml specifies general dependencies, while poetry.lock locks the exact resolved sub-dependency versions.", "poetry.lock contains encrypted security tokens.", "Poetry ignores the lockfile during installs."]} 
+  answerIndex={1} 
+  explanation="The toml configuration describes broad limits; the lockfile registers exact pinned versions to guarantee reproducible builds." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What is the difference between pyproject.toml and poetry.lock?" a="pyproject.toml specifies general dependency version limits, while poetry.lock pins the exact version hashes of all sub-dependencies." />
+</InterviewQuestions>
+
+### JSON
+<ProgressTracker currentSection={20} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+JSON is a text format used to represent structured data. Python's built-in `json` module translates data to and from dictionaries.
+
+**Why do we need it?**
+LLMs speak JSON. Agents serialize prompt parameters to JSON and deserialize responses back into structured objects.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+import json
+json_str = json.dumps(data_dict)
+dict_data = json.loads(json_str)
+```
+
+```python
+import json
+payload = json.dumps({"query": "hello", "history": []})
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="import json\npayload = json.dumps({\"query\": \"hello\", \"history\": []})\nprint(payload)\nprint(json.loads(payload))" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 48, agent outputs are structured in JSON payloads:
+```python
+result = json.loads(response["body"].read().decode("utf-8"))
+```
+</InfoCard>
+
+<Tip>
+- Use `json.JSONDecodeError` to handle malformed LLM responses safely.
+- Pass `indent=4` to formatting functions for logging outputs.
+</Tip>
+
+<Warning>
+- Trying to serialize non-serializable objects (like `datetime` objects or custom classes) without custom JSON encoders.
+</Warning>
+
+<Quiz 
+  question="How do you handle custom non-serializable objects (like datetime) when using json.dumps()?" 
+  options={["Cast the entire object to a string.", "Provide a custom JSONEncoder subclass to parse and serialize the types.", "JSON cannot handle nested structures in Python.", "Import the json2 package."]} 
+  answerIndex={1} 
+  explanation="Providing a subclass of JSONEncoder allows defining customized serialization rules for non-primitive types." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How do you handle custom non-serializable objects (like datetime) using json.dumps()?" a="Provide a custom encoder subclassing `json.JSONEncoder` or pass a serialization helper function to the `default` argument." />
+</InterviewQuestions>
+
+### HTTP APIs
+<ProgressTracker currentSection={21} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+HTTP APIs allow communication between clients and web servers using requests (GET, POST) over network channels.
+
+**Why do we need it?**
+Agents communicate with external LLM hosting services, vector search endpoints, and downstream tools using HTTP protocols.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+import requests
+resp = requests.post(url, json=data)
+```
+
+```python
+import httpx
+resp = httpx.get("https://httpbin.org/get")
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="import httpx\nresp = httpx.get(\"https://httpbin.org/get\")\nprint(resp.status_code)" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep04_lambda_mcp_server.py` line 26, tools run HTTP search queries:
+```python
+async with httpx.AsyncClient() as client:
+    response = await client.post(SEARCH_URL, json=payload)
+```
+</InfoCard>
+
+<Tip>
+- Always set explicit request timeouts to prevent threads from hanging.
+- Use async clients (`httpx.AsyncClient`) inside concurrent async code blocks.
+</Tip>
+
+<Warning>
+- Making synchronous HTTP requests inside async loops, freezing execution across concurrent queries.
+</Warning>
+
+<Quiz 
+  question="When should you use httpx instead of requests?" 
+  options={["When you need to make asynchronous non-blocking HTTP requests.", "When you want to parse JSON automatically.", "Only when calling AWS Bedrock endpoints.", "When running on Python 2.x."]} 
+  answerIndex={0} 
+  explanation="httpx supports async requests via async/await, allowing concurrent I/O calls without blocking the async event loop." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="When should you use httpx instead of requests?" a="Use `httpx` when you need async support (`async/await`) to make non-blocking HTTP requests concurrently." />
+</InterviewQuestions>
+
+### FastAPI Basics
+<ProgressTracker currentSection={22} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+FastAPI is an ASGI framework built on Pydantic and type hints, enabling easy generation of REST endpoints.
+
+**Why do we need it?**
+FastAPI hosts agents as web APIs, accepting client queries, executing tool routing, and streaming responses back.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+@app.get("/")
+def home(): return {}
+```
+
+```python
+from fastapi import FastAPI
+app = FastAPI()
+@app.post("/invoke")
+def run(payload: dict): return {"status": "ok"}
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Simulate FastAPI endpoint setup\nprint(\"FastAPI app instance configured with ASGI routers.\")" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep01_simple_agent.py` line 18, routers expose api endpoints:
+```python
+@router.post("/chat")
+async def chat_endpoint(payload: ChatPayload):
+    return await agent_executor.run(payload)
+```
+</InfoCard>
+
+<Tip>
+- Use Pydantic models for request body inputs instead of raw dictionaries.
+- Use dependency injection for clean database connections.
+</Tip>
+
+<Warning>
+- Exposing sensitive credentials in OpenAPI documentation routes by failing to configure security handlers.
+</Warning>
+
+<Quiz 
+  question="How does FastAPI automatically generate its OpenAPI / Swagger documentation?" 
+  options={["By executing a separate doc generator script.", "FastAPI reads python type hints and Pydantic models in route handler signatures to generate JSON schemas dynamically.", "By scraping comments in the source files.", "By calling external API registries."]} 
+  answerIndex={1} 
+  explanation="FastAPI parses the endpoint function declarations and uses Pydantic model schemas to compile standard OpenAPI specs automatically." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How does FastAPI generate its OpenAPI documentation automatically?" a="It inspects path declarations, type hints, and Pydantic model definitions in endpoint signatures to compile standard JSON schemas." />
+</InterviewQuestions>
+
+### Pydantic
+<ProgressTracker currentSection={23} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Pydantic is a data validation library that enforces type hints, transforming raw inputs into structured objects and validating fields.
+
+**Why do we need it?**
+LLMs are prompted to output JSON matching Pydantic schemas. Pydantic parses output JSON, throwing errors if fields are missing.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+from pydantic import BaseModel
+class User(BaseModel):
+    name: str
+    age: int
+```
+
+```python
+from pydantic import BaseModel, Field
+class Query(BaseModel):
+    text: str = Field(description="User query")
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="from pydantic import BaseModel\nclass Query(BaseModel):\n    text: str\n\nq = Query(text=\"Search database\")\nprint(q.model_dump())" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Validating incoming agent execution requests:
+```python
+class InvocationPayload(BaseModel):
+    session_id: str
+    prompt: str
+    temperature: Optional[float] = 0.7
+```
+</InfoCard>
+
+<Tip>
+- Provide descriptive `Field(description=...)` info so LLMs understand tool parameters.
+- Use `@field_validator` for custom integrity validation rules.
+</Tip>
+
+<Warning>
+- Passing raw dictionaries to LLMs directly instead of validating and serializing them with Pydantic.
+</Warning>
+
+<Quiz 
+  question="What does Pydantic do when you pass a numeric string (like '42') to an int field?" 
+  options={["It raises a ValidationError immediately.", "It coerces the string to the integer 42 where possible.", "It keeps it as a string.", "It ignores the type hint."]} 
+  answerIndex={1} 
+  explanation="Pydantic performs type coercion automatically to convert input types (like string representations of numbers) into correct types." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="What does Pydantic do when you pass a numeric string like '42' to a field defined as an integer?" a="Pydantic coerces the value, converting the string '42' into the integer 42 automatically." />
+</InterviewQuestions>
+
+### Dependency Injection
+<ProgressTracker currentSection={24} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Dependency Injection passes required resources (database connections, clients) directly into routes/functions, separating code dependencies.
+
+**Why do we need it?**
+FastAPI endpoints inject Bedrock clients, database repositories, or session cache stores cleanly into running agents.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+from fastapi import Depends
+def run_query(db = Depends(get_db)): pass
+```
+
+```python
+class Database:
+    def get_data(self): return []
+
+def fetch_details(db: Database):
+    return db.get_data()
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="# Dependency injection simulation\ndef get_config(): return {\"model\": \"claude\"}\ndef run(config = get_config()): print(\"Model configured:\", config)\nrun()" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+In `ep05_auth_middleware.py` line 12, routes inject active database connections:
+```python
+@app.post("/query")
+async def handle_query(payload: dict, db: Session = Depends(get_db_session)):
+    # execute agent with database context
+```
+</InfoCard>
+
+<Tip>
+- Use `Depends` in FastAPI to retrieve active security users or session instances.
+- Write modular dependencies to allow testing with mock clients.
+</Tip>
+
+<Warning>
+- Hardcoding database clients or API connections directly inside route methods, making testing difficult.
+</Warning>
+
+<Quiz 
+  question="How does FastAPI's Depends simplify application testing?" 
+  options={["It automatically creates SQLite databases.", "It allows overriding dependencies with mocks, avoiding calls to actual databases or external services.", "It speeds up API route routing.", "It compiles route handlers."]} 
+  answerIndex={1} 
+  explanation="Depends is a framework-native lookup mechanism, allowing unit tests to override dependencies cleanly without editing code." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="How does FastAPI's Depends simplify application testing?" a="It allows unit tests to override dependencies (e.g. database sessions) with mock instances using `app.dependency_overrides`." />
+</InterviewQuestions>
+
+### File Handling
+<ProgressTracker currentSection={25} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+File handling opens and manages files on disk, utilizing the standard `pathlib.Path` class for modern OOP operations.
+
+**Why do we need it?**
+Agents read files for context, ingestion tasks, and document searches, utilizing path validation to prevent security issues.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```python
+from pathlib import Path
+p = Path("config.json")
+content = p.read_text()
+```
+
+```python
+from pathlib import Path
+p = Path("output.txt")
+p.write_text("Agent complete.")
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="from pathlib import Path\np = Path(\"demo.txt\")\np.write_text(\"Hello disk!\")\nprint(p.read_text())" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Validating local directory paths before opening files:
+```python
+safe_path = Path("/app/sandbox").resolve()
+target_file = (safe_path / user_path).resolve()
+if not target_file.is_relative_to(safe_path):
+    raise ValueError("Path traversal detected!")
+```
+</InfoCard>
+
+<Tip>
+- Always use `pathlib` over the older `os.path` module.
+- Resolve paths fully and validate parent directories to prevent security risks.
+</Tip>
+
+<Warning>
+- Concatting strings for paths (e.g., `folder + '/' + file`), causing runtime issues on Windows vs Unix.
+</Warning>
+
+<Quiz 
+  question="Why is pathlib.Path preferred over the older os.path module for file operations?" 
+  options={["It runs 10x faster.", "It provides an object-oriented path interface and handles platform-independent operations automatically.", "It automatically writes files asynchronously.", "It is only compatible with AWS S3."]} 
+  answerIndex={1} 
+  explanation="pathlib models paths as object classes and overloads division operators (/), resolving Windows vs Unix slashes automatically." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why is pathlib.Path preferred over os.path?" a="pathlib provides a cross-platform, object-oriented API that handles forward/backslashes automatically." />
+</InterviewQuestions>
+
+### Package Structure
+<ProgressTracker currentSection={26} totalSections={26} />
+
+<InfoCard title="Concept Overview">
+Package structure defines how files, packages, modules, tests, and configuration entries are organized in a project.
+
+**Why do we need it?**
+Production agents require modular setups dividing tools, agents, routers, and configurations into structured packages.
+</InfoCard>
+
+<Tabs>
+  <Tab label="Syntax & Example">
+
+```
+project/
+  pyproject.toml
+  src/
+    my_agent/
+      __init__.py
+      main.py
+      tools.py
+  tests/
+    test_agent.py
+```
+
+```python
+# File layout inside the src/ folder structures imports cleanly
+```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      initialCode="print(\"Modular package structures separate backend endpoints, configurations, and core logics.\")" 
+      instruction="Run this interactive python example and see the console output."
+    />
+  </Tab>
+</Tabs>
+
+<InfoCard title="AI Agent Integration">
+Deploying agent containers using modular imports:
+```python
+from src.my_agent.tools import search_web
+from src.my_agent.main import agent_runtime
+```
+</InfoCard>
+
+<Tip>
+- Use the `src/` layout layout to enforce installation-based testing of packages.
+- Organize tests into a dedicated `tests/` directory separate from source files.
+</Tip>
+
+<Warning>
+- Importing modules via inconsistent paths, causing path errors in container environments.
+</Warning>
+
+<Quiz 
+  question="Why is the src/ layout configuration considered a best practice in Python packaging?" 
+  options={["It decreases package size.", "It forces tests to run against the installed package version from site-packages rather than raw local source files.", "It makes relative imports simpler.", "It is required by the Python interpreter."]} 
+  answerIndex={1} 
+  explanation="The src/ layout forces developers to install the package before tests run, helping identify configuration/packaging bugs before release." 
+/>
+
+<InterviewQuestions>
+  <InterviewQuestion q="Why is the src/ layout configuration considered a best practice in Python packaging?" a="It prevents tools from importing local source files directly, forcing tests to run against the installed package, detecting packaging errors early." />
+</InterviewQuestions>
+
+
+## Agent Architecture with Python
+
+In AI agent engineering, agent instances act as orchestrators coordinating model responses, active tools, and memory contexts.
+
+<AgentArchitectureDiagram />
+
+### Short-Term Memory vs Long-Term Memory
+* **Short-Term Memory**: Stored as active JSON contexts passed back and forth within conversational turns.
+* **Long-Term Memory**: Persisted in external vector search engines (like Pinecone or OpenSearch) or database layers (like DynamoDB), retrieved dynamically during runtime routing.
+
+---
+
+## Understanding Decorator-Based Agent Frameworks
+
+In frameworks like LangChain, CrewAI, and Bedrock AgentCore, decorators (such as `@tool` or `@app.invoke`) modify target functions dynamically.
+
+<DecoratorVisualizer decoratorName="@app.tool" functionName="get_balance" args="user_id" returns="100.0" />
+
+The decorator extracts metadata from function signature types and docstrings to automatically generate JSON-RPC parameters schema:
+```json
+{
+  "name": "get_balance",
+  "description": "Retrieve active bank balance for user_id",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "user_id": {
+        "type": "string"
+      }
+    },
+    "required": ["user_id"]
+  }
+}
+```
+
+---
+
+## Common Patterns Used in AI Agent Frameworks
+
+Below is a comparison of design patterns commonly found in production-grade agent frameworks:
+
+<ComparisonTable headers={["Pattern", "Description", "Code Example"]} rows={[["Model Context Protocol (MCP)", "Standardized protocol to list and call tools using JSON-RPC over HTTP/SSE.", "ep04_lambda_mcp_server.py"], ["Supervisor Delegation", "A parent agent routes tasks to specialized child agents, shielding tools.", "ep02_production_supervisor.py"], ["Token Budgeting", "Tracking and limiting token usage to prevent infinite routing loops.", "ep02_production_supervisor.py"], ["Identity Propagation", "Passing user identity claims (JWT) down to sub-agent tools for validation.", "ep05_auth_middleware.py"], ["Episodic Vector Memory", "Saving conversation snippets in vector stores and retrieving them using cosine similarity.", "ep12_semantic_memory.py"]]} />
+
+---
+
+## Reading Real Agent Code
+
+Let's examine how these concepts are structured inside the codebase. Below are walk-through guides of real agent handlers.
+
+### 1. Simple Agent (`ep01_simple_agent.py`)
+Executes basic LLM API queries, formats prompts, handles response parsing, and catches runtime client rate limits.
+```python
+import os
+import json
+import boto3
+
+# Initialize system client
+bedrock_client = boto3.client("bedrock-runtime", region_name=os.getenv("AWS_DEFAULT_REGION", "us-east-1"))
+
+def run_agent(prompt: str) -> dict:
+    body = json.dumps({
+        "inputText": prompt,
+        "textGenerationConfig": {
+            "temperature": 0.7,
+            "maxTokenCount": 512
+        }
+    })
+    
+    try:
+        response = bedrock_client.invoke_model(
+            modelId="amazon.titan-text-express-v1",
+            body=body
+        )
+        response_body = json.loads(response["body"].read().decode("utf-8"))
+        return {"status": "success", "text": response_body["results"][0]["outputText"]}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+```
+
+### 2. Multi-Agent Supervisor (`ep02_production_supervisor.py`)
+Coordinates task delegation, executing concurrent async worker agent routines, and tracking overall token boundaries.
+```python
+import asyncio
+from dataclasses import dataclass
+
+@dataclass
+class AgentTask:
+    task_id: str
+    prompt: str
+
+class Supervisor:
+    def __init__(self, workers):
+        self.workers = workers
+        
+    async def delegate(self, tasks: list[AgentTask]):
+        # Run worker routines concurrently
+        results = await asyncio.gather(*[
+            self.workers[idx % len(self.workers)].run(task.prompt)
+            for idx, task in enumerate(tasks)
+        ])
+        return results
+```
+
+---
+
+## Building Your First Agent
+To create your first BedrockAgentCore tool, follow these steps:
+1. Define a Pydantic class representing input parameters.
+2. Define a function with descriptive type hints and a docstring.
+3. Decorate the function with `@tool` to register it.
+
+```python
+from pydantic import BaseModel, Field
+
+class CalculateInterestInput(BaseModel):
+    principal: float = Field(description="The starting principal amount")
+    rate: float = Field(description="Annual interest rate as decimal (e.g. 0.05)")
+    years: int = Field(description="Investment period in years")
+
+@tool
+def calculate_interest(params: CalculateInterestInput) -> float:
+    """Calculate compound interest based on principal, rate, and investment period."""
+    return params.principal * ((1 + params.rate) ** params.years)
+```
+
+---
+
+## Best Practices
+- **Least Privilege**: Always restrict agent tools to sandbox environments with limited system access permissions.
+- **Token Boundaries**: Implement strict token budget rules to prevent routing loops from racking up high usage bills.
+- **Resource Constraints**: Run agent code in container clusters with set memory limits to prevent Out-Of-Memory system crashes.
+
+---
+
+## Common Errors
+- **KeyError in Parser**: Occurs when LLM outputs fail to output fields specified in target JSON schemas. Always wrap parser calls in safe try-except blocks.
+- **ImportError in Runtimes**: Occurs when packages inside dynamic user modules are missing from virtual environments. Double-check requirements.
+
+---
+
+## Interview Questions
+<InterviewQuestions>
+  <InterviewQuestion q="Explain the difference between synchronous blocking IO and asynchronous non-blocking IO in agent systems." a="Synchronous blocking IO stalls execution, freezing the runtime while waiting for remote APIs to reply. Asynchronous non-blocking IO allows the engine to request multiple API queries concurrently on a single event loop thread, speeding up execution." />
+  <InterviewQuestion q="What is a tool registration schema, and how is it generated?" a="A tool registration schema describes a function name, input fields, types, and descriptions to an LLM. It is generated by inspecting type annotations and docstrings using reflection libraries." />
+</InterviewQuestions>
+
+---
+
+## Cheat Sheet
+| Syntax | Pattern | Description |
+|---|---|---|
+| `async def` | Async execution | Defines non-blocking coroutines |
+| `await` | Event yield | Pauses coroutine execution until result resolves |
+| `@tool` | Tool binder | Auto-generates schemas for LLMs |
+| `logging.info` | Structured Logging | Logs structured objects to tracers |

@@ -1,7 +1,170 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { parseMarkdown } from '../utils/markdownParser';
-import { Play, Send, Sliders, Code, Database, RefreshCw, Edit3, Check } from 'lucide-react';
+import { 
+  Play, Send, Sliders, Code, Database, RefreshCw, 
+  Edit3, Check, Search, Star, Compass, ChevronRight 
+} from 'lucide-react';
 import mermaid from 'mermaid';
+import * as Interactive from './InteractiveComponents';
+
+// Map MDX tags to React widgets
+const componentMap = {
+  Badge: Interactive.Badge,
+  LearningObjectives: Interactive.LearningObjectives,
+  WhyItMatters: Interactive.WhyItMatters,
+  ConceptOverviewCard: Interactive.ConceptCard,
+  ConceptCard: Interactive.ConceptCard,
+  RealWorldExample: Interactive.RealWorldExample,
+  InteractiveDiagram: Interactive.InteractiveDiagram,
+  SyntaxTabs: Interactive.SyntaxTabs,
+  CodeExplanation: Interactive.CodeExplanation,
+  InteractiveExample: Interactive.InteractiveExample,
+  InteractivePlayground: Interactive.InteractivePlayground,
+  ExecutionVisualizer: Interactive.ExecutionVisualizer,
+  MemoryVisualizer: Interactive.MemoryVisualizer,
+  BestPractices: Interactive.BestPractices,
+  CommonMistakes: Interactive.CommonMistakes,
+  Quiz: Interactive.Quiz,
+  Flashcards: Interactive.FlashCards,
+  FlashCards: Interactive.FlashCards,
+  PracticeExercise: Interactive.PracticeProblem,
+  PracticeProblem: Interactive.PracticeProblem,
+  InterviewQuestions: Interactive.InterviewQuestions,
+  InterviewQuestion: Interactive.InterviewQuestion,
+  InterviewAccordion: Interactive.InterviewQuestions,
+  KeyTakeaways: Interactive.KeyTakeaways,
+  NextTopic: Interactive.NextTopic,
+  
+  // Custom Visualizers
+  DecoratorVisualizer: Interactive.DecoratorVisualizer,
+  FunctionExecutionVisualizer: Interactive.FunctionExecutionVisualizer,
+  ObjectLifecycleVisualizer: Interactive.ObjectLifecycleVisualizer,
+  InheritanceDiagram: Interactive.InheritanceDiagram,
+  AsyncExecutionTimeline: Interactive.AsyncExecutionTimeline,
+  ResourceLifecycleVisualizer: Interactive.ResourceLifecycleVisualizer,
+  AgentExecutionFlow: Interactive.AgentExecutionFlow,
+  CodeExplainer: Interactive.CodeExplainer,
+  
+  // Existing utilities
+  InfoCard: Interactive.InfoCard,
+  Tip: Interactive.Tip,
+  Warning: Interactive.Warning,
+  Callout: Interactive.Callout,
+  ExpandableSection: Interactive.ExpandableSection,
+  Accordion: Interactive.Accordion,
+  AccordionItem: Interactive.AccordionItem,
+  Tabs: Interactive.Tabs,
+  Tab: Interactive.Tab,
+  CodeBlock: Interactive.CodeBlock,
+  CodeComparison: Interactive.CodeComparison,
+  Timeline: Interactive.Timeline,
+  TimelineItem: Interactive.TimelineItem,
+  StepByStep: Interactive.StepByStep,
+  Step: Interactive.Step,
+  Checklist: Interactive.Checklist,
+  CopyCommand: Interactive.CopyCommand,
+  AgentArchitectureDiagram: Interactive.AgentArchitectureDiagram,
+  WorkflowVisualizer: Interactive.WorkflowVisualizer,
+  ExecutionTimeline: Interactive.ExecutionTimeline,
+  ComparisonTable: Interactive.ComparisonTable,
+  ProgressTracker: Interactive.ProgressTracker
+};
+
+function parseMDXContent(content) {
+  const tagRegex = /(<\/?[A-Z][A-Za-z0-9_]*(?:\s+[a-zA-Z0-9_-]+=(?:"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\[[^\]]*\]|{(?:[^{}]|(?:{[^{}]*}))*}|{[^}]+}|\d+|true|false))*?\s*\/?>)/g;
+  const tokens = content.split(tagRegex);
+  
+  const root = { type: 'root', children: [] };
+  const stack = [root];
+  
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    if (!token) continue;
+    
+    if (token.startsWith('<') && token.endsWith('>')) {
+      const isClosing = token.startsWith('</');
+      const isSelfClosing = token.endsWith('/>');
+      
+      const nameMatch = token.match(/^<\/?([A-Z][A-Za-z0-9_]*)/);
+      const tagName = nameMatch ? nameMatch[1] : '';
+      
+      if (isClosing) {
+        if (stack.length > 1 && stack[stack.length - 1].type === tagName) {
+          stack.pop();
+        }
+      } else {
+        const props = {};
+        const propRegex = /([a-zA-Z0-9_-]+)=(?:"((?:[^"\\]|\\.)*)"|'((?:[^'\\]|\\.)*)'|\[([^\]]*)\]|{([^}]*)}|([^\s>]+))/g;
+        let propMatch;
+        while ((propMatch = propRegex.exec(token)) !== null) {
+          const key = propMatch[1];
+          const doubleQuoted = propMatch[2];
+          const singleQuoted = propMatch[3];
+          const bracketed = propMatch[4];
+          const braced = propMatch[5];
+          const simple = propMatch[6];
+          
+          if (doubleQuoted !== undefined) {
+            try {
+              props[key] = JSON.parse('"' + doubleQuoted + '"');
+            } catch (e) {
+              props[key] = doubleQuoted;
+            }
+          } else if (singleQuoted !== undefined) {
+            props[key] = singleQuoted.replace(/\\'/g, "'").replace(/\\\\/g, "\\");
+          } else if (bracketed !== undefined) {
+            try {
+              props[key] = JSON.parse('[' + bracketed + ']');
+            } catch (e) {
+              props[key] = bracketed;
+            }
+          } else if (braced !== undefined) {
+            const val = braced.trim();
+            if ((val.startsWith('[') && val.endsWith(']')) || (val.startsWith('{') && val.endsWith('}'))) {
+              try {
+                props[key] = JSON.parse(val);
+              } catch (e) {
+                try {
+                  props[key] = Function(`return ${val}`)();
+                } catch (err) {
+                  props[key] = val;
+                }
+              }
+            } else if (val === 'true') props[key] = true;
+            else if (val === 'false') props[key] = false;
+            else if (!isNaN(val) && val !== '') props[key] = Number(val);
+            else props[key] = val;
+          } else if (simple !== undefined) {
+            const val = simple.trim();
+            if (val === 'true') props[key] = true;
+            else if (val === 'false') props[key] = false;
+            else if (!isNaN(val) && val !== '') props[key] = Number(val);
+            else props[key] = val;
+          }
+        }
+        
+        const node = {
+          type: tagName,
+          props: props,
+          children: []
+        };
+        
+        stack[stack.length - 1].children.push(node);
+        
+        if (!isSelfClosing) {
+          stack.push(node);
+        }
+      }
+    } else {
+      stack[stack.length - 1].children.push({
+        type: 'text',
+        content: token
+      });
+    }
+  }
+  
+  return root.children;
+}
 
 const getYoutubeId = (url) => {
   if (!url) return null;
@@ -215,7 +378,6 @@ const ModelParamTesterWidget = ({ rawData }) => {
   const [topP, setTopP] = useState(initialConfig.topP || 0.9);
   const [model, setModel] = useState(initialConfig.modelId || 'anthropic.claude-3-sonnet');
 
-  // Compute mock request payload dynamically based on inputs
   const simulatedPayload = useMemo(() => {
     return JSON.stringify({
       modelId: model,
@@ -326,7 +488,6 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
         if (parsed.timeline && parsed.timeline.length > 0) {
           setCurrentSeconds(parsed.timeline[0].seconds || 0);
           
-          // Load user notes for each timeline item
           const loadedNotes = {};
           parsed.timeline.forEach(item => {
             const saved = localStorage.getItem(`transcript-note-${transcriptPath}-${item.seconds}`);
@@ -477,10 +638,9 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
                     </span>
                   </div>
                   <p style={{ margin: '0', fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
-                    {item.text}
+                     {item.text}
                   </p>
 
-                  {/* Notes display */}
                   {userNotes[item.seconds] && (
                     <div 
                       onClick={(e) => e.stopPropagation()} 
@@ -498,7 +658,6 @@ const TranscriptTimelineWidget = ({ rawData, selectedKb }) => {
                     </div>
                   )}
 
-                  {/* Notes editor */}
                   {editingNoteSec === item.seconds ? (
                     <div 
                       onClick={(e) => e.stopPropagation()} 
@@ -628,7 +787,6 @@ const InteractiveWidget = ({ type, rawData, selectedKb }) => {
   }
 };
 
-
 // ==========================================
 // 5.5 Mermaid Diagram Renderer
 // ==========================================
@@ -709,7 +867,7 @@ const MermaidDiagram = ({ code }) => {
   );
 };
 
-// Helper to resolve relative image paths to the FastAPI static document server endpoint
+// Helper to resolve relative image paths
 const resolveHtmlImages = (html, activeDoc, selectedKb) => {
   if (!html) return html;
   return html.replace(/<img\s+([^>]*?)src="([^"]+)"([^>]*?)>/gi, (match, prefix, src, suffix) => {
@@ -738,10 +896,157 @@ const resolveHtmlImages = (html, activeDoc, selectedKb) => {
 };
 
 // ==========================================
-// 6. Main DocReader Coordinator
+// 6. Course Header Component
 // ==========================================
-const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb, theme }) => {
-  
+const CourseHeader = ({ 
+  title, 
+  readingTime, 
+  difficulty, 
+  isCompleted, 
+  isBookmarked, 
+  toggleCompleted, 
+  toggleBookmarked,
+  progressPercentage
+}) => {
+  return (
+    <div className="course-header-card">
+      <div className="header-meta-top">
+        <span className={`header-badge-difficulty diff-${difficulty.toLowerCase()}`}>
+          {difficulty}
+        </span>
+        <span className="header-meta-item">⏱ {readingTime} min read</span>
+        <span className="header-meta-item">🎯 Course Completed: {progressPercentage}%</span>
+      </div>
+
+      <div className="header-main-row">
+        <h1 className="header-title">{title}</h1>
+        <div className="header-actions">
+          <button 
+            className={`header-action-btn btn-bookmark ${isBookmarked ? 'active' : ''}`}
+            onClick={toggleBookmarked}
+            title={isBookmarked ? "Remove Bookmark" : "Bookmark Page"}
+          >
+            <Star size={14} className={isBookmarked ? "star-filled" : ""} />
+            <span>{isBookmarked ? "Bookmarked" : "Bookmark"}</span>
+          </button>
+          <button 
+            className={`header-action-btn btn-complete ${isCompleted ? 'active' : ''}`}
+            onClick={toggleCompleted}
+            title={isCompleted ? "Mark Incomplete" : "Mark Completed"}
+          >
+            <Check size={14} />
+            <span>{isCompleted ? "Completed" : "Mark Done"}</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="header-objectives-box">
+        <div className="objectives-title">
+          <Compass size={14} />
+          <span>Interactive Learning Path</span>
+        </div>
+        <div className="objectives-content-grid">
+          <div>
+            <strong>Prerequisites:</strong> Basic logic syntax and programming variables.
+          </div>
+          <div>
+            <strong>Skills You'll Master:</strong> Runtime visualizations, interactive quiz validations, sandboxed playground tests.
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ==========================================
+// 7. Main DocReader Coordinator
+// ==========================================
+const DocReader = ({ 
+  activeDoc, 
+  docContent, 
+  isLoading, 
+  onSelectDoc, 
+  selectedKb, 
+  theme,
+  completedDocs,
+  bookmarkedDocs,
+  recentlyViewedDocs,
+  toggleDocCompleted,
+  toggleDocBookmarked,
+  navItems
+}) => {
+  const [headings, setHeadings] = useState([]);
+  const [activeHeading, setActiveHeading] = useState('');
+  const [searchText, setSearchText] = useState('');
+
+  // Extract outline / headings from document
+  useEffect(() => {
+    if (!docContent) {
+      setHeadings([]);
+      return;
+    }
+    const lines = docContent.split('\n');
+    const gathered = [];
+    lines.forEach(line => {
+      const match = line.match(/^(#{2,3})\s+(.*)$/);
+      if (match) {
+        const level = match[1].length;
+        const text = match[2].trim().replace(/\*\*|[#*`]/g, '');
+        const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+        gathered.push({ level, text, id });
+      }
+    });
+    setHeadings(gathered);
+  }, [docContent]);
+
+  // Track active heading on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const headingElements = headings.map(h => document.getElementById(h.id)).filter(Boolean);
+      let currentActive = '';
+      for (const el of headingElements) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= 160) {
+          currentActive = el.id;
+        } else {
+          break;
+        }
+      }
+      if (currentActive) {
+        setActiveHeading(currentActive);
+      } else if (headings.length > 0) {
+        setActiveHeading(headings[0].id);
+      }
+    };
+
+    const container = document.querySelector('.doc-panel');
+    if (container) {
+      container.addEventListener('scroll', handleScroll);
+      handleScroll();
+    }
+    return () => {
+      if (container) {
+        container.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [headings]);
+
+  // Scroll to anchor if present in URL
+  useEffect(() => {
+    if (!isLoading && activeDoc) {
+      const hash = window.location.hash;
+      if (hash) {
+        const id = hash.replace('#', '');
+        setTimeout(() => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 300);
+      }
+    }
+  }, [isLoading, activeDoc]);
+
   // Segment-based parser that splits markdown text and inserts live React widgets / Mermaid diagrams
   const renderSegments = useMemo(() => {
     if (!docContent) return null;
@@ -749,8 +1054,6 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb, 
     const segments = [];
     let lastIndex = 0;
     let match;
-    
-    // Regular expression matching either ```widget:type \n contents \n ``` or ```mermaid \n contents \n ```
     const blockRegex = /```(?:widget:([a-zA-Z0-9_-]+)|(mermaid))\n([\s\S]*?)\n```/g;
 
     while ((match = blockRegex.exec(docContent)) !== null) {
@@ -783,7 +1086,68 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb, 
     return segments;
   }, [docContent]);
 
-  // Intercept relative link clicks to navigate within the app
+  // Page Search In-Page handlers
+  const handlePageSearchNext = () => {
+    if (!searchText) return;
+    const found = window.find(searchText, false, false, true);
+    if (!found) window.find(searchText, false, false, true);
+  };
+
+  const handlePageSearchPrev = () => {
+    if (!searchText) return;
+    const found = window.find(searchText, false, true, true);
+    if (!found) window.find(searchText, false, true, true);
+  };
+
+  // Calculate stats for CourseHeader
+  const pageTitle = useMemo(() => {
+    if (!docContent) return 'Documentation';
+    const firstLine = docContent.split('\n')[0] || '';
+    if (firstLine.startsWith('# ')) {
+      return firstLine.replace('# ', '').trim();
+    }
+    return 'Documentation';
+  }, [docContent]);
+
+  const readingTime = useMemo(() => {
+    if (!docContent) return 1;
+    const wordCount = docContent.split(/\s+/).length;
+    return Math.max(1, Math.round(wordCount / 200));
+  }, [docContent]);
+
+  const difficulty = useMemo(() => {
+    if (!activeDoc) return 'Beginner';
+    const path = activeDoc.toLowerCase();
+    const contentSize = docContent ? docContent.length : 0;
+    if (path.includes('advanced') || path.includes('async') || path.includes('decorator') || contentSize > 15000) {
+      return 'Advanced';
+    }
+    if (contentSize > 7000) {
+      return 'Intermediate';
+    }
+    return 'Beginner';
+  }, [activeDoc, docContent]);
+
+  const getLeafNodes = (node) => {
+    const list = [];
+    const traverse = (x) => {
+      if (!x) return;
+      if (x.href) list.push(x);
+      if (x.contents && x.contents.length > 0) {
+        x.contents.forEach(traverse);
+      }
+    };
+    traverse(node);
+    return list;
+  };
+
+  const overallProgressPercentage = useMemo(() => {
+    const allLeafNodes = navItems ? navItems.reduce((acc, item) => [...acc, ...getLeafNodes(item)], []) : [];
+    const totalCompleted = allLeafNodes.filter(l => completedDocs[l.href]).length;
+    return allLeafNodes.length > 0 ? Math.round((totalCompleted / allLeafNodes.length) * 100) : 0;
+  }, [navItems, completedDocs]);
+
+  // Intercept relative link clicks
   const handleContentClick = (e) => {
     const link = e.target.closest('a');
     if (link && link.classList.contains('doc-link')) {
@@ -864,37 +1228,136 @@ const DocReader = ({ activeDoc, docContent, isLoading, onSelectDoc, selectedKb, 
     );
   }
 
+  const renderMdxNode = (node, key) => {
+    if (node.type === 'text') {
+      if (!node.content.trim()) return null;
+      const html = resolveHtmlImages(parseMarkdown(node.content), activeDoc, selectedKb);
+      return (
+        <div
+          key={key}
+          dangerouslySetInnerHTML={{ __html: html }}
+          style={{ display: 'contents' }}
+        />
+      );
+    }
+
+    const Comp = componentMap[node.type];
+    if (!Comp) {
+      return null;
+    }
+
+    const renderedChildren = node.children && node.children.length > 0
+      ? node.children.map((child, cIdx) => renderMdxNode(child, `${key}-${cIdx}`))
+      : null;
+
+    return (
+      <Comp key={key} {...node.props}>
+        {renderedChildren}
+      </Comp>
+    );
+  };
+
   return (
-    <div className="doc-panel" onClick={handleContentClick}>
-      <article className="doc-content">
-        {renderSegments && renderSegments.map((segment, idx) => {
-          if (segment.type === 'markdown') {
-            const html = resolveHtmlImages(parseMarkdown(segment.content), activeDoc, selectedKb);
-            return (
-              <div 
-                key={idx} 
-                dangerouslySetInnerHTML={{ __html: html }} 
-              />
-            );
-          } else if (segment.type === 'mermaid') {
-            return (
-              <MermaidDiagram 
-                key={idx} 
-                code={segment.content} 
-              />
-            );
-          } else {
-            return (
-              <InteractiveWidget 
-                key={idx} 
-                type={segment.widgetType} 
-                rawData={segment.content} 
-                selectedKb={selectedKb}
-              />
-            );
-          }
-        })}
-      </article>
+    <div className="doc-panel-wrapper">
+      {/* Top Search-Within-Page Utility */}
+      <div className="page-search-container">
+        <div className="search-input-wrapper">
+          <Search size={14} className="search-icon" />
+          <input 
+            type="text" 
+            placeholder="Search within this page..." 
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handlePageSearchNext();
+              }
+            }}
+          />
+        </div>
+        {searchText && (
+          <div className="search-actions">
+            <button onClick={handlePageSearchPrev} className="search-btn">Prev</button>
+            <button onClick={handlePageSearchNext} className="search-btn">Next</button>
+            <button onClick={() => setSearchText('')} className="search-btn clear-btn">Clear</button>
+          </div>
+        )}
+      </div>
+
+      <div className="doc-content-layout">
+        {/* Document Column */}
+        <div className="doc-panel" onClick={handleContentClick}>
+          <article className="doc-content">
+            {/* Auto-injected Course Header */}
+            <CourseHeader 
+              title={pageTitle}
+              readingTime={readingTime}
+              difficulty={difficulty}
+              isCompleted={!!completedDocs[activeDoc]}
+              isBookmarked={!!bookmarkedDocs[activeDoc]}
+              toggleCompleted={() => toggleDocCompleted(activeDoc)}
+              toggleBookmarked={() => toggleDocBookmarked(activeDoc)}
+              progressPercentage={overallProgressPercentage}
+            />
+
+            {renderSegments && renderSegments.map((segment, idx) => {
+              if (segment.type === 'markdown') {
+                const nodes = parseMDXContent(segment.content);
+                return (
+                  <div key={idx} style={{ display: 'contents' }}>
+                    {nodes.map((node, nIdx) => renderMdxNode(node, `${idx}-${nIdx}`))}
+                  </div>
+                );
+              } else if (segment.type === 'mermaid') {
+                return (
+                  <MermaidDiagram 
+                    key={idx} 
+                    code={segment.content} 
+                  />
+                );
+              } else {
+                return (
+                  <InteractiveWidget 
+                    key={idx} 
+                    type={segment.widgetType} 
+                    rawData={segment.content} 
+                    selectedKb={selectedKb}
+                  />
+                );
+              }
+            })}
+          </article>
+        </div>
+
+        {/* Sticky Table of Contents Column */}
+        {headings.length > 0 && (
+          <aside className="doc-toc-panel">
+            <div className="toc-title">On this page</div>
+            <nav className="toc-list">
+              {headings.map((h, i) => (
+                <a 
+                  key={i} 
+                  href={`#${h.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById(h.id);
+                    if (el) {
+                      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                  className={`toc-item depth-${h.level} ${activeHeading === h.id ? 'active' : ''}`}
+                >
+                  <ChevronRight size={10} className="toc-arrow" />
+                  <span>{h.text}</span>
+                </a>
+              ))}
+            </nav>
+          </aside>
+        )}
+      </div>
     </div>
   );
 };

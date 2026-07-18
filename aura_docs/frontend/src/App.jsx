@@ -28,6 +28,122 @@ const App = () => {
   const [isIndexing, setIsIndexing] = useState(false);
   const [indexStatus, setIndexStatus] = useState('');
 
+  // Progress, Completion & Bookmark States (scoped by selectedKb)
+  const [completedDocs, setCompletedDocs] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('kb-completed-docs')) || {};
+    } catch (e) {
+      return {};
+    }
+  });
+
+  const [bookmarkedDocs, setBookmarkedDocs] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('kb-bookmarked-docs')) || {};
+    } catch (e) {
+      return {};
+    }
+  });
+
+  const [recentlyViewedDocs, setRecentlyViewedDocs] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('kb-recently-viewed-docs')) || {};
+    } catch (e) {
+      return {};
+    }
+  });
+
+  // Sync to localStorage
+  useEffect(() => {
+    localStorage.setItem('kb-completed-docs', JSON.stringify(completedDocs));
+  }, [completedDocs]);
+
+  useEffect(() => {
+    localStorage.setItem('kb-bookmarked-docs', JSON.stringify(bookmarkedDocs));
+  }, [bookmarkedDocs]);
+
+  useEffect(() => {
+    localStorage.setItem('kb-recently-viewed-docs', JSON.stringify(recentlyViewedDocs));
+  }, [recentlyViewedDocs]);
+
+  // Track recently viewed docs
+  useEffect(() => {
+    if (!selectedKb || !activeDoc) return;
+    setRecentlyViewedDocs(prev => {
+      const list = prev[selectedKb] || [];
+      const filtered = list.filter(item => item !== activeDoc);
+      const updatedList = [activeDoc, ...filtered].slice(0, 5); // Keep last 5
+      return { ...prev, [selectedKb]: updatedList };
+    });
+  }, [activeDoc, selectedKb]);
+
+  const toggleDocCompleted = (docPath) => {
+    if (!selectedKb || !docPath) return;
+    setCompletedDocs(prev => {
+      const kbCompleted = { ...(prev[selectedKb] || {}) };
+      if (kbCompleted[docPath]) {
+        delete kbCompleted[docPath];
+      } else {
+        kbCompleted[docPath] = true;
+      }
+      return { ...prev, [selectedKb]: kbCompleted };
+    });
+  };
+
+  const toggleDocBookmarked = (docPath) => {
+    if (!selectedKb || !docPath) return;
+    setBookmarkedDocs(prev => {
+      const kbBookmarked = { ...(prev[selectedKb] || {}) };
+      if (kbBookmarked[docPath]) {
+        delete kbBookmarked[docPath];
+      } else {
+        kbBookmarked[docPath] = true;
+      }
+      return { ...prev, [selectedKb]: kbBookmarked };
+    });
+  };
+
+  // Helper to flatten the navigation items tree
+  const getFlatDocsList = (items) => {
+    const list = [];
+    const traverse = (nodes) => {
+      if (!nodes) return;
+      for (const node of nodes) {
+        if (node.href) {
+          list.push(node);
+        }
+        if (node.contents && node.contents.length > 0) {
+          traverse(node.contents);
+        }
+      }
+    };
+    traverse(items);
+    return list;
+  };
+
+  // Keyboard navigation for page transitions (Ctrl + ArrowLeft/ArrowRight)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) {
+        const flatDocs = getFlatDocsList(navItems);
+        if (flatDocs.length === 0 || !activeDoc) return;
+        const currentIndex = flatDocs.findIndex(doc => doc.href === activeDoc);
+        if (currentIndex === -1) return;
+
+        if (e.key === 'ArrowRight' && currentIndex < flatDocs.length - 1) {
+          e.preventDefault();
+          setActiveDoc(flatDocs[currentIndex + 1].href);
+        } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+          e.preventDefault();
+          setActiveDoc(flatDocs[currentIndex - 1].href);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navItems, activeDoc]);
+
   // Apply theme class
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -406,6 +522,11 @@ const App = () => {
           navItems={navItems} 
           activeDoc={activeDoc} 
           onSelectDoc={setActiveDoc} 
+          completedDocs={completedDocs[selectedKb] || {}}
+          bookmarkedDocs={bookmarkedDocs[selectedKb] || {}}
+          recentlyViewedDocs={recentlyViewedDocs[selectedKb] || []}
+          toggleDocCompleted={toggleDocCompleted}
+          toggleDocBookmarked={toggleDocBookmarked}
         />
 
         {/* Document Reader */}
@@ -416,6 +537,12 @@ const App = () => {
           onSelectDoc={setActiveDoc}
           selectedKb={selectedKb}
           theme={theme}
+          completedDocs={completedDocs[selectedKb] || {}}
+          bookmarkedDocs={bookmarkedDocs[selectedKb] || {}}
+          recentlyViewedDocs={recentlyViewedDocs[selectedKb] || []}
+          toggleDocCompleted={toggleDocCompleted}
+          toggleDocBookmarked={toggleDocBookmarked}
+          navItems={navItems}
         />
 
         {/* AI Chat Agent (Only render if key is active) */}

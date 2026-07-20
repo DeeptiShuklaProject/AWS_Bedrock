@@ -672,6 +672,14 @@ session_ttl_seconds = 28800
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import json\n# Simulating dynamic parsing and reassignment of dynamic parameters in an agent tool call\nraw_payload = '{\"agent_name\": \"Auditor\", \"token_limit\": 4096}'\nconfig = json.loads(raw_payload)\n# Reassign and cast dynamically\nconfig[\"token_limit\"] = int(config[\"token_limit\"])\nprint(f\"Agent: {config['agent_name']} (Tokens: {config['token_limit']})\")" 
+      instruction="Run this advanced example showing dynamic reassignment and type casting of JSON payloads in LLM tool outputs."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -698,6 +706,13 @@ session_id = getattr(context, "session_id", "local-session-123")
   options={["Static typing: Types are declared at write-time and enforced by compiler.", "Dynamic typing: Variable labels point to memory objects whose types are resolved at runtime.", "Duck typing: Variables are immutable and typed on first assignment.", "Strict typing: Types are determined by the folder directory structure."]} 
   answerIndex={1} 
   explanation="Python resolves variable types dynamically at runtime. Variable names are labels bound to memory locations containing values." 
+/>
+
+<Quiz 
+  question="Which of the following occurs under the hood when a Python variable is reassigned to a different data type?" 
+  options=["The memory occupied by the original object is immediately freed, and the variable is modified to point to the new type.", "Python creates a new object in memory, rebinds the variable reference, and decrements the original object's reference counter.", "The virtual machine throws a runtime TypeError because Python is dynamically typed.", "Python reuses the same memory address but changes the internal type header of the original object."] 
+  answerIndex=1 
+  explanation="Python variables are references. Reassigning a variable creates a new object and updates the variable to point to it, decrementing the reference count on the previous object." 
 />
 
 <InterviewQuestions>
@@ -734,6 +749,14 @@ def generate_prompt(task, context=""):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="def execute_agent_tool(tool_func, *args, **kwargs):\n    # Dynamically unpack and execute a tool with arbitrary positional and keyword arguments\n    print(f\"Invoking {tool_func.__name__}...\")\n    return tool_func(*args, **kwargs)\n\ndef get_user(id, role=\"Guest\"):\n    return {\"id\": id, \"role\": role}\n\nres = execute_agent_tool(get_user, \"usr_99\", role=\"Admin\")\nprint(res)" 
+      instruction="Run this advanced example executing a tool with dynamic parameter unpacking using *args and **kwargs."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -758,6 +781,13 @@ def get_user_details(user_id: str) -> dict:
   options={["They consume double the memory on execution.", "They raise a SyntaxError at compile time.", "They are instantiated only once when the module is loaded, causing state to leak between subsequent calls.", "They cannot be passed to LLM tool schemas."]} 
   answerIndex={2} 
   explanation="Mutable default parameters are evaluated once when the function is defined, meaning the same object is shared across all subsequent invocations." 
+/>
+
+<Quiz 
+  question="What is the structural difference between argument unpacking using *args and **kwargs in Python function definitions?" 
+  options=["*args unpacks a dictionary of keyword arguments, whereas **kwargs unpacks a list of positional arguments.", "*args packs excess positional arguments into a tuple, while **kwargs packs excess keyword arguments into a dictionary.", "*args creates an immutable generator sequence, while **kwargs creates a mutable set object.", "There is no difference; they can be used interchangeably to capture any parameter type."] 
+  answerIndex=1 
+  explanation="*args collects positional parameters into a tuple, while **kwargs collects keyword arguments into a standard dictionary." 
 />
 
 <InterviewQuestions>
@@ -798,6 +828,14 @@ class Memory:
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="class AgentMemory:\n    # Class variable sharing a max limit across all agent instances\n    GLOBAL_MAX_HISTORY = 100\n\n    def __init__(self, agent_id):\n        self.agent_id = agent_id  # Instance variable\n        self.history = []\n\n    def record(self, message):\n        if len(self.history) < self.GLOBAL_MAX_HISTORY:\n            self.history.append(message)\n\nm1 = AgentMemory(\"Agent_A\")\nm1.record(\"Hello\")\nprint(f\"Memory length: {len(m1.history)}\")" 
+      instruction="Run this example demonstrating the difference between class variables and instance variables in agent memory class setups."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -824,6 +862,13 @@ class SupervisorAgent(BaseAgent):
   options={["__new__ initializes the attributes; __init__ allocates the memory.", "__new__ creates the object instance and returns it; __init__ configures the instance attributes.", "__new__ is only for static methods; __init__ is for instance methods.", "There is no difference; they are aliases."]} 
   answerIndex={1} 
   explanation="__new__ is the constructor creator which returns the new instance, while __init__ initializes the fields on that instance." 
+/>
+
+<Quiz 
+  question="If you modify a mutable class variable directly on a class instance (e.g. instance.class_var = new_val), what happens to other instances?" 
+  options=["All other instances automatically see the new value of the class variable.", "The class variable is modified globally across all instances, including the base class definition.", "A new instance variable of the same name is created, shadowing the class variable on that specific instance only.", "The Python interpreter raises an AttributeError for invalid modification."] 
+  answerIndex=2 
+  explanation="Assigning to a class variable via an instance creates a new instance variable of the same name on that specific instance, shadowing the class variable." 
 />
 
 <InterviewQuestions>
@@ -866,6 +911,14 @@ class SimpleAgent(BaseAgent):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from abc import ABC, abstractmethod\n\nclass AgentBase(ABC):\n    @abstractmethod\n    def step(self): pass\n\nclass LoggerMixin:\n    def log_step(self, status):\n        print(f\"[LOG] Step completed with status: {status}\")\n\nclass AutonomousAgent(AgentBase, LoggerMixin):\n    def step(self):\n        self.log_step(\"Success\")\n        return \"Done\"\n\nagent = AutonomousAgent()\nagent.step()" 
+      instruction="Run this example utilizing abstract base classes and logging mixins with multiple inheritance."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -890,6 +943,13 @@ for agent in self.team:
   options={["A* Search Algorithm", "Depth First Search", "C3 Linearization Algorithm", "Kruskal's Algorithm"]} 
   answerIndex={2} 
   explanation="Python uses the C3 Linearization algorithm to construct a deterministic Method Resolution Order (MRO) list for class lookups." 
+/>
+
+<Quiz 
+  question="What is the primary role of Method Resolution Order (MRO) when calling a method on a class that uses multiple inheritance?" 
+  options=["MRO compiles the parent classes in parallel to execute duplicate methods simultaneously.", "MRO defines the search order Python follows to look up attributes/methods, traversing the class hierarchy deterministically via C3 linearization.", "MRO blocks subclasses from overriding any abstract methods defined in the parent class hierarchy.", "MRO resolves naming conflicts by automatically renaming duplicate methods at compile time."] 
+  answerIndex=1 
+  explanation="MRO uses the C3 linearization algorithm to determine a clean, deterministic linear list of parent classes to search when resolving attributes and methods." 
 />
 
 <InterviewQuestions>
@@ -930,6 +990,14 @@ def add_numbers(a, b):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import importlib\n# Dynamically import standard math module and execute sqrt\nmath_module = importlib.import_module(\"math\")\nsquare_root = getattr(math_module, \"sqrt\")\nprint(f\"Result: {square_root(144)}\")" 
+      instruction="Run this example showing how to dynamically load modules and execute functions at runtime."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -953,6 +1021,13 @@ from prompts.agent_prompts import SYSTEM_INSTRUCTION
   options={["Rename all modules to use capital letters.", "Refactor dependencies, use dynamic imports inside functions, or place imports at the bottom of the file.", "Delete the __init__.py files from both modules.", "Use wildcards (from module import *) everywhere."]} 
   answerIndex={1} 
   explanation="Circular dependencies can be fixed by refactoring shared code into a third module, executing dynamic imports at runtime inside functions, or reorganizing code structure." 
+/>
+
+<Quiz 
+  question="Why does Python cache imported modules in sys.modules instead of loading them each time an import statement is encountered?" 
+  options=["To enforce private visibility modifiers for local package variables.", "To optimize performance by avoiding duplicate code compilation and execution of module-level statements.", "To prevent global variables from being reassigned in subsequent modules.", "Because Python cannot parse import statements inside local function scopes."] 
+  answerIndex=1 
+  explanation="When a module is imported, Python compiles and executes it, saving the resulting module object in sys.modules. Subsequent imports retrieve the cached object, saving resources." 
 />
 
 <InterviewQuestions>
@@ -993,6 +1068,14 @@ from .agent import RouterAgent
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import sys\n# Inspecting path resolution; packages are loaded from paths in sys.path\nprint(\"First search directory:\", sys.path[0])" 
+      instruction="Run this example inspecting package paths and demonstrating package path manipulations."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1017,6 +1100,13 @@ from my_agent_framework.core.tasks import Task
   options={["It is used to compile the package to binary C code.", "It initializes the virtual environment parameters.", "It tells Python that the directory should be treated as a package, allowing package-level imports and api exposing.", "It registers the package with the global PyPI index."]} 
   answerIndex={2} 
   explanation="An __init__.py file designates a directory as a Python package, executing automatically when the package is imported." 
+/>
+
+<Quiz 
+  question="Which of the following is a characteristic of Python namespace packages (introduced in Python 3.3 via PEP 420)?" 
+  options=["They must contain an empty __init__.py file in their root directory.", "They allow splitting a single logical package across multiple independent directory paths on disk without an __init__.py file.", "They require compiling directories into binary files before imports work.", "They are only accessible within virtual environment installations."] 
+  answerIndex=1 
+  explanation="Namespace packages do not require an __init__.py file, permitting files across different directories or zip files to be combined under a single logical package namespace." 
 />
 
 <InterviewQuestions>
@@ -1060,6 +1150,14 @@ def log_call(func):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import time\nimport functools\n\ndef retry_tool(retries=3):\n    def decorator(func):\n        @functools.wraps(func)\n        def wrapper(*args, **kwargs):\n            for i in range(retries):\n                try:\n                    return func(*args, **kwargs)\n                except Exception as e:\n                    print(f\"Attempt {i+1} failed: {e}\")\n            return None\n        return wrapper\n    return decorator\n\n@retry_tool(retries=2)\ndef call_unstable_api():\n    raise RuntimeError(\"API Timeout\")\n\ncall_unstable_api()" 
+      instruction="Run this example creating a parameterized decorator to automatically retry unstable API operations."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1086,6 +1184,13 @@ def handle_agent(payload, context):
   options={["To speed up function execution.", "To bypass the Global Interpreter Lock (GIL).", "To preserve the original function's name, docstring, and signature metadata.", "To automatically catch runtime errors."]} 
   answerIndex={2} 
   explanation="@functools.wraps copies the original function metadata (name, docstring, arguments) to the wrapper function so that introspection libraries can still read it." 
+/>
+
+<Quiz 
+  question="When stacking decorators (e.g. applying @decorator1 above @decorator2 on a function), what is the evaluation order?" 
+  options=["They run concurrently using multithreaded handlers.", "@decorator1 executes first, wrapping the raw function, and then @decorator2 wraps the result.", "@decorator2 executes first, wrapping the raw function, and then @decorator1 wraps the resulting decorator function.", "Python randomly determines the execution order at runtime."] 
+  answerIndex=2 
+  explanation="Decorators are evaluated from bottom to top. The function is passed to the closest decorator first: decorator1(decorator2(func))." 
 />
 
 <InterviewQuestions>
@@ -1126,6 +1231,14 @@ class SandboxSession:
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from contextlib import contextmanager\nimport threading\n\nlock = threading.Lock()\n\n@contextmanager\ndef safe_session_scope():\n    print(\"Acquiring thread lock...\")\n    lock.acquire()\n    try:\n        yield \"Active Session\"\n    finally:\n        print(\"Releasing thread lock...\")\n        lock.release()\n\nwith safe_session_scope() as session:\n    print(f\"Working in: {session}\")" 
+      instruction="Run this example utilizing a generator-based context manager to create a safe, synchronized execution block."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1150,6 +1263,13 @@ with httpx.Client() as client:
   options={["None", "True", "False", "raise"]} 
   answerIndex={1} 
   explanation="Returning True from __exit__ tells Python to catch/suppress the exception; returning False allows the exception to bubble up." 
+/>
+
+<Quiz 
+  question="If an exception is raised inside a with block, how must the context manager's __exit__(self, exc_type, exc_val, exc_tb) method behave to allow the exception to bubble up normally?" 
+  options=["It must return True.", "It must raise the exception again manually using the raise keyword inside __exit__.", "It must return False (or return nothing, which evaluates to None/False).", "It must delete the exception parameters from the traceback memory."] 
+  answerIndex=2 
+  explanation="Returning False (or None) from __exit__ tells Python not to suppress the exception, letting it bubble up. Returning True suppresses the exception." 
 />
 
 <InterviewQuestions>
@@ -1192,6 +1312,14 @@ except ZeroDivisionError:
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="class ToolExecutionError(Exception): pass\n\ntry:\n    try:\n        result = 1 / 0\n    except ZeroDivisionError as e:\n        # Exception chaining to preserve context traceback\n        raise ToolExecutionError(\"Agent tool failed to compute\") from e\nexcept ToolExecutionError as outer:\n    print(f\"Caught: {outer}\")\n    print(f\"Original Cause: {outer.__cause__}\")" 
+      instruction="Run this example illustrating exception chaining and causal tracebacks in python error handling."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1218,6 +1346,13 @@ except bedrock_client.exceptions.ThrottlingException:
   options={["It causes memory leaks.", "It raises a TypeError.", "It catches all exceptions, including system-interrupt signals like KeyboardInterrupt, making it impossible to stop execution.", "It is ignored by Python at runtime."]} 
   answerIndex={2} 
   explanation="A bare except: clause catches BaseException, which includes SystemExit and KeyboardInterrupt, preventing the user from interrupting the script." 
+/>
+
+<Quiz 
+  question="In a try-except-else-finally structure, when does the else block execute?" 
+  options=["Only when an exception is raised and successfully caught.", "Always, right before the finally block executes.", "Only when the try block executes successfully without raising any exceptions.", "Only if the finally block encounters an error."] 
+  answerIndex=2 
+  explanation="The else block executes after the code in the try block finishes, but only if no exceptions were raised during its execution." 
 />
 
 <InterviewQuestions>
@@ -1256,6 +1391,14 @@ def parse_tags(tags: List[str]) -> Optional[str]:
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from typing import Protocol\n\nclass ExecutableAgent(Protocol):\n    # Protocol defines structural subtyping (duck typing)\n    def execute(self, payload: dict) -> str: ...\n\nclass Worker:\n    def execute(self, payload: dict) -> str:\n        return \"Worker complete\"\n\ndef run_agent(agent: ExecutableAgent):\n    return agent.execute({})\n\nprint(run_agent(Worker()))" 
+      instruction="Run this example utilizing typing.Protocol to implement structural subtyping constraints."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1280,6 +1423,13 @@ def query_db(query: str, limit: int = 10) -> List[Dict[str, Any]]:
   options={["Yes, Python raises a TypeError if the value doesn't match the annotation.", "No, type hints are ignored during execution; static analysis must be run separately using tools like mypy.", "Yes, but only inside FastAPI routers.", "Only if the virtual environment is activated."]} 
   answerIndex={1} 
   explanation="Python does not check types at runtime. Type hints are metadata used by static analyzers (like mypy), IDEs, or frameworks like Pydantic." 
+/>
+
+<Quiz 
+  question="What is the key difference between typing.Protocol (Structural typing) and standard abstract base classes (Nominal typing)?" 
+  options=["Protocol is enforced at runtime, while abstract base classes are ignored.", "Protocol does not require classes to inherit from it explicitly; any class implementing the required methods matches the Protocol.", "Abstract base classes cannot declare concrete methods, while Protocol can.", "Protocol only supports basic integer types."] 
+  answerIndex=1 
+  explanation="Protocol implements structural subtyping (duck typing). A class matches a Protocol simply by having matching method signatures, without explicit inheritance." 
 />
 
 <InterviewQuestions>
@@ -1318,6 +1468,14 @@ async def main():
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import asyncio\n\nasync def agent_action(name, duration):\n    await asyncio.sleep(duration)\n    return f\"{name} task done\"\n\nasync def run_pipeline():\n    try:\n        # Run concurrently with a timeout constraint\n        results = await asyncio.wait_for(\n            asyncio.gather(agent_action(\"A\", 0.5), agent_action(\"B\", 0.8)),\n            timeout=1.0\n        )\n        print(results)\n    except asyncio.TimeoutError:\n        print(\"Pipeline timed out!\")\n\nasyncio.run(run_pipeline())" 
+      instruction="Run this example coordinating concurrent asynchronous tasks with timeout constraints."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1343,6 +1501,13 @@ async def run_workers(tasks):
   options={["Using the await keyword.", "Calling synchronous blocking functions like time.sleep() or requests.get().", "Using asyncio.gather().", "Returning a dictionary."]} 
   answerIndex={1} 
   explanation="Synchronous blocking calls stall the entire event loop, preventing other concurrent tasks from executing. Use non-blocking async counterparts." 
+/>
+
+<Quiz 
+  question="What happens if a developer runs a CPU-heavy computation loop (e.g. while True: pass) inside an asynchronous coroutine without using await?" 
+  options=["The event loop automatically offloads the loop to a background CPU process.", "The thread running the event loop is blocked, freezing all other concurrent tasks until the loop completes.", "The coroutine raises a RuntimeBlockingError.", "The execution continues in parallel using cooperative multitasking."] 
+  answerIndex=1 
+  explanation="Since asyncio runs on a single thread, blocking operations or CPU-bound loops without await block the entire thread, halting the event loop." 
 />
 
 <InterviewQuestions>
@@ -1385,6 +1550,14 @@ class User:
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from dataclasses import dataclass, field\n\n@dataclass(frozen=True)\nclass ImmutableAgentConfig:\n    agent_name: str\n    # default_factory prevents shared mutable reference bugs\n    tags: list[str] = field(default_factory=list)\n\nconfig = ImmutableAgentConfig(\"Clara\", [\"search\", \"math\"])\nprint(config)" 
+      instruction="Run this example defining immutable dataclasses and using default factories for mutable list fields."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1412,6 +1585,13 @@ class AgentTask:
   options={["Pass frozen=True to the @dataclass decorator.", "Use the readonly keyword.", "Store the class inside a tuple.", "Define all fields as private."]} 
   answerIndex={0} 
   explanation="Using @dataclass(frozen=True) automatically generates code that prevents attribute mutation and defines a __hash__ method." 
+/>
+
+<Quiz 
+  question="Why does Python's dataclass raise a ValueError if you specify a mutable default parameter directly (like tags: list = [])?" 
+  options=["Because dataclasses are compiled into C structures that do not support lists.", "Because mutable defaults are evaluated once and shared across all class instances, leading to state leaks.", "Because lists cannot be type-hinted in Python dataclasses.", "Because dataclass fields must be defined as read-only constants."] 
+  answerIndex=1 
+  explanation="To prevent instance state sharing (since defaults are evaluated once at definition time), dataclasses require mutable defaults to use default_factory." 
 />
 
 <InterviewQuestions>
@@ -1452,6 +1632,14 @@ class Status(Enum):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from enum import Enum, auto\n\nclass AgentState(Enum):\n    IDLE = auto()\n    THINKING = auto()\n    COMPLETED = auto()\n    \n    def can_transition_to(self, new_state):\n        # Custom routing validation\n        return self != AgentState.COMPLETED\n\nstate = AgentState.THINKING\nprint(\"Can change to Completed?\", state.can_transition_to(AgentState.COMPLETED))" 
+      instruction="Run this example declaring enums with custom status transition methods."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1478,6 +1666,13 @@ class StepStatus(str, Enum):
   options={["It speeds up comparison operators.", "It allows the enum members to be serialized directly to JSON as plain strings.", "It bypasses pydantic validation.", "It makes the enum hashable."]} 
   answerIndex={1} 
   explanation="Inheriting from str ensures that enum values can be serialized directly into JSON outputs without needing custom serialization logic." 
+/>
+
+<Quiz 
+  question="What is the primary difference between comparing Enum members using is vs comparing their values using ==?" 
+  options=["Comparing with is checks the Enum member instance identity, whereas == compares the underlying values.", "is comparisons are only supported for string Enums, while == is for integer Enums.", "is performs type coercion while == is strict.", "There is no difference; they are exactly identical in all contexts."] 
+  answerIndex=0 
+  explanation="Enum members are singletons, so member1 is member2 checks identity. Comparing member1.value == value checks the value assigned to the member." 
 />
 
 <InterviewQuestions>
@@ -1516,6 +1711,14 @@ logger.warning("Tool timeout detected")
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import logging\nimport json\n\nclass JsonFormatter(logging.Formatter):\n    def format(self, record):\n        # Standardize log outputs as JSON objects\n        return json.dumps({\n            \"level\": record.levelname,\n            \"message\": record.getMessage(),\n            \"logger\": record.name\n        })\n\nhandler = logging.StreamHandler()\nhandler.setFormatter(JsonFormatter())\nlogger = logging.getLogger(\"AgentLogger\")\nlogger.addHandler(handler)\nlogger.setLevel(logging.INFO)\n\nlogger.info(\"JSON log initialization complete.\")" 
+      instruction="Run this example setting up structured JSON logging in python applications."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1539,6 +1742,13 @@ logger.info("Incoming agent invocation", extra={"session_id": session_id, "route
   options={["JSON logging takes less disk space.", "Plaintext logs cannot be read on Windows.", "JSON logs group metadata into a single parseable line, enabling instant filtering and analysis in log search engines.", "JSON logs automatically mask all passwords."]} 
   answerIndex={2} 
   explanation="Log aggregators like CloudWatch or Elasticsearch parse JSON properties natively, allowing instant querying by session ID, module, or log level." 
+/>
+
+<Quiz 
+  question="What is the purpose of log propagation in Python's logging module?" 
+  options=["It duplicates log files across multiple server directories automatically.", "It passes log records up to the handlers of parent loggers in the logger hierarchy unless propagate is set to False.", "It converts all log formats to JSON structures.", "It encrypts logs before exporting them to standard output streams."] 
+  answerIndex=1 
+  explanation="Loggers are organized hierarchically. By default, events logged to child loggers are propagated up to their parents' handlers." 
 />
 
 <InterviewQuestions>
@@ -1575,6 +1785,14 @@ port = int(os.environ.get("PORT", 8000))
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import os\n\nclass AgentConfig:\n    def __init__(self):\n        # Safe retrieval with strict verification\n        self.api_key = os.environ.get(\"GEMINI_API_KEY\")\n        if not self.api_key:\n            raise ValueError(\"CRITICAL: GEMINI_API_KEY environment variable is not set!\")\n\ntry:\n    config = AgentConfig()\nexcept ValueError as e:\n    print(e)" 
+      instruction="Run this example retrieving and validating environmental variable configs."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1598,6 +1816,13 @@ bedrock_client = boto3.client("bedrock-runtime", region_name=os.getenv("AWS_DEFA
   options={["Retrieving values with os.environ.get() causes memory fragmentation.", "Hardcoding secret keys/API tokens directly in code files instead of using environment variables, risking leaks to public repositories.", "Environment variables can only hold integers.", "They are cleared every time a function finishes execution."]} 
   answerIndex={1} 
   explanation="Hardcoding secrets in source files allows anyone with access to the source code repository to read them. Env variables keep secrets separated from code." 
+/>
+
+<Quiz 
+  question="If you modify os.environ inside a running Python script, which processes are affected by this change?" 
+  options=["Only the current Python process and any sub-processes spawned by it after the modification.", "All system processes currently running on the operating system.", "The change is saved permanently to the OS environment settings.", "No processes, as os.environ is read-only at runtime."] 
+  answerIndex=0 
+  explanation="Environment modifications are local to the process and inherited by its child processes. They do not affect parent or unrelated system processes." 
 />
 
 <InterviewQuestions>
@@ -1634,6 +1859,14 @@ python -m venv my_env
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import sys\n# Check if we are running inside an active virtual environment\nis_venv = sys.prefix != sys.base_prefix\nprint(f\"Inside virtual environment: {is_venv}\")" 
+      instruction="Run this example programmatically checking if python execution environment is virtualized."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1658,6 +1891,13 @@ cd /app && source .venv/bin/activate && python main.py
   options={["It copies the entire python interpreter to the root directory.", "It overrides global imports by prepending the virtual environment path to the shell's PATH, resolving imports from its site-packages.", "It compiles python code to C++.", "It blocks all standard library imports."]} 
   answerIndex={1} 
   explanation="Activation configures environment variables so that pip installations and python execution refer to the isolated folder structure." 
+/>
+
+<Quiz 
+  question="How does activating a virtual environment (.venv) change the interpreter's package discovery path?" 
+  options=["It updates sys.path to prioritize directories within the virtual environment's site-packages folder.", "It copies all installed libraries into the system's root Python directory.", "It compiles python files into native shell commands.", "It blocks standard library modules from being loaded."] 
+  answerIndex=0 
+  explanation="Activation modifies environment paths (PATH, VIRTUAL_ENV) so that the interpreter resolves packages from the virtual environment's directories." 
 />
 
 <InterviewQuestions>
@@ -1693,6 +1933,14 @@ pip install requests pydantic
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import subprocess\nimport sys\n\n# Programmatically execute pip list using subprocess\nres = subprocess.run([sys.executable, \"-m\", \"pip\", \"list\"], capture_output=True, text=True)\nprint(\"Pip Package Check:\")\nprint(\"\\n\".join(res.stdout.splitlines()[:5]))" 
+      instruction="Run this example executing pip packages list checks programmatically."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1716,6 +1964,13 @@ subprocess.run(["pip", "install", "-r", "requirements.txt"])
   options={["Editable mode (-e) installs the package as a read-only symlink.", "Editable mode (-e) allows modifying the package source code directly without reinstalling to see changes.", "Editable mode disables sub-dependency resolution.", "Standard install downloads code from GitHub only."]} 
   answerIndex={1} 
   explanation="Editable install symlinks the source code directory, ensuring changes to the local files are immediately reflected in imports." 
+/>
+
+<Quiz 
+  question="What is the primary purpose of using requirements constraints (e.g. pydantic>=2.0,<3.0) in a requirements.txt file?" 
+  options=["To speed up the network download speed of libraries.", "To prevent breaking changes by locking updates to compatible major/minor versions while permitting bug fixes.", "To compile dependencies into binary wheels before installing.", "To force pip to run only inside a Docker container."] 
+  answerIndex=1 
+  explanation="Constraints ensure that compatible versions are installed (e.g. avoiding major breaking versions), preventing dependency drift and runtime breaks." 
 />
 
 <InterviewQuestions>
@@ -1751,6 +2006,14 @@ uv pip install httpx pydantic
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Simulating a uv-based virtual env setup check\nimport sys\nprint(\"UV packages are resolved in optimized, concurrent caches.\")\nprint(\"Interpreter:\", sys.executable)" 
+      instruction="Run this example demonstrating UV environment path variables."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1774,6 +2037,13 @@ RUN pip install uv && uv pip install --system -r requirements.txt
   options={["It ignores sub-dependency resolution.", "It is written in Rust, compiling dependencies concurrently and caching globally using hard links.", "It only installs binary wheel files.", "It executes in the browser."]} 
   answerIndex={1} 
   explanation="UV implements state-of-the-art Rust architecture with parallel dependency fetching, caching, and linking for high performance." 
+/>
+
+<Quiz 
+  question="How does UV achieve significant performance gains over traditional pip when installing packages?" 
+  options=["It skips resolving dependencies entirely and copies files directly.", "It is written in Rust, resolves dependencies concurrently, and uses global cache links (hard links/reflink) to avoid copying files.", "It executes only inside web browser interpreters.", "It compresses package archives using a custom algorithm before download."] 
+  answerIndex=1 
+  explanation="UV leverages Rust concurrency and global caching with system file links (reflink or hard link) to make installs extremely fast and resource-efficient." 
 />
 
 <InterviewQuestions>
@@ -1812,6 +2082,14 @@ poetry install
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Simulating reading project config from pyproject.toml\nproject_config = \"\"\"\n[tool.poetry.dependencies]\npython = \"^3.11\"\npydantic = \"^2.5.0\"\n\"\"\"\nprint(\"Parsed pyproject.toml layout:\")\nprint(project_config.strip())" 
+      instruction="Run this example displaying sample Poetry config files layout structures."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1836,6 +2114,13 @@ poetry publish
   options={["pyproject.toml is used on Windows, poetry.lock on Unix.", "pyproject.toml specifies general dependencies, while poetry.lock locks the exact resolved sub-dependency versions.", "poetry.lock contains encrypted security tokens.", "Poetry ignores the lockfile during installs."]} 
   answerIndex={1} 
   explanation="The toml configuration describes broad limits; the lockfile registers exact pinned versions to guarantee reproducible builds." 
+/>
+
+<Quiz 
+  question="What security role does the poetry.lock file play in package deployments?" 
+  options=["It encrypts all code files before sending them to production.", "It records exact package versions along with cryptographic content hashes to ensure identical and secure builds.", "It locks file permissions to prevent unauthorised users from editing code.", "It logs all active API keys in a secure dashboard."] 
+  answerIndex=1 
+  explanation="The lockfile ensures reproducibility and security by pinning the exact package version and storing file hashes to verify that installed code hasn't been altered." 
 />
 
 <InterviewQuestions>
@@ -1873,6 +2158,14 @@ payload = json.dumps({"query": "hello", "history": []})
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import json\nfrom datetime import datetime\n\nclass AgentJsonEncoder(json.JSONEncoder):\n    def default(self, obj):\n        if isinstance(obj, datetime):\n            return obj.isoformat()\n        return super().default(obj)\n\npayload = {\"timestamp\": datetime.now(), \"status\": \"active\"}\nprint(json.dumps(payload, cls=AgentJsonEncoder))" 
+      instruction="Run this example utilizing custom JSON encoders for non-serializable objects (datetime)."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1896,6 +2189,13 @@ result = json.loads(response["body"].read().decode("utf-8"))
   options={["Cast the entire object to a string.", "Provide a custom JSONEncoder subclass to parse and serialize the types.", "JSON cannot handle nested structures in Python.", "Import the json2 package."]} 
   answerIndex={1} 
   explanation="Providing a subclass of JSONEncoder allows defining customized serialization rules for non-primitive types." 
+/>
+
+<Quiz 
+  question="Which error does Python's standard json.dumps() throw when attempting to serialize a custom object without a custom encoder?" 
+  options=["AttributeError", "TypeError", "ValueError", "SerializationError"] 
+  answerIndex=1 
+  explanation="A TypeError is raised when an object of a non-serializable type (like custom class instances or datetime) is passed to json.dumps()." 
 />
 
 <InterviewQuestions>
@@ -1932,6 +2232,14 @@ resp = httpx.get("https://httpbin.org/get")
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="import httpx\nimport asyncio\n\nasync def check_api_status():\n    # Reusing an async HTTP client session\n    async with httpx.AsyncClient() as client:\n        resp = await client.get(\"https://httpbin.org/status/200\")\n        print(f\"Status Code: {resp.status_code}\")\n\nasyncio.run(check_api_status())" 
+      instruction="Run this example executing concurrent API calls using httpx."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -1956,6 +2264,13 @@ async with httpx.AsyncClient() as client:
   options={["When you need to make asynchronous non-blocking HTTP requests.", "When you want to parse JSON automatically.", "Only when calling AWS Bedrock endpoints.", "When running on Python 2.x."]} 
   answerIndex={0} 
   explanation="httpx supports async requests via async/await, allowing concurrent I/O calls without blocking the async event loop." 
+/>
+
+<Quiz 
+  question="What is a major advantage of using HTTPX's connection pooling via Client sessions over individual request calls?" 
+  options=["It automatically encrypts request parameters.", "It reuses established TCP connections, reducing network latency and handshaking overhead.", "It bypasses system firewall constraints.", "It translates HTTP requests into GraphQL queries."] 
+  answerIndex=1 
+  explanation="Connection pooling reuses TCP connections, avoiding the overhead of opening and closing connections for each request, enhancing API performance." 
 />
 
 <InterviewQuestions>
@@ -1996,6 +2311,14 @@ def run(payload: dict): return {"status": "ok"}
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\n\nclass PromptInput(BaseModel):\n    text: str\n\n@app.post(\"/agent\")\nasync def run_agent_route(payload: PromptInput):\n    return {\"response\": f\"Processed: {payload.text}\"}\n\nprint(\"FastAPI agent route registered successfully.\")" 
+      instruction="Run this example showing route mappings and request body models configurations in FastAPI."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -2021,6 +2344,13 @@ async def chat_endpoint(payload: ChatPayload):
   options={["By executing a separate doc generator script.", "FastAPI reads python type hints and Pydantic models in route handler signatures to generate JSON schemas dynamically.", "By scraping comments in the source files.", "By calling external API registries."]} 
   answerIndex={1} 
   explanation="FastAPI parses the endpoint function declarations and uses Pydantic model schemas to compile standard OpenAPI specs automatically." 
+/>
+
+<Quiz 
+  question="What is ASGI, and how does it differ from WSGI in Python web framework architectures?" 
+  options=["ASGI is faster because it compiles Python to native C++.", "ASGI is an asynchronous interface supporting WebSockets, Server-Sent Events, and async routing, whereas WSGI is synchronous.", "ASGI only runs on cloud systems, while WSGI runs locally.", "WSGI is the newer, asynchronous standard that replaced ASGI."] 
+  answerIndex=1 
+  explanation="ASGI (Asynchronous Server Gateway Interface) supports async Python features (like websockets and async tasks), while WSGI is limited to synchronous requests." 
 />
 
 <InterviewQuestions>
@@ -2060,6 +2390,14 @@ class Query(BaseModel):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from pydantic import BaseModel, Field, field_validator\n\nclass AgentTask(BaseModel):\n    task_id: str\n    priority: int = Field(default=1, ge=1, le=5)\n\n    @field_validator(\"task_id\")\n    def check_id_prefix(cls, val):\n        if not val.startswith(\"task_\"):\n            raise ValueError(\"task_id must start with 'task_' prefix\")\n        return val\n\ntry:\n    task = AgentTask(task_id=\"invalid_id\", priority=10)\nexcept Exception as e:\n    print(e)" 
+      instruction="Run this example showing strict field validations and validators checks using Pydantic schemas."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -2086,6 +2424,13 @@ class InvocationPayload(BaseModel):
   options={["It raises a ValidationError immediately.", "It coerces the string to the integer 42 where possible.", "It keeps it as a string.", "It ignores the type hint."]} 
   answerIndex={1} 
   explanation="Pydantic performs type coercion automatically to convert input types (like string representations of numbers) into correct types." 
+/>
+
+<Quiz 
+  question="How does Pydantic behave when performing field validation under Strict Mode (strict=True)?" 
+  options=["It coerces values (e.g. converting '42' to 42) before validating.", "It fails validation immediately if the input type does not match the type annotation exactly.", "It compiles model declarations into binary executables.", "It ignores all custom field validators."] 
+  answerIndex=1 
+  explanation="In strict mode, Pydantic prevents automatic type coercion (like casting string numbers or floats to ints), raising validation errors if types aren't exact." 
 />
 
 <InterviewQuestions>
@@ -2125,6 +2470,14 @@ def fetch_details(db: Database):
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Simulating a dependency override check for unit tests\ndef get_real_db():\n    return \"Production_Database_Connection\"\n\ndef execute_query(db_conn=None):\n    conn = db_conn or get_real_db()\n    print(\"Connecting to:\", conn)\n\n# Injecting a mock connection\nexecute_query(db_conn=\"Mock_Test_Connection\")" 
+      instruction="Run this example demonstrating manual dependency injection configuration and overrides simulation."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -2150,6 +2503,13 @@ async def handle_query(payload: dict, db: Session = Depends(get_db_session)):
   options={["It automatically creates SQLite databases.", "It allows overriding dependencies with mocks, avoiding calls to actual databases or external services.", "It speeds up API route routing.", "It compiles route handlers."]} 
   answerIndex={1} 
   explanation="Depends is a framework-native lookup mechanism, allowing unit tests to override dependencies cleanly without editing code." 
+/>
+
+<Quiz 
+  question="In FastAPI, how are dependency overrides specified for test clients during integration testing?" 
+  options=["By modifying the sys.path list.", "By assigning override functions to the app.dependency_overrides dictionary map.", "By deleting the standard dependency definitions.", "By compiling the application in Test mode."] 
+  answerIndex=1 
+  explanation="FastAPI provides a dictionary app.dependency_overrides. Mapping a dependency callable to a mock callable redirects the resolver automatically." 
 />
 
 <InterviewQuestions>
@@ -2188,6 +2548,14 @@ p.write_text("Agent complete.")
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from pathlib import Path\n\n# Secure path resolution, preventing directory traversal attacks\nbase_dir = Path(\"/app/sandbox\").resolve()\nuser_input = \"output.txt\"\n\n# Join and resolve\ntarget_file = (base_dir / user_input).resolve()\nis_safe = target_file.is_relative_to(base_dir)\nprint(f\"Path resolved to: {target_file}\")\nprint(f\"Is path safe (within sandbox)? {is_safe}\")" 
+      instruction="Run this example using pathlib.Path to prevent path traversal vulnerability security risks."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -2214,6 +2582,13 @@ if not target_file.is_relative_to(safe_path):
   options={["It runs 10x faster.", "It provides an object-oriented path interface and handles platform-independent operations automatically.", "It automatically writes files asynchronously.", "It is only compatible with AWS S3."]} 
   answerIndex={1} 
   explanation="pathlib models paths as object classes and overloads division operators (/), resolving Windows vs Unix slashes automatically." 
+/>
+
+<Quiz 
+  question="Why is Path.resolve() crucial when validating user-supplied file paths in backend applications?" 
+  options=["It compiles path strings to binary bytes.", "It resolves symbolic links and relative segments (like '..'), returning the absolute path to detect path traversal attempts.", "It automatically creates the file on disk if it is missing.", "It limits the maximum file read size to 10MB."] 
+  answerIndex=1 
+  explanation="resolve() produces the absolute canonical path, eliminating symlink aliases and traversal tokens (..), allowing clean safety boundaries checks." 
 />
 
 <InterviewQuestions>
@@ -2256,6 +2631,14 @@ project/
       instruction="Run this interactive python example and see the console output."
     />
   </Tab>
+
+  <Tab label="Advanced Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Simulating path resolution checks in src package layouts\nimport sys\nprint(\"System search paths listing:\")\nprint(\"\\n\".join(sys.path[:3]))" 
+      instruction="Run this example showing system search paths configurations in package distributions structures."
+    />
+  </Tab>
 </Tabs>
 
 <InfoCard title="AI Agent Integration">
@@ -2279,6 +2662,13 @@ from src.my_agent.main import agent_runtime
   question="Why is the src/ layout configuration considered a best practice in Python packaging?" 
   options={["It decreases package size.", "It forces tests to run against the installed package version from site-packages rather than raw local source files.", "It makes relative imports simpler.", "It is required by the Python interpreter."]} 
   answerIndex={1} 
+  explanation="The src/ layout forces developers to install the package before tests run, helping identify configuration/packaging bugs before release." 
+/>
+
+<Quiz 
+  question="Why is the src/ layout configuration considered a best practice in Python packaging?" 
+  options=["It decreases package size.", "It forces tests to run against the installed package version from site-packages rather than raw local source files.", "It makes relative imports simpler.", "It is required by the Python interpreter."] 
+  answerIndex=1 
   explanation="The src/ layout forces developers to install the package before tests run, helping identify configuration/packaging bugs before release." 
 />
 

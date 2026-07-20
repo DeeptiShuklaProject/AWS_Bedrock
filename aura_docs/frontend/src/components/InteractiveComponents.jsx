@@ -523,7 +523,7 @@ export const Step = ({ children }) => <div>{children}</div>;
 // ==========================================
 // 13. InteractiveExample Component
 // ==========================================
-export const InteractiveExample = ({ initialCode, instruction }) => {
+export const InteractiveExample = ({ initialCode, instruction, language = 'python' }) => {
   const [code, setCode] = useState(initialCode ? initialCode.trim() : '');
   const [output, setOutput] = useState('');
   const [isRunning, setIsRunning] = useState(false);
@@ -535,7 +535,7 @@ export const InteractiveExample = ({ initialCode, instruction }) => {
       const response = await fetch('/api/playground/run-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ code, language })
       });
       const data = await response.json();
       if (data.success) {
@@ -572,7 +572,7 @@ export const InteractiveExample = ({ initialCode, instruction }) => {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', fontWeight: '700', color: 'var(--text-primary)' }}>
           <Terminal size={16} />
-          <span>Interactive Playground</span>
+          <span>Interactive Playground ({language.toUpperCase()})</span>
         </div>
         <button
           onClick={handleRun}
@@ -643,7 +643,7 @@ export const InteractiveExample = ({ initialCode, instruction }) => {
 // ==========================================
 // (Note: The premium PracticeProblem component is declared as Component #36 to avoid redeclaration issues)
 
-export const Exercise = ({ title, instructions, initialCode }) => (
+export const Exercise = ({ title, instructions, initialCode, language = 'python' }) => (
   <div style={{
     border: '2px solid var(--border-color)',
     borderRadius: '12px',
@@ -658,7 +658,7 @@ export const Exercise = ({ title, instructions, initialCode }) => (
     <div style={{ fontSize: '0.9rem', lineHeight: '1.5', marginBottom: '16px', color: 'var(--text-secondary)' }}>
       {instructions}
     </div>
-    <InteractiveExample initialCode={initialCode} />
+    <InteractiveExample initialCode={initialCode} language={language} />
   </div>
 );
 

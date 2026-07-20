@@ -342,37 +342,183 @@ def invoke_bedrock_model(request: InvokeRequest):
 
 class RunCodeRequest(BaseModel):
     code: str
+    language: Optional[str] = "python"
 
 @app.post("/api/playground/run-code")
 def run_code_playground(request: RunCodeRequest):
-    """Execute Python code in a safe, isolated subprocess and return stdout/stderr."""
+    """Execute Python or Java code in a safe, isolated subprocess and return stdout/stderr."""
     import subprocess
     import sys
+    import tempfile
+    import shutil
+    import re
     
-    try:
-        # Run python code in a subprocess with a timeout of 5 seconds to prevent infinite loops
-        result = subprocess.run(
-            [sys.executable, "-c", request.code],
-            capture_output=True,
-            text=True,
-            timeout=5.0
-        )
-        return {
-            "success": result.returncode == 0,
-            "stdout": result.stdout,
-            "stderr": result.stderr
-        }
-    except subprocess.TimeoutExpired:
+    print(f"--- PLAYGROUND RUN REQUEST: language={request.language} ---", flush=True)
+    lang = (request.language or "python").lower()
+    
+    if lang == "python":
+        try:
+            # Run python code in a subprocess with a timeout of 5 seconds to prevent infinite loops
+            result = subprocess.run(
+                [sys.executable, "-c", request.code],
+                capture_output=True,
+                text=True,
+                timeout=5.0
+            )
+            return {
+                "success": result.returncode == 0,
+                "stdout": result.stdout,
+                "stderr": result.stderr
+            }
+        except subprocess.TimeoutExpired:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": "Execution timed out (maximum 5 seconds allowed)."
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": f"Execution failed: {str(e)}"
+            }
+            
+    elif lang == "java":
+        # Create a temp directory inside the container's app directory
+        temp_dir = tempfile.mkdtemp(prefix="java_run_", dir="/app")
+        try:
+            # Find class name
+            match = re.search(r'public\s+class\s+([A-Za-z0-9_]+)', request.code)
+            if not match:
+                match = re.search(r'class\s+([A-Za-z0-9_]+)', request.code)
+            class_name = match.group(1) if match else "Main"
+            
+            # If no class was defined, wrap it in a default class Main
+            code_to_write = request.code
+            if not match:
+                code_to_write = f"public class Main {{\n    public static void main(String[] args) {{\n{request.code}\n    }}\n}}"
+                class_name = "Main"
+                
+            java_file_path = os.path.join(temp_dir, f"{class_name}.java")
+            with open(java_file_path, "w", encoding="utf-8") as f:
+                f.write(code_to_write)
+                
+            # Compile Java code
+            compile_res = subprocess.run(
+                ["javac", java_file_path],
+                capture_output=True,
+                text=True,
+                timeout=5.0
+            )
+            
+            if compile_res.returncode != 0:
+                return {
+                    "success": False,
+                    "stdout": "",
+                    "stderr": compile_res.stderr or compile_res.stdout or "Compilation failed."
+                }
+                
+            # Run Java code
+            run_res = subprocess.run(
+                ["java", "-cp", temp_dir, class_name],
+                capture_output=True,
+                text=True,
+                timeout=5.0
+            )
+            
+            return {
+                "success": run_res.returncode == 0,
+                "stdout": run_res.stdout,
+                "stderr": run_res.stderr
+            }
+            
+        except subprocess.TimeoutExpired:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": "Execution timed out (maximum 5 seconds allowed)."
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": f"Execution failed: {str(e)}"
+            }
+        finally:
+            # Cleanup temp directory
+            shutil.rmtree(temp_dir, ignore_errors=True)
+            
+    elif lang in ("javascript", "js", "nodejs"):
+        temp_dir = tempfile.mkdtemp(prefix="js_run_", dir="/app")
+        try:
+            js_file_path = os.path.join(temp_dir, "index.js")
+            with open(js_file_path, "w", encoding="utf-8") as f:
+                f.write(request.code)
+            
+            run_res = subprocess.run(
+                ["node", js_file_path],
+                capture_output=True,
+                text=True,
+                timeout=5.0
+            )
+            return {
+                "success": run_res.returncode == 0,
+                "stdout": run_res.stdout,
+                "stderr": run_res.stderr
+            }
+        except subprocess.TimeoutExpired:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": "Execution timed out (maximum 5 seconds allowed)."
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": f"Execution failed: {str(e)}"
+            }
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
+
+    elif lang == "go":
+        temp_dir = tempfile.mkdtemp(prefix="go_run_", dir="/app")
+        try:
+            go_file_path = os.path.join(temp_dir, "main.go")
+            with open(go_file_path, "w", encoding="utf-8") as f:
+                f.write(request.code)
+            
+            run_res = subprocess.run(
+                ["go", "run", go_file_path],
+                capture_output=True,
+                text=True,
+                timeout=5.0
+            )
+            return {
+                "success": run_res.returncode == 0,
+                "stdout": run_res.stdout,
+                "stderr": run_res.stderr
+            }
+        except subprocess.TimeoutExpired:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": "Execution timed out (maximum 5 seconds allowed)."
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "stdout": "",
+                "stderr": f"Execution failed: {str(e)}"
+            }
+        finally:
+            shutil.rmtree(temp_dir, ignore_errors=True)
+            
+    else:
         return {
             "success": False,
             "stdout": "",
-            "stderr": "Execution timed out (maximum 5 seconds allowed)."
-        }
-    except Exception as e:
-        return {
-            "success": False,
-            "stdout": "",
-            "stderr": f"Execution failed: {str(e)}"
+            "stderr": f"Unsupported language: {lang}"
         }
 
 

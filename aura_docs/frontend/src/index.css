@@ -518,6 +518,19 @@ body {
   font-weight: 500;
 }
 
+.doc-content img, .doc-img {
+  max-width: 100% !important;
+  max-height: 400px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+  margin: 24px auto !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-md) !important;
+  background-color: var(--bg-sidebar) !important;
+}
+
 .doc-content ul, .doc-content ol {
   margin-bottom: 20px;
   padding-left: 24px;

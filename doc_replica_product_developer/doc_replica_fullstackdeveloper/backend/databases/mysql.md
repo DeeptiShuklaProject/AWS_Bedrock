@@ -2,6 +2,8 @@
 
 MySQL is the world's most popular open-source relational database management system (RDBMS), powering billions of web applications worldwide.
 
+<ProgressTracker currentSection=1 totalSections=24 />
+
 ## 1. Introduction
 
 ### 1.1 What is MySQL?
@@ -21,6 +23,8 @@ Created in 1995 by Michael Widenius, David Axmark, and Allan Larsson (MySQL AB).
 - **Major Users**: Facebook, Twitter, YouTube, Uber, GitHub, Pinterest.
 
 ---
+<ProgressTracker currentSection=2 totalSections=24 />
+
 ## 2. Database Fundamentals
 
 ### 2.1 DBMS vs RDBMS vs NoSQL
@@ -45,6 +49,8 @@ graph TD
 ```
 
 ---
+<ProgressTracker currentSection=3 totalSections=24 />
+
 ## 3. Internal Architecture
 
 MySQL features a unique storage engine pluggable architecture, separating query parsing/optimization from physical disk storage.
@@ -93,6 +99,8 @@ graph TD
 - **Doublewrite Buffer**: Prevents page corruption by writing page copies to a doublewrite file before updating tablespaces.
 
 ---
+<ProgressTracker currentSection=4 totalSections=24 />
+
 ## 4. Installation
 
 ### 4.0 Official Resources & Installation Flow
@@ -135,6 +143,8 @@ volumes:
 ```
 
 ---
+<ProgressTracker currentSection=5 totalSections=24 />
+
 ## 5. Database Creation & Management
 
 ```sql
@@ -156,6 +166,8 @@ DROP DATABASE app_db;
   ```
 
 ---
+<ProgressTracker currentSection=6 totalSections=24 />
+
 ## 6. Data Types
 
 | Data Type | Memory size | Typical Use Case |
@@ -170,6 +182,8 @@ DROP DATABASE app_db;
 
 ---
 
+<ProgressTracker currentSection=7 totalSections=24 />
+
 ## 7. Tables & Constraints
 
 ```sql
@@ -183,6 +197,8 @@ CREATE TABLE users (
 ```
 
 ---
+<ProgressTracker currentSection=8 totalSections=24 />
+
 ## 8. CRUD Operations
 
 ```sql
@@ -196,6 +212,8 @@ SELECT * FROM users WHERE created_at > NOW() - INTERVAL 30 DAY;
 ```
 
 ---
+
+<ProgressTracker currentSection=9 totalSections=24 />
 
 ## 9. Advanced SQL Queries
 
@@ -213,6 +231,8 @@ SELECT * FROM org_chart;
 ```
 
 ---
+<ProgressTracker currentSection=10 totalSections=24 />
+
 ## 10. Joins
 
 MySQL supports `INNER JOIN`, `LEFT JOIN`, `RIGHT JOIN`, and `CROSS JOIN`. 
@@ -228,6 +248,8 @@ SELECT * FROM users u RIGHT JOIN profiles p ON u.id = p.user_id;
 ```
 
 ---
+
+<ProgressTracker currentSection=11 totalSections=24 />
 
 ## 12. Indexes
 
@@ -245,11 +267,15 @@ CREATE INDEX idx_user_email ON users(email);
 ```
 
 ---
+<ProgressTracker currentSection=12 totalSections=24 />
+
 ## 13. Views & Materialized Views
 
 MySQL does **not** support materialized views natively. To optimize read paths, developers must implement custom caching tables and sync them using Triggers or Scheduler Events.
 
 ---
+
+<ProgressTracker currentSection=13 totalSections=24 />
 
 ## 14. Stored Procedures & Triggers
 
@@ -263,6 +289,8 @@ DELIMITER ;
 ```
 
 ---
+<ProgressTracker currentSection=14 totalSections=24 />
+
 ## 15. Transactions & MVCC
 
 InnoDB uses Undo Logs to create snapshots of row data. This allows transactions to perform consistent non-blocking reads (MVCC) without acquiring locks.
@@ -279,6 +307,8 @@ SELECT * FROM users WHERE id = 1 FOR UPDATE;
 ```
 
 ---
+<ProgressTracker currentSection=15 totalSections=24 />
+
 ## 17. Performance Optimization
 
 Prepending queries with `EXPLAIN` returns details on how MySQL executes the query.
@@ -291,6 +321,8 @@ EXPLAIN SELECT * FROM users WHERE username = 'alice';
 Ensure the `innodb_buffer_pool_size` is configured to **60-80%** of total system RAM on dedicated database servers to cache indexes and active tablespaces in memory.
 
 ---
+<ProgressTracker currentSection=16 totalSections=24 />
+
 ## 18. Replication & High Availability
 
 MySQL replication supports:
@@ -306,6 +338,8 @@ graph LR
 ```
 
 ---
+<ProgressTracker currentSection=17 totalSections=24 />
+
 ## 20. Security
 
 ```sql
@@ -316,6 +350,8 @@ GRANT app_writer TO 'app_user'@'localhost';
 ```
 
 ---
+
+<ProgressTracker currentSection=18 totalSections=24 />
 
 ## 22. Monitoring & Metrics
 
@@ -328,26 +364,58 @@ LIMIT 5;
 ```
 
 ---
+<ProgressTracker currentSection=19 totalSections=24 />
+
 ## 24. Integration & ORM Support
 
 ### Python (`mysql-connector-python` & `SQLAlchemy`)
+<Tabs>
+  <Tab label="Syntax & Example">
+
 ```python
 from sqlalchemy import create_engine
 engine = create_engine("mysql+mysqlconnector://root:secret@localhost:3306/mydb")
 ```
 
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from sqlalchemy import create_engine\nengine = create_engine(\"mysql+mysqlconnector://root:secret@localhost:3306/mydb\")" 
+      instruction="Execute and edit this PYTHON example."
+    />
+  </Tab>
+</Tabs>
+
 ### Node.js (`mysql2`)
+<Tabs>
+  <Tab label="Syntax & Example">
+
 ```javascript
 const mysql = require('mysql2/promise');
 const connection = await mysql.createConnection('mysql://root:secret@localhost:3306/mydb');
 ```
 
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      language="javascript"
+      initialCode="const mysql = require('mysql2/promise');\nconst connection = await mysql.createConnection('mysql://root:secret@localhost:3306/mydb');" 
+      instruction="Execute and edit this JAVASCRIPT example."
+    />
+  </Tab>
+</Tabs>
+
 ---
+<ProgressTracker currentSection=20 totalSections=24 />
+
 ## 26. AI Integration
 
 MySQL 8.4+ supports vector datatypes and distance functions to support RAG integration natively.
 
 ---
+
+<ProgressTracker currentSection=21 totalSections=24 />
 
 ## 29. Common Errors & Solutions
 
@@ -357,12 +425,16 @@ MySQL 8.4+ supports vector datatypes and distance functions to support RAG integ
 
 ---
 
+<ProgressTracker currentSection=22 totalSections=24 />
+
 ## 30. Interview Questions
 
 ### Q: Why is it important to define a primary key in InnoDB?
 - **Answer**: InnoDB organizes tables physically around the primary key index (Clustered Index). If no primary key is defined, MySQL chooses the first Unique index without null values. If none exists, InnoDB generates an implicit 6-byte row ID column, which introduces locking contention on a shared internal counter.
 
 ---
+
+<ProgressTracker currentSection=23 totalSections=24 />
 
 ## 31. Cheat Sheet & Checklist
 
@@ -372,6 +444,96 @@ MySQL 8.4+ supports vector datatypes and distance functions to support RAG integ
 
 ---
 
+<ProgressTracker currentSection=24 totalSections=24 />
+
 ## 35. Final Summary
 
 MySQL is the cornerstone of modern web backends. Configure your InnoDB Buffer Pool correctly, avoid over-indexing, and utilize read replicas to scale web applications.
+
+---
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="When must the `HAVING` clause be used in SQL instead of the `WHERE` clause?" 
+  options=["When filtering records containing string patterns.", "When filtering groups of query results based on aggregate functions (e.g. SUM, AVG).", "When sorting results in descending order.", "When performing SQL join operations."] 
+  answerIndex=1 
+  explanation="The `WHERE` clause filters individual rows before grouping. The `HAVING` clause filters grouped results after aggregation has been applied." 
+/>
+
+<Quiz 
+  question="Which type of SQL Join returns all rows from the left table, and matching rows from the right table, filling with NULL if no match is found?" 
+  options=["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"] 
+  answerIndex=1 
+  explanation="A `LEFT JOIN` (or LEFT OUTER JOIN) returns all records from the left table and any corresponding matching records from the right table." 
+/>
+
+<Quiz 
+  question="How does a B-Tree index speed up database SELECT queries, and what is its overhead?" 
+  options=["It compresses table files to half size, slowing down writes.", "It provides logarithmic time search (O(log N)) for matching rows, but adds write overhead to update the index on INSERT, UPDATE, and DELETE operations.", "It turns relational tables into NoSQL collections.", "It runs queries in parallel on the GPU."] 
+  answerIndex=1 
+  explanation="B-Tree indexes speed up lookups by organizing data in a balanced search tree. However, every modification to indexed columns requires updating the tree structure, adding write overhead." 
+/>
+
+<Quiz 
+  question="What does the ACID acronym stand for in database transaction management?" 
+  options=["Aggregation, Consolidation, Indexing, Distribution.", "Atomicity, Consistency, Isolation, Durability.", "Availability, Concurrency, Isolation, Deletion.", "Access, Control, Integrity, Definition."] 
+  answerIndex=1 
+  explanation="ACID properties (Atomicity, Consistency, Isolation, Durability) ensure database transactions are processed reliably, maintaining data integrity." 
+/>
+
+<Quiz 
+  question="Which ANSI SQL transaction isolation level prevents dirty reads and non-repeatable reads, but can allow phantom reads?" 
+  options=["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"] 
+  answerIndex=2 
+  explanation="Repeatable Read prevents dirty reads and non-repeatable reads by holding locks on read rows, but does not lock index ranges, potentially allowing phantom rows to be inserted." 
+/>
+
+<Quiz 
+  question="What is the primary goal of Third Normal Form (3NF) in database design?" 
+  options=["To optimize search queries using caching.", "To eliminate transitive dependencies, ensuring all non-key columns depend only on the primary key, thereby reducing data redundancy.", "To split tables into document-based JSON rows.", "To enforce foreign key constraints across different databases."] 
+  answerIndex=1 
+  explanation="A database is in 3NF if it is in 2NF and has no transitive functional dependencies, meaning every non-prime attribute depends directly on the primary key." 
+/>
+
+<Quiz 
+  question="What is a key difference between a Primary Key and a Unique constraint?" 
+  options=["A table can have multiple Primary Keys, but only one Unique constraint.", "Primary Keys can contain NULL values, Unique constraints cannot.", "A table can have only one Primary Key, but multiple Unique constraints, and Unique constraints can allow NULL values.", "They are identical and have no functional differences."] 
+  answerIndex=2 
+  explanation="A table is limited to one primary key, which uniquely identifies rows and forbids NULL values. Unique constraints allow duplicate prevention across other columns, allowing NULLs." 
+/>
+
+<Quiz 
+  question="What does a Foreign Key constraint enforce in a relational schema?" 
+  options=["It encrypts columns to secure foreign user access.", "Referential integrity, guaranteeing that values in a column match existing values in the primary key of a referenced parent table.", "It automatically synchronizes tables with external APIs.", "It indexes columns for faster search."] 
+  answerIndex=1 
+  explanation="Foreign keys maintain referential integrity, preventing invalid data entries in child tables by ensuring they point to a valid parent record." 
+/>
+
+<Quiz 
+  question="Which SQL aggregate function computes the rank of rows within query partitions without skipping rank numbers?" 
+  options=["RANK()", "DENSE_RANK()", "ROW_NUMBER()", "PERCENT_RANK()"] 
+  answerIndex=1 
+  explanation="Unlike `RANK()`, which leaves gaps when ties occur (e.g. 1, 2, 2, 4), `DENSE_RANK()` assigns consecutive integers without gaps (e.g. 1, 2, 2, 3)." 
+/>
+
+<Quiz 
+  question="What is the difference between a View and a Materialized View?" 
+  options=["Views are stored on disk, Materialized Views exist only in memory.", "A View is a virtual table that executes its query dynamically, while a Materialized View precomputes and stores its result query data on disk.", "Materialized Views are used only in NoSQL databases.", "There is no difference; they are identical."] 
+  answerIndex=1 
+  explanation="Views run their queries on-demand, consuming computation resources each time. Materialized views cache query results physically on disk and must be refreshed when base data changes." 
+/>
+
+<Quiz 
+  question="Why are Columnar databases preferred over Row-oriented databases for OLAP (Analytical) workloads?" 
+  options=["They run transactions faster.", "They allow reading only the specific columns needed for aggregations, drastically reducing disk I/O and improving compression rates.", "They use JSON format internally.", "They require less memory to load."] 
+  answerIndex=1 
+  explanation="Row-oriented databases are optimized for OLTP (reading whole rows). Columnar databases group column values together, enabling high compression and fast aggregation over specific fields." 
+/>
+
+<Quiz 
+  question="What is a Common Table Expression (CTE) in SQL?" 
+  options=["A permanent database table used for caching.", "A temporary named result set defined within the scope of a single SELECT, INSERT, UPDATE, or DELETE query using the `WITH` keyword.", "A table index optimization strategy.", "A database schema validation rule."] 
+  answerIndex=1 
+  explanation="CTEs are defined using the `WITH` keyword. They act as temporary queries that exist during the execution of a main statement, improving query readability and enabling recursion." 
+/>

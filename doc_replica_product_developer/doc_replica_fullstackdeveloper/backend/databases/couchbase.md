@@ -4,6 +4,8 @@ A comprehensive, production-level, industry-grade guide to Couchbase for softwar
 
 ---
 
+<ProgressTracker currentSection=1 totalSections=35 />
+
 ## 1. Introduction
 
 ### 1.1 Overview & Theory
@@ -19,6 +21,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=2 totalSections=35 />
+
 ## 2. Database Fundamentals
 
 ### 2.1 Overview & Theory
@@ -33,6 +37,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=3 totalSections=35 />
 
 ## 3. Internal Architecture
 
@@ -56,6 +62,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=4 totalSections=35 />
 
 ## 4. Installation
 
@@ -84,6 +92,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=5 totalSections=35 />
+
 ## 5. Database Creation
 
 ### 5.1 Overview & Theory
@@ -98,6 +108,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=6 totalSections=35 />
 
 ## 6. Data Types
 
@@ -114,6 +126,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=7 totalSections=35 />
+
 ## 7. Tables
 
 ### 7.1 Overview & Theory
@@ -128,6 +142,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=8 totalSections=35 />
 
 ## 8. CRUD Operations
 
@@ -149,6 +165,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=9 totalSections=35 />
+
 ## 9. SQL Queries
 
 ### 9.1 Overview & Theory
@@ -169,6 +187,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=10 totalSections=35 />
+
 ## 10. Joins
 
 ### 10.1 Overview & Theory
@@ -183,6 +203,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=11 totalSections=35 />
 
 ## 11. Functions
 
@@ -199,6 +221,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=12 totalSections=35 />
+
 ## 12. Indexes
 
 ### 12.1 Overview & Theory
@@ -213,6 +237,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=13 totalSections=35 />
 
 ## 13. Views
 
@@ -229,6 +255,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=14 totalSections=35 />
+
 ## 14. Stored Procedures
 
 ### 14.1 Overview & Theory
@@ -243,6 +271,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=15 totalSections=35 />
 
 ## 15. Transactions
 
@@ -259,6 +289,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=16 totalSections=35 />
+
 ## 16. Locks
 
 ### 16.1 Overview & Theory
@@ -273,6 +305,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=17 totalSections=35 />
 
 ## 17. Performance Optimization
 
@@ -289,6 +323,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=18 totalSections=35 />
+
 ## 18. Replication
 
 ### 18.1 Overview & Theory
@@ -303,6 +339,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=19 totalSections=35 />
 
 ## 19. High Availability
 
@@ -319,6 +357,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=20 totalSections=35 />
+
 ## 20. Security
 
 ### 20.1 Overview & Theory
@@ -333,6 +373,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=21 totalSections=35 />
 
 ## 21. Backup & Restore
 
@@ -349,6 +391,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=22 totalSections=35 />
+
 ## 22. Monitoring
 
 ### 22.1 Overview & Theory
@@ -363,6 +407,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=23 totalSections=35 />
 
 ## 23. Cloud Services
 
@@ -379,16 +425,31 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=24 totalSections=35 />
+
 ## 24. Integration
 
 ### 24.1 Overview & Theory
 Detailed explanation of Integration in Couchbase. Since Couchbase is a document database, drivers exist for popular frameworks. Here is a connection sample:
+
+<Tabs>
+  <Tab label="Syntax & Example">
 
 ```python
 # Python Connection Example
 # Initialize and connect client
 print('Connected to Couchbase')
 ```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Python Connection Example\n# Initialize and connect client\nprint('Connected to Couchbase')" 
+      instruction="Execute and edit this PYTHON example."
+    />
+  </Tab>
+</Tabs>
 
 ### 24.2 Practical Operations & Best Practices
 Production setup guidelines for Integration in Couchbase.
@@ -400,16 +461,31 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=25 totalSections=35 />
+
 ## 25. ORM Support
 
 ### 25.1 Overview & Theory
 Detailed explanation of ORM Support in Couchbase. Since Couchbase is a document database, drivers exist for popular frameworks. Here is a connection sample:
+
+<Tabs>
+  <Tab label="Syntax & Example">
 
 ```python
 # Python Connection Example
 # Initialize and connect client
 print('Connected to Couchbase')
 ```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Python Connection Example\n# Initialize and connect client\nprint('Connected to Couchbase')" 
+      instruction="Execute and edit this PYTHON example."
+    />
+  </Tab>
+</Tabs>
 
 ### 25.2 Practical Operations & Best Practices
 Production setup guidelines for ORM Support in Couchbase.
@@ -421,16 +497,31 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=26 totalSections=35 />
+
 ## 26. AI Integration
 
 ### 26.1 Overview & Theory
 Detailed explanation of AI Integration in Couchbase. Since Couchbase is a document database, drivers exist for popular frameworks. Here is a connection sample:
+
+<Tabs>
+  <Tab label="Syntax & Example">
 
 ```python
 # Python Connection Example
 # Initialize and connect client
 print('Connected to Couchbase')
 ```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="# Python Connection Example\n# Initialize and connect client\nprint('Connected to Couchbase')" 
+      instruction="Execute and edit this PYTHON example."
+    />
+  </Tab>
+</Tabs>
 
 ### 26.2 Practical Operations & Best Practices
 Production setup guidelines for AI Integration in Couchbase.
@@ -441,6 +532,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=27 totalSections=35 />
 
 ## 27. Production Architecture
 
@@ -465,6 +558,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=28 totalSections=35 />
+
 ## 28. Real Industry Use Cases
 
 ### 28.1 Overview & Theory
@@ -479,6 +574,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=29 totalSections=35 />
 
 ## 29. Common Errors
 
@@ -495,6 +592,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=30 totalSections=35 />
+
 ## 30. Interview Questions
 
 ### 30.1 Overview & Theory
@@ -509,6 +608,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=31 totalSections=35 />
 
 ## 31. Cheat Sheet
 
@@ -525,6 +626,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=32 totalSections=35 />
+
 ## 32. Hands-on Projects
 
 ### 32.1 Overview & Theory
@@ -539,6 +642,8 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=33 totalSections=35 />
 
 ## 33. Practice Exercises
 
@@ -555,6 +660,8 @@ cbbackup http://localhost:8091 /backups -u Admin -p password
 
 ---
 
+<ProgressTracker currentSection=34 totalSections=35 />
+
 ## 34. Comparison
 
 ### 34.1 Overview & Theory
@@ -569,6 +676,8 @@ couchbase-cli server-info -c localhost:8091 -u Admin -p password
 ```
 
 ---
+
+<ProgressTracker currentSection=35 totalSections=35 />
 
 ## 35. Final Summary
 
@@ -585,3 +694,90 @@ couchbase-cli bucket-list -c localhost:8091 -u Admin -p password
 
 ---
 
+---
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What is the primary characteristic of key-value stores like Redis?" 
+  options=["They store data in relational schemas with strict tables.", "They store records in-memory, mapping keys to values for sub-millisecond retrieval speeds.", "They compile code snippets to native binaries.", "They require GraphQL to access properties."] 
+  answerIndex=1 
+  explanation="Redis stores key-value pairs in memory, which allows it to act as an extremely fast cache, session store, or queue." 
+/>
+
+<Quiz 
+  question="How are records represented and structured in a document database like MongoDB?" 
+  options=["As rows in contiguous tables.", "As JSON-like documents (internally serialized as BSON) with dynamic schemas.", "As nodes and edge relationships.", "As key-value byte strings only."] 
+  answerIndex=1 
+  explanation="MongoDB is a document-oriented database. It stores records as BSON (Binary JSON) documents, letting applications persist nested object structures directly." 
+/>
+
+<Quiz 
+  question="According to the CAP Theorem, which two properties must a distributed database choose between in the event of a Network Partition (P)?" 
+  options=["Security vs Performance.", "Consistency (C) vs Availability (A).", "Scalability vs Relational Integrity.", "Replication vs Indexing."] 
+  answerIndex=1 
+  explanation="The CAP theorem states that a distributed system cannot simultaneously guarantee Consistency, Availability, and Partition Tolerance. Under network partitions, it must trade consistency for availability, or vice versa." 
+/>
+
+<Quiz 
+  question="Which cache eviction policy removes the least recently accessed items first when memory limit is reached?" 
+  options=["LFU (Least Frequently Used)", "LRU (Least Recently Used)", "FIFO (First In First Out)", "TTL (Time To Live)"] 
+  answerIndex=1 
+  explanation="Least Recently Used (LRU) evicts the key that has not been accessed for the longest duration, optimizing cache retention for temporal locality." 
+/>
+
+<Quiz 
+  question="Why is denormalization commonly practiced in NoSQL database design?" 
+  options=["To enforce strict SQL constraints.", "To optimize read performance by storing related data together, avoiding expensive runtime join operations across tables.", "To decrease disk space consumption.", "To make databases ACID-compliant."] 
+  answerIndex=1 
+  explanation="NoSQL databases generally lack relational join features. Denormalization repeats data in single documents to allow fast, single-query reads." 
+/>
+
+<Quiz 
+  question="What are the two primary persistence options provided by Redis to survive restarts?" 
+  options=["SQL replication and JSON dumps.", "RDB (snapshotting at intervals) and AOF (logging write commands to an append-only file).", "Direct memory allocation and swap files.", "B-Tree index logging and caching."] 
+  answerIndex=1 
+  explanation="Redis provides durability through RDB snapshots (point-in-time state dumps) and AOF logs (recording every write transaction as it happens)." 
+/>
+
+<Quiz 
+  question="What is the role of MongoDB replica sets?" 
+  options=["To split collections into separate shard keys.", "To provide high availability and automatic failover by replicating data across primary and secondary nodes.", "To speed up local memory reads by caching records.", "To compile database functions."] 
+  answerIndex=1 
+  explanation="Replica sets consist of a primary node (handling writes) and secondary nodes replicating data. If primary fails, secondary nodes hold an election to promote a new primary." 
+/>
+
+<Quiz 
+  question="How does Consistent Hashing benefit distributed caching clusters?" 
+  options=["It encrypts hash values for data security.", "It minimizes the reshuffling of cached keys when cache nodes are added or removed from the cluster.", "It compiles string keys to integer keys.", "It distributes data evenly to one single primary node."] 
+  answerIndex=1 
+  explanation="Consistent hashing maps cache nodes and keys to a logical ring. Adding or removing a node only impacts a fraction of keys (K/N), preventing massive cache misses." 
+/>
+
+<Quiz 
+  question="What is the difference between Cache Avalanche and Cache Breakdown?" 
+  options=["Avalanche is caused by database server crashes; Breakdown is client side.", "Cache Avalanche occurs when many keys expire simultaneously, flooding the database; Cache Breakdown is when a single popular hot key expires, causing concurrent DB queries.", "They are identical terms.", "Breakdown is caused by network timeouts."] 
+  answerIndex=1 
+  explanation="Avalanche happens when massive key expirations send concurrent spikes to databases. Breakdown (or cache stampede) is target-focused: a single hot key expires, causing concurrent database reads." 
+/>
+
+<Quiz 
+  question="What defines the data model of a Graph Database (like Neo4j)?" 
+  options=["Key-value string blobs.", "Nodes (entities), Edges (relationships), and Properties (key-value attributes on nodes/edges).", "Tabular records organized in rows.", "JSON documents stored inside buckets."] 
+  answerIndex=1 
+  explanation="Graph databases use the Property Graph model. Entities are represented as nodes, and their connections as edges, allowing fast traversal of complex relations." 
+/>
+
+<Quiz 
+  question="Which NoSQL wide-column database uses keyspaces and column families to scale horizontally across multi-master nodes?" 
+  options=["MongoDB", "Redis", "Apache Cassandra", "SQLite"] 
+  answerIndex=2 
+  explanation="Cassandra is a distributed wide-column store designed for high-availability write workloads, utilizing partitioning keys and ring topologies." 
+/>
+
+<Quiz 
+  question="What is the difference between Write-through and Write-back caching strategies?" 
+  options=["Write-through is slower because it writes to cache and database synchronously; Write-back writes to cache and updates the database asynchronously.", "Write-through is for NoSQL; Write-back is for SQL databases.", "Write-back deletes keys automatically.", "Write-through bypasses the cache entirely."] 
+  answerIndex=0 
+  explanation="Write-through updates both cache and DB immediately, avoiding stale data but adding write latency. Write-back updates cache and returns, queueing DB updates for background processing." 
+/>

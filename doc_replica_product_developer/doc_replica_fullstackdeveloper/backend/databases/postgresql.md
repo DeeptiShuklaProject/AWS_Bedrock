@@ -2,6 +2,8 @@
 
 PostgreSQL is a powerful, open-source object-relational database system (ORDBMS) with over 35 years of active development. It is known for its reliability, feature robustness, and performance under heavy workloads.
 
+<ProgressTracker currentSection=1 totalSections=26 />
+
 ## 1. Introduction
 
 ### 1.1 What is PostgreSQL?
@@ -22,6 +24,8 @@ Developed originally in 1986 under the POSTGRES project at the University of Cal
 - **Major Users**: Netflix, Apple, Uber, Spotify, Instagram, Reddit, and thousands of fintech, healthtech, and logistics giants.
 
 ---
+<ProgressTracker currentSection=2 totalSections=26 />
+
 ## 2. Database Fundamentals
 
 ### 2.1 DBMS vs RDBMS vs NoSQL
@@ -46,6 +50,8 @@ graph TD
 ```
 
 ---
+<ProgressTracker currentSection=3 totalSections=26 />
+
 ## 3. Internal Architecture
 
 PostgreSQL uses a process-based architecture (not thread-based) where each client connection spawns a dedicated backend process.
@@ -98,6 +104,8 @@ graph TD
 - **Autovacuum**: Automatically reclaims disk space occupied by deleted/dead tuples (MVCC vacuuming).
 
 ---
+<ProgressTracker currentSection=4 totalSections=26 />
+
 ## 4. Installation
 
 ### 4.0 Official Resources & Installation Flow
@@ -149,6 +157,8 @@ volumes:
 ```
 
 ---
+<ProgressTracker currentSection=5 totalSections=26 />
+
 ## 5. Database Creation & Management
 
 ### 5.1 Basic CLI Commands
@@ -182,6 +192,8 @@ DROP DATABASE app_db_production;
   ```
 
 ---
+<ProgressTracker currentSection=6 totalSections=26 />
+
 ## 6. Data Types
 
 PostgreSQL supports a massive, rich set of primitive and advanced data types.
@@ -201,6 +213,8 @@ PostgreSQL supports a massive, rich set of primitive and advanced data types.
 > Always prefer `JSONB` over plain `JSON`. `JSONB` parses the JSON input and stores it in a decompressed binary format, which supports indexes and fast lookup queries.
 
 ---
+<ProgressTracker currentSection=7 totalSections=26 />
+
 ## 7. Tables & Constraints
 
 Creating tables with appropriate constraint validation ensures schema integrity at the database level.
@@ -220,6 +234,8 @@ CREATE TABLE employees (
 ```
 
 ---
+<ProgressTracker currentSection=8 totalSections=26 />
+
 ## 8. CRUD Operations
 
 PostgreSQL supports basic CRUD, plus advanced features like `ON CONFLICT` (Upsert) and `RETURNING`.
@@ -244,6 +260,8 @@ DELETE FROM employees WHERE salary < 30000.00 RETURNING id;
 ```
 
 ---
+<ProgressTracker currentSection=9 totalSections=26 />
+
 ## 9. Advanced SQL Queries
 
 PostgreSQL supports complex ANSI-compliant querying constructs.
@@ -263,6 +281,8 @@ LIMIT 5 OFFSET 0;
 ```
 
 ---
+<ProgressTracker currentSection=10 totalSections=26 />
+
 ## 10. Joins
 
 PostgreSQL uses Nested Loop, Hash Join, and Merge Join algorithms internally depending on the query planner strategy.
@@ -283,6 +303,8 @@ FULL OUTER JOIN departments d ON e.department_id = d.id;
 ```
 
 ---
+<ProgressTracker currentSection=11 totalSections=26 />
+
 ## 11. Functions
 
 PostgreSQL features aggregate, window, JSON, math, and date manipulation functions.
@@ -297,6 +319,8 @@ FROM employees;
 ```
 
 ---
+<ProgressTracker currentSection=12 totalSections=26 />
+
 ## 12. Indexes
 
 PostgreSQL indexes speed up query lookups. B-Tree is the default index structure.
@@ -321,6 +345,8 @@ CREATE INDEX idx_active_emp ON employees(department_id) WHERE salary > 50000;
 ```
 
 ---
+<ProgressTracker currentSection=13 totalSections=26 />
+
 ## 13. Views & Materialized Views
 
 - **View**: A virtual table representing a saved query. Runs the underlying query every time it is referenced.
@@ -339,6 +365,8 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY dept_salary_summary;
 ```
 
 ---
+<ProgressTracker currentSection=14 totalSections=26 />
+
 ## 14. Stored Procedures, Functions & Triggers
 
 PostgreSQL supports writing database logic using PL/pgSQL.
@@ -361,6 +389,8 @@ EXECUTE FUNCTION update_modified_column();
 ```
 
 ---
+<ProgressTracker currentSection=15 totalSections=26 />
+
 ## 15. Transactions & Concurrency Control (MVCC)
 
 PostgreSQL implements MVCC (Multi-Version Concurrency Control). When updating a row, PostgreSQL writes a new version (tuple) of that row instead of overwriting the old one.
@@ -376,6 +406,8 @@ BEGIN TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 COMMIT;
 ```
 
+<ProgressTracker currentSection=16 totalSections=26 />
+
 ## 16. Locks
 
 PostgreSQL uses multiple lock modes (Shared, Exclusive, RowShare, AccessExclusive).
@@ -388,6 +420,8 @@ graph TD
 ```
 
 ---
+<ProgressTracker currentSection=17 totalSections=26 />
+
 ## 17. Performance Optimization
 
 To analyze a slow-running query, prepend it with `EXPLAIN (ANALYZE, BUFFERS)` to see the actual execution plan, node operations, cost, and time details.
@@ -403,6 +437,8 @@ SELECT * FROM employees WHERE email = 'john.doe@company.com';
 - **Connection Pooling**: Use PgBouncer to manage database connections.
 
 ---
+<ProgressTracker currentSection=18 totalSections=26 />
+
 ## 18. Replication & High Availability
 
 PostgreSQL supports physical streaming replication and logical replication.
@@ -418,6 +454,8 @@ graph LR
 - **PgBouncer**: Lightweight connection pooler to reduce connection overhead.
 
 ---
+<ProgressTracker currentSection=19 totalSections=26 />
+
 ## 20. Security
 
 PostgreSQL authentication is managed via `pg_hba.conf` (Host-Based Authentication).
@@ -433,6 +471,8 @@ PostgreSQL authentication is managed via `pg_hba.conf` (Host-Based Authenticatio
   ```
 
 ---
+<ProgressTracker currentSection=20 totalSections=26 />
+
 ## 22. Monitoring & Metrics
 
 Key system catalogs to monitor performance:
@@ -448,9 +488,14 @@ LIMIT 5;
 ```
 
 ---
+<ProgressTracker currentSection=21 totalSections=26 />
+
 ## 24. Integration & ORM Support
 
 ### Python (using `psycopg3` and `SQLAlchemy`)
+<Tabs>
+  <Tab label="Syntax & Example">
+
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -459,6 +504,16 @@ from sqlalchemy.orm import sessionmaker
 engine = create_engine("postgresql+psycopg://postgres:secret@localhost:5432/mydb", pool_size=20)
 SessionLocal = sessionmaker(bind=engine)
 ```
+
+  </Tab>
+  <Tab label="Interactive Playground">
+    <InteractiveExample 
+      language="python"
+      initialCode="from sqlalchemy import create_engine\nfrom sqlalchemy.orm import sessionmaker\n\n# Connect using pgpool / psycopg\nengine = create_engine(\"postgresql+psycopg://postgres:secret@localhost:5432/mydb\", pool_size=20)\nSessionLocal = sessionmaker(bind=engine)" 
+      instruction="Execute and edit this PYTHON example."
+    />
+  </Tab>
+</Tabs>
 
 ### Node.js (using `Prisma` ORM)
 ```prisma
@@ -469,6 +524,8 @@ datasource db {
 ```
 
 ---
+<ProgressTracker currentSection=22 totalSections=26 />
+
 ## 26. AI Integration: `pgvector`
 
 PostgreSQL supports vector database functionality natively using the `pgvector` extension. This is critical for storing and querying vector embeddings in RAG and LLM systems.
@@ -492,6 +549,8 @@ LIMIT 3;
 ```
 
 ---
+<ProgressTracker currentSection=23 totalSections=26 />
+
 ## 29. Common Errors & Solutions
 
 ### Error 1: "FATAL: remaining connection slots are reserved for non-replication superuser connections"
@@ -504,6 +563,8 @@ LIMIT 3;
 
 ---
 
+<ProgressTracker currentSection=24 totalSections=26 />
+
 ## 30. Interview Questions
 
 ### Q1: What is the difference between `VACUUM` and `VACUUM FULL`?
@@ -511,6 +572,8 @@ LIMIT 3;
 - **VACUUM FULL**: Rewrites the entire table to a new file, reclaiming all empty space and shrinking the file size on disk. It requires an AccessExclusiveLock, blocking all reads and writes.
 
 ---
+
+<ProgressTracker currentSection=25 totalSections=26 />
 
 ## 31. Cheat Sheet & Checklist
 
@@ -521,6 +584,96 @@ LIMIT 3;
 
 ---
 
+<ProgressTracker currentSection=26 totalSections=26 />
+
 ## 35. Final Summary
 
 PostgreSQL stands as the industry-standard relational database due to its incredible performance tuning capabilities, extensible architecture, and extensions like `pgvector`. Ensure you utilize connection pooling, run `ANALYZE` frequently, and monitor your index usage.
+
+---
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="When must the `HAVING` clause be used in SQL instead of the `WHERE` clause?" 
+  options=["When filtering records containing string patterns.", "When filtering groups of query results based on aggregate functions (e.g. SUM, AVG).", "When sorting results in descending order.", "When performing SQL join operations."] 
+  answerIndex=1 
+  explanation="The `WHERE` clause filters individual rows before grouping. The `HAVING` clause filters grouped results after aggregation has been applied." 
+/>
+
+<Quiz 
+  question="Which type of SQL Join returns all rows from the left table, and matching rows from the right table, filling with NULL if no match is found?" 
+  options=["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"] 
+  answerIndex=1 
+  explanation="A `LEFT JOIN` (or LEFT OUTER JOIN) returns all records from the left table and any corresponding matching records from the right table." 
+/>
+
+<Quiz 
+  question="How does a B-Tree index speed up database SELECT queries, and what is its overhead?" 
+  options=["It compresses table files to half size, slowing down writes.", "It provides logarithmic time search (O(log N)) for matching rows, but adds write overhead to update the index on INSERT, UPDATE, and DELETE operations.", "It turns relational tables into NoSQL collections.", "It runs queries in parallel on the GPU."] 
+  answerIndex=1 
+  explanation="B-Tree indexes speed up lookups by organizing data in a balanced search tree. However, every modification to indexed columns requires updating the tree structure, adding write overhead." 
+/>
+
+<Quiz 
+  question="What does the ACID acronym stand for in database transaction management?" 
+  options=["Aggregation, Consolidation, Indexing, Distribution.", "Atomicity, Consistency, Isolation, Durability.", "Availability, Concurrency, Isolation, Deletion.", "Access, Control, Integrity, Definition."] 
+  answerIndex=1 
+  explanation="ACID properties (Atomicity, Consistency, Isolation, Durability) ensure database transactions are processed reliably, maintaining data integrity." 
+/>
+
+<Quiz 
+  question="Which ANSI SQL transaction isolation level prevents dirty reads and non-repeatable reads, but can allow phantom reads?" 
+  options=["Read Uncommitted", "Read Committed", "Repeatable Read", "Serializable"] 
+  answerIndex=2 
+  explanation="Repeatable Read prevents dirty reads and non-repeatable reads by holding locks on read rows, but does not lock index ranges, potentially allowing phantom rows to be inserted." 
+/>
+
+<Quiz 
+  question="What is the primary goal of Third Normal Form (3NF) in database design?" 
+  options=["To optimize search queries using caching.", "To eliminate transitive dependencies, ensuring all non-key columns depend only on the primary key, thereby reducing data redundancy.", "To split tables into document-based JSON rows.", "To enforce foreign key constraints across different databases."] 
+  answerIndex=1 
+  explanation="A database is in 3NF if it is in 2NF and has no transitive functional dependencies, meaning every non-prime attribute depends directly on the primary key." 
+/>
+
+<Quiz 
+  question="What is a key difference between a Primary Key and a Unique constraint?" 
+  options=["A table can have multiple Primary Keys, but only one Unique constraint.", "Primary Keys can contain NULL values, Unique constraints cannot.", "A table can have only one Primary Key, but multiple Unique constraints, and Unique constraints can allow NULL values.", "They are identical and have no functional differences."] 
+  answerIndex=2 
+  explanation="A table is limited to one primary key, which uniquely identifies rows and forbids NULL values. Unique constraints allow duplicate prevention across other columns, allowing NULLs." 
+/>
+
+<Quiz 
+  question="What does a Foreign Key constraint enforce in a relational schema?" 
+  options=["It encrypts columns to secure foreign user access.", "Referential integrity, guaranteeing that values in a column match existing values in the primary key of a referenced parent table.", "It automatically synchronizes tables with external APIs.", "It indexes columns for faster search."] 
+  answerIndex=1 
+  explanation="Foreign keys maintain referential integrity, preventing invalid data entries in child tables by ensuring they point to a valid parent record." 
+/>
+
+<Quiz 
+  question="Which SQL aggregate function computes the rank of rows within query partitions without skipping rank numbers?" 
+  options=["RANK()", "DENSE_RANK()", "ROW_NUMBER()", "PERCENT_RANK()"] 
+  answerIndex=1 
+  explanation="Unlike `RANK()`, which leaves gaps when ties occur (e.g. 1, 2, 2, 4), `DENSE_RANK()` assigns consecutive integers without gaps (e.g. 1, 2, 2, 3)." 
+/>
+
+<Quiz 
+  question="What is the difference between a View and a Materialized View?" 
+  options=["Views are stored on disk, Materialized Views exist only in memory.", "A View is a virtual table that executes its query dynamically, while a Materialized View precomputes and stores its result query data on disk.", "Materialized Views are used only in NoSQL databases.", "There is no difference; they are identical."] 
+  answerIndex=1 
+  explanation="Views run their queries on-demand, consuming computation resources each time. Materialized views cache query results physically on disk and must be refreshed when base data changes." 
+/>
+
+<Quiz 
+  question="Why are Columnar databases preferred over Row-oriented databases for OLAP (Analytical) workloads?" 
+  options=["They run transactions faster.", "They allow reading only the specific columns needed for aggregations, drastically reducing disk I/O and improving compression rates.", "They use JSON format internally.", "They require less memory to load."] 
+  answerIndex=1 
+  explanation="Row-oriented databases are optimized for OLTP (reading whole rows). Columnar databases group column values together, enabling high compression and fast aggregation over specific fields." 
+/>
+
+<Quiz 
+  question="What is a Common Table Expression (CTE) in SQL?" 
+  options=["A permanent database table used for caching.", "A temporary named result set defined within the scope of a single SELECT, INSERT, UPDATE, or DELETE query using the `WITH` keyword.", "A table index optimization strategy.", "A database schema validation rule."] 
+  answerIndex=1 
+  explanation="CTEs are defined using the `WITH` keyword. They act as temporary queries that exist during the execution of a main statement, improving query readability and enabling recursion." 
+/>

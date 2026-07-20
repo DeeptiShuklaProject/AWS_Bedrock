@@ -1,90 +1,53 @@
-# AWS Bedrock Interactive Documentation Portal & Q&A Agent
+# Implementation Plan: Mass-Upgrade product_developer Docs with Quizzes & Playgrounds
 
-The goal is to build an interactive, beautiful local web application that serves multiple downloaded markdown knowledge bases as a responsive HTML document portal, coupled with a Retrieval-Augmented Generation (RAG) AI Chat Agent that answers questions using the selected documentation.
-
-## Proposed Architecture (Multi-KB RAG)
-
-```mermaid
-graph TD
-    User([User Browser]) -->|Read Docs / Nav| React[React + Vite Frontend]
-    User -->|Select KB Dropdown| React
-    User -->|Ask Question| React
-    React -->|Get Nav & Content for Selected KB| Fast[FastAPI Python Backend]
-    React -->|API Chat Query with KB ID| Fast
-    Fast -->|Scan & Serve| MD[(doc_replica_*/ *.md)]
-    Fast -->|Retrieve Context from Selected KB| RAG[RAG Vector Search Engine]
-    RAG -->|Read Docs from Selected KB| MD
-    RAG -->|Compute Embeddings & Ask Q| Gemini[Gemini API]
-```
-
-### 1. Frontend (React + Vite)
-* **Design & Theme**: Sleek zinc/dark mode style with glassmorphism panels, smooth micro-animations, and responsive layouts.
-* **KB Selector**: A top-bar dropdown allowing the user to select which Knowledge Base to load (e.g. AWS Bedrock Guide, Boto3 SDK, Terraform, etc.).
-* **Doc Reader**: Left sidebar showing the collapsible navigation tree for the selected KB; center area rendering markdown files.
-* **Chat Panel**: An interactive chatbot panel on the right showing agent responses with source citations (links to relevant documentation pages in the selected KB).
-
-### 2. Backend (FastAPI Python)
-* **Dynamic KB Scan API**: Detects all directories matching `doc_replica_*` and returns them as available KBs.
-* **Directory Scan API**: Scans the chosen KB directory (e.g. `doc_replica_amazon/` or `doc_replica_boto3/`) and generates a clean hierarchical JSON for the sidebar menu.
-* **Document Serve API**: Serves the raw/HTML content of the requested markdown file within the selected KB.
-* **AI Chat API (`/api/chat`)**: Performs semantic search over the selected KB's markdown files, builds a prompt context, and queries Gemini (`gemini-2.5-flash`) for the answer.
-
-### 3. Semantic Search Engine (`rag_engine.py`)
-* A lightweight semantic indexer that splits the `.md` files of each KB into text chunks.
-* Computes vector embeddings using the official Google GenAI SDK (`text-embedding-004`).
-* Caches embeddings locally in `kb_doc_replica_amazon/backend/embeddings_<kb_id>_cache.json` for lightning-fast lookups.
+This plan describes the automation pipeline to upgrade all 395 markdown files under the `doc_replica_product_developer` course directory with premium interactive widgets, quizzes, and code execution options. It also outlines backend engine upgrades to support running Go and Node.js code snippets.
 
 ---
 
-## Directory Layout (Multi-KB Parallel Folders)
+## Proposed Changes
 
-```
-/Users/nishantsaxena/workspace/wscs_bedrock/
-├── doc_replica_amazon/           # KB 1: Official AWS Bedrock Guide
-│   ├── download_docs.py
-│   └── ...
-│
-├── doc_replica_terraform/        # KB 2: Terraform AWS Provider Docs
-│   └── ...
-│
-├── doc_replica_boto3/            # KB 3: Boto3 (Python SDK) Official Docs
-│   └── ...
-│
-├── doc_replica_general/          # KB 4: General Bedrock scripts and notes
-│   └── ...
-│
-└── kb_doc_replica_amazon/        # [New] The Web Application folder
-    ├── backend/
-    │   ├── app.py                # FastAPI Server (supports multiple doc_replica_* folders)
-    │   ├── rag_engine.py         # Multi-KB semantic search and Gemini agent logic
-    │   └── requirements.txt      # Python dependencies (fastapi, uvicorn, google-genai)
-    └── frontend/
-        ├── package.json
-        ├── vite.config.js
-        └── src/
-            ├── App.jsx           # Main Portal Layout (with KB Selector Dropdown)
-            ├── main.jsx
-            ├── index.css         # Styling system
-            └── components/
-                ├── Sidebar.jsx   # Collapsible sidebar nav tree
-                ├── DocReader.jsx # Markdown renderer panel
-                └── ChatPanel.jsx # Q&A AI agent panel
-```
+### 1. Backend Infrastructure Upgrades (Multi-Language Execution)
+
+To enable code playgrounds for Go and Node.js files alongside Python and Java, we will configure the Docker environment and uvicorn backend.
+
+#### [MODIFY] [Dockerfile](file:///c:/Users/nishu/workspace/wscs_bedrock/aura_docs/backend/Dockerfile)
+- Add `golang-go` and `nodejs` to the apt install command so the container can compile and run Go and Javascript snippets.
+
+#### [MODIFY] [app.py](file:///c:/Users/nishu/workspace/wscs_bedrock/aura_docs/backend/app.py)
+- Refactor the `/api/playground/run-code` endpoint to handle:
+  - **Go** (`go`): Write to a temporary `main.go` file inside a temporary directory, run `go run main.go`, compile/execute under a 5-second timeout, and clean up.
+  - **JavaScript/Node.js** (`javascript`, `js`, `nodejs`): Write to a temporary `index.js`, run `node index.js`, capture output under a 5-second timeout, and clean up.
 
 ---
 
-## User Review Required
+### 2. Automated Pedagogical Migration Script
 
-> [!IMPORTANT]
-> The AI Chat Agent requires access to the Gemini API. We will use the Google GenAI SDK, which reads the `GEMINI_API_KEY` environment variable. You will need to provide a Gemini API Key to enable the Q&A features.
+We will deploy an automated script `enrich_product_developer_docs.py` to recursively scan all 395 markdown documents under `doc_replica_product_developer` and transform them.
+
+#### [NEW] `enrich_product_developer_docs.py` (in workspace root)
+The Python migration script will perform the following actions:
+1. **Scan**: Recursively locate all `.md` files under `doc_replica_product_developer`.
+2. **Parse Code Blocks**: Extract code blocks matching language specifiers: `python`, `java`, `javascript`, `js`, `go`.
+3. **Format Playgrounds**:
+   - Escape double quotes (`\"`) and newlines (`\n`) for the code block.
+   - Wrap the code block in `<Tabs>` separating the static `"Syntax & Example"` and the dynamic `"Interactive Playground"` featuring `<InteractiveExample language="..." initialCode="..." />`.
+4. **Context-Aware Quiz Generation**:
+   - Read the keywords in the file content.
+   - Dynamically generate 1-2 high-quality, relevant multiple-choice questions (e.g., Pandas DataFrame questions for pandas docs, Goroutine questions for Go docs, etc.) with custom options, answers, and explanations.
+   - Append the `<Quiz>` components at the end of the file.
+5. **Widget Insertion**:
+   - Inject a `<ProgressTracker>` and `<InfoCard>` for structural completeness.
+6. **Overwrite**: Save the transformed MDX-compliant content back to each file.
 
 ---
 
 ## Verification Plan
 
-### Automated & Manual Verification
-1. Initialize the project and verify backend startup.
-2. Build and launch the React app.
-3. Verify navigation tree loads correctly from the local markdown files.
-4. Verify clicking pages in the sidebar loads the correct markdown contents.
-5. Verify the Chat Agent responds to queries with accurate information sourced from the local docs.
+### Automated Verification
+- Run a test suite or single manual executions of Go and Node.js code snippets via `curl` / `Invoke-RestMethod` to verify compilation and execution.
+- Validate that the modified markdown files contain no unclosed tag structures or parsing syntax issues.
+
+### Manual Verification
+- Open the AuraDocs portal in the web browser.
+- Navigate to Go Backend, Node.js Backend, and AI/ML guides.
+- Verify that the interactive tab appears, the code runs, output displays, and quizzes show the correct responses.

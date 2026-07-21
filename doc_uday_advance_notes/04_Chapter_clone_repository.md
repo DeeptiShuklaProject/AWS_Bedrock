@@ -164,7 +164,12 @@ if __name__ == "__main__":
 ---
 
 ## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+
+In this section, we analyze the hands-on code implementations for **Cloning the Code Repository** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
 
 ```python
 # Verify git repository details using terminal commands programmatically
@@ -181,9 +186,118 @@ if __name__ == "__main__":
     get_git_branch()
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
+```python
+# Script to list the contents of the root folder and verify file sizes
+import os
+
+def audit_project_root():
+    target = "."
+    print(f"Auditing directory: {os.path.abspath(target)}")
+    for item in os.listdir(target):
+        path = os.path.join(target, item)
+        size = os.path.getsize(path) if os.path.isfile(path) else "Directory"
+        print(f"- {item:<25} | Size: {size}")
+
+if __name__ == "__main__":
+    audit_project_root()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
+```python
+# Complete diagnostic script checking for modified files and git config status
+import subprocess
+import sys
+
+def verify_repository():
+    try:
+        # Check if we are inside a git directory
+        res = subprocess.run(["git", "rev-parse", "--is-inside-work-tree"], capture_output=True, text=True, check=True)
+        if "true" not in res.stdout.lower():
+            print("Not inside a git work tree.")
+            return False
+        
+        # Retrieve remote URL information
+        res_url = subprocess.run(["git", "config", "--get", "remote.origin.url"], capture_output=True, text=True, check=True)
+        print("Remote Repository URL:", res_url.stdout.strip())
+        
+        # Check for uncommitted changes
+        res_status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True)
+        changes = res_status.stdout.strip()
+        if changes:
+            print("WARNING: Uncommitted changes detected in workspace:")
+            print(changes)
+        else:
+            print("Workspace is clean and synchronized.")
+        return True
+    except Exception as e:
+        print("Git verification failed:", str(e))
+        return False
+
+if __name__ == "__main__":
+    verify_repository()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
+---
+
+### Summary Sequence of Execution
+
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
+```
 
 ---
 

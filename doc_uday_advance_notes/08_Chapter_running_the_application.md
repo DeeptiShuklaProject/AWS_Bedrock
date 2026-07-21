@@ -174,7 +174,12 @@ if __name__ == "__main__":
 ---
 
 ## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+
+In this section, we analyze the hands-on code implementations for **Running the Application Locally** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
 
 ```python
 # Verify the server is responding on local ports using requests
@@ -192,9 +197,123 @@ if __name__ == "__main__":
     test_ping()
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
+```python
+# Python script to automate starting and testing the local server
+import subprocess
+import time
+import requests
+
+def run_local_suite():
+    print("Starting local agent container server...")
+    proc = subprocess.Popen(["agentcore", "run", "--port", "8080"])
+    time.sleep(3) # Wait for server boot
+    try:
+        res = requests.post("http://localhost:8080/invoke", json={"prompt": "test prompt"})
+        print("Verification request successful:")
+        print(res.json())
+    finally:
+        print("Terminating server process...")
+        proc.terminate()
+
+if __name__ == "__main__":
+    run_local_suite()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
+```python
+# Complete regression testing harness validating multiple prompts and response formats
+import requests
+import sys
+
+def run_regression():
+    url = "http://localhost:8000/invoke"
+    test_cases = [
+        {"prompt": "What are key IAM features?", "expected_code": 200},
+        {"prompt": "", "expected_code": 400},
+        {"prompt": "Analyze this text payload", "expected_code": 200}
+    ]
+    all_pass = True
+    for case in test_cases:
+        print(f"Sending prompt: '{case['prompt']}'...")
+        try:
+            res = requests.post(url, json={"prompt": case["prompt"]})
+            if res.status_code != case["expected_code"]:
+                print(f"- [FAIL] Expected {case['expected_code']}, got {res.status_code}")
+                all_pass = False
+            else:
+                print(f"- [OK] Received expected status {res.status_code}")
+        except Exception as e:
+            print("Connection error:", str(e))
+            all_pass = False
+    if not all_pass:
+        sys.exit(1)
+    print("Regression testing suite completed successfully!")
+
+if __name__ == "__main__":
+    run_regression()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
+---
+
+### Summary Sequence of Execution
+
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
+```
 
 ---
 

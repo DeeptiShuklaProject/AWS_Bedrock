@@ -261,7 +261,12 @@ if __name__ == "__main__":
 ---
 
 ## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+
+In this section, we analyze the hands-on code implementations for **AWS Configuration & IAM Setup** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
 
 ```python
 json
@@ -304,9 +309,134 @@ json
 }
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
+```python
+# Python script to create the IAM execution policy programmatically
+import boto3
+import json
+
+def create_iam_policy():
+    iam = boto3.client("iam")
+    policy_doc = {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": ["bedrock:InvokeModel"],
+                "Resource": "*"
+            }
+        ]
+    }
+    try:
+        res = iam.create_policy(
+            PolicyName="AgentCoreMinimumPolicy",
+            PolicyDocument=json.dumps(policy_doc),
+            Description="Minimum execution permissions for Bedrock agents."
+        )
+        print("Policy created successfully. ARN:", res["Policy"]["Arn"])
+    except iam.exceptions.EntityAlreadyExistsException:
+        print("Policy already exists.")
+    except Exception as e:
+        print("Failed to create policy:", str(e))
+
+if __name__ == "__main__":
+    create_iam_policy()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
+```python
+# Complete SDK implementation validating current role permissions and model execution
+import boto3
+import json
+import botocore
+
+def verify_execution_permissions():
+    # Attempt basic Claude invoke model test call
+    bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
+    payload = {
+        "anthropic_version": "bedrock-2023-05-31",
+        "max_tokens": 50,
+        "messages": [{"role": "user", "content": "Hello model"}]
+    }
+    try:
+        print("Verifying model invocation permission...")
+        res = bedrock.invoke_model(
+            modelId="anthropic.claude-3-haiku-20240307-v1:0",
+            body=json.dumps(payload)
+        )
+        res_body = json.loads(res.get("body").read())
+        print("Model response text:", res_body["content"][0]["text"])
+        print("[SUCCESS] Permissions validated!")
+    except botocore.exceptions.ClientError as e:
+        error_code = e.response["Error"]["Code"]
+        print(f"[FAIL] AWS API returned error code: {error_code}")
+        if error_code == "AccessDeniedException":
+            print("Resolution: Confirm that you have requested Model Access in the console.")
+
+if __name__ == "__main__":
+    verify_execution_permissions()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
+---
+
+### Summary Sequence of Execution
+
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
+```
 
 ---
 

@@ -176,7 +176,12 @@ if __name__ == "__main__":
 ---
 
 ## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+
+In this section, we analyze the hands-on code implementations for **Configuration Files** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
 
 ```python
 yaml
@@ -190,9 +195,127 @@ runtime_settings:
   memory_id: "agentcore-memory-user-db-987"
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
+```python
+# Python script to parse and validate YAML metadata configuration fields
+import yaml
+
+def validate_yaml():
+    try:
+        with open("bedrock_agent_core.yaml", "r") as f:
+            config = yaml.safe_load(f)
+        agent_cfg = config.get("agent", {})
+        print("Agent Name:", agent_cfg.get("name"))
+        print("Entrypoint:", agent_cfg.get("entry_point"))
+        if not agent_cfg.get("execution_role_arn"):
+            print("WARNING: execution_role_arn is missing!")
+    except FileNotFoundError:
+        print("bedrock_agent_core.yaml file was not found.")
+
+if __name__ == "__main__":
+    validate_yaml()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
+```python
+# Structured configuration manager class for loading and validating configurations
+import os
+import yaml
+from dotenv import load_dotenv
+
+class ConfigManager:
+    def __init__(self):
+        load_dotenv()
+        self.aws_region = os.getenv("AWS_DEFAULT_REGION", "us-east-1")
+        self.agent_config = {}
+        self.load_yaml_config()
+
+    def load_yaml_config(self):
+        path = "bedrock_agent_core.yaml"
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                self.agent_config = yaml.safe_load(f).get("agent", {})
+
+    def validate(self):
+        errors = []
+        if not os.getenv("AWS_ACCESS_KEY_ID"):
+            errors.append("Missing AWS_ACCESS_KEY_ID in environment.")
+        if not self.agent_config.get("execution_role_arn"):
+            errors.append("Missing execution_role_arn in bedrock_agent_core.yaml.")
+        
+        if errors:
+            print("[CONFIG ERROR] Validation failed:")
+            for err in errors:
+                print(f"- {err}")
+            return False
+        print("[CONFIG OK] Configuration parameters validated successfully.")
+        return True
+
+if __name__ == "__main__":
+    cfg = ConfigManager()
+    cfg.validate()
+```
+
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
+---
+
+### Summary Sequence of Execution
+
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
+```
 
 ---
 

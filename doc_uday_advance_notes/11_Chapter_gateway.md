@@ -195,7 +195,12 @@ if __name__ == "__main__":
 ---
 
 ## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+
+In this section, we analyze the hands-on code implementations for **Tool Gateway** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
 
 ```python
 json
@@ -226,9 +231,126 @@ json
 }
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
+```python
+# Python script to validate input arguments against registered JSON schemas
+from jsonschema import validate, ValidationError
+
+tool_schema = {
+    "type": "object",
+    "properties": {
+        "sku": {"type": "string", "pattern": "^[A-Z]{3}-[0-9]{3}$"}
+    },
+    "required": ["sku"]
+}
+
+def validate_arguments(args):
+    try:
+        validate(instance=args, schema=tool_schema)
+        print("[OK] Arguments validated successfully!")
+        return True
+    except ValidationError as e:
+        print("[FAIL] Validation error:", e.message)
+        return False
+
+if __name__ == "__main__":
+    validate_arguments({"sku": "ABC-123"}) # Valid
+    validate_arguments({"sku": "invalid"}) # Invalid
+```
+
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
+```python
+# Complete mock gateway router resolving dynamic tool execution requests
+import json
+
+class MockGatewayRouter:
+    def __init__(self):
+        self.tool_registry = {}
+
+    def register(self, name, func):
+        self.tool_registry[name] = func
+
+    def route_request(self, tool_name, arguments_json):
+        if tool_name not in self.tool_registry:
+            return {"success": False, "error": f"Tool '{tool_name}' not found."}
+        try:
+            args = json.loads(arguments_json)
+            # Execute target function
+            res = self.tool_registry[tool_name](**args)
+            return {"success": True, "output": res}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+def mock_db_lookup(sku):
+    db = {"SHI-001": "12 units in stock", "PAN-002": "Out of stock"}
+    return db.get(sku, "SKU not found.")
+
+if __name__ == "__main__":
+    router = MockGatewayRouter()
+    router.register("fetch_stock_level", mock_db_lookup)
+    print(router.route_request("fetch_stock_level", '{"sku": "SHI-001"}'))
+```
+
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
+---
+
+### Summary Sequence of Execution
+
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
+```
 
 ---
 

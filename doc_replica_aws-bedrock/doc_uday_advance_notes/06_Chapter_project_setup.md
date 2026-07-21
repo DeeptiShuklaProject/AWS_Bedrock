@@ -255,30 +255,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Always exclude the `.venv/` directory from version control by adding it to `.gitignore`.
-* Always commit `uv.lock` to ensure all developers use identical package versions.
-* Use `uv sync --frozen` in CI/CD pipelines to prevent updating dependencies during builds.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Regularly audit installed packages for known security vulnerabilities using `uv pip tree` or security scanners. Keep dependencies updated to apply patches for security advisories.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Leverage `uv`'s global package caching. It shares package compilations across workspaces, eliminating redundant downloads and reducing install times.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Committing the `.venv` folder to Git, bloating the repository size.
 * Installing packages globally using administrative permissions instead of isolating them in a local virtual environment.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -288,7 +281,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: Why is pyproject.toml preferred over setup.py in modern Python?
 * **Answer:** It standardizes configuration by replacing execution scripts (`setup.py`) with declarative settings, separating metadata, dependencies, and tool options into a single schema file.
 
@@ -300,34 +293,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Establishing clean workspaces for new Python projects to manage dependencies.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This setup configures the Python environment, allowing us to import the SDK and run the application in Chapter 8.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered setting up isolated Python virtual environments, managing dependencies in `pyproject.toml`, and using `uv` to synchronize packages.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Virtual environments prevent package conflicts.
 * Lockfiles ensure reproducible builds across environments.
 * The `uv` toolchain accelerates package management tasks.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Delete the `.venv` folder and run `uv sync` to restore the environment.
 * Intermediate: Add the `requests` library to `pyproject.toml` and synchronize packages to verify lockfile updates.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [uv Package Manager Documentation](https://docs.astral.sh/uv/)
 * [PEP 518 - Specifying Build Requirements](https://peps.python.org/pep-0518/)

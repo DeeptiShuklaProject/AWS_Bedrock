@@ -269,30 +269,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Enforce access scopes on client authorization tokens.
-* Implement rate limits on gateways to protect system resources.
-* Validate input schemas on the server; never trust inputs from the client.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Use HTTPS with TLS 1.3 to encrypt all network traffic. Restrict subnets and configure Security Groups to secure communications between the gateway and microVMs.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Implement response streaming to improve perceived performance, sending token responses to client screens as they are generated.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Overlooking signature verification checks on Cognito tokens, leaving APIs vulnerable to authorization bypasses.
 * Failing to implement retry logic on network connections, causing client requests to fail during minor network disruptions.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -302,7 +295,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the primary security rule for cloud deployments?
 * **Answer:** Never trust client-side data. Always validate identity tokens, restrict access scopes, and validate inputs on the server.
 
@@ -314,34 +307,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Validating billing platforms and transaction pipelines during staging deployments.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This end-to-end integration completes the agent pipeline, confirming the system is ready for production hosting.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter traced the complete request lifecycle and verified communication between the client, gateway, microVMs, tools, and databases.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Integration testing confirms communication across all system layers.
 * Secure end-to-end flows using token validation and input schema checks.
 * Displaying active loading states keeps users engaged during execution loops.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Write a list of UI state indicators (e.g., loading, reasoning, writing) representing an agent's reasoning flow.
 * Intermediate: Design a fallback plan specifying how the app should respond if the LLM invocation fails.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [AWS Architecture Center](https://aws.amazon.com/architecture/)
 * [Integration Testing Patterns Guide](https://martinfowler.com/articles/practical-test-pyramid.html)

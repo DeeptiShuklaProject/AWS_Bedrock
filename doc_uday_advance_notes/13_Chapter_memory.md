@@ -283,30 +283,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Use optimistic locking to prevent parallel requests from overwriting data.
-* Trigger compaction loops asynchronously to avoid slowing down user requests.
-* Regularly archive outdated history records to optimize storage costs.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Encrypt database records at rest using AWS KMS keys. Restrict IAM permissions to ensure only the agent execution role can read and write from the memory tables.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Implement caching for user profiles to bypass database reads during high-frequency API invocations.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Appending raw, uncompacted dialogue history to prompts, bloating token usage and cost.
 * Running database calls synchronously inside request loops, adding execution latency.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -316,7 +309,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the benefit of memory compaction?
 * **Answer:** Memory compaction summarizes dialogue logs into key facts, keeping prompt context windows small to reduce latency and lower token costs.
 
@@ -328,34 +321,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Personalizing virtual assistants by retaining user preferences and history across sessions.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This memory engine manages agent state, enabling us to personalize our chatbot application.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered short-term session cache, long-term profile storage, and running compaction loops to manage agent state.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Appending raw history to prompts increases token costs and latency.
 * The Memory Engine utilizes DynamoDB to persist state across sessions.
 * Compaction loops summarize dialogue history into structured facts.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Modify the compaction function to extract location preference keywords.
 * Intermediate: Add expiration attributes (TTL) to raw history records to delete them after 30 days.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [LangChain Memory Integration Guide](https://python.langchain.com/docs/modules/memory/)

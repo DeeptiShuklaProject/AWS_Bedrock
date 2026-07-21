@@ -273,30 +273,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Always verify JWT cryptographic signatures against your provider's public keys.
-* Validate token expiration claims (`exp`) to block expired sessions.
-* Keep access token lifespans short to limit the impact of token leakage.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce row-level security by using the Actor ID as the partition key in database queries. Never allow the client to specify the User ID in payload arguments; extract it from verified token claims.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Cache provider public keys (JWKS) locally to avoid network requests for every token validation check.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Skipping token signature verification and reading claims directly, making the system vulnerable to token tampering.
 * Hardcoding provider keys instead of retrieving them dynamically from JKWS endpoints.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -306,7 +299,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the difference between an ID token and an Access token?
 * **Answer:** ID tokens contain identity claims (name, email) used by client UIs. Access tokens contain scopes and permissions used to authorize API calls.
 
@@ -318,34 +311,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Ensuring users can only retrieve and modify their own transaction records in database applications.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This engine authenticates user sessions, enabling us to isolate and secure database interactions.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered user authentication, JWT verification, and extracting user identities to secure database interactions.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * User authentication is managed using Cognito user pools.
 * Extract and propagate Actor IDs to downstream tools to secure data access.
 * Always verify JWT cryptographic signatures and expiration timestamps.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Decode a mock JWT and print the subject identifier.
 * Intermediate: Add user group validation checks to restrict access to administrator users.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [Cognito User Pools Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 * [JWT Standard Specification Guide](https://jwt.io/introduction)

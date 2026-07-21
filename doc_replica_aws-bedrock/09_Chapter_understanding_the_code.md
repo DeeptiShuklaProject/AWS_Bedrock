@@ -343,30 +343,23 @@ def handle_request(payload, context):
 
 ---
 
-## 11. Production Best Practices
-* Keep handler functions focused on task orchestration; delegate business logic to separate modules.
-* Implement clear logging structures to capture both input parameters and execution durations.
-* Write unit tests for handler functions by passing mock payload and context arguments.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce input validation rules on incoming payloads to protect against code injection. Sanitize output responses to ensure sensitive system details are not leaked in error messages.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Load large models and database configurations outside the handler function to avoid initialization latency during request loops.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Initializing heavy client dependencies inside the handler function code, causing latency.
 * Accessing payload parameters directly without check validations, causing KeyError crashes if parameters are missing.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -376,7 +369,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the benefit of decorating functions with @app.invoke?
 * **Answer:** The decorator registers the function as the agent's entrypoint, abstracting web server routing and request parsing so developers can focus on agent logic.
 
@@ -388,34 +381,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Customizing handler functions to route prompts to different agent orchestrators.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter analyzed the implementation details of the main application file, including imports, app wrappers, logging, and handlers.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Handlers process incoming request payloads and metadata.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Add a log message that prints the length of the prompt inside the handler.
 * Intermediate: Add a custom parameter verification step and return a 400 error status code if validation fails.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [Clean Code Guide for Python](https://github.com/zedr/clean-code-python)
 * [Python Logging Library Guide](https://docs.python.org/3/library/logging.html)

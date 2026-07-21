@@ -340,30 +340,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Regularly audit and restrict resource wildcards (`*`) in IAM permissions.
-* Use region-specific endpoints to minimize network latency between services.
-* Set up CloudTrail alarms to detect unauthorized IAM role assumption attempts.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce strict trust policies that limit role assumption to the designated Service Principal (`agentcore.amazonaws.com`). Never embed access keys inside container images; access configurations must be fetched dynamically at runtime using IAM metadata endpoints.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Store model configurations and table metadata locally to avoid making duplicate API calls during execution boot cycles.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Specifying `lambda.amazonaws.com` instead of `agentcore.amazonaws.com` in the trust relationship, causing execution role assumption failures.
 * Creating policies that grant wide permissions to all DynamoDB tables, violating the principle of least privilege.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -373,7 +366,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the AWS Signature Version 4 (SigV4) protocol?
 * **Answer:** SigV4 is the protocol AWS uses to authenticate API requests. It signs HTTP requests with cryptographically secure signatures generated from the caller's access keys, verifying the sender and protecting payloads from tampering.
 
@@ -385,34 +378,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Securing enterprise AI data pipelines by establishing isolated IAM roles for dev, staging, and production environments.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 The `AgentCoreExecutionRole` created here will be mapped inside `bedrock_agent_core.yaml` to authorize our agent runtime.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter walked through setting up AWS model access and creating the necessary IAM policies and roles required by the AgentCore runtime.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Model access must be explicitly enabled for each region before APIs can be invoked.
 * AgentCore requires a dedicated IAM execution role with service trust configurations.
 * IAM policies should adhere to the security principle of least privilege.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Request access to the Claude 3 Haiku model in the AWS Bedrock console.
 * Intermediate: Draft a JSON policy statement that grants read-only access to an S3 bucket named `agent-assets`.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [Amazon Bedrock Security and Permissions](https://docs.aws.amazon.com/bedrock/latest/userguide/security.html)

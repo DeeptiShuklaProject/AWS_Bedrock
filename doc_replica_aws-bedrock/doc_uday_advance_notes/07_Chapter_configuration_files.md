@@ -255,30 +255,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Add `.env` to your project's `.gitignore` file to prevent committing secrets.
-* Use template files (like `template.env`) to document required keys without committing actual secrets.
-* Validate configurations on startup before running application code.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Never commit credentials or private keys to version control. In production, load secrets dynamically from AWS Secrets Manager or Systems Manager Parameter Store rather than using static local files.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Cache configuration parameters in memory to avoid repeated disk reads during execution loops.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Committing the `.env` file to Git, exposing access keys in the commit history.
 * Defining invalid YAML syntax (like mixed tabs and spaces), causing parser crashes during startup.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -288,7 +281,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the Twelve-Factor App recommendation for configuration?
 * **Answer:** The Twelve-Factor App methodology recommends storing configuration in the environment, separating settings from the codebase. This allows the application to move between environments without modification.
 
@@ -300,34 +293,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Configuring access permissions and endpoints for development and production environments.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 These configuration files define the environment settings and entry points that authorize and run the application in Chapter 8.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered managing environment variables in `.env`, declaring packages in `pyproject.toml`, and setting up deployment settings in `bedrock_agent_core.yaml`.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Separating configuration from code simplifies multi-environment deployments.
 * Add configuration files containing secrets to your `.gitignore`.
 * Configuration files should be validated during application boot.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Add `LOG_LEVEL=DEBUG` to `.env` and read it in a Python script.
 * Intermediate: Configure `bedrock_agent_core.yaml` to reference a different IAM Role ARN and verify parsing.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [The Twelve-Factor App - Config](https://12factor.net/config)
 * [YAML Specification Guide](https://yaml.org/spec/)

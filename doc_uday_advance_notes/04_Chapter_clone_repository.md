@@ -243,30 +243,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Create a development branch (`git checkout -b feature/agent-setup`) instead of making changes directly on `main`.
-* Configure a global `.gitignore` file to prevent system metadata files (like `.DS_Store` or `Thumbs.db`) from entering code repos.
-* Commit small, logical changes with descriptive messages to simplify rollbacks.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce signature verification using GPG keys to sign commits. Configure branch protection rules on your remote repository (e.g., GitHub or Bitbucket) to block direct force-push updates to release branches.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 If a repository contains large binary assets, use shallow clone configurations (`git clone --depth 1`) to download only the latest commits, reducing transfer times.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Committing large package binaries or local virtual environment folders to repository history.
 * Modifying files on checkout branches without first fetching the latest updates from the remote repository.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -276,7 +269,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the difference between git fetch and git pull?
 * **Answer:** Git fetch downloads remote updates and references to your local `.git` metadata folder without altering your working files. Git pull downloads these updates and immediately runs a merge command to synchronize your workspace files.
 
@@ -288,34 +281,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Retrieving standard codebase templates to establish uniform layouts for new projects.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 Cloning the repository sets up the baseline layout, including the `src/` source folders we will configure in Chapter 6.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered cloning the project repository, navigating directories, and verifying the local folder layout.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Git clone duplicates remote repositories to local workstations.
 * Standard workspaces isolate source files from local settings configurations.
 * Local changes should be managed using separate development branches.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Clone the sample repository and list root files in your shell.
 * Intermediate: Create a local git branch named `setup-phase` and verify it is active.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [Pro Git Book](https://git-scm.com/book/en/v2)
 * [GitHub Documentation](https://docs.github.com/)

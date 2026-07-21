@@ -1549,28 +1549,23 @@ def generate_chapter_file(chap_num, file_path):
     content += generate_hands_on_examples_section(hands_on_simple_str, hands_on_intermediate_str, hands_on_advanced_str, chap_info['title'])
     content += "---\n\n"
 
-    # 11. Production Best Practices
-    content += f"## 11. Production Best Practices\n"
-    content += f"{chap_info['best_practices']}\n\n"
-    content += "---\n\n"
-
-    # 12. Security Considerations
-    content += f"## 12. Security Considerations\n"
+    # 11. Security Considerations
+    content += f"## 11. Security Considerations\n"
     content += f"{chap_info['security']}\n\n"
     content += "---\n\n"
 
-    # 13. Performance Optimization
-    content += f"## 13. Performance Optimization\n"
+    # 12. Performance Optimization
+    content += f"## 12. Performance Optimization\n"
     content += f"{chap_info['performance']}\n\n"
     content += "---\n\n"
 
-    # 14. Common Mistakes
-    content += f"## 14. Common Mistakes\n"
+    # 13. Common Mistakes
+    content += f"## 13. Common Mistakes\n"
     content += f"{chap_info['mistakes']}\n\n"
     content += "---\n\n"
 
-    # 15. Troubleshooting
-    content += f"## 15. Troubleshooting\n"
+    # 14. Troubleshooting
+    content += f"## 14. Troubleshooting\n"
     content += "Below is the diagnostic reference table for identifying and resolving issues:\n\n"
     content += "| Symptom | Root Cause | Solution |\n"
     content += "| :--- | :--- | :--- |\n"
@@ -1581,40 +1576,40 @@ def generate_chapter_file(chap_num, file_path):
         content += f"### Additional Reference Tables\n{tables_str}\n"
     content += "---\n\n"
 
-    # 16. Interview Questions
-    content += f"## 16. Interview Questions\n"
+    # 15. Interview Questions
+    content += f"## 15. Interview Questions\n"
     for q, ans in chap_info["interviews"]:
         content += f"### Q: {q}\n"
         content += f"* **Answer:** {ans}\n\n"
     content += "---\n\n"
 
-    # 17. Real-World Use Cases
-    content += f"## 17. Real-World Use Cases\n"
+    # 16. Real-World Use Cases
+    content += f"## 16. Real-World Use Cases\n"
     content += f"{chap_info['use_cases']}\n\n"
     content += "---\n\n"
 
-    # 18. Industrial Project
-    content += f"## 18. Industrial Project\n"
+    # 17. Industrial Project
+    content += f"## 17. Industrial Project\n"
     content += f"{chap_info['project']}\n\n"
     content += "---\n\n"
 
-    # 19. Summary
-    content += f"## 19. Summary\n"
+    # 18. Summary
+    content += f"## 18. Summary\n"
     content += f"{chap_info['summary']}\n\n"
     content += "---\n\n"
 
-    # 20. Key Takeaways
-    content += f"## 20. Key Takeaways\n"
+    # 19. Key Takeaways
+    content += f"## 19. Key Takeaways\n"
     content += f"{chap_info['key_takeaways']}\n\n"
     content += "---\n\n"
 
-    # 21. Practice Exercises
-    content += f"## 21. Practice Exercises\n"
+    # 20. Practice Exercises
+    content += f"## 20. Practice Exercises\n"
     content += f"{chap_info['exercises']}\n\n"
     content += "---\n\n"
 
-    # 22. Further Reading
-    content += f"## 22. Further Reading\n"
+    # 21. Further Reading
+    content += f"## 21. Further Reading\n"
     content += f"{chap_info['reading']}\n"
 
     # Save images / figures if any were in original

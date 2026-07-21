@@ -339,30 +339,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Capture token counts from model responses to monitor costs.
-* Export traces asynchronously to prevent monitoring from adding latency to request loops.
-* Ensure child spans inherit the parent context to compile connected trace graphs.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Filter logs and trace attributes to ensure sensitive user credentials or personally identifiable information (PII) are not exported to monitoring backends.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Set up alerts in CloudWatch to notify your team when average model call latency exceeds established service level agreements (SLAs).
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Creating detached child spans by failing to inherit parent context, resulting in fragmented trace logs.
 * Neglecting to record model token usage, making it difficult to trace billing costs.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -372,7 +365,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the difference between a Trace and a Log?
 * **Answer:** A log is a text record of an isolated event. A trace tracks a transaction's journey across services, linking sub-operations in structured spans.
 
@@ -384,34 +377,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Monitoring execution times across services to optimize application performance.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This telemetry setup monitors application health, providing execution traces for our chatbot system.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered OpenTelemetry tracing, span context propagation, and exporting logs and metrics to CloudWatch.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Observability is critical for debugging complex, asynchronous agent workflows.
 * OpenTelemetry standardizes telemetry collection across backends.
 * Monitor token usage and latency metrics to optimize cost and performance.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Add a warning log statement that prints when model response sizes exceed 1000 characters.
 * Intermediate: Configure logs to export as structured JSON dictionaries.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [OpenTelemetry Python Guide](https://opentelemetry.io/docs/languages/python/)
 * [Amazon CloudWatch Logs Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)

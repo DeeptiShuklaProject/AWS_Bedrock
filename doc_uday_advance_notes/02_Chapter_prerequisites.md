@@ -246,30 +246,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Pin exact minor versions of Python in your workspace to match the target runtime container.
-* Configure shell completion settings for `uv` and `aws` CLI tools to accelerate development workflows.
-* Regularly prune unused Docker builder caches to reclaim local disk space.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Never store permanent AWS root credentials on your workstation. Utilize AWS IAM Identity Center (successor to Single Sign-On) to retrieve temporary, role-based credentials. Ensure local private keys and `.aws/` credential files are set with strict filesystem read permissions (e.g., `chmod 600`).
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Set `uv` to use a global package cache. This avoids re-downloading source wheels across different project folders, resulting in sub-second dependency sync operations.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Committing local credentials files to public repositories.
 * Running container runtimes without administrative group privileges, leading to permission access denied errors on socket files.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -279,7 +272,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: Why is Git essential in automated CI/CD deployment pipelines?
 * **Answer:** Git acts as the source of truth for the codebase. Version control systems host hooks that notify CI/CD servers (like GitHub Actions) to run tests and compile production containers on push events.
 
@@ -291,34 +284,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Setting up new workstations for engineers joining an AI development team to ensure environment alignment.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This workspace preparation allows us to clone the agent source files and compile local container images in subsequent chapters.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered installing, configuring, and testing the core tools (Git, Python, uv, Docker, and AWS CLI) required to build Bedrock AgentCore applications.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * isolated local virtual environments prevent library conflicts.
 * Docker daemon must be active locally to emulate container deployment targets.
 * AWS CLI authentication must be completed before cloud deployment steps can proceed.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Install the `uv` toolchain and verify it responds to the version query command.
 * Intermediate: Configure an AWS CLI profile named `dev-profile` targeting the `us-west-2` region.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [AWS CLI Command Reference Guide](https://awscli.amazonaws.com/v2/documentation/api/latest/index.html)
 * [Docker Containerization Engine Documentation](https://docs.docker.com/)

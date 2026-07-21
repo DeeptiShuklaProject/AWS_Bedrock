@@ -229,30 +229,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Design applications to boot quickly by minimizing the container image footprint.
-* Never write persistent data to the local filesystem; write files to S3.
-* Configure short timeouts to prevent runaway executions from inflating bills.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce strict resource allocations for RAM and CPU. Ensure that containers run as non-root users inside microVMs to prevent privilege escalation attacks.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Leverage warm starts for sequential requests to bypass boot latency and ensure fast response times.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Expecting files written to `/tmp` to persist across sessions (sessions terminate after timeouts, destroying ephemeral storage).
 * Overallocating RAM in configurations, leading to high resource reservation fees.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -273,7 +266,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the security advantage of Firecracker over standard containers?
 * **Answer:** Standard containers share the host operating system kernel, making them vulnerable to kernel exploit leaks. Firecracker runs each container inside an isolated microVM with its own kernel, securing multi-tenant environments.
 
@@ -285,34 +278,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Isolating user sessions in SaaS platforms to prevent multi-tenant data leaks.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This runtime provides the secure host environment where our agent handler executes in production.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter analyzed the virtualization architecture of AgentCore, detailing Firecracker microVMs, session isolation, and execution bounds.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Session isolation is enforced using AWS Firecracker microVMs.
 * Inactive microVMs are reclaimed to minimize idle resource charges.
 * Write persistent files to S3 because microVM storage is ephemeral.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Configure `bedrock_agent_core.yaml` to set `timeout_seconds` to 600.
 * Intermediate: Map the lifecycle of a runtime VM from boot to destruction in a flow chart.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [AWS Firecracker Architecture Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/aws-firecracker-design/aws-firecracker-design.html)
 * [AWS Lambda Execution Environments](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html)

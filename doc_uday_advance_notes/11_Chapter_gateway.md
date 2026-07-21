@@ -274,30 +274,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Define clear descriptions in schemas to guide model selection.
-* Apply strict schemas to protect backend APIs from malformed parameters.
-* Route calls through private connections to secure network traffic.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce IAM boundary limits on gateway execution roles. Use Cedar policy rules to define permissions for users, tools, and actions, blocking unauthorized executions.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Utilize semantic routing to minimize the number of tool schemas appended to prompts, optimizing latency and reducing costs.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Defining ambiguous tool descriptions, causing models to select the wrong tool.
 * Committing API secret keys inside tool execution scripts instead of retrieving them dynamically.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -307,7 +300,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the advantage of using Model Context Protocol (MCP)?
 * **Answer:** MCP standardizes integrations by decoupling clients from specific database API formats, providing a uniform schema for tool communication.
 
@@ -319,34 +312,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This gateway acts as the integration point that allows our agent to invoke database tools and Lambda functions.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered the Tool Gateway architecture, the Model Context Protocol (MCP), and configuring tool schemas in `gateway_config.json`.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Expose tools using standardized MCP schemas to simplify integrations.
 * Leverage semantic routing to minimize prompt token usage.
 * Validate input arguments against strict schemas to secure backend APIs.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Write a JSON schema definition for a tool that retrieves weather updates by city.
 * Intermediate: Add validation checks to reject city strings containing numeric characters.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [Model Context Protocol Specification](https://modelcontextprotocol.io/)
 * [JSON Schema Standard Reference](https://json-schema.org/)

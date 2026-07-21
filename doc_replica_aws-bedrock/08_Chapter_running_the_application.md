@@ -253,30 +253,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Check for port conflicts before starting the server to ensure port 8000 is available.
-* Monitor container logs in a separate terminal window to inspect traceback details.
-* Test edge cases (like empty payloads or long inputs) during local testing cycles.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Do not expose the local agent container to public networks; bind the listener exclusively to localhost (`127.0.0.1`). Ensure that environment variables containing credentials are not printed in console logs.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Initialize model and database clients outside the main request loop to minimize handler execution times.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Starting the application before launching the local Docker daemon, causing build failures.
 * Sending invalid JSON request payloads, causing server parsing crashes.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -286,7 +279,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: How do you run local integration tests for containerized agents?
 * **Answer:** Start the application container locally on a test port, and execute a test script that sends structured prompts and asserts response properties using a testing framework (like pytest).
 
@@ -298,34 +291,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Testing agent updates locally to verify logic before deploying code to AWS.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 Local testing validates our handler code before it is packaged into production container images in Chapter 15.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered starting the application locally using the CLI and invoking endpoints using curl to verify agent execution.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Local containers isolate applications from host configurations.
 * Invoke handlers parse prompt values and return responses.
 * Test code updates locally to verify logic before cloud deployment.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Launch the application on port 9000 and verify it responds to request pings.
 * Intermediate: Write a shell script that starts the container, submits a test prompt, and saves logs to a text file.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [Docker Networking Guide](https://docs.docker.com/network/)
 * [Python Requests Library Documentation](https://requests.readthedocs.io/)

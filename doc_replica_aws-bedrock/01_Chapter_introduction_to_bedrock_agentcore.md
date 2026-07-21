@@ -261,30 +261,23 @@ def handler(payload, context):
 
 ---
 
-## 11. Production Best Practices
-* Keep container images thin to minimize boot time and cold start latency.
-* Avoid writing state data to the local filesystem since microVM storage is ephemeral.
-* Always implement structured JSON logging to facilitate log aggregation in CloudWatch.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Enforce strict IAM policies using least-privilege schemas. Ensure the agent execution role limits permission boundaries to designated Bedrock model resources and specific DynamoDB tables. Route all microVM communications through private VPC subnets using AWS PrivateLink endpoints.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Optimize container image layers by using multi-stage Dockerfiles. Cache foundation model parameters and maintain warm session microVM pools to bypass initialization cycles during high-traffic intervals.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Hardcoding AWS Access Keys inside configuration files (always use IAM Execution Roles instead).
 * Assuming microVM local files persist across different user sessions (use Amazon S3 for durable files).
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -305,7 +298,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
 
@@ -317,34 +310,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Enterprise customer support portals requiring complex multi-step reasoning, document summarization, and secure customer database query lookups.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This chapter establishes the core runtime foundation. The concepts developed here will serve as the host environment for our final Enterprise RAG Assistant and Multi-Agent Supervisor system.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter introduced the Bedrock AgentCore framework, comparing code-first architectures with legacy console models, and outlined the 7 core architectural pillars.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Bedrock AgentCore provides a code-first, framework-agnostic runtime for autonomous agents.
 * Security is enforced via AWS Firecracker microVMs providing isolated user session environments.
 * The framework is managed through standard git, Docker, and AWS CLI developer tools.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Install Python and verify your shell returns a valid environment version.
 * Intermediate: Draft a mock configuration file specifying Claude 3 Haiku as the target foundation model.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [Amazon Bedrock Developer Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 * [AWS Firecracker Virtualization Technology](https://firecracker-microvm.github.io/)

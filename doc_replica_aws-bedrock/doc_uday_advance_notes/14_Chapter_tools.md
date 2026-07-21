@@ -292,30 +292,23 @@ if __name__ == "__main__":
 
 ---
 
-## 11. Production Best Practices
-* Design tool functions to handle exceptions gracefully, returning friendly errors to the model.
-* Add descriptive docstrings to functions to guide the model's tool selection.
-* Validate all input parameters to protect backend APIs from injection attacks.
-
----
-
-## 12. Security Considerations
+## 11. Security Considerations
 Execute tool functions inside secure, sandboxed environments to prevent unauthorized system access. Use IAM policies to limit tools' access to only the AWS resources they require.
 
 ---
 
-## 13. Performance Optimization
+## 12. Performance Optimization
 Set short execution timeouts on tool calls to prevent runaway scripts from stalling the main agent loop.
 
 ---
 
-## 14. Common Mistakes
+## 13. Common Mistakes
 * Defining ambiguous descriptions, causing the model to select the wrong tool.
 * Failing to wrap tool code in try-except blocks, causing unhandled exceptions to crash the agent runtime.
 
 ---
 
-## 15. Troubleshooting
+## 14. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -325,7 +318,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 16. Interview Questions
+## 15. Interview Questions
 ### Q: How does the @tool decorator generate JSON schemas?
 * **Answer:** The decorator uses Python reflection and inspects type annotations and docstring parameters to construct JSON schemas for model configuration.
 
@@ -337,34 +330,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Real-World Use Cases
+## 16. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 18. Industrial Project
+## 17. Industrial Project
 This custom tool integration allows our agent to query databases and call external APIs.
 
 ---
 
-## 19. Summary
+## 18. Summary
 This chapter covered defining parameter schemas, registering custom Python functions, and executing tools inside secure environments.
 
 ---
 
-## 20. Key Takeaways
+## 19. Key Takeaways
 * Custom tools extend agent capabilities to interact with external systems.
 * Docstrings and type annotations guide the model's tool selection.
 * Enforce parameter validation and run tools in secure sandboxes.
 
 ---
 
-## 21. Practice Exercises
+## 20. Practice Exercises
 * Beginner: Write a tool that generates a random number within a minimum and maximum range.
 * Intermediate: Create a tool that queries system time, validating format strings.
 
 ---
 
-## 22. Further Reading
+## 21. Further Reading
 * [JSON Schema Standard Reference](https://json-schema.org/)
 * [Python Type Hints Documentation](https://docs.python.org/3/library/typing.html)

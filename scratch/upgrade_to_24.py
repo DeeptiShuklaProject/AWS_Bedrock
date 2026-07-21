@@ -1323,19 +1323,22 @@ def generate_chapter_file(chap_num, file_path):
     content += "---\n\n"
 
     # 10. Hands-on Examples
-    content += f"## 10. Hands-on Examples\n\n"
-    content += generate_example_block_with_walkthrough(hands_on_simple_str, "Simple Example", chap_num)
-    content += generate_example_block_with_walkthrough(hands_on_intermediate_str, "Intermediate Example", chap_num)
-    content += generate_example_block_with_walkthrough(hands_on_advanced_str, "Advanced Example", chap_num)
+    content += f"## 10. Hands-on Examples\n"
+    content += "### Simple Example\n"
+    content += f"```python\n{hands_on_simple_str.replace('```python', '').replace('```', '').strip()}\n```\n\n"
+    content += "### Intermediate Example\n"
+    content += f"```python\n{hands_on_intermediate_str.replace('```python', '').replace('```', '').strip()}\n```\n\n"
+    content += "### Advanced Example\n"
+    content += f"```python\n{hands_on_advanced_str.replace('```python', '').replace('```', '').strip()}\n```\n\n"
     content += "---\n\n"
 
     # 11. Code Walkthrough
     content += f"## 11. Code Walkthrough\n"
-    content += f"In this chapter, we explored three progressive implementation tiers for **{chap_info['title']}**:\n\n"
-    content += f"1. **Simple Example**: Demonstrates the minimal required entrypoint, importing `BedrockAgentCoreApp`, initializing the application object, and registering an `@app.invoke` handler.\n"
-    content += f"2. **Intermediate Example**: Adds operational logging (`logging.getLogger`) and context extraction (`payload.get`, `getattr(context)`), allowing tracking of individual session IDs.\n"
-    content += f"3. **Advanced Example**: Introduces production-grade error handling (`try-except`), OS environment variable reads (`os.getenv`), and structured error status responses (`statusCode: 400/500`).\n\n"
-    content += f"Each line in the code blocks above was dissected line-by-line in numerical order. Refer to the **Code Walkthrough**, **Complete Flow of Execution**, and **Visual Execution Flow** diagrams above for complete step-by-step guidance.\n\n"
+    content += "Let's perform a line-by-line code walk of the core logic implementation:\n\n"
+    content += f"```python\n{hands_on_simple_str.replace('```python', '').replace('```', '').strip()}\n```\n\n"
+    content += "* **`import` statements:** Load libraries and core modules required by the package.\n"
+    content += "* **Initialization:** Instantiates execution frameworks and logs operational events.\n"
+    content += "* **Handler logic:** Executes input validations and triggers core business routines.\n\n"
     content += "---\n\n"
 
     # 12. Production Best Practices

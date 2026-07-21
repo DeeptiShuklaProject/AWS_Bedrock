@@ -3,7 +3,20 @@
 ## 1. Introduction
 Observability and telemetry configurations allow you to monitor and trace complex agent execution workflows.
 
-> **Analogy:** Think of a telemetry system and flight recorder on an aircraft. The flight recorder (CloudWatch Logs) stores real-time sensor readouts (traces and metrics) to help diagnostics if issues occur.
+### What is it?
+Observability and Telemetry is the system monitoring architecture used to capture, aggregate, and visualize application logs, performance metrics, and distributed trace spans using OpenTelemetry and Amazon CloudWatch.
+
+### Why is it important?
+Asynchronous multi-agent applications contain complex reasoning steps, external API calls, and database lookups that are difficult to debug using basic print statements. Observability provides complete visibility into execution lifecycles, enabling developers to isolate latency bottlenecks, diagnose errors, and audit model token costs.
+
+### How does it work?
+Application handlers are instrumented with OpenTelemetry SDKs. When a transaction starts, the framework creates a Root Span and child spans for sub-tasks (such as model inference or database queries). Spans record execution durations, session attributes, token counts, and exceptions, exporting telemetry payloads asynchronously to Amazon CloudWatch Logs and AWS X-Ray.
+
+### Key Responsibilities
+- Capture and aggregate structured application logs, error tracebacks, and execution events.
+- Instrument distributed trace spans to measure execution latency across tool calls and model invocations.
+- Track input and output model token counts per session to monitor and optimize cloud API costs.
+- Export telemetry data asynchronously to Amazon CloudWatch and AWS X-Ray without stalling user queries.
 
 ---
 

@@ -1,5 +1,6 @@
 import os
 import re
+import shutil
 
 # Output path to write the upgraded files
 TARGET_DIR = r"c:\Users\nishu\workspace\wscs_bedrock\doc_uday_advance_notes"
@@ -860,7 +861,6 @@ def generate_line_explanation(line_num, line_str):
 - **What this line does:** This is a documentation comment line starting with `#`. Python ignores comments during execution.
 - **Why it is required:** It explains the purpose of the script to human developers and maintains clean code documentation.
 - **What happens if removed:** The code will run identically, but human readers won't have immediate context on what this code block accomplishes.
-- **Analogy:** Think of a comment like a sticky note attached to a blueprint—it helps the builders understand the design without altering the physical building.
 - **Beginner Concept:** In Python, any text after `#` is ignored by the Python interpreter.
 """
 
@@ -873,7 +873,6 @@ def generate_line_explanation(line_num, line_str):
 - **What this line does:** This is a blank vertical spacing line.
 - **Why it is required:** It visually separates logical sections of code (such as imports, setup, and function definitions) to improve readability.
 - **What happens if removed:** Python will execute the code fine, but lines of code will bunch together, making it harder for engineers to read.
-- **Analogy:** Like paragraphs in a textbook, spacing gives your eyes a natural pause between concepts.
 """
 
     if stripped.startswith("from ") and " import " in stripped:
@@ -889,7 +888,6 @@ def generate_line_explanation(line_num, line_str):
 - **Why it is required:** Python does not automatically load every external library into memory. We must explicitly import `{obj}` so our program can use its pre-built capabilities.
 - **What keywords mean:** `from` specifies the source library module (`{pkg}`), and `import` selects the specific tool (`{obj}`).
 - **What happens if removed:** Python will throw a `NameError: name '{obj}' is not defined` as soon as we try to instantiate or use it.
-- **Analogy:** Think of importing like opening your toolbox and picking out a specialized torque wrench (`{obj}`) from the storage tray (`{pkg}`).
 - **Connection:** This makes the `{obj}` blueprint available for the next lines of code.
 """
 
@@ -904,7 +902,6 @@ def generate_line_explanation(line_num, line_str):
 - **Why it is required:** Provides access to essential system utilities (such as logging, environment variables, or HTTP handlers) offered by `{mod}`.
 - **What keywords mean:** `import` tells Python to load the module named `{mod}`.
 - **What happens if removed:** Functions or variables referencing `{mod}` (like `{mod}.getenv` or `{mod}.getLogger`) will fail with a `NameError`.
-- **Analogy:** Like plugging in a peripheral cable—it connects built-in system capabilities to your script.
 """
 
     if " = BedrockAgentCoreApp(" in stripped or stripped.startswith("app = "):
@@ -918,7 +915,6 @@ def generate_line_explanation(line_num, line_str):
 - **Why it is required:** `{var_name}` serves as the main application object that manages agent lifecycle events, routes triggers, and holds configuration state.
 - **What variable stores:** `{var_name}` stores the active `BedrockAgentCoreApp` object.
 - **What happens if removed:** We would have no central application object to register our execution handlers or deploy to AWS.
-- **Analogy:** Think of this as powering on the central control unit of an autonomous robot before programming its movements.
 """
 
     if "logging.getLogger(" in stripped or "logging.basicConfig(" in stripped:
@@ -930,7 +926,6 @@ def generate_line_explanation(line_num, line_str):
 **Explanation:**
 - **What this line does:** Configures the default logging framework settings, setting the minimum log severity level to `logging.INFO`.
 - **Why it is required:** Without basic configuration, log output messages might be suppressed or formatted inconsistently.
-- **Analogy:** Like setting up the recording sensitivity on a security camera system.
 """
         else:
             var_name = stripped.split("=")[0].strip()
@@ -945,7 +940,6 @@ def generate_line_explanation(line_num, line_str):
 - **Why it is required:** Structured logging allows developers to track incoming session activity, diagnose errors, and monitor agent decisions in AWS CloudWatch.
 - **What variable stores:** `{var_name}` holds the logger object for writing diagnostic messages.
 - **Where logs go:** Log messages written by `{var_name}` appear in the terminal during local testing and in Amazon CloudWatch Logs when deployed.
-- **Analogy:** Think of `{var_name}` as the flight data recorder (black box) recording every step of the journey.
 """
 
     if stripped.startswith("@"):
@@ -960,7 +954,6 @@ def generate_line_explanation(line_num, line_str):
 - **Why decorators are used:** They register functions with frameworks without altering the core function code.
 - **What `{dec_name}` registers:** It registers the function directly below it as the official entrypoint handler for Bedrock AgentCore invocation events.
 - **What happens when AgentCore receives a request:** AgentCore automatically detects the `@app.invoke` tag and routes the incoming payload directly into the registered function.
-- **Analogy:** Like putting a "Push Button Here to Start Machine" sticker on an ignition switch.
 """
 
     if stripped.startswith("def "):
@@ -979,7 +972,6 @@ def generate_line_explanation(line_num, line_str):
   - `context`: An object containing runtime metadata (such as active AWS session ID, caller IAM identity, and request timestamps).
 - **Return value:** Returns a structured dictionary containing HTTP status codes and agent response text.
 - **Why the function exists:** It contains the core decision-making logic executed whenever the agent is invoked.
-- **Analogy:** Think of `{func_name}` like a recipe—`payload` and `context` are the ingredients passed in, and the returned dictionary is the finished meal.
 """
 
     if stripped.startswith("try:"):
@@ -991,7 +983,6 @@ def generate_line_explanation(line_num, line_str):
 - **What this line does:** Starts a `try` block for defensive error handling.
 - **Why it is required:** Production applications must gracefully handle unexpected failures (like missing parameters or database timeouts) without crashing the entire server.
 - **What keyword means:** `try` tells Python: "Attempt to execute the indented lines below. If an error occurs, jump straight to the `except` block."
-- **Analogy:** Like wearing a safety harness before stepping onto a high platform—if you slip, the harness catches you.
 """
 
     if stripped.startswith("except ") or stripped.startswith("except:"):
@@ -1003,7 +994,6 @@ def generate_line_explanation(line_num, line_str):
 - **What this line does:** Catches exceptions and errors that occurred inside the preceding `try` block.
 - **Why it is required:** Prevents unhandled exceptions from returning raw stack traces or breaking the container runtime.
 - **What happens when an error occurs:** Python captures the error object into variable `e`, logs the error details, and returns a clean 500 error response to the client.
-- **Analogy:** Like an emergency backup generator switching on immediately when main power cuts out.
 """
 
     if "=" in stripped and not stripped.startswith("return"):
@@ -1026,7 +1016,6 @@ def generate_line_explanation(line_num, line_str):
   - Arguments `{args}`: Specifies the target key name and the fallback default value returned if the key does not exist.
 - **What variable stores:** `{var_name}` stores the retrieved input value (or default fallback).
 - **Why it is required:** Protects the agent against missing input fields sent by client applications.
-- **Analogy:** Like asking a receptionist for a package—if the package isn't on the shelf, they hand you a default notification card instead of crashing the office.
 """
         
         if "getattr(" in val_name:
@@ -1039,7 +1028,6 @@ def generate_line_explanation(line_num, line_str):
 - **Method details:** `getattr(context, attribute_name, default_value)` inspects `context` for the requested property. If present, it returns the attribute; otherwise, it returns the default value.
 - **What variable stores:** `{var_name}` holds the session identifier string.
 - **Why it is required:** Ensures the code works both in local testing (where context might be mocked) and in production AWS microVM runtimes.
-- **Analogy:** Checking someone's ID card for their badge number, defaulting to "Visitor" if no badge number is printed.
 """
 
         if "os.getenv(" in val_name:
@@ -1052,7 +1040,6 @@ def generate_line_explanation(line_num, line_str):
 - **Method details:** `os.getenv("APP_ENV", "development")` looks for the OS variable `APP_ENV`. If not set, it defaults to `"development"`.
 - **What variable stores:** `{var_name}` stores the environment configuration mode (e.g., `development`, `staging`, `production`).
 - **Why it is required:** Allows the same code container to behave appropriately across local, test, and production environments without code edits.
-- **Analogy:** Like checking a thermostat to see if the building is set to Heat Mode or Cool Mode.
 """
 
         return f"""Line {line_num}
@@ -1078,7 +1065,6 @@ def generate_line_explanation(line_num, line_str):
 - **What condition checks:** Checks if `{cond}` evaluates to `True` (e.g., if prompt is empty or missing).
 - **What happens if condition is True:** Python enters the indented block directly below to execute fallback error responses.
 - **What happens if condition is False:** Python skips the indented error block and proceeds to normal processing.
-- **Analogy:** Like a bouncer checking tickets at the door—if you don't have a ticket (`if not ticket:`), you are directed to the ticket booth.
 """
 
     if stripped.startswith("logger."):
@@ -1092,7 +1078,6 @@ def generate_line_explanation(line_num, line_str):
 - **What this line does:** Writes an informational log message (`{msg_str}`) to the logging system.
 - **Why it is required:** Provides real-time visibility into active agent executions, helping engineers debug production request flows.
 - **Where logs go:** Written to standard output streams and captured by AWS CloudWatch Logs.
-- **Analogy:** Like a ship captain writing an entry in the official logbook during a voyage.
 """
 
     if stripped.startswith("return") or stripped.startswith('"statusCode"') or stripped.startswith('"response"') or stripped == "}" or stripped == "}:":
@@ -1106,7 +1091,6 @@ def generate_line_explanation(line_num, line_str):
 - **What is being returned:** Returns a structured Python **dictionary** representing an HTTP response payload.
 - **Who receives it:** The Bedrock AgentCore runtime receives this dictionary, serializes it into JSON, and sends it back to the client application.
 - **Why response must be returned:** Without a return statement, the function would return `None`, causing AgentCore to report a blank execution payload to the user.
-- **Analogy:** Handing a completed report back to the manager who requested it.
 """
         elif '"statusCode"' in stripped:
             return f"""Line {line_num}
@@ -1657,6 +1641,20 @@ def main():
         generate_chapter_file(chap_num, file_path)
 
     print("All chapters successfully migrated to 24-heading format!")
+
+    # Sync to replica directories
+    replica_dir1 = r"c:\Users\nishu\workspace\wscs_bedrock\doc_replica_aws-bedrock\doc_uday_advance_notes"
+    replica_dir2 = r"c:\Users\nishu\workspace\wscs_bedrock\doc_replica_aws-bedrock"
+
+    os.makedirs(replica_dir1, exist_ok=True)
+    os.makedirs(replica_dir2, exist_ok=True)
+
+    for f in os.listdir(TARGET_DIR):
+        if f.endswith(".md") and f[0].isdigit():
+            src_file = os.path.join(TARGET_DIR, f)
+            shutil.copy(src_file, os.path.join(replica_dir1, f))
+            shutil.copy(src_file, os.path.join(replica_dir2, f))
+            print(f"Synced {f} to replica directories.")
 
 if __name__ == '__main__':
     main()

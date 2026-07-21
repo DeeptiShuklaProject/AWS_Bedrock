@@ -3,7 +3,20 @@
 ## 1. Introduction
 The Tool Gateway routes request payloads to databases and external APIs securely.
 
-> **Analogy:** Think of a secure bank teller window. The teller window (Gateway) acts as a physical barrier. The customer (LLM) passes structured requests (MCP Schemas) through the tray, and the teller executes the transaction.
+### What is it?
+The Tool Gateway is an API management and security broker layer that connects AI agents to external databases, enterprise microservices, and web APIs using standardized protocol schemas.
+
+### Why is it important?
+AI foundation models cannot directly run database queries or trigger external web service actions on their own. The Tool Gateway provides a secure abstraction interface that translates model requests into safe API calls, validating parameter formats against JSON schemas to prevent injection attacks and bad requests.
+
+### How does it work?
+The Tool Gateway defines tools using the Model Context Protocol (MCP). When the AI model determines it needs external data, it returns a tool call request specifying tool names and arguments. The Tool Gateway validates these parameters against registered JSON schemas, routes the call to target backend functions, and passes execution results back to the model.
+
+### Key Responsibilities
+- Expose external tools and database functions to AI models using Model Context Protocol (MCP) schemas.
+- Validate model-generated request arguments against defined JSON schemas before execution.
+- Perform semantic tool routing to include only prompt-relevant tool definitions, reducing token usage.
+- Enforce permission policies and authorization boundaries between AI models and backend APIs.
 
 ---
 

@@ -3,7 +3,20 @@
 ## 1. Introduction
 Amazon Bedrock AgentCore is a containerized, code-first developer framework and runtime service designed to package, run, and scale AI-driven agentic applications on AWS.
 
-> **Analogy:** Foundation Models (Cargo Ships) transport text across oceans. Agent Reasoning Logic (Port Crane Operators) coordinates picks, transfers, and loads. Compute Runtime (Isolated Shipping Docks) hosts ships in secure Firecracker microVMs. Tool Gateway (Customs Checkpoint) verifies packages going to external databases.
+### What is it?
+Amazon Bedrock AgentCore is a software framework and cloud runtime service designed to build, execute, and manage autonomous Artificial Intelligence (AI) agents. An AI agent is an intelligent program that does not just generate text responses, but independently plans multi-step tasks, queries databases, calls software tools, and completes complex workflows on AWS.
+
+### Why is it important?
+Standard AI models are stateless and limited—they cannot access external data sources, retain long-term conversation history beyond context limits, or execute code securely. Bedrock AgentCore provides the dedicated execution infrastructure, security boundaries, and storage services required to transform basic AI models into safe, production-grade automated enterprise systems.
+
+### How does it work?
+AgentCore operates between client user applications and AWS cloud services. When a user submits a prompt, AgentCore launches an isolated lightweight virtual server (AWS Firecracker microVM), connects the AI model to specified database tools, manages step-by-step reasoning loops, and securely returns the formatted response to the user interface.
+
+### Key Responsibilities
+- Securely host and execute AI agent reasoning loops inside isolated virtual containers.
+- Connect AI foundation models to external databases, web APIs, and enterprise software tools.
+- Maintain session state and conversational memory across single or multi-turn user interactions.
+- Enforce security authorization boundaries and access policies for tool calls and data queries.
 
 ---
 

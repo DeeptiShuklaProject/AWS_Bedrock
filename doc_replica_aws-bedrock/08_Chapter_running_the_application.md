@@ -3,7 +3,20 @@
 ## 1. Introduction
 Testing and verifying Bedrock AgentCore applications locally ensures they function correctly before cloud deployment.
 
-> **Analogy:** Think of testing an engine in a wind tunnel before flight. The wind tunnel (local container) emulates the atmosphere of high-altitude flight (the cloud environment), letting engineers test controls (invoke requests) safely.
+### What is it?
+Running the Application Locally means executing your Bedrock AgentCore code inside a local container or local HTTP server on your workstation, allowing you to test request handling and logic before cloud deployment.
+
+### Why is it important?
+Deploying code changes directly to AWS cloud servers to test minor updates is slow, difficult to debug, and potentially costly. Running the application locally provides instant feedback, allows real-time terminal debugging, and ensures handler functions parse queries correctly before publishing.
+
+### How does it work?
+The developer runs the 'agentcore run' CLI command, which starts a local web server binding to a specified network port (such as port 8000). The developer sends test HTTP POST requests containing prompt payloads (using tools like 'curl' or Python 'requests'), and the local handler function processes the request and returns a structured JSON response.
+
+### Key Responsibilities
+- Instantiate a local HTTP server that emulates the AWS AgentCore runtime environment.
+- Bind internal container listening ports to workstation localhost endpoints.
+- Route incoming prompt payloads to registered '@app.invoke' handler functions.
+- Return formatted HTTP status codes and JSON response payloads for local verification.
 
 ---
 

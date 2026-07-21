@@ -3,7 +3,20 @@
 ## 1. Introduction
 Packaging Bedrock AgentCore applications as Docker images ensures they deploy and run consistently in production.
 
-> **Analogy:** Think of cargo shipping. Shipping goods in a standardized container (Docker Image) ensures they look and act the same whether transported by train, truck, or container ship (AWS Fargate).
+### What is it?
+Deployment and Containerization is the process of packaging your application source code, configuration files, and software dependencies into a standardized container image using Docker, and pushing it to Amazon Elastic Container Registry (ECR) for cloud hosting.
+
+### Why is it important?
+Deploying raw unpackaged code directly to cloud servers often causes environment mismatches, missing system library errors, and slow deployment times. Containerization guarantees that your application runs identically in development and production environments inside lightweight, secure containers.
+
+### How does it work?
+The developer writes a multi-stage 'Dockerfile' specifying build steps and runtime environments. Running 'docker build' compiles the code into an immutable container image. The developer authenticates with Amazon ECR using 'aws ecr get-login-password', tags the image, and executes 'docker push' to upload the image to the cloud repository.
+
+### Key Responsibilities
+- Compile application source code, runtimes, and dependencies into standardized Docker container images.
+- Utilize multi-stage Docker builds to reduce container image size and eliminate build tool overhead.
+- Securely host and version production container images within Amazon Elastic Container Registry (ECR).
+- Exclude temporary files, local credentials, and virtual environments using '.dockerignore' files.
 
 ---
 

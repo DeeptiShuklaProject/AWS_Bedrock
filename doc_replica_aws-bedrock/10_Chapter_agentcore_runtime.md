@@ -3,7 +3,20 @@
 ## 1. Introduction
 The AgentCore runtime hosts agent containers inside secure, isolated virtual machine environments.
 
-> **Analogy:** Think of renting a suite at a hotel. The suite (Firecracker VM) is an isolated space with its own secure lock and utilities. What happens inside does not affect other suites.
+### What is it?
+The AgentCore Runtime is the AWS-managed hosting infrastructure that executes agent applications inside lightweight, securely isolated virtual machine environments called AWS Firecracker microVMs.
+
+### Why is it important?
+Traditional multi-tenant cloud environments share operating system kernels between users, risking cross-tenant data leaks and resource starvation. The AgentCore Runtime provides hypervisor-level security isolation for every user session while maintaining sub-second cold-start execution times and low operational costs.
+
+### How does it work?
+When a user query arrives with a unique session ID, the AgentCore Runtime checks if an active microVM exists for that session. If active (warm start), the query routes directly to the running container. If inactive (cold start), Firecracker boots a new microVM instance in seconds, pulls the ECR container image, mounts ephemeral storage, and handles the request.
+
+### Key Responsibilities
+- Provision and manage isolated AWS Firecracker microVM instances for user agent sessions.
+- Enforce hardware resource limits on CPU usage, RAM allocation, and ephemeral disk space.
+- Manage session lifecycles, routing warm requests quickly and terminating idle instances.
+- Guarantee multi-tenant data isolation by maintaining dedicated operating system kernels per session.
 
 ---
 

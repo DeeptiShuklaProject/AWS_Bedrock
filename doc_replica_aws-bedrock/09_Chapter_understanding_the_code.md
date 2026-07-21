@@ -3,7 +3,20 @@
 ## 1. Introduction
 Analyzing the implementation details of the main application file is key to customizing agent execution logic.
 
-> **Analogy:** Think of a factory assembly line. The conveyor belt (the SDK wrapper) moves products, and custom assembly machines (handler functions) perform specific modifications on items passing by.
+### What is it?
+Understanding the Code involves analyzing the line-by-line structure and execution flow of the main application script ('src/main.py'), detailing how decorators, handlers, context objects, and response payloads interact.
+
+### Why is it important?
+Writing maintainable, enterprise-ready software requires understanding how each line of code functions within the broader framework framework. Knowing how request parameters are extracted, validated, and logged enables developers to extend business logic safely without breaking application structure.
+
+### How does it work?
+The script initializes standard logging, instantiates the 'BedrockAgentCoreApp' wrapper class, and decorates a handler function with '@app.invoke'. When a request arrives, the application extracts the JSON payload and context metadata object, passes them to the handler function, executes custom processing steps, and formats the output into a standardized return dictionary.
+
+### Key Responsibilities
+- Instantiate core framework app wrappers to manage container request listeners.
+- Register routing endpoints to custom Python functions via '@app.invoke' decorators.
+- Parse input arguments from 'payload' dictionaries and session details from 'context' objects.
+- Output structured JSON dictionary responses containing HTTP status codes and response bodies.
 
 ---
 

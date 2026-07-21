@@ -3,7 +3,20 @@
 ## 1. Introduction
 Developing Bedrock AgentCore applications begins by cloning and inspecting the official sample repository.
 
-> **Analogy:** Before modifying a machine, an engineer downloads the manufacturing blueprint files. This ensures they have the correct schematics, part numbers, and files before changing the design.
+### What is it?
+Cloning the Code Repository is the process of downloading a complete, version-controlled copy of the Bedrock AgentCore starter codebase from a remote server (such as GitHub) onto your local computer.
+
+### Why is it important?
+Building a complex software application from scratch is inefficient and prone to structural mistakes. Cloning an official starter repository provides a verified directory layout, pre-configured setup scripts, and standard sample files, establishing a clean baseline for development.
+
+### How does it work?
+Using the Git command-line tool, your workstation establishes a connection to the remote repository host over HTTPS or SSH, downloads the complete commit history and file object database, and checks out project files into your local project workspace directory.
+
+### Key Responsibilities
+- Download remote source files, directory structures, and commit histories to local workstations.
+- Establish a local workspace for customizing entry scripts, configuration settings, and tools.
+- Enable local version tracking so code modifications can be committed, branched, or reverted.
+- Synchronize local development progress with shared remote team repositories on GitHub.
 
 ---
 

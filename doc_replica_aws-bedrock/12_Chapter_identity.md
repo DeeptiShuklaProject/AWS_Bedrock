@@ -3,7 +3,20 @@
 ## 1. Introduction
 The Identity Engine authenticates user sessions and enforces row-level security for data access.
 
-> **Analogy:** Think of a government facility access pass. The visitor (User) registers at the desk, receives a security badge (Cognito JWT), and shows it to security guards (Identity Engine) to enter database rooms.
+### What is it?
+The Identity Engine is the security component that authenticates end-user identities, verifies access credentials (such as JSON Web Tokens / JWTs), and propagates user security contexts down to database tools.
+
+### Why is it important?
+AI agents operating in multi-user applications must ensure that users can only view and modify their own data records. Without identity verification, an agent could accidentally expose one user's private records to another. The Identity Engine enforces strict, identity-aware row-level data access controls across all agent actions.
+
+### How does it work?
+The end-user authenticates against an Identity Provider (like Amazon Cognito or Okta) and receives a signed JWT access token. The client application passes this token in the API request header. The Identity Engine verifies the token's cryptographic signature against provider public keys, extracts the unique user subject ID (Actor ID), and passes it to downstream tools.
+
+### Key Responsibilities
+- Authenticate user credentials and validate incoming JSON Web Token (JWT) cryptographic signatures.
+- Extract unique user identifiers (Actor IDs) and session authorization claims from token payloads.
+- Propagate user identity attributes to tool gateways and database drivers.
+- Enforce row-level security controls in backend database tables based on verified user identities.
 
 ---
 

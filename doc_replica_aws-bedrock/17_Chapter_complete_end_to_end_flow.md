@@ -3,7 +3,26 @@
 ## 1. Introduction
 Verifying the complete integration path—from client requests to database updates—ensures the agent runs securely and efficiently in production.
 
-> **Analogy:** Think of ordering food on a delivery app. You submit the order, verify identity (Access Token), the routing gate checks ingredient stocks (MCP Schema validation), and the kitchen (VM Runtime) bakes and delivers it.
+### What is it?
+The Complete End-to-End Flow represents the fully integrated lifecycle of a user request—tracing its complete journey from frontend user interfaces through security authentication, runtime hosting, memory lookups, tool calls, and final response delivery.
+
+### Why is it important?
+Building individual agent components is not enough; developers must verify that all software layers (runtimes, security gateways, identity providers, memory stores, and custom tools) communicate seamlessly under production conditions to deliver reliable performance.
+
+### How does it work?
+1. A user submits a query via a React web client.
+2. The client authenticates against Amazon Cognito, receiving a JWT token.
+3. The prompt and token arrive at the Tool Gateway, which verifies signatures and extracts the Actor ID.
+4. The runtime launches an isolated Firecracker microVM container.
+5. The microVM fetches user profile summaries from DynamoDB and invokes the Bedrock model.
+6. If needed, the model calls custom tool APIs via MCP schemas.
+7. The final response streams back to the client UI, while dialogue facts are saved to DynamoDB and telemetry logs are exported to CloudWatch.
+
+### Key Responsibilities
+- Connect all 7 core AgentCore architectural pillars into a unified enterprise application system.
+- Validate end-to-end user authentication, input schema verification, and data access security boundaries.
+- Orchestrate smooth data flows between client UIs, microVM runtimes, model APIs, and database tables.
+- Provide complete system integration testing harnesses to verify performance, stability, and accuracy before production release.
 
 ---
 

@@ -3,7 +3,20 @@
 ## 1. Introduction
 The Memory Engine manages short-term conversational history and long-term user profiles.
 
-> **Analogy:** Think of a student in a classroom. The raw lecture (Raw Chat History) is too detailed to memorize. The student writes key facts in their notebook (Compacted Memory) and files it in a cabinet (DynamoDB Table) for next class.
+### What is it?
+The Memory Engine is the state management system responsible for storing, compacting, and retrieving short-term chat history and long-term user profile facts across conversation sessions.
+
+### Why is it important?
+AI foundation models are inherently stateless and forget all context once a single prompt request finishes. Re-sending full conversation histories with every prompt bloats context windows, increases response latency, and drastically raises API token costs. The Memory Engine maintains state efficiently while keeping prompt context windows small.
+
+### How does it work?
+Short-term dialogue turns are saved to an active session cache. When a session finishes or reaches a turn limit, an automated compaction loop runs. The compaction loop uses a fast LLM to extract key user facts, preferences, and state summaries from raw dialogue logs, saving these structured summaries to an AWS DynamoDB table while clearing raw history logs.
+
+### Key Responsibilities
+- Persist short-term dialogue history for ongoing multi-turn conversations within active sessions.
+- Store long-term user profiles and preferences in Amazon DynamoDB tables across sessions.
+- Execute background compaction loops to summarize long dialogue logs into structured facts.
+- Inject relevant user profile summaries into model prompt templates to personalize responses efficiently.
 
 ---
 

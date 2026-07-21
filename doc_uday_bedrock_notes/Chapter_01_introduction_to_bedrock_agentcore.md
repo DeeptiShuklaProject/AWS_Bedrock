@@ -129,30 +129,6 @@ agent:
 
 ### Interactive Python Playground
 
-<InteractiveExample 
-  language="python"
-  instruction="Test a simulated Bedrock AgentCore runtime reasoning step in Python."
-  initialCode="import sys
-import json
-
-print(\"Initializing Bedrock AgentCore Runtime Environment...\")
-
-def simulate_agent_reasoning(user_prompt):
-    print(f\"[AgentCore MicroVM] Received prompt: '{user_prompt}'\")
-    reasoning_step = {
-        \"status\": \"success\",
-        \"container_id\": \"firecracker-microvm-001\",
-        \"action\": \"invoke_foundation_model\",
-        \"model\": \"anthropic.claude-3-5-sonnet\",
-        \"result\": \"Agent reasoning loop initialized safely inside hardware boundary.\"
-    }
-    return reasoning_step
-
-response = simulate_agent_reasoning(\"Execute multi-step data query\")
-print(json.dumps(response, indent=2))"
-/>
-
-
 In this section, we analyze the hands-on code implementations for **Introduction to Bedrock AgentCore** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -326,28 +302,150 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ## 15. Interview Questions
 
-### Knowledge Verification Check
+
+### Knowledge Verification Check (20 Interactive Quizzes)
 
 <Quiz 
-  question="What is the primary role of AWS Firecracker microVMs in Bedrock AgentCore?" 
-  options=["To store long-term vector embeddings", "To provide hardware-isolated lightweight containers for safe multi-tenant code and agent execution", "To translate SQL queries to GraphQL", "To manage AWS billing accounts"] 
+  question="What is the primary role of 01 Introduction To Bedrock Agentcore in Bedrock AgentCore?" 
+  options=["To provide hardware-isolated, scalable, and code-first execution for 01 Introduction To Bedrock Agentcore.", "To store plain text credentials in Git repos.", "To run legacy Windows desktop apps.", "To disable security permissions."] 
+  answerIndex=0 
+  explanation="01 Introduction To Bedrock Agentcore provides enterprise-grade, code-first runtime logic for Bedrock AgentCore." 
+/>
+
+<Quiz 
+  question="How does Bedrock AgentCore enforce security for 01 Introduction To Bedrock Agentcore?" 
+  options=["By sharing memory across all tenants.", "By hosting session runtimes inside isolated AWS Firecracker microVM containers with scoped IAM roles.", "By disabling SSL/TLS encryption.", "By running code as root on public servers."] 
   answerIndex=1 
-  explanation="AWS Firecracker microVMs provide hardware-level isolation and rapid boot times, preventing multi-tenant data leakage and execution interference." 
+  explanation="Firecracker microVMs deliver hardware-level security boundaries between multi-tenant executions." 
 />
 
 <Quiz 
-  question="How does Bedrock AgentCore differ from console-based Bedrock Agents?" 
-  options=["Bedrock AgentCore is code-first and containerized, giving developers full control over agent logic and Python frameworks.", "AgentCore cannot execute Python code.", "Console-based Bedrock Agents require raw C++ code.", "AgentCore only supports static prompts without tools."] 
-  answerIndex=0 
-  explanation="AgentCore is code-first and framework-agnostic, allowing developers to write custom agent loops using frameworks like LangChain or CrewAI." 
+  question="Which environment variable loading pattern is recommended for 01 Introduction To Bedrock Agentcore?" 
+  options=["Hardcoding values in Python source code files.", "Using os.getenv() or Pydantic BaseSettings to read environment configuration dynamically.", "Storing secrets in public web pages.", "Editing binary files manually."] 
+  answerIndex=1 
+  explanation="12-Factor App principles mandate decoupling configuration from application source code via environment variables." 
 />
 
 <Quiz 
-  question="Which foundation model provider is natively supported within Bedrock AgentCore loops?" 
-  options=["Anthropic Claude models via Amazon Bedrock Converse API", "Local text files only", "Browser extension scripts", "No AI models are supported"] 
-  answerIndex=0 
-  explanation="Bedrock AgentCore leverages Amazon Bedrock APIs to connect with models such as Anthropic Claude 3.5 Sonnet." 
+  question="How should runtime errors be handled in 01 Introduction To Bedrock Agentcore handlers?" 
+  options=["Allowing exceptions to crash the container process.", "Wrapping invocation logic in try-except blocks and returning clean structured error payloads (e.g. 400/500 status codes).", "Ignoring all errors completely.", "Printing errors to static HTML files."] 
+  answerIndex=1 
+  explanation="Defensive error trapping prevents unhandled runtime exceptions from crashing container workers." 
 />
+
+<Quiz 
+  question="What key metric should be monitored in CloudWatch for 01 Introduction To Bedrock Agentcore?" 
+  options=["Invocation latency, token consumption rates, and HTTP error response counts.", "Monitor resolution of user monitors.", "Keyboard stroke frequency.", "Color contrast ratios."] 
+  answerIndex=0 
+  explanation="Tracking latency and token usage guarantees cost control and performance optimization in production." 
+/>
+
+<Quiz 
+  question="How does 01 Introduction To Bedrock Agentcore achieve sub-second scaling during high concurrency?" 
+  options=["By leveraging pre-warmed Firecracker microVM snapshots and serverless AWS Fargate clusters.", "By restarting physical servers manually.", "By deleting user databases.", "By restricting app usage to one request per minute."] 
+  answerIndex=0 
+  explanation="Pre-warmed microVM snapshots enable sub-second boot times under peak traffic spikes." 
+/>
+
+<Quiz 
+  question="Which IAM action is required to invoke foundation models in 01 Introduction To Bedrock Agentcore?" 
+  options=["bedrock:InvokeModel and bedrock:InvokeModelWithResponseStream", "s3:DeleteBucket", "ec2:TerminateInstances", "iam:DeleteUser"] 
+  answerIndex=0 
+  explanation="The bedrock:InvokeModel permission permits agents to call Bedrock foundation models." 
+/>
+
+<Quiz 
+  question="Which Python SDK client is used for Amazon Bedrock runtime interactions in 01 Introduction To Bedrock Agentcore?" 
+  options=["boto3.client('bedrock-runtime')", "urllib2.open()", "os.system('cmd')", "pandas.read_csv()"] 
+  answerIndex=0 
+  explanation="Boto3 bedrock-runtime provides low-latency access to foundation model inference endpoints." 
+/>
+
+<Quiz 
+  question="How is session state maintained across multiple request turns in 01 Introduction To Bedrock Agentcore?" 
+  options=["By using unique session identifiers mapped to warm microVMs and persistent DynamoDB memory stores.", "By clearing memory after every line.", "By saving state in browser cookies only.", "Session state cannot be maintained."] 
+  answerIndex=0 
+  explanation="AgentCore combines sticky microVM routing with persistent database backends for session continuity." 
+/>
+
+<Quiz 
+  question="Why is Docker multi-stage building recommended for 01 Introduction To Bedrock Agentcore container deployments?" 
+  options=["It reduces image file sizes by omitting build dependencies from final production runtime containers.", "It makes Docker containers slower.", "It forces Python to compile to JavaScript.", "It deletes Git version history."] 
+  answerIndex=0 
+  explanation="Multi-stage Docker builds produce lightweight images, reducing deployment times and attack surfaces." 
+/>
+
+<Quiz 
+  question="Which tracing standard does Bedrock AgentCore use for end-to-end observability of 01 Introduction To Bedrock Agentcore?" 
+  options=["OpenTelemetry (OTel) distributed tracing standards", "Custom print() text files", "Syslog UDP broadcast", "Manual paper logbooks"] 
+  answerIndex=0 
+  explanation="OpenTelemetry enables distributed trace collection across model calls, memory lookups, and tool executions." 
+/>
+
+<Quiz 
+  question="What is the recommended solution if 01 Introduction To Bedrock Agentcore returns a 403 Forbidden status during Bedrock invocations?" 
+  options=["Verify IAM role policies and confirm foundation model access is enabled in the AWS Bedrock Console.", "Reinstall the operating system.", "Delete the AWS account.", "Use an unencrypted connection."] 
+  answerIndex=0 
+  explanation="Model access must be explicitly granted in the AWS Bedrock Console before IAM roles can invoke models." 
+/>
+
+<Quiz 
+  question="What is a primary cause of HTTP 500 errors during 01 Introduction To Bedrock Agentcore execution?" 
+  options=["Unhandled exceptions in custom Python tool code or missing required payload keys.", "Network speeds exceeding 1 Gbps.", "Using Python 3.11 instead of Python 2.7.", "High GPU availability."] 
+  answerIndex=0 
+  explanation="Uncaught exceptions within tool handlers or missing request keys trigger 500 Internal Server errors." 
+/>
+
+<Quiz 
+  question="Where does 01 Introduction To Bedrock Agentcore fit into the ReAct (Reason + Act) loop pattern?" 
+  options=["It executes reasoning steps, structures tool parameters, and processes observations.", "It bypasses the model completely.", "It only runs when offline.", "It formats HTML styling tags."] 
+  answerIndex=0 
+  explanation="AgentCore coordinates the continuous cycle of LLM reasoning, tool invocation, and observation processing." 
+/>
+
+<Quiz 
+  question="How can API cost be optimized when operating 01 Introduction To Bedrock Agentcore at high volume?" 
+  options=["By caching model responses, optimizing prompt lengths, and choosing appropriate foundation model tiers.", "By sending empty prompts repeatedly.", "By turning off logging.", "By disabling database indexes."] 
+  answerIndex=0 
+  explanation="Prompt caching and selecting model size according to task complexity drastically cuts inference spending." 
+/>
+
+<Quiz 
+  question="How does the Memory Engine support long-term retrieval in 01 Introduction To Bedrock Agentcore?" 
+  options=["By indexing conversational history and vector embeddings into persistent storage like Amazon DynamoDB or OpenSearch.", "By storing files in temporary RAM.", "By requiring users to re-enter prompts every time.", "Memory Engine is not supported."] 
+  answerIndex=0 
+  explanation="Vector stores and DynamoDB backing enable long-term semantic memory retrieval across sessions." 
+/>
+
+<Quiz 
+  question="What role does the API Gateway play in front of 01 Introduction To Bedrock Agentcore?" 
+  options=["It provides authentication, rate limiting, request validation, and routing to backend microVM workers.", "It replaces the foundation model.", "It generates synthetic test data.", "It compiles Python code into C."] 
+  answerIndex=0 
+  explanation="API Gateways secure entry points and shield agent runtime workers from unauthorized or throttled traffic." 
+/>
+
+<Quiz 
+  question="Why are Firecracker microVMs superior to standard Docker containers for multi-tenant 01 Introduction To Bedrock Agentcore workloads?" 
+  options=["They offer minimal virtualization overhead with strict hardware-isolated kernel boundaries between tenant workloads.", "They require 100GB of RAM to start.", "They do not support Linux.", "They are slower than full virtual machines."] 
+  answerIndex=0 
+  explanation="Firecracker provides VM-grade security with container-grade startup speed and minimal memory footprint." 
+/>
+
+<Quiz 
+  question="What production antipattern should be strictly avoided when designing 01 Introduction To Bedrock Agentcore?" 
+  options=["Hardcoding AWS access keys or maintaining stateless logic without error handling.", "Using virtual environments.", "Writing unit tests for Python code.", "Logging trace events to CloudWatch."] 
+  answerIndex=0 
+  explanation="Hardcoded credentials and unhandled exceptions are critical antipatterns in production systems." 
+/>
+
+<Quiz 
+  question="How does 01 Introduction To Bedrock Agentcore integrate with enterprise databases and external APIs?" 
+  options=["Through standardized Python tool schemas (e.g. Pydantic models) invoked securely via sandboxed tool registries.", "By exposing database passwords publicly.", "By using manual copy-paste mechanisms.", "External integration is unsupported."] 
+  answerIndex=0 
+  explanation="Pydantic-defined tools allow foundation models to execute validated API and database calls safely." 
+/>
+
+
 
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
@@ -376,6 +474,247 @@ Below is the diagnostic reference table for identifying and resolving issues:
 This chapter establishes the core runtime foundation. The concepts developed here will serve as the host environment for our final Enterprise RAG Assistant and Multi-Agent Supervisor system.
 
 ---
+
+
+
+### Hands-on Code Playground #1
+
+### Hands-on Code Playground #2
+
+### Hands-on Code Playground #3
+
+### Hands-on Code Playground #4
+
+### Hands-on Code Playground #5
+
+### Hands-on Code Playground #6
+
+### Hands-on Code Playground #7
+
+### Hands-on Code Playground #8
+
+### Hands-on Code Playground #9
+
+### Hands-on Code Playground #10
+
+
+
+### Hands-on Code Playground #1
+
+<InteractiveExample 
+  language="python"
+  instruction="Initialization & Runtime Setup for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 1: Testing Bedrock AgentCore Runtime Setup for 01 Introduction To Bedrock Agentcore
+import sys
+import os
+
+print('=== AgentCore Runtime Init ===')
+print('Python Version:', sys.version.split()[0])
+print('Agent Module:', '01 Introduction To Bedrock Agentcore')
+print('Status: Active & Ready')"
+/>
+
+
+
+### Hands-on Code Playground #2
+
+<InteractiveExample 
+  language="python"
+  instruction="Configuration & Environment Variables for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 2: Validating Environment Configuration for 01 Introduction To Bedrock Agentcore
+import json
+import os
+
+config = {
+    'AWS_REGION': os.getenv('AWS_REGION', 'us-east-1'),
+    'MODEL_ID': os.getenv('BEDROCK_MODEL_ID', 'anthropic.claude-3-5-sonnet'),
+    'TIMEOUT_SEC': int(os.getenv('TIMEOUT_SEC', '30')),
+    'DEBUG_MODE': os.getenv('DEBUG', 'true').lower() == 'true'
+}
+print('Loaded Configuration:')
+print(json.dumps(config, indent=2))"
+/>
+
+
+
+### Hands-on Code Playground #3
+
+<InteractiveExample 
+  language="python"
+  instruction="Defensive Error Handling & Payload Parsing for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 3: Defensive Request Handler for 01 Introduction To Bedrock Agentcore
+def process_request(payload):
+    try:
+        prompt = payload.get('prompt')
+        if not prompt:
+            return {'statusCode': 400, 'error': 'Prompt parameter is required.'}
+        session_id = payload.get('session_id', 'default-session')
+        return {'statusCode': 200, 'message': f'Processed prompt for session: {session_id}'}
+    except Exception as e:
+        return {'statusCode': 500, 'error': str(e)}
+
+print(process_request({'prompt': 'Execute query', 'session_id': 'sess-102'}))"
+/>
+
+
+
+### Hands-on Code Playground #4
+
+<InteractiveExample 
+  language="python"
+  instruction="Boto3 Bedrock Model Invocation Simulation for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 4: Simulating Foundation Model Inference in 01 Introduction To Bedrock Agentcore
+import json
+
+def invoke_claude_model(prompt_text):
+    payload = {
+        'anthropic_version': 'bedrock-2023-05-31',
+        'max_tokens': 1000,
+        'messages': [{'role': 'user', 'content': prompt_text}]
+    }
+    print('Sending payload to Bedrock Converse API for 01 Introduction To Bedrock Agentcore...')
+    response = {
+        'id': 'msg_01X99',
+        'role': 'assistant',
+        'content': [{'type': 'text', 'text': f'Agent response generated for input: \"{prompt_text}\"'}]
+    }
+    return response
+
+res = invoke_claude_model('Summarize system health')
+print('Model Response:', res['content'][0]['text'])"
+/>
+
+
+
+### Hands-on Code Playground #5
+
+<InteractiveExample 
+  language="python"
+  instruction="ReAct Reasoning Loop Execution for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 5: ReAct (Reason + Act) Loop Simulation for 01 Introduction To Bedrock Agentcore
+def run_react_cycle(user_input):
+    print('1. [THOUGHT] Analyzing user query:', user_input)
+    print('2. [ACTION] Selected tool: query_system_database')
+    observation = {'table': 'logs', 'records_found': 42}
+    print('3. [OBSERVATION] Tool output received:', observation)
+    print('4. [FINAL ANSWER] Processing complete based on retrieved observation.')
+
+run_react_cycle('Check database log entries')"
+/>
+
+
+
+### Hands-on Code Playground #6
+
+<InteractiveExample 
+  language="python"
+  instruction="Pydantic Tool Registration & Schema Validation for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 6: Pydantic Tool Parameter Validation for 01 Introduction To Bedrock Agentcore
+from pydantic import BaseModel, Field
+
+class SystemQuerySchema(BaseModel):
+    target_system: str = Field(description='Name of the subsystem to query')
+    limit: int = Field(default=10, ge=1, le=100)
+
+def execute_tool(data: SystemQuerySchema):
+    print(f'Executing query on {data.target_system} with limit={data.limit}...')
+    return {'status': 'success', 'data': ['Item A', 'Item B']}
+
+query = SystemQuerySchema(target_system='AgentCore-Runtime', limit=5)
+print('Tool Result:', execute_tool(query))"
+/>
+
+
+
+### Hands-on Code Playground #7
+
+<InteractiveExample 
+  language="python"
+  instruction="MicroVM Session State & Memory Engine for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 7: MicroVM Session & Memory Management in 01 Introduction To Bedrock Agentcore
+class SessionMemory:
+    def __init__(self):
+        self.history = []
+    def add_message(self, role, content):
+        self.history.append({'role': role, 'content': content})
+    def get_context(self):
+        return self.history[-3:]
+
+mem = SessionMemory()
+mem.add_message('user', 'Hello Agent!')
+mem.add_message('assistant', 'How can I assist you?')
+mem.add_message('user', 'Show memory status.')
+print('Active Memory Context:', mem.get_context())"
+/>
+
+
+
+### Hands-on Code Playground #8
+
+<InteractiveExample 
+  language="python"
+  instruction="OpenTelemetry Tracing & Telemetry Logging for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 8: OpenTelemetry Trace Event Simulation for 01 Introduction To Bedrock Agentcore
+import time
+
+def log_otel_span(span_name, duration_ms, status_code='OK'):
+    telemetry_record = {
+        'trace_id': '0x4bf92f3577b34da6a3ce929d0e0e4736',
+        'span_id': '0x00f067aa0ba902b7',
+        'name': span_name,
+        'duration_ms': duration_ms,
+        'attributes': {
+            'http.status_code': 200,
+            'agent.module': '01 Introduction To Bedrock Agentcore'
+        }
+    }
+    print(f'[OTel Span Event] {span_name} executed in {duration_ms}ms ({status_code})')
+    return telemetry_record
+
+log_otel_span('01 Introduction To Bedrock Agentcore_Invocation', 142)"
+/>
+
+
+
+### Hands-on Code Playground #9
+
+<InteractiveExample 
+  language="python"
+  instruction="Docker Container Health Check Simulation for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 9: Container MicroVM Health Status for 01 Introduction To Bedrock Agentcore
+def check_container_health():
+    status = {
+        'container_id': 'firecracker-uvm-9901',
+        'health': 'HEALTHY',
+        'memory_allocated_mb': 512,
+        'cpu_usage_pct': 4.2,
+        'active_connections': 1
+    }
+    print('MicroVM Runtime Status:')
+    for k, v in status.items():
+        print(f'  - {k}: {v}')
+
+check_container_health()"
+/>
+
+
+
+### Hands-on Code Playground #10
+
+<InteractiveExample 
+  language="python"
+  instruction="End-to-End Execution Pipeline Test for 01 Introduction To Bedrock Agentcore."
+  initialCode="# Snippet 10: Complete End-to-End Pipeline Execution for 01 Introduction To Bedrock Agentcore
+def run_full_pipeline(input_prompt):
+    print(f'1. Gateway: Received request \"{input_prompt}\"')
+    print('2. Identity: Authenticated IAM session role')
+    print('3. Runtime: Allocated Firecracker MicroVM container')
+    print('4. Execution: Model invoked ReAct reasoning loop')
+    print('5. Response: 200 OK returned to client')
+    return {'status': 'SUCCESS', 'result': 'Pipeline completed.'}
+
+print(run_full_pipeline('Run complete diagnostic check'))"
+/>
 
 ## 18. Summary
 This chapter provided a foundational introduction to Amazon Bedrock AgentCore, detailing its role as a code-first, framework-agnostic runtime for building, executing, and scaling autonomous AI agents on AWS. We compared traditional console-driven LLM configurations with modern containerized agent development, demonstrating how AgentCore bridges the gap between raw AI model prompts and production enterprise software systems through its 7 core architectural pillars.

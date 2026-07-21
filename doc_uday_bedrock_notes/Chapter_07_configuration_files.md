@@ -115,24 +115,6 @@ agent:
 
 ### Interactive Python Playground
 
-<InteractiveExample 
-  language="python"
-  instruction="Simulate reading and validating application configuration from environment variables."
-  initialCode="import os
-import json
-
-config = {
-    \"AWS_REGION\": os.environ.get(\"AWS_REGION\", \"us-east-1\"),
-    \"MODEL_ID\": os.environ.get(\"BEDROCK_MODEL_ID\", \"anthropic.claude-3-5-sonnet-20241022-v2:0\"),
-    \"MAX_TOKENS\": int(os.environ.get(\"MAX_TOKENS\", \"4096\")),
-    \"TEMPERATURE\": float(os.environ.get(\"TEMPERATURE\", \"0.7\"))
-}
-
-print(\"Loaded AgentCore Configuration:\")
-print(json.dumps(config, indent=2))"
-/>
-
-
 In this section, we analyze the hands-on code implementations for **Configuration Files** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -303,14 +285,150 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ## 15. Interview Questions
 
-### Knowledge Verification Check
+
+### Knowledge Verification Check (20 Interactive Quizzes)
 
 <Quiz 
-  question="Why should configuration settings like AWS region and model IDs be loaded from environment variables?" 
-  options=["To decouple configuration from application source code across dev, staging, and production environments.", "Because hardcoded strings slow down Python execution.", "To prevent Git from tracking Python files.", "Environment variables are required by HTML."] 
+  question="What is the primary role of 07 Configuration Files in Bedrock AgentCore?" 
+  options=["To provide hardware-isolated, scalable, and code-first execution for 07 Configuration Files.", "To store plain text credentials in Git repos.", "To run legacy Windows desktop apps.", "To disable security permissions."] 
   answerIndex=0 
-  explanation="Storing configuration in environment variables follows 12-Factor App principles, allowing identical builds to run across different deployment environments." 
+  explanation="07 Configuration Files provides enterprise-grade, code-first runtime logic for Bedrock AgentCore." 
 />
+
+<Quiz 
+  question="How does Bedrock AgentCore enforce security for 07 Configuration Files?" 
+  options=["By sharing memory across all tenants.", "By hosting session runtimes inside isolated AWS Firecracker microVM containers with scoped IAM roles.", "By disabling SSL/TLS encryption.", "By running code as root on public servers."] 
+  answerIndex=1 
+  explanation="Firecracker microVMs deliver hardware-level security boundaries between multi-tenant executions." 
+/>
+
+<Quiz 
+  question="Which environment variable loading pattern is recommended for 07 Configuration Files?" 
+  options=["Hardcoding values in Python source code files.", "Using os.getenv() or Pydantic BaseSettings to read environment configuration dynamically.", "Storing secrets in public web pages.", "Editing binary files manually."] 
+  answerIndex=1 
+  explanation="12-Factor App principles mandate decoupling configuration from application source code via environment variables." 
+/>
+
+<Quiz 
+  question="How should runtime errors be handled in 07 Configuration Files handlers?" 
+  options=["Allowing exceptions to crash the container process.", "Wrapping invocation logic in try-except blocks and returning clean structured error payloads (e.g. 400/500 status codes).", "Ignoring all errors completely.", "Printing errors to static HTML files."] 
+  answerIndex=1 
+  explanation="Defensive error trapping prevents unhandled runtime exceptions from crashing container workers." 
+/>
+
+<Quiz 
+  question="What key metric should be monitored in CloudWatch for 07 Configuration Files?" 
+  options=["Invocation latency, token consumption rates, and HTTP error response counts.", "Monitor resolution of user monitors.", "Keyboard stroke frequency.", "Color contrast ratios."] 
+  answerIndex=0 
+  explanation="Tracking latency and token usage guarantees cost control and performance optimization in production." 
+/>
+
+<Quiz 
+  question="How does 07 Configuration Files achieve sub-second scaling during high concurrency?" 
+  options=["By leveraging pre-warmed Firecracker microVM snapshots and serverless AWS Fargate clusters.", "By restarting physical servers manually.", "By deleting user databases.", "By restricting app usage to one request per minute."] 
+  answerIndex=0 
+  explanation="Pre-warmed microVM snapshots enable sub-second boot times under peak traffic spikes." 
+/>
+
+<Quiz 
+  question="Which IAM action is required to invoke foundation models in 07 Configuration Files?" 
+  options=["bedrock:InvokeModel and bedrock:InvokeModelWithResponseStream", "s3:DeleteBucket", "ec2:TerminateInstances", "iam:DeleteUser"] 
+  answerIndex=0 
+  explanation="The bedrock:InvokeModel permission permits agents to call Bedrock foundation models." 
+/>
+
+<Quiz 
+  question="Which Python SDK client is used for Amazon Bedrock runtime interactions in 07 Configuration Files?" 
+  options=["boto3.client('bedrock-runtime')", "urllib2.open()", "os.system('cmd')", "pandas.read_csv()"] 
+  answerIndex=0 
+  explanation="Boto3 bedrock-runtime provides low-latency access to foundation model inference endpoints." 
+/>
+
+<Quiz 
+  question="How is session state maintained across multiple request turns in 07 Configuration Files?" 
+  options=["By using unique session identifiers mapped to warm microVMs and persistent DynamoDB memory stores.", "By clearing memory after every line.", "By saving state in browser cookies only.", "Session state cannot be maintained."] 
+  answerIndex=0 
+  explanation="AgentCore combines sticky microVM routing with persistent database backends for session continuity." 
+/>
+
+<Quiz 
+  question="Why is Docker multi-stage building recommended for 07 Configuration Files container deployments?" 
+  options=["It reduces image file sizes by omitting build dependencies from final production runtime containers.", "It makes Docker containers slower.", "It forces Python to compile to JavaScript.", "It deletes Git version history."] 
+  answerIndex=0 
+  explanation="Multi-stage Docker builds produce lightweight images, reducing deployment times and attack surfaces." 
+/>
+
+<Quiz 
+  question="Which tracing standard does Bedrock AgentCore use for end-to-end observability of 07 Configuration Files?" 
+  options=["OpenTelemetry (OTel) distributed tracing standards", "Custom print() text files", "Syslog UDP broadcast", "Manual paper logbooks"] 
+  answerIndex=0 
+  explanation="OpenTelemetry enables distributed trace collection across model calls, memory lookups, and tool executions." 
+/>
+
+<Quiz 
+  question="What is the recommended solution if 07 Configuration Files returns a 403 Forbidden status during Bedrock invocations?" 
+  options=["Verify IAM role policies and confirm foundation model access is enabled in the AWS Bedrock Console.", "Reinstall the operating system.", "Delete the AWS account.", "Use an unencrypted connection."] 
+  answerIndex=0 
+  explanation="Model access must be explicitly granted in the AWS Bedrock Console before IAM roles can invoke models." 
+/>
+
+<Quiz 
+  question="What is a primary cause of HTTP 500 errors during 07 Configuration Files execution?" 
+  options=["Unhandled exceptions in custom Python tool code or missing required payload keys.", "Network speeds exceeding 1 Gbps.", "Using Python 3.11 instead of Python 2.7.", "High GPU availability."] 
+  answerIndex=0 
+  explanation="Uncaught exceptions within tool handlers or missing request keys trigger 500 Internal Server errors." 
+/>
+
+<Quiz 
+  question="Where does 07 Configuration Files fit into the ReAct (Reason + Act) loop pattern?" 
+  options=["It executes reasoning steps, structures tool parameters, and processes observations.", "It bypasses the model completely.", "It only runs when offline.", "It formats HTML styling tags."] 
+  answerIndex=0 
+  explanation="AgentCore coordinates the continuous cycle of LLM reasoning, tool invocation, and observation processing." 
+/>
+
+<Quiz 
+  question="How can API cost be optimized when operating 07 Configuration Files at high volume?" 
+  options=["By caching model responses, optimizing prompt lengths, and choosing appropriate foundation model tiers.", "By sending empty prompts repeatedly.", "By turning off logging.", "By disabling database indexes."] 
+  answerIndex=0 
+  explanation="Prompt caching and selecting model size according to task complexity drastically cuts inference spending." 
+/>
+
+<Quiz 
+  question="How does the Memory Engine support long-term retrieval in 07 Configuration Files?" 
+  options=["By indexing conversational history and vector embeddings into persistent storage like Amazon DynamoDB or OpenSearch.", "By storing files in temporary RAM.", "By requiring users to re-enter prompts every time.", "Memory Engine is not supported."] 
+  answerIndex=0 
+  explanation="Vector stores and DynamoDB backing enable long-term semantic memory retrieval across sessions." 
+/>
+
+<Quiz 
+  question="What role does the API Gateway play in front of 07 Configuration Files?" 
+  options=["It provides authentication, rate limiting, request validation, and routing to backend microVM workers.", "It replaces the foundation model.", "It generates synthetic test data.", "It compiles Python code into C."] 
+  answerIndex=0 
+  explanation="API Gateways secure entry points and shield agent runtime workers from unauthorized or throttled traffic." 
+/>
+
+<Quiz 
+  question="Why are Firecracker microVMs superior to standard Docker containers for multi-tenant 07 Configuration Files workloads?" 
+  options=["They offer minimal virtualization overhead with strict hardware-isolated kernel boundaries between tenant workloads.", "They require 100GB of RAM to start.", "They do not support Linux.", "They are slower than full virtual machines."] 
+  answerIndex=0 
+  explanation="Firecracker provides VM-grade security with container-grade startup speed and minimal memory footprint." 
+/>
+
+<Quiz 
+  question="What production antipattern should be strictly avoided when designing 07 Configuration Files?" 
+  options=["Hardcoding AWS access keys or maintaining stateless logic without error handling.", "Using virtual environments.", "Writing unit tests for Python code.", "Logging trace events to CloudWatch."] 
+  answerIndex=0 
+  explanation="Hardcoded credentials and unhandled exceptions are critical antipatterns in production systems." 
+/>
+
+<Quiz 
+  question="How does 07 Configuration Files integrate with enterprise databases and external APIs?" 
+  options=["Through standardized Python tool schemas (e.g. Pydantic models) invoked securely via sandboxed tool registries.", "By exposing database passwords publicly.", "By using manual copy-paste mechanisms.", "External integration is unsupported."] 
+  answerIndex=0 
+  explanation="Pydantic-defined tools allow foundation models to execute validated API and database calls safely." 
+/>
+
+
 
 ### Q: What is the Twelve-Factor App recommendation for configuration?
 * **Answer:** The Twelve-Factor App methodology recommends storing configuration in the environment, separating settings from the codebase. This allows the application to move between environments without modification.
@@ -339,6 +457,247 @@ Below is the diagnostic reference table for identifying and resolving issues:
 These configuration files define the environment settings and entry points that authorize and run the application in Chapter 8.
 
 ---
+
+
+
+### Hands-on Code Playground #1
+
+### Hands-on Code Playground #2
+
+### Hands-on Code Playground #3
+
+### Hands-on Code Playground #4
+
+### Hands-on Code Playground #5
+
+### Hands-on Code Playground #6
+
+### Hands-on Code Playground #7
+
+### Hands-on Code Playground #8
+
+### Hands-on Code Playground #9
+
+### Hands-on Code Playground #10
+
+
+
+### Hands-on Code Playground #1
+
+<InteractiveExample 
+  language="python"
+  instruction="Initialization & Runtime Setup for 07 Configuration Files."
+  initialCode="# Snippet 1: Testing Bedrock AgentCore Runtime Setup for 07 Configuration Files
+import sys
+import os
+
+print('=== AgentCore Runtime Init ===')
+print('Python Version:', sys.version.split()[0])
+print('Agent Module:', '07 Configuration Files')
+print('Status: Active & Ready')"
+/>
+
+
+
+### Hands-on Code Playground #2
+
+<InteractiveExample 
+  language="python"
+  instruction="Configuration & Environment Variables for 07 Configuration Files."
+  initialCode="# Snippet 2: Validating Environment Configuration for 07 Configuration Files
+import json
+import os
+
+config = {
+    'AWS_REGION': os.getenv('AWS_REGION', 'us-east-1'),
+    'MODEL_ID': os.getenv('BEDROCK_MODEL_ID', 'anthropic.claude-3-5-sonnet'),
+    'TIMEOUT_SEC': int(os.getenv('TIMEOUT_SEC', '30')),
+    'DEBUG_MODE': os.getenv('DEBUG', 'true').lower() == 'true'
+}
+print('Loaded Configuration:')
+print(json.dumps(config, indent=2))"
+/>
+
+
+
+### Hands-on Code Playground #3
+
+<InteractiveExample 
+  language="python"
+  instruction="Defensive Error Handling & Payload Parsing for 07 Configuration Files."
+  initialCode="# Snippet 3: Defensive Request Handler for 07 Configuration Files
+def process_request(payload):
+    try:
+        prompt = payload.get('prompt')
+        if not prompt:
+            return {'statusCode': 400, 'error': 'Prompt parameter is required.'}
+        session_id = payload.get('session_id', 'default-session')
+        return {'statusCode': 200, 'message': f'Processed prompt for session: {session_id}'}
+    except Exception as e:
+        return {'statusCode': 500, 'error': str(e)}
+
+print(process_request({'prompt': 'Execute query', 'session_id': 'sess-102'}))"
+/>
+
+
+
+### Hands-on Code Playground #4
+
+<InteractiveExample 
+  language="python"
+  instruction="Boto3 Bedrock Model Invocation Simulation for 07 Configuration Files."
+  initialCode="# Snippet 4: Simulating Foundation Model Inference in 07 Configuration Files
+import json
+
+def invoke_claude_model(prompt_text):
+    payload = {
+        'anthropic_version': 'bedrock-2023-05-31',
+        'max_tokens': 1000,
+        'messages': [{'role': 'user', 'content': prompt_text}]
+    }
+    print('Sending payload to Bedrock Converse API for 07 Configuration Files...')
+    response = {
+        'id': 'msg_01X99',
+        'role': 'assistant',
+        'content': [{'type': 'text', 'text': f'Agent response generated for input: \"{prompt_text}\"'}]
+    }
+    return response
+
+res = invoke_claude_model('Summarize system health')
+print('Model Response:', res['content'][0]['text'])"
+/>
+
+
+
+### Hands-on Code Playground #5
+
+<InteractiveExample 
+  language="python"
+  instruction="ReAct Reasoning Loop Execution for 07 Configuration Files."
+  initialCode="# Snippet 5: ReAct (Reason + Act) Loop Simulation for 07 Configuration Files
+def run_react_cycle(user_input):
+    print('1. [THOUGHT] Analyzing user query:', user_input)
+    print('2. [ACTION] Selected tool: query_system_database')
+    observation = {'table': 'logs', 'records_found': 42}
+    print('3. [OBSERVATION] Tool output received:', observation)
+    print('4. [FINAL ANSWER] Processing complete based on retrieved observation.')
+
+run_react_cycle('Check database log entries')"
+/>
+
+
+
+### Hands-on Code Playground #6
+
+<InteractiveExample 
+  language="python"
+  instruction="Pydantic Tool Registration & Schema Validation for 07 Configuration Files."
+  initialCode="# Snippet 6: Pydantic Tool Parameter Validation for 07 Configuration Files
+from pydantic import BaseModel, Field
+
+class SystemQuerySchema(BaseModel):
+    target_system: str = Field(description='Name of the subsystem to query')
+    limit: int = Field(default=10, ge=1, le=100)
+
+def execute_tool(data: SystemQuerySchema):
+    print(f'Executing query on {data.target_system} with limit={data.limit}...')
+    return {'status': 'success', 'data': ['Item A', 'Item B']}
+
+query = SystemQuerySchema(target_system='AgentCore-Runtime', limit=5)
+print('Tool Result:', execute_tool(query))"
+/>
+
+
+
+### Hands-on Code Playground #7
+
+<InteractiveExample 
+  language="python"
+  instruction="MicroVM Session State & Memory Engine for 07 Configuration Files."
+  initialCode="# Snippet 7: MicroVM Session & Memory Management in 07 Configuration Files
+class SessionMemory:
+    def __init__(self):
+        self.history = []
+    def add_message(self, role, content):
+        self.history.append({'role': role, 'content': content})
+    def get_context(self):
+        return self.history[-3:]
+
+mem = SessionMemory()
+mem.add_message('user', 'Hello Agent!')
+mem.add_message('assistant', 'How can I assist you?')
+mem.add_message('user', 'Show memory status.')
+print('Active Memory Context:', mem.get_context())"
+/>
+
+
+
+### Hands-on Code Playground #8
+
+<InteractiveExample 
+  language="python"
+  instruction="OpenTelemetry Tracing & Telemetry Logging for 07 Configuration Files."
+  initialCode="# Snippet 8: OpenTelemetry Trace Event Simulation for 07 Configuration Files
+import time
+
+def log_otel_span(span_name, duration_ms, status_code='OK'):
+    telemetry_record = {
+        'trace_id': '0x4bf92f3577b34da6a3ce929d0e0e4736',
+        'span_id': '0x00f067aa0ba902b7',
+        'name': span_name,
+        'duration_ms': duration_ms,
+        'attributes': {
+            'http.status_code': 200,
+            'agent.module': '07 Configuration Files'
+        }
+    }
+    print(f'[OTel Span Event] {span_name} executed in {duration_ms}ms ({status_code})')
+    return telemetry_record
+
+log_otel_span('07 Configuration Files_Invocation', 142)"
+/>
+
+
+
+### Hands-on Code Playground #9
+
+<InteractiveExample 
+  language="python"
+  instruction="Docker Container Health Check Simulation for 07 Configuration Files."
+  initialCode="# Snippet 9: Container MicroVM Health Status for 07 Configuration Files
+def check_container_health():
+    status = {
+        'container_id': 'firecracker-uvm-9901',
+        'health': 'HEALTHY',
+        'memory_allocated_mb': 512,
+        'cpu_usage_pct': 4.2,
+        'active_connections': 1
+    }
+    print('MicroVM Runtime Status:')
+    for k, v in status.items():
+        print(f'  - {k}: {v}')
+
+check_container_health()"
+/>
+
+
+
+### Hands-on Code Playground #10
+
+<InteractiveExample 
+  language="python"
+  instruction="End-to-End Execution Pipeline Test for 07 Configuration Files."
+  initialCode="# Snippet 10: Complete End-to-End Pipeline Execution for 07 Configuration Files
+def run_full_pipeline(input_prompt):
+    print(f'1. Gateway: Received request \"{input_prompt}\"')
+    print('2. Identity: Authenticated IAM session role')
+    print('3. Runtime: Allocated Firecracker MicroVM container')
+    print('4. Execution: Model invoked ReAct reasoning loop')
+    print('5. Response: 200 OK returned to client')
+    return {'status': 'SUCCESS', 'result': 'Pipeline completed.'}
+
+print(run_full_pipeline('Run complete diagnostic check'))"
+/>
 
 ## 18. Summary
 This chapter detailed how to manage application settings across environments using `bedrock_agent_core.yaml` for deployment parameters and `.env` files for local environment variables and sensitive credentials.

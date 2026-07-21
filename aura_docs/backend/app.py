@@ -130,8 +130,9 @@ def build_nav_from_fs(directory: str, current_dir: str) -> List[Dict[str, Any]]:
         full_path = os.path.join(current_dir, name)
         rel_path = os.path.relpath(full_path, directory)
         
-        # Clean prefix (e.g. "01_welcome" -> "welcome", "02_Architecture" -> "Architecture")
-        clean_name = re.sub(r'^\d+[\s_]+', '', name)
+        # Clean prefix (e.g. "doc_bedrock_notes" -> "bedrock_notes", "01_welcome" -> "welcome")
+        clean_name = re.sub(r'^(doc_replica_|doc_uday_|doc_)+', '', name, flags=re.IGNORECASE)
+        clean_name = re.sub(r'^\d+[\s_]+', '', clean_name)
         
         if os.path.isdir(full_path):
             sub_items = build_nav_from_fs(directory, full_path)
@@ -159,7 +160,8 @@ def build_nav_from_fs(directory: str, current_dir: str) -> List[Dict[str, Any]]:
             title = title_base.replace("_", " ").title()
             if title.lower() in ("index", "readme"):
                 dir_name = os.path.basename(current_dir)
-                dir_clean = re.sub(r'^\d+[\s_]+', '', dir_name)
+                dir_clean = re.sub(r'^(doc_replica_|doc_uday_|doc_)+', '', dir_name, flags=re.IGNORECASE)
+                dir_clean = re.sub(r'^\d+[\s_]+', '', dir_clean)
                 title = dir_clean.replace("_", " ").title()
             items.append({
                 "title": title,

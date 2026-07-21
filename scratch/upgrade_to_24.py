@@ -4,7 +4,7 @@ import shutil
 
 # Output path to write the upgraded files
 TARGET_DIR = r"c:\Users\nishu\workspace\wscs_bedrock\doc_uday_bedrock_notes"
-BACKUP_DIR = os.path.join(TARGET_DIR, "backup")
+BACKUP_DIR = os.path.join(TARGET_DIR, "Summarised_Notes_2nd_Bedrock_Notes")
 
 # The 24 standard headings in order
 HEADINGS = [

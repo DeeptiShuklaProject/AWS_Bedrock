@@ -146,7 +146,10 @@ def build_nav_from_fs(directory: str, current_dir: str) -> List[Dict[str, Any]]:
                     has_index = True
                     break
             
-            clean_title = clean_name.replace("_", " ").title()
+            if clean_name.lower() in ("summarised_notes_2nd_bedrock_notes", "backup"):
+                clean_title = "Summarised Notes (2nd Bedrock Notes)"
+            else:
+                clean_title = clean_name.replace("_", " ").title()
             
             if sub_items:
                 node = {

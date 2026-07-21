@@ -994,9 +994,9 @@ body {
 .mermaid-diagram-container svg {
   display: block;
   margin: 0 auto;
-  max-width: 100% !important;
+  min-width: 850px !important;
+  max-width: 100%;
   height: auto !important;
-  min-width: 500px;
 }
 
 /* Force node rects and text to have crisp high contrast */

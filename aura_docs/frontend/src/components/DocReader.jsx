@@ -710,7 +710,8 @@ const MermaidDiagram = ({ code }) => {
         display: 'flex',
         justifyContent: 'center',
         overflowX: 'auto',
-        boxShadow: 'var(--shadow-sm)'
+        boxShadow: 'var(--shadow-sm)',
+        width: '100%'
       }}
       dangerouslySetInnerHTML={{ __html: svg }} 
     />

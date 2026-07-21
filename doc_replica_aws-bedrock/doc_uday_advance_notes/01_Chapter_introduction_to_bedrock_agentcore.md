@@ -64,26 +64,29 @@ AI application architecture is shifting from simple, stateless prompt-response m
 The following architectural details outline the components and relationship schemas active in this module:
 
 ```mermaid
-graph TD
+graph LR
     Client[React / CLI Client] -->|Inbound Prompt| Runtime[1. Agent Runtime VM<br/>Firecracker microVM]
 
-    subgraph Tier1["Core Execution Services"]
-        direction LR
+    subgraph Execution["Core Execution Tier"]
         Memory[2. Memory Engine<br/>DynamoDB / Cache]
         Gateway[3. Tool Gateway<br/>Model Context Protocol]
         Identity[4. Identity Engine<br/>Cognito / Actor ID]
     end
 
-    subgraph Tier2["Governance & Security"]
-        direction LR
-        Observability[5. Observability<br/>OpenTelemetry / CloudWatch]
+    subgraph Security["Governance & Security Tier"]
+        Observability[5. Observability<br/>CloudWatch / Otel]
         Policy[6. Policy Engine<br/>Cedar Access Rules]
         Evaluations[7. Evaluation Suite<br/>Response Correctness]
     end
 
-    Runtime -->|Load / Invoke / Auth| Tier1
-    Tier1 -->|Telemetry & Policy| Tier2
-    Tier2 -->|Model Call| FMs[Amazon Bedrock FMs<br/>Claude / Llama]
+    Runtime -->|Context| Memory
+    Runtime -->|Tools| Gateway
+    Runtime -->|Auth| Identity
+    Runtime -->|Metrics| Observability
+    Runtime -->|Rules| Policy
+    Runtime -->|Verify| Evaluations
+
+    Runtime -->|Conversational Call| FMs[Amazon Bedrock FMs<br/>Claude / Llama]
 ```
 
 ---

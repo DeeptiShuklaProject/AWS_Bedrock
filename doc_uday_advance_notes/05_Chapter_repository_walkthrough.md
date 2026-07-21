@@ -3,7 +3,20 @@
 ## 1. Introduction
 Understanding the layout and execution entry points of the Bedrock AgentCore repository is key to building custom agents.
 
-> **Easy-to-Understand Explanation:** Once you download the project, you need to know how it is organized. This chapter takes you on a guided tour of the files and folders, explaining where the main entry script (`src/main.py`) lives and how Python decorators link incoming web requests directly to your agent's code.
+### What is it?
+The Repository Walkthrough is a structured inspection of the project folder layout, configuration files, source code modules, and entrypoint functions that comprise a Bedrock AgentCore application.
+
+### Why is it important?
+Navigating a codebase without understanding its structural layout leads to improperly placed files, broken imports, and execution errors. Understanding where each file lives and what role it plays allows developers to locate components quickly and extend agent capabilities cleanly.
+
+### How does it work?
+The repository organizes code into specific functional directories: 'src/' hosts Python application logic, 'bedrock_agent_core.yaml' defines metadata configurations, '.env' stores local environment variables, and 'pyproject.toml' manages package dependencies. Python decorators (like '@app.invoke') register handler functions to process incoming web requests.
+
+### Key Responsibilities
+- Separate application entry points from utility modules and configuration settings.
+- Map incoming web and container API routes to specific Python handler functions.
+- Define container boot parameters, memory allocations, and execution roles in YAML sheets.
+- Provide a standardized, readable repository architecture for engineering teams.
 
 ---
 

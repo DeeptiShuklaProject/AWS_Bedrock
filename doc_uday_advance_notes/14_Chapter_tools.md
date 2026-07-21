@@ -3,7 +3,20 @@
 ## 1. Introduction
 Custom tools extend agent capabilities by allowing them to execute code and query external web services.
 
-> **Easy-to-Understand Explanation:** Custom tools allow your AI agent to perform real-world actions, like looking up an order status or fetching current weather data. This chapter demonstrates how to write custom Python functions, decorate them, and let the agent call them automatically during conversations.
+### What is it?
+Custom Tools Integration is the methodology of writing custom Python functions, decorating them with schema generators ('@tool'), and registering them so an AI agent can execute real-world calculations or data actions.
+
+### Why is it important?
+Out-of-the-box LLMs can only process and generate text—they cannot perform complex calculations, query live inventory systems, or call proprietary internal APIs. Writing custom tools extends an agent's reasoning into real-world software actions tailored to your specific application requirements.
+
+### How does it work?
+Developers create Python functions with explicit type annotations and docstring documentation, decorating them with '@tool'. The framework inspects function signatures to auto-generate standard JSON schema definitions. When the AI model selects a tool during execution, the Tool Registry intercepts the call, executes the Python function inside a sandbox, and returns output strings to the agent.
+
+### Key Responsibilities
+- Define custom Python functions to execute specialized calculations, API lookups, or database edits.
+- Inspect Python docstrings and type annotations to generate standardized JSON tool schemas automatically.
+- Validate model-supplied function arguments against type bounds prior to function execution.
+- Capture and handle tool execution errors gracefully, returning readable status feedback to the AI model.
 
 ---
 

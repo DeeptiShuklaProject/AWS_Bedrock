@@ -3,7 +3,20 @@
 ## 1. Introduction
 Separating configuration settings from application source code is key to building reusable, secure enterprise applications.
 
-> **Easy-to-Understand Explanation:** Good software practice keeps application settings separate from actual code. This chapter explains how to use `.env` files for local credentials and `bedrock_agent_core.yaml` for deployment settings, keeping passwords safe and making it easy to switch between test and production environments.
+### What is it?
+Configuration Files are structured text documents ('.env', 'bedrock_agent_core.yaml', 'pyproject.toml') used to store operational parameters, environment settings, entrypoint references, and access keys separately from application source code.
+
+### Why is it important?
+Hardcoding parameters like database names, API endpoints, or secret keys directly inside Python code creates severe security vulnerabilities and prevents the same application from running in different environments (such as testing or production). Storing settings in configuration files decouples environment parameters from codebase logic.
+
+### How does it work?
+At startup, the application reads parameters from local '.env' environment files using helper tools like 'python-dotenv' and parses project settings from 'bedrock_agent_core.yaml'. These configuration values are injected into runtime memory, configuring database targets, logging levels, and IAM roles without modifying source code.
+
+### Key Responsibilities
+- Store secret access credentials locally in '.env' files while keeping them out of Git repositories.
+- Declare deployment metadata, entrypoint paths, and execution role ARNs in YAML files.
+- Centralize build settings, project metadata, and package dependencies in 'pyproject.toml'.
+- Enable seamless transitions between local development, testing, and cloud production environments.
 
 ---
 

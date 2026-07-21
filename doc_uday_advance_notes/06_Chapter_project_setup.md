@@ -3,7 +3,20 @@
 ## 1. Introduction
 Standardizing local development configurations requires isolated virtual environments and locked dependency packages.
 
-> **Easy-to-Understand Explanation:** To prevent your project's libraries from clashing with other Python programs on your computer, you isolate them in a virtual environment (`.venv`). This chapter shows how to use the fast `uv` tool to manage dependencies and lock exact library versions (`uv.lock`) so your code works identically everywhere.
+### What is it?
+Project Setup and Dependency Management is the practice of isolating your application's Python environment and controlling the exact versions of external software packages (libraries) required by your application.
+
+### Why is it important?
+Python packages updated over time can introduce breaking changes or conflicts with other project dependencies installed on your system. Using isolated virtual environments ('.venv') and lockfiles ('uv.lock') guarantees that every team member and cloud server runs identical software library versions, eliminating environment mismatches.
+
+### How does it work?
+The 'uv' package manager creates a dedicated virtual environment folder containing an isolated Python interpreter. It parses package dependency rules declared in 'pyproject.toml', solves version compatibility trees, locks the resulting package versions in 'uv.lock', and installs them into the project workspace.
+
+### Key Responsibilities
+- Create isolated local virtual Python environments ('.venv') to prevent library conflicts.
+- Resolve dependency compatibility across all required third-party software packages.
+- Generate deterministic lockfiles ('uv.lock') to guarantee identical builds across environments.
+- Provide fast, cached installation and synchronization of application libraries.
 
 ---
 

@@ -3,7 +3,20 @@
 ## 1. Introduction
 Deploying Amazon Bedrock AgentCore applications requires configuring access permissions and model endpoints within your AWS account.
 
-> **Easy-to-Understand Explanation:** To let your AI agent use AWS models and services safely, you must grant it proper permissions. This chapter walks you through enabling Bedrock models in your AWS account and setting up an IAM Execution Role—a digital security badge that specifies exactly what resources your agent is allowed to access.
+### What is it?
+AWS Configuration and IAM (Identity and Access Management) Setup is the process of configuring cloud permissions, access policies, and model access settings inside your AWS account so your application can securely interact with Amazon Bedrock.
+
+### Why is it important?
+By default, AWS blocks all access to foundation models and cloud resources to prevent data leaks and unauthorized billing. Configuring explicit IAM execution roles and policies ensures your agent operates with the exact minimum permissions required to perform its job without exposing other cloud assets.
+
+### How does it work?
+The developer enables model access in the AWS Bedrock console and creates an IAM Execution Role containing policy statements. When the AgentCore runtime boots, it assumes this IAM role, obtains temporary security credentials from AWS Security Token Service (STS), and signs API requests using the AWS Signature Version 4 protocol.
+
+### Key Responsibilities
+- Enable foundation model API access (such as Anthropic Claude) within target AWS regions.
+- Define granular IAM policy statements for model invocation, database access, and CloudWatch logging.
+- Configure trust policies that allow the AgentCore runtime service to assume execution roles safely.
+- Secure API calls by generating short-lived cryptographic security tokens for runtime execution.
 
 ---
 

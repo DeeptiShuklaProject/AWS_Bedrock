@@ -3,7 +3,20 @@
 ## 1. Introduction
 Developing and deploying Amazon Bedrock AgentCore applications requires establishing a robust, standardized local development environment.
 
-> **Easy-to-Understand Explanation:** Before building an AI agent, you need your computer set up with the right developer tools. Think of this chapter as setting up your digital workshop: installing Python to run code, Git to save project versions, Docker to run containers, 'uv' to manage libraries quickly, and AWS CLI to communicate with your cloud account.
+### What is it?
+Local Environment Prerequisites refer to the set of core software tools, programming runtimes, and command-line utilities required on your computer to build, test, and run Bedrock AgentCore applications locally before deploying them to the cloud.
+
+### Why is it important?
+Building software without a standardized toolset leads to missing software libraries, system crashes, and code discrepancies between local computers and cloud servers. Installing validated prerequisite tools ensures your workstation matches AWS production standards, guaranteeing predictable code execution.
+
+### How does it work?
+Your local workstation uses Python to execute application code, Git to track source code revisions, Docker to emulate container execution environments, 'uv' to manage library packages at high speeds, and the AWS Command Line Interface (CLI) to authenticate and communicate with AWS cloud services.
+
+### Key Responsibilities
+- Provide a stable local runtime environment for executing Python code and framework packages.
+- Package application code and dependencies into standardized containers using Docker.
+- Synchronize source code revisions and track repository history using Git.
+- Authorize and execute secure API commands between your computer and your AWS account.
 
 ---
 

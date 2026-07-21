@@ -104,6 +104,22 @@ agent:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Dissect the ReAct (Reason + Act) loop of an autonomous agent in Python."
+  initialCode="def agent_react_loop(user_query):
+    print(f\"Step 1: Thought -> Analyzing query '{user_query}'\")
+    print(\"Step 2: Action -> Invoking weather_tool(location='Seattle')\")
+    tool_result = {\"temperature\": \"62F\", \"condition\": \"Cloudy\"}
+    print(f\"Step 3: Observation -> Received tool output: {tool_result}\")
+    print(\"Step 4: Final Answer -> 'The current temperature in Seattle is 62F and cloudy.'\")
+
+agent_react_loop(\"What is the weather in Seattle?\")"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Understanding the Code** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -370,6 +386,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What are the core steps of the ReAct (Reason + Act) agent loop pattern?" 
+  options=["Thought, Action, Observation, Final Answer", "Download, Compile, Run, Delete", "Prompt, Reset, Retry, Cancel", "Format, Print, Clear, Save"] 
+  answerIndex=0 
+  explanation="The ReAct framework alternates between reasoning (Thought), taking tool actions (Action), and observing execution outputs (Observation) to reach a final answer." 
+/>
+
 ### Q: What is the benefit of decorating functions with @app.invoke?
 * **Answer:** The decorator registers the function as the agent's entrypoint, abstracting web server routing and request parsing so developers can focus on agent logic.
 

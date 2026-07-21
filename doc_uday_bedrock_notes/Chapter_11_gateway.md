@@ -116,6 +116,24 @@ Define registered tools in the `gateway_config.json` configuration file:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Test API Gateway request routing and payload validation in Python."
+  initialCode="def gateway_router(path, payload):
+    print(f\"[API Gateway] Routing request for path: {path}\")
+    if path == \"/v1/agent/chat\":
+        if \"prompt\" not in payload:
+            return {\"status\": 400, \"error\": \"Missing 'prompt' field\"}
+        return {\"status\": 200, \"destination\": \"AgentCore-Runtime-Cluster\", \"data\": payload}
+    return {\"status\": 404, \"error\": \"Route not found\"}
+
+res = gateway_router(\"/v1/agent/chat\", {\"prompt\": \"Explain Quantum Computing\"})
+print(\"Gateway Routing Result:\", res)"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Tool Gateway** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -301,6 +319,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What is the primary function of the AgentCore API Gateway component?" 
+  options=["To act as a single entry point for routing, authentication, rate limiting, and protocol translation.", "To store user passwords in plain text.", "To generate random images.", "To format HTML web pages."] 
+  answerIndex=0 
+  explanation="API Gateways consolidate traffic management, security filtering, rate limiting, and request routing before forwarding payloads to backend agent microservices." 
+/>
+
 ### Q: What is the advantage of using Model Context Protocol (MCP)?
 * **Answer:** MCP standardizes integrations by decoupling clients from specific database API formats, providing a uniform schema for tool communication.
 

@@ -107,6 +107,25 @@ agent:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Inspect directory layout and essential module entry points programmatically."
+  initialCode="import os
+
+def list_project_structure(path='.'):
+    print(f\"Project Root: {os.path.abspath(path)}\")
+    essential_files = ['pyproject.toml', 'requirements.txt', 'Dockerfile', 'app.py']
+    for file in essential_files:
+        exists = os.path.exists(os.path.join(path, file))
+        status = \"FOUND\" if exists else \"NOT FOUND\"
+        print(f\"  - {file}: {status}\")
+
+list_project_structure()"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Repository Walkthrough** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -308,6 +327,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What is the main purpose of isolating agent tools into a `tools/` sub-package?" 
+  options=["To make the project folder look larger", "To maintain modular code separation, allowing tools to be added, tested, and updated independently", "Because Docker requires tools in a separate folder", "To prevent Python from importing files"] 
+  answerIndex=1 
+  explanation="Modular tool architecture enables unit testing individual tool schemas without initializing the entire agent runtime." 
+/>
+
 ### Q: What is a Python decorator and how is it used in AgentCore?
 * **Answer:** A decorator is a function that takes another function as an argument and extends its behavior without modifying it. In AgentCore, `@app.invoke` registers the decorated function with the runtime, routing incoming requests to it.
 

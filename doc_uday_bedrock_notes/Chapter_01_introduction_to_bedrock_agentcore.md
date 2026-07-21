@@ -127,6 +127,32 @@ agent:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Test a simulated Bedrock AgentCore runtime reasoning step in Python."
+  initialCode="import sys
+import json
+
+print(\"Initializing Bedrock AgentCore Runtime Environment...\")
+
+def simulate_agent_reasoning(user_prompt):
+    print(f\"[AgentCore MicroVM] Received prompt: '{user_prompt}'\")
+    reasoning_step = {
+        \"status\": \"success\",
+        \"container_id\": \"firecracker-microvm-001\",
+        \"action\": \"invoke_foundation_model\",
+        \"model\": \"anthropic.claude-3-5-sonnet\",
+        \"result\": \"Agent reasoning loop initialized safely inside hardware boundary.\"
+    }
+    return reasoning_step
+
+response = simulate_agent_reasoning(\"Execute multi-step data query\")
+print(json.dumps(response, indent=2))"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Introduction to Bedrock AgentCore** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -299,6 +325,30 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What is the primary role of AWS Firecracker microVMs in Bedrock AgentCore?" 
+  options=["To store long-term vector embeddings", "To provide hardware-isolated lightweight containers for safe multi-tenant code and agent execution", "To translate SQL queries to GraphQL", "To manage AWS billing accounts"] 
+  answerIndex=1 
+  explanation="AWS Firecracker microVMs provide hardware-level isolation and rapid boot times, preventing multi-tenant data leakage and execution interference." 
+/>
+
+<Quiz 
+  question="How does Bedrock AgentCore differ from console-based Bedrock Agents?" 
+  options=["Bedrock AgentCore is code-first and containerized, giving developers full control over agent logic and Python frameworks.", "AgentCore cannot execute Python code.", "Console-based Bedrock Agents require raw C++ code.", "AgentCore only supports static prompts without tools."] 
+  answerIndex=0 
+  explanation="AgentCore is code-first and framework-agnostic, allowing developers to write custom agent loops using frameworks like LangChain or CrewAI." 
+/>
+
+<Quiz 
+  question="Which foundation model provider is natively supported within Bedrock AgentCore loops?" 
+  options=["Anthropic Claude models via Amazon Bedrock Converse API", "Local text files only", "Browser extension scripts", "No AI models are supported"] 
+  answerIndex=0 
+  explanation="Bedrock AgentCore leverages Amazon Bedrock APIs to connect with models such as Anthropic Claude 3.5 Sonnet." 
+/>
+
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
 

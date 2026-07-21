@@ -104,6 +104,27 @@ tools:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Register and execute a custom Pydantic-validated Python tool for AgentCore."
+  initialCode="from pydantic import BaseModel, Field
+
+class DatabaseQueryInput(BaseModel):
+    table_name: str = Field(description=\"Database table to query\")
+    limit: int = Field(default=10, description=\"Max rows to return\")
+
+def execute_db_tool(input_data: DatabaseQueryInput):
+    print(f\"Executing tool query on table '{input_data.table_name}' (limit={input_data.limit})...\")
+    return [{\"id\": 1, \"data\": \"Sample Record\"}]
+
+query = DatabaseQueryInput(table_name=\"customer_orders\", limit=5)
+result = execute_db_tool(query)
+print(\"Tool Execution Result:\", result)"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Custom Tools Integration** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -319,6 +340,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Why are Pydantic schemas essential when defining agent tools in Python?" 
+  options=["They automatically generate JSON Schema definitions that foundation models require to format tool parameters accurately.", "Pydantic speeds up CPU clock rates.", "They allow tools to run without Python.", "Pydantic converts Python code into Docker files."] 
+  answerIndex=0 
+  explanation="LLMs require unambiguous JSON schemas to understand expected parameters. Pydantic automatically serializes Python type hints into JSON Schema specifications." 
+/>
+
 ### Q: How does the @tool decorator generate JSON schemas?
 * **Answer:** The decorator uses Python reflection and inspects type annotations and docstring parameters to construct JSON schemas for model configuration.
 

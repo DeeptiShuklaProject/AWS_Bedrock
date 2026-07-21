@@ -107,6 +107,27 @@ git status
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate git repository verification and branch checking script."
+  initialCode="import subprocess
+import os
+
+def check_git_status():
+    print(\"Checking Git Repository Status...\")
+    try:
+        res = subprocess.run([\"git\", \"status\", \"--short\"], capture_output=True, text=True)
+        print(\"Git Status Output:\")
+        print(res.stdout if res.stdout else \"Clean working directory.\")
+    except Exception as e:
+        print(f\"Git check error: {e}\")
+
+check_git_status()"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Cloning the Code Repository** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -270,6 +291,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What is the recommended Git branch workflow when working on Bedrock AgentCore development?" 
+  options=["Commit directly to main without testing", "Create feature branches (e.g. feature/agent-tools) and merge via pull requests", "Never use branches", "Delete .git directory before running"] 
+  answerIndex=1 
+  explanation="Feature branch workflows ensure code isolation, systematic review, and stable integration before merging into main branches." 
+/>
+
 ### Q: What is the difference between git fetch and git pull?
 * **Answer:** Git fetch downloads remote updates and references to your local `.git` metadata folder without altering your working files. Git pull downloads these updates and immediately runs a merge command to synchronize your workspace files.
 

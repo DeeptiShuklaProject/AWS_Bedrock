@@ -105,6 +105,26 @@ runtime:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Test MicroVM container session state management logic."
+  initialCode="class MicroVMRuntimeManager:
+    def __init__(self):
+        self.active_containers = {}
+
+    def spawn_container(self, session_id):
+        container_ip = f\"172.16.0.{len(self.active_containers) + 2}\"
+        self.active_containers[session_id] = {\"ip\": container_ip, \"status\": \"WARM\"}
+        print(f\"Spawned Firecracker microVM for session '{session_id}' at {container_ip}\")
+
+mgr = MicroVMRuntimeManager()
+mgr.spawn_container(\"session-user-9941\")
+print(\"Active containers:\", mgr.active_containers)"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **AgentCore Runtime** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -267,6 +287,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="How does Bedrock AgentCore achieve sub-second container spin-up times for agent workflows?" 
+  options=["By pre-warming Firecracker microVM snapshots and sharing lightweight base images.", "By skipping memory allocation.", "By running code on the user"s browser.", "By executing code inside SQL databases."] 
+  answerIndex=0 
+  explanation="Firecracker microVMs leverage minimal virtual machine architectures and pre-warmed snapshot states to launch in milliseconds." 
+/>
+
 ### Q: What is the security advantage of Firecracker over standard containers?
 * **Answer:** Standard containers share the host operating system kernel, making them vulnerable to kernel exploit leaks. Firecracker runs each container inside an isolated microVM with its own kernel, securing multi-tenant environments.
 

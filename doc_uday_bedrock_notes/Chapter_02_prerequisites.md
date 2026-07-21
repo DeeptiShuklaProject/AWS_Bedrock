@@ -113,6 +113,26 @@ Provide your AWS Access Key ID, Secret Access Key, Default region (e.g., `us-eas
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Verify your local Python 3.11+ environment and package manager setup."
+  initialCode="import sys
+import os
+import platform
+
+print(\"=== Environment Verification ===\")
+print(f\"Python Version: {platform.python_version()}\")
+print(f\"OS Platform: {platform.system()} {platform.release()}\")
+print(f\"Architecture: {platform.machine()}\")
+
+# Check environment
+print(\"VIRTUAL_ENV:\", os.environ.get(\"VIRTUAL_ENV\", \"None (System Python)\"))
+print(\"Environment checks passed!\")"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Local Environment Prerequisites** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -273,6 +293,23 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Why is Python 3.11+ specifically recommended for Bedrock AgentCore development?" 
+  options=["It introduces performance improvements and asynchronous features required for fast agent runtime execution.", "Python 3.11 is the only version with HTML support.", "Older versions cannot run Docker containers.", "Python 3.11 removes the need for AWS credentials."] 
+  answerIndex=0 
+  explanation="Python 3.11+ provides substantial speedups, improved tracebacks, and enhanced async task handling critical for agent workloads." 
+/>
+
+<Quiz 
+  question="What is the primary advantage of using `uv` over standard `pip` for dependency management?" 
+  options=["It compiles Python code to C automatically.", "It is written in Rust and offers 10x-100x faster package resolution and installation.", "It bypasses PyPI security checks.", "It replaces Docker containers."] 
+  answerIndex=1 
+  explanation="`uv` is an extremely fast Python package manager written in Rust, significantly accelerating installation and virtual environment management." 
+/>
+
 ### Q: Why is Git essential in automated CI/CD deployment pipelines?
 * **Answer:** Git acts as the source of truth for the codebase. Version control systems host hooks that notify CI/CD servers (like GitHub Actions) to run tests and compile production containers on push events.
 

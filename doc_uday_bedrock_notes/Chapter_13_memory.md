@@ -104,6 +104,30 @@ memory:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate short-term conversational context and long-term memory retrieval."
+  initialCode="class AgentMemoryEngine:
+    def __init__(self):
+        self.short_term = []
+        self.long_term_vector_db = {}
+
+    def add_turn(self, role, text):
+        self.short_term.append({\"role\": role, \"content\": text})
+
+    def get_context_window(self):
+        return self.short_term[-4:] # Last 4 turns
+
+mem = AgentMemoryEngine()
+mem.add_turn(\"user\", \"My name is Alice.\")
+mem.add_turn(\"assistant\", \"Hello Alice! How can I help you?\")
+mem.add_turn(\"user\", \"What is my name?\")
+print(\"Context Window for LLM:\", mem.get_context_window())"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Memory Engine & State Management** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -310,6 +334,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="What is the difference between short-term conversational context and long-term agent memory?" 
+  options=["Short-term context lives within the LLM context window; long-term memory persists in vector databases or DynamoDB across sessions.", "Short-term context is saved to disk; long-term memory is deleted when the browser closes.", "They are identical terms.", "Long-term memory only works in C++."] 
+  answerIndex=0 
+  explanation="Short-term context fits in immediate prompt context windows, whereas long-term memory relies on persistent databases (vector search, DynamoDB) to retain facts across sessions." 
+/>
+
 ### Q: What is the benefit of memory compaction?
 * **Answer:** Memory compaction summarizes dialogue logs into key facts, keeping prompt context windows small to reduce latency and lower token costs.
 

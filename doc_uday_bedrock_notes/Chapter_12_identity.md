@@ -108,6 +108,31 @@ identity:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate JWT token verification and IAM authorization scope checking."
+  initialCode="import time
+
+def verify_token_claims(token):
+    print(f\"Decoding JWT bearer token: {token[:15]}...\")
+    claims = {
+        \"sub\": \"user_id_8819\",
+        \"role\": \"DataEngineer\",
+        \"exp\": int(time.time()) + 3600,
+        \"permissions\": [\"bedrock:invoke\", \"tools:execute\"]
+    }
+    if \"bedrock:invoke\" in claims[\"permissions\"]:
+        print(\"Authorization SUCCESS: User granted agent invocation access.\")
+        return claims
+    raise PermissionError(\"Access denied.\")
+
+claims = verify_token_claims(\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy_token\")
+print(\"User Identity Claims:\", claims)"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Identity Engine & User Authentication** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -300,6 +325,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="How does Bedrock AgentCore enforce tenant isolation during multi-tenant tool execution?" 
+  options=["By isolating session scopes in dedicated Firecracker microVMs and attaching session-specific IAM scoped tokens.", "By giving all users root administrative access.", "By storing data in public S3 buckets.", "By turning off authentication."] 
+  answerIndex=0 
+  explanation="MicroVM container boundaries combined with fine-grained IAM session tokens prevent users from querying or invoking resources belonging to other tenants." 
+/>
+
 ### Q: What is the difference between an ID token and an Access token?
 * **Answer:** ID tokens contain identity claims (name, email) used by client UIs. Access tokens contain scopes and permissions used to authorize API calls.
 

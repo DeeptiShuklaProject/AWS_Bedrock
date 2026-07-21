@@ -113,6 +113,26 @@ agent:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate reading and validating application configuration from environment variables."
+  initialCode="import os
+import json
+
+config = {
+    \"AWS_REGION\": os.environ.get(\"AWS_REGION\", \"us-east-1\"),
+    \"MODEL_ID\": os.environ.get(\"BEDROCK_MODEL_ID\", \"anthropic.claude-3-5-sonnet-20241022-v2:0\"),
+    \"MAX_TOKENS\": int(os.environ.get(\"MAX_TOKENS\", \"4096\")),
+    \"TEMPERATURE\": float(os.environ.get(\"TEMPERATURE\", \"0.7\"))
+}
+
+print(\"Loaded AgentCore Configuration:\")
+print(json.dumps(config, indent=2))"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Configuration Files** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -282,6 +302,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Why should configuration settings like AWS region and model IDs be loaded from environment variables?" 
+  options=["To decouple configuration from application source code across dev, staging, and production environments.", "Because hardcoded strings slow down Python execution.", "To prevent Git from tracking Python files.", "Environment variables are required by HTML."] 
+  answerIndex=0 
+  explanation="Storing configuration in environment variables follows 12-Factor App principles, allowing identical builds to run across different deployment environments." 
+/>
+
 ### Q: What is the Twelve-Factor App recommendation for configuration?
 * **Answer:** The Twelve-Factor App methodology recommends storing configuration in the environment, separating settings from the codebase. This allows the application to move between environments without modification.
 

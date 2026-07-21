@@ -125,6 +125,22 @@ __pycache__/
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate Docker build and ECS task deployment health check."
+  initialCode="def simulate_deployment():
+    print(\"Step 1: Building Docker Image 'agentcore-runtime:latest'...\")
+    print(\"Step 2: Pushing image to Amazon Elastic Container Registry (ECR)...\")
+    print(\"Step 3: Updating ECS Fargate Task Definition...\")
+    print(\"Step 4: Service status -> 2/2 Tasks RUNNING (HEALTHY)\")
+    print(\"Deployment completed successfully!\")
+
+simulate_deployment()"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Deployment & Containerization** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -302,6 +318,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Why is AWS Fargate a preferred container hosting platform for AgentCore microVM workers?" 
+  options=["It is a serverless compute engine that manages underlying EC2 instances automatically, scaling containers seamlessly.", "Fargate only runs static HTML pages.", "It requires manual server patching every hour.", "Fargate removes the need for container images."] 
+  answerIndex=0 
+  explanation="AWS Fargate removes the operational burden of provisioning and managing EC2 servers, allowing agent runtimes to scale on demand." 
+/>
+
 ### Q: What is the benefit of multi-stage Docker builds?
 * **Answer:** Multi-stage builds separate build tools from execution runtimes, keeping production images small and secure by excluding compiler tools and intermediate files.
 

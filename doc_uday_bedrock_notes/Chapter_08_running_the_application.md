@@ -111,6 +111,23 @@ agent:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate starting an AgentCore FastAPI server endpoint test."
+  initialCode="import time
+
+print(\"Starting Bedrock AgentCore Local Server Simulation...\")
+print(\"Binding server to host: 0.0.0.0, port: 8000\")
+time.sleep(0.5)
+
+print(\"GET /healthcheck -> 200 OK (Status: Healthy)\")
+print(\"POST /api/v1/agent/invoke -> 200 OK (Agent Execution Completed)\")
+print(\"Server is active and ready for incoming requests.\")"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Running the Application Locally** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -280,6 +297,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Which ASGI web server is commonly used to run asynchronous FastAPI AgentCore services?" 
+  options=["Uvicorn", "Apache HTTPD", "Nginx Static Server", "Tomcat"] 
+  answerIndex=0 
+  explanation="Uvicorn is a lightning-fast ASGI server implementation for Python, ideal for async FastAPI applications." 
+/>
+
 ### Q: How do you run local integration tests for containerized agents?
 * **Answer:** Start the application container locally on a test port, and execute a test script that sends structured prompts and asserts response properties using a testing framework (like pytest).
 

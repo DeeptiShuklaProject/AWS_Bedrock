@@ -119,6 +119,23 @@ agent:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Simulate the full end-to-end Bedrock AgentCore execution flow."
+  initialCode="print(\"=== End-to-End Bedrock AgentCore Workflow ===\")
+print(\"1. User Request -> API Gateway (/v1/agent/invoke)\")
+print(\"2. Identity Check -> Validated IAM & Session Token\")
+print(\"3. MicroVM Spawn -> Isolated AWS Firecracker Container Created\")
+print(\"4. Memory Engine -> Fetched session context from DynamoDB\")
+print(\"5. Reasoning Loop -> Model called tool 'search_knowledge_base'\")
+print(\"6. Tool Execution -> Retrieved top matching vector records\")
+print(\"7. Final Output -> Formatted response returned to client (200 OK)\")
+print(\"=== Workflow Execution Completed Successfully ===\")"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Complete End-to-End Flow** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -296,6 +313,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="How do all 7 pillars of Bedrock AgentCore work together in a production deployment?" 
+  options=["Gateway routes traffic, Identity authorizes access, Runtime isolates execution in MicroVMs, Memory retains state, Tools execute actions, Deployment scales compute, and Observability monitors traces.", "Each pillar operates as a separate standalone project without connecting.", "Only the foundation model matters; other components are optional.", "They replace the need for AWS accounts."] 
+  answerIndex=0 
+  explanation="The 7 pillars form a unified architecture bridging foundation models with enterprise-grade security, scalability, statefulness, and observability." 
+/>
+
 ### Q: What is the primary security rule for cloud deployments?
 * **Answer:** Never trust client-side data. Always validate identity tokens, restrict access scopes, and validate inputs on the server.
 

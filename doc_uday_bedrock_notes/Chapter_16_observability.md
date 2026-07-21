@@ -104,6 +104,31 @@ observability:
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Test OpenTelemetry trace logging and token usage tracking in Python."
+  initialCode="import time
+
+def log_telemetry_trace(span_name, input_tokens, output_tokens, duration_ms):
+    trace_event = {
+        \"timestamp\": time.strftime(\"%Y-%m-%dT%H:%M:%SZ\"),
+        \"span_name\": span_name,
+        \"metrics\": {
+            \"input_tokens\": input_tokens,
+            \"output_tokens\": output_tokens,
+            \"total_tokens\": input_tokens + output_tokens,
+            \"latency_ms\": duration_ms
+        }
+    }
+    print(\"[OpenTelemetry Trace Event]:\")
+    print(trace_event)
+
+log_telemetry_trace(\"AgentCore_Model_Invocation\", input_tokens=420, output_tokens=185, duration_ms=640)"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **Observability & Telemetry** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -366,6 +391,16 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Why is OpenTelemetry (OTel) tracing crucial for autonomous multi-step agent debugging?" 
+  options=["It provides distributed tracing across reasoning steps, model calls, and tool invocations, isolating latency bottlenecks and errors.", "OTel formats text colors in terminal windows.", "It replaces database backups.", "It eliminates API costs."] 
+  answerIndex=0 
+  explanation="Because agent workflows execute multiple nested steps (thought, tool call, model call, memory fetch), OTel distributed traces allow developers to pinpoint exactly where latencies or failures occur." 
+/>
+
 ### Q: What is the difference between a Trace and a Log?
 * **Answer:** A log is a text record of an isolated event. A trace tracks a transaction's journey across services, linking sub-operations in structured spans.
 

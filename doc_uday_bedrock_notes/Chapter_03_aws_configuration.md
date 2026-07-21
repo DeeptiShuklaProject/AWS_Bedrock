@@ -162,6 +162,32 @@ aws bedrock list-foundation-models --query "modelSummaries[?modelId=='anthropic.
 
 ## 10. Hands-on Examples
 
+### Interactive Python Playground
+
+<InteractiveExample 
+  language="python"
+  instruction="Test AWS Boto3 Bedrock client instantiation and credential check."
+  initialCode="import boto3
+from botocore.exceptions import NoCredentialsError
+
+def test_aws_bedrock_connection():
+    print(\"Testing Boto3 Bedrock Client Configuration...\")
+    try:
+        # Create Bedrock client
+        client = boto3.client('bedrock-runtime', region_name='us-east-1')
+        print(\"Bedrock Runtime client successfully instantiated!\")
+        return True
+    except NoCredentialsError:
+        print(\"AWS Credentials not found. Run 'aws configure' in terminal.\")
+        return False
+    except Exception as e:
+        print(f\"Configuration test note: {e}\")
+        return True
+
+test_aws_bedrock_connection()"
+/>
+
+
 In this section, we analyze the hands-on code implementations for **AWS Configuration & IAM Setup** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -367,6 +393,23 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 15. Interview Questions
+
+### Knowledge Verification Check
+
+<Quiz 
+  question="Which AWS IAM permission policy is required for an agent to invoke foundation models?" 
+  options=["AmazonBedrockFullAccess or bedrock:InvokeModel", "AdministratorAccess-AWSElasticBeanstalk", "AmazonS3ReadOnlyAccess", "AmazonEC2FullAccess"] 
+  answerIndex=0 
+  explanation="The `bedrock:InvokeModel` and `bedrock:InvokeModelWithResponseStream` permissions allow agents to invoke foundation models." 
+/>
+
+<Quiz 
+  question="Where should AWS credentials never be stored in a production codebase?" 
+  options=["In AWS Secrets Manager", "Hardcoded as plain text inside Python scripts or Git repository files", "In IAM Roles for EC2/ECS tasks", "In environment variables passed securely at runtime"] 
+  answerIndex=1 
+  explanation="Hardcoding credentials in scripts poses severe security risks and can leak sensitive access keys to version control systems." 
+/>
+
 ### Q: What is the AWS Signature Version 4 (SigV4) protocol?
 * **Answer:** SigV4 is the protocol AWS uses to authenticate API requests. It signs HTTP requests with cryptographically secure signatures generated from the caller's access keys, verifying the sender and protecting payloads from tampering.
 

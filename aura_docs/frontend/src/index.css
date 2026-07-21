@@ -988,12 +988,15 @@ body {
 /* ================================================= */
 .mermaid-diagram-container {
   color: var(--text-primary);
+  width: 100%;
 }
 
 .mermaid-diagram-container svg {
+  display: block;
+  margin: 0 auto;
   max-width: 100% !important;
   height: auto !important;
-  min-width: 550px;
+  min-width: 500px;
 }
 
 /* Force node rects and text to have crisp high contrast */
@@ -1001,21 +1004,22 @@ body {
 .mermaid-diagram-container .node polygon,
 .mermaid-diagram-container .node circle {
   fill: #1e293b !important;
-  stroke: #475569 !important;
-  stroke-width: 1.5px !important;
-  rx: 6px !important;
-  ry: 6px !important;
+  stroke: #6366f1 !important;
+  stroke-width: 2px !important;
+  rx: 8px !important;
+  ry: 8px !important;
 }
 
 .mermaid-diagram-container text,
+.mermaid-diagram-container tspan,
 .mermaid-diagram-container p,
 .mermaid-diagram-container span,
 .mermaid-diagram-container div,
 .mermaid-diagram-container .nodeLabel {
   fill: #ffffff !important;
   color: #ffffff !important;
-  font-weight: 600 !important;
-  font-size: 13px !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
 }
 
 /* Subgraph labels */
@@ -1024,13 +1028,13 @@ body {
   fill: var(--text-primary) !important;
   color: var(--text-primary) !important;
   font-weight: 800 !important;
-  font-size: 14px !important;
+  font-size: 16px !important;
 }
 
 /* Connection lines (arrows) */
 .mermaid-diagram-container .edgePath .path {
   stroke: #6366f1 !important;
-  stroke-width: 2px !important;
+  stroke-width: 2.5px !important;
 }
 
 /* Connection markers (arrowheads) */
@@ -1046,15 +1050,15 @@ body {
   fill: #0f172a !important;
   color: #0f172a !important;
   font-weight: 700 !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
 }
 
 .mermaid-diagram-container .edgeLabel span {
   background-color: #ffffff !important;
-  padding: 2px 6px !important;
-  border-radius: 4px !important;
+  padding: 3px 8px !important;
+  border-radius: 6px !important;
   border: 1px solid #cbd5e1 !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08) !important;
 }
 
 

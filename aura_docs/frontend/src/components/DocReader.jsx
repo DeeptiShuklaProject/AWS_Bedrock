@@ -649,13 +649,13 @@ const MermaidDiagram = ({ code }) => {
           fontFamily: 'Inter, system-ui, sans-serif',
           themeVariables: {
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '14px',
-            primaryColor: '#6366f1',
+            fontSize: '15px',
+            primaryColor: '#1e293b',
             primaryTextColor: '#ffffff',
-            primaryBorderColor: '#4f46e5',
-            lineColor: '#64748b',
-            secondaryColor: '#f1f5f9',
-            tertiaryColor: '#e2e8f0',
+            primaryBorderColor: '#6366f1',
+            lineColor: '#6366f1',
+            secondaryColor: '#f8fafc',
+            tertiaryColor: '#f1f5f9',
             edgeLabelBackground: '#ffffff',
             nodeTextColor: '#ffffff'
           }

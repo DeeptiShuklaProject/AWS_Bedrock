@@ -37,7 +37,8 @@ def get_kb_display_name(kb_id: str) -> str:
         "doc_replica_aws_bedrock": "AWS Bedrock AgentCore",
         "doc_replica_lambda": "AWS Lambda Developer Guide",
         "doc_uday_advance_notes": "Bedrock Notes",
-        "doc_bedrock_notes": "Bedrock Notes"
+        "doc_bedrock_notes": "Bedrock Notes",
+        "doc_deepti_bedrock_notes": "Deepti Bedrock Notes"
     }
     if kb_id in mapping:
         return mapping[kb_id]

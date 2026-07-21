@@ -3,7 +3,7 @@
 ## 1. Introduction
 The Memory Engine manages short-term conversational history and long-term user profiles.
 
-> **Analogy:** Think of a student in a classroom. The raw lecture (Raw Chat History) is too detailed to memorize. The student writes key facts in their notebook (Compacted Memory) and files it in a cabinet (DynamoDB Table) for next class.
+> **Easy-to-Understand Explanation:** AI models naturally forget past messages once a conversation ends. The Memory Engine fixes this by storing short-term chat history and long-term user preferences in an AWS DynamoDB database, summarizing long chats so the agent remembers key details without slowing down.
 
 ---
 
@@ -90,7 +90,13 @@ memory:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Memory Engine & State Management** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # File: src/memory_manager.py
 # Folder Location: agentcore-samples/src/memory_manager.py
@@ -145,7 +151,23 @@ class MemoryManager:
         self.db_store.update_user_profile(user_id, profile)
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to update user profiles using mock database clients
 class MockDBStore:
@@ -166,7 +188,21 @@ if __name__ == "__main__":
     db.put_profile("user_123", profile)
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete memory manager with a compaction loop parsing preference keys
 import json
@@ -201,100 +237,63 @@ if __name__ == "__main__":
     mgr.compact_history("user_789", chat_log)
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# File: src/memory_manager.py
-# Folder Location: agentcore-samples/src/memory_manager.py
-
-import json
-from typing import List, Dict, Any
-
-class SessionMemory:
-    def __init__(self, session_id: str):
-        self.session_id = session_id
-        self.turns: List[Dict[str, str]] = []
-
-    def add_message(self, role: str, content: str):
-        self.turns.append({"role": role, "content": content})
-
-    def get_conversation_history(self) -> List[Dict[str, str]]:
-        return self.turns
-
-class LongTermMemoryStore:
-    def __init__(self):
-        self.db: Dict[str, Dict[str, Any]] = {}
-
-    def fetch_user_profile(self, user_id: str) -> Dict[str, Any]:
-        return self.db.get(user_id, {
-            "user_id": user_id,
-            "interests": [],
-            "past_topics": [],
-            "summary": "New user. No historical context."
-        })
-
-    def update_user_profile(self, user_id: str, new_profile: Dict[str, Any]):
-        self.db[user_id] = new_profile
-
-class MemoryManager:
-    def __init__(self, db_store: LongTermMemoryStore):
-        self.db_store = db_store
-
-    def run_end_of_session_compaction(self, user_id: str, history: List[Dict[str, str]]):
-        profile = self.db_store.fetch_user_profile(user_id)
-        for turn in history:
-            content = turn["content"].lower()
-            if "like" in content or "prefer" in content:
-                preference = turn["content"].split("prefer")[-1].strip(" .")
-                if preference not in profile["interests"]:
-                    profile["interests"].append(preference)
-            if "learn" in content or "study" in content:
-                topic = turn["content"].split("study")[-1].strip(" .")
-                if topic not in profile["past_topics"]:
-                    profile["past_topics"].append(topic)
-                    
-        profile["summary"] = f"User is studying {', '.join(profile['past_topics'])}. Prefers {', '.join(profile['interests'])}."
-        self.db_store.update_user_profile(user_id, profile)
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Use optimistic locking to prevent parallel requests from overwriting data.
 * Trigger compaction loops asynchronously to avoid slowing down user requests.
 * Regularly archive outdated history records to optimize storage costs.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Encrypt database records at rest using AWS KMS keys. Restrict IAM permissions to ensure only the agent execution role can read and write from the memory tables.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Implement caching for user profiles to bypass database reads during high-frequency API invocations.
 
 ---
 
-## 15. Cost Optimization
-Configure DynamoDB auto-scaling or on-demand pricing. Prune raw history records and store only compacted summaries to minimize database storage costs.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Appending raw, uncompacted dialogue history to prompts, bloating token usage and cost.
 * Running database calls synchronously inside request loops, adding execution latency.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -304,7 +303,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the benefit of memory compaction?
 * **Answer:** Memory compaction summarizes dialogue logs into key facts, keeping prompt context windows small to reduce latency and lower token costs.
 
@@ -316,34 +315,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Personalizing virtual assistants by retaining user preferences and history across sessions.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This memory engine manages agent state, enabling us to personalize our chatbot application.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter covered short-term session cache, long-term profile storage, and running compaction loops to manage agent state.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Appending raw history to prompts increases token costs and latency.
 * The Memory Engine utilizes DynamoDB to persist state across sessions.
 * Compaction loops summarize dialogue history into structured facts.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Modify the compaction function to extract location preference keywords.
 * Intermediate: Add expiration attributes (TTL) to raw history records to delete them after 30 days.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [LangChain Memory Integration Guide](https://python.langchain.com/docs/modules/memory/)

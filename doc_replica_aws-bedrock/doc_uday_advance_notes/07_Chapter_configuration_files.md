@@ -3,7 +3,7 @@
 ## 1. Introduction
 Separating configuration settings from application source code is key to building reusable, secure enterprise applications.
 
-> **Analogy:** Think of configuration files as a truck's manifest and routing plan. The manifest (.env) lists credentials and the starting dock, the truck specs (pyproject.toml) list the parts, and the routing plan (bedrock_agent_core.yaml) lists the route.
+> **Easy-to-Understand Explanation:** Good software practice keeps application settings separate from actual code. This chapter explains how to use `.env` files for local credentials and `bedrock_agent_core.yaml` for deployment settings, keeping passwords safe and making it easy to switch between test and production environments.
 
 ---
 
@@ -99,7 +99,13 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Configuration Files** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 yaml
 # Folder Location: agentcore-samples/bedrock_agent_core.yaml
@@ -112,7 +118,23 @@ runtime_settings:
   memory_id: "agentcore-memory-user-db-987"
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to parse and validate YAML metadata configuration fields
 import yaml
@@ -133,7 +155,21 @@ if __name__ == "__main__":
     validate_yaml()
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Structured configuration manager class for loading and validating configurations
 import os
@@ -173,58 +209,63 @@ if __name__ == "__main__":
     cfg.validate()
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-yaml
-# Folder Location: agentcore-samples/bedrock_agent_core.yaml
-
-agent_name: "aws_show_and_tell_agent"
-entry_point: "src/main.py"
-runtime_settings:
-  python_version: "3.11"
-  execution_role_arn: "arn:aws:iam::123456789012:role/AgentCoreExecutionRole"
-  memory_id: "agentcore-memory-user-db-987"
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Add `.env` to your project's `.gitignore` file to prevent committing secrets.
 * Use template files (like `template.env`) to document required keys without committing actual secrets.
 * Validate configurations on startup before running application code.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Never commit credentials or private keys to version control. In production, load secrets dynamically from AWS Secrets Manager or Systems Manager Parameter Store rather than using static local files.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Cache configuration parameters in memory to avoid repeated disk reads during execution loops.
 
 ---
 
-## 15. Cost Optimization
-Parsing local configuration files does not incur AWS charges. Ensure that configurations define short timeouts for third-party APIs to prevent billing for hung executions.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Committing the `.env` file to Git, exposing access keys in the commit history.
 * Defining invalid YAML syntax (like mixed tabs and spaces), causing parser crashes during startup.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -234,7 +275,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the Twelve-Factor App recommendation for configuration?
 * **Answer:** The Twelve-Factor App methodology recommends storing configuration in the environment, separating settings from the codebase. This allows the application to move between environments without modification.
 
@@ -246,34 +287,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Configuring access permissions and endpoints for development and production environments.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 These configuration files define the environment settings and entry points that authorize and run the application in Chapter 8.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter covered managing environment variables in `.env`, declaring packages in `pyproject.toml`, and setting up deployment settings in `bedrock_agent_core.yaml`.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Separating configuration from code simplifies multi-environment deployments.
 * Add configuration files containing secrets to your `.gitignore`.
 * Configuration files should be validated during application boot.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Add `LOG_LEVEL=DEBUG` to `.env` and read it in a Python script.
 * Intermediate: Configure `bedrock_agent_core.yaml` to reference a different IAM Role ARN and verify parsing.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [The Twelve-Factor App - Config](https://12factor.net/config)
 * [YAML Specification Guide](https://yaml.org/spec/)

@@ -3,7 +3,7 @@
 ## 1. Introduction
 Packaging Bedrock AgentCore applications as Docker images ensures they deploy and run consistently in production.
 
-> **Analogy:** Think of cargo shipping. Shipping goods in a standardized container (Docker Image) ensures they look and act the same whether transported by train, truck, or container ship (AWS Fargate).
+> **Easy-to-Understand Explanation:** When your agent is ready for production, you package it along with all its libraries into a lightweight Docker container image. This chapter shows how to build this image and upload it to Amazon Elastic Container Registry (ECR) so AWS can host it.
 
 ---
 

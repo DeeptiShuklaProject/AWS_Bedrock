@@ -3,7 +3,7 @@
 ## 1. Introduction
 Understanding the layout and execution entry points of the Bedrock AgentCore repository is key to building custom agents.
 
-> **Analogy:** Before driving a new car, you review the dashboard controls. You locate the ignition key (main.py entrypoint), the fuse box (config files), and the tool kit in the glovebox (utilities).
+> **Easy-to-Understand Explanation:** Once you download the project, you need to know how it is organized. This chapter takes you on a guided tour of the files and folders, explaining where the main entry script (`src/main.py`) lives and how Python decorators link incoming web requests directly to your agent's code.
 
 ---
 

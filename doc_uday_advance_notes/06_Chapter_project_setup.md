@@ -3,7 +3,7 @@
 ## 1. Introduction
 Standardizing local development configurations requires isolated virtual environments and locked dependency packages.
 
-> **Analogy:** Think of a sterile surgical room. Only approved, sterilized tools (packages) are brought in, following an inventory manifest (uv.lock) to prevent external contamination.
+> **Easy-to-Understand Explanation:** To prevent your project's libraries from clashing with other Python programs on your computer, you isolate them in a virtual environment (`.venv`). This chapter shows how to use the fast `uv` tool to manage dependencies and lock exact library versions (`uv.lock`) so your code works identically everywhere.
 
 ---
 

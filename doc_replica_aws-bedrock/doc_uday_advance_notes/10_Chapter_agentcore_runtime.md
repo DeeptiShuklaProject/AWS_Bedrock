@@ -3,7 +3,7 @@
 ## 1. Introduction
 The AgentCore runtime hosts agent containers inside secure, isolated virtual machine environments.
 
-> **Analogy:** Think of renting a suite at a hotel. The suite (Firecracker VM) is an isolated space with its own secure lock and utilities. What happens inside does not affect other suites.
+> **Easy-to-Understand Explanation:** The AgentCore runtime hosts your AI agent inside an isolated AWS Firecracker microVM. This chapter explains how microVMs launch in seconds to create private, secure mini-virtual servers for each user session while keeping cloud costs low.
 
 ---
 
@@ -91,7 +91,13 @@ runtime:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **AgentCore Runtime** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # Verify session details in execution context
 def check_runtime_context(context):
@@ -100,7 +106,23 @@ def check_runtime_context(context):
     return session_id
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to verify local file isolation under /tmp
 import os
@@ -119,7 +141,21 @@ if __name__ == "__main__":
     check_file_isolation()
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete script validating memory limits and executing timeout handlers
 import time
@@ -147,54 +183,63 @@ if __name__ == "__main__":
     execute_with_bounds(10) # Triggers timeout
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# Verify session details in execution context
-def check_runtime_context(context):
-    session_id = getattr(context, "session_id", "local-session")
-    print("Running inside session VM:", session_id)
-    return session_id
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Design applications to boot quickly by minimizing the container image footprint.
 * Never write persistent data to the local filesystem; write files to S3.
 * Configure short timeouts to prevent runaway executions from inflating bills.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce strict resource allocations for RAM and CPU. Ensure that containers run as non-root users inside microVMs to prevent privilege escalation attacks.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Leverage warm starts for sequential requests to bypass boot latency and ensure fast response times.
 
 ---
 
-## 15. Cost Optimization
-Monitor microVM active runtimes closely. Inactive microVMs are automatically reclaimed by AWS after inactivity thresholds are met, minimizing idle resource charges.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Expecting files written to `/tmp` to persist across sessions (sessions terminate after timeouts, destroying ephemeral storage).
 * Overallocating RAM in configurations, leading to high resource reservation fees.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -215,7 +260,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the security advantage of Firecracker over standard containers?
 * **Answer:** Standard containers share the host operating system kernel, making them vulnerable to kernel exploit leaks. Firecracker runs each container inside an isolated microVM with its own kernel, securing multi-tenant environments.
 
@@ -227,34 +272,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Isolating user sessions in SaaS platforms to prevent multi-tenant data leaks.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This runtime provides the secure host environment where our agent handler executes in production.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter analyzed the virtualization architecture of AgentCore, detailing Firecracker microVMs, session isolation, and execution bounds.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Session isolation is enforced using AWS Firecracker microVMs.
 * Inactive microVMs are reclaimed to minimize idle resource charges.
 * Write persistent files to S3 because microVM storage is ephemeral.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Configure `bedrock_agent_core.yaml` to set `timeout_seconds` to 600.
 * Intermediate: Map the lifecycle of a runtime VM from boot to destruction in a flow chart.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [AWS Firecracker Architecture Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/aws-firecracker-design/aws-firecracker-design.html)
 * [AWS Lambda Execution Environments](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html)

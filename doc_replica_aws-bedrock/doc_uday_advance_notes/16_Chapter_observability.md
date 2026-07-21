@@ -3,7 +3,7 @@
 ## 1. Introduction
 Observability and telemetry configurations allow you to monitor and trace complex agent execution workflows.
 
-> **Analogy:** Think of a telemetry system and flight recorder on an aircraft. The flight recorder (CloudWatch Logs) stores real-time sensor readouts (traces and metrics) to help diagnostics if issues occur.
+> **Easy-to-Understand Explanation:** Observability means having full visibility into how your agent performs. This chapter explains how to set up OpenTelemetry logging and tracing, letting you monitor execution steps, diagnose errors, track response times, and measure AI token costs in Amazon CloudWatch.
 
 ---
 
@@ -90,7 +90,13 @@ observability:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Observability & Telemetry** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # File: src/observability.py
 # Folder Location: agentcore-samples/src/observability.py
@@ -168,7 +174,23 @@ def run_agent_workflow_traced(user_prompt: str, session_id: str):
         root_span.end()
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to create mock trace spans and record events
 import time
@@ -194,7 +216,21 @@ if __name__ == "__main__":
     span.end()
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete OpenTelemetry instrumentation script capturing custom metrics and exceptions
 import time
@@ -257,123 +293,63 @@ if __name__ == "__main__":
     run_instrumented_agent("What is memory compaction?")
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# File: src/observability.py
-# Folder Location: agentcore-samples/src/observability.py
-
-import time
-import logging
-from typing import Dict, Any
-
-# =====================================================================
-# 1. Mock OpenTelemetry Tracer Implementation
-# =====================================================================
-class MockTracer:
-    def __init__(self, service_name: str):
-        self.service_name = service_name
-
-    def start_span(self, name: str) -> 'MockSpan':
-        return MockSpan(name)
-
-class MockSpan:
-    def __init__(self, name: str):
-        self.name = name
-        self.start_time = time.time()
-        self.attributes = {}
-        self.events = []
-
-    def set_attribute(self, key: str, value: Any):
-        self.attributes[key] = value
-
-    def add_event(self, name: str, payload: dict = None):
-        self.events.append({
-            "name": name,
-            "timestamp": time.time(),
-            "payload": payload or {}
-        })
-
-    def end(self):
-        duration = time.time() - self.start_time
-        # In production, send this span payload to the OTLP Collector endpoint
-        print(f"[Span Ended] Name: {self.name} | Duration: {duration:.4f}s | Attributes: {self.attributes}")
-
-# Instantiate global tracer
-tracer = MockTracer("bedrock-agent-core")
-
-# =====================================================================
-# 2. Instrumented Execution Loop
-# =====================================================================
-def run_agent_workflow_traced(user_prompt: str, session_id: str):
-    root_span = tracer.start_span("agent_execution_loop")
-    root_span.set_attribute("session_id", session_id)
-    root_span.set_attribute("model", "anthropic.claude-3-5-sonnet")
-    
-    try:
-        root_span.add_event("routing_started", {"prompt": user_prompt})
-        
-        # Start Child Span for Web Search Tool
-        tool_span = tracer.start_span("tool:web_search")
-        tool_span.set_attribute("tool_name", "web_search")
-        time.sleep(0.05) # Simulate latency
-        tool_span.add_event("search_api_call", {"target_url": "https://api.search.com"})
-        tool_span.end()
-        
-        # Log input and output token counts to monitor usage costs
-        input_tokens = 340
-        output_tokens = 110
-        root_span.set_attribute("input_tokens", input_tokens)
-        root_span.set_attribute("output_tokens", output_tokens)
-        root_span.set_attribute("total_cost_usd", (input_tokens * 0.003 + output_tokens * 0.015) / 1000)
-        root_span.add_event("generation_completed")
-        
-    except Exception as e:
-        root_span.set_attribute("error", True)
-        root_span.set_attribute("error_message", str(e))
-        raise e
-    finally:
-        root_span.end()
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Capture token counts from model responses to monitor costs.
 * Export traces asynchronously to prevent monitoring from adding latency to request loops.
 * Ensure child spans inherit the parent context to compile connected trace graphs.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Filter logs and trace attributes to ensure sensitive user credentials or personally identifiable information (PII) are not exported to monitoring backends.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Set up alerts in CloudWatch to notify your team when average model call latency exceeds established service level agreements (SLAs).
 
 ---
 
-## 15. Cost Optimization
-Implement sampling filters in your tracer configurations to export only a percentage of successful traces to keep monitoring costs low.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Creating detached child spans by failing to inherit parent context, resulting in fragmented trace logs.
 * Neglecting to record model token usage, making it difficult to trace billing costs.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -383,7 +359,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the difference between a Trace and a Log?
 * **Answer:** A log is a text record of an isolated event. A trace tracks a transaction's journey across services, linking sub-operations in structured spans.
 
@@ -395,34 +371,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Monitoring execution times across services to optimize application performance.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This telemetry setup monitors application health, providing execution traces for our chatbot system.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter covered OpenTelemetry tracing, span context propagation, and exporting logs and metrics to CloudWatch.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Observability is critical for debugging complex, asynchronous agent workflows.
 * OpenTelemetry standardizes telemetry collection across backends.
 * Monitor token usage and latency metrics to optimize cost and performance.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Add a warning log statement that prints when model response sizes exceed 1000 characters.
 * Intermediate: Configure logs to export as structured JSON dictionaries.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [OpenTelemetry Python Guide](https://opentelemetry.io/docs/languages/python/)
 * [Amazon CloudWatch Logs Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)

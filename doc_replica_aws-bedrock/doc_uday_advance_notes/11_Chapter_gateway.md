@@ -3,7 +3,7 @@
 ## 1. Introduction
 The Tool Gateway routes request payloads to databases and external APIs securely.
 
-> **Analogy:** Think of a secure bank teller window. The teller window (Gateway) acts as a physical barrier. The customer (LLM) passes structured requests (MCP Schemas) through the tray, and the teller executes the transaction.
+> **Easy-to-Understand Explanation:** AI models cannot directly touch your database or call external websites. The Tool Gateway acts as a safe middleman, taking the AI's requests, checking them against strict safety rules (JSON schemas), and routing them to external tools using the Model Context Protocol (MCP).
 
 ---
 
@@ -102,7 +102,13 @@ Define registered tools in the `gateway_config.json` configuration file:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Tool Gateway** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 json
 {
@@ -132,7 +138,23 @@ json
 }
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to validate input arguments against registered JSON schemas
 from jsonschema import validate, ValidationError
@@ -159,7 +181,21 @@ if __name__ == "__main__":
     validate_arguments({"sku": "invalid"}) # Invalid
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete mock gateway router resolving dynamic tool execution requests
 import json
@@ -192,75 +228,63 @@ if __name__ == "__main__":
     print(router.route_request("fetch_stock_level", '{"sku": "SHI-001"}'))
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-json
-{
-  "gatewayName": "enterprise-tool-gateway",
-  "mcpServers": {
-    "database-tools": {
-      "type": "lambda",
-      "functionArn": "arn:aws:lambda:us-east-1:123456789012:function:DatabaseToolExecutor",
-      "tools": [
-        {
-          "name": "lookup_customer_profile",
-          "description": "Lookup customer tier, registration date, and email by customer ID.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "customer_id": {
-                "type": "string",
-                "description": "The unique 6-digit customer identifier."
-              }
-            },
-            "required": ["customer_id"]
-          }
-        }
-      ]
-    }
-  }
-}
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Define clear descriptions in schemas to guide model selection.
 * Apply strict schemas to protect backend APIs from malformed parameters.
 * Route calls through private connections to secure network traffic.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce IAM boundary limits on gateway execution roles. Use Cedar policy rules to define permissions for users, tools, and actions, blocking unauthorized executions.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Utilize semantic routing to minimize the number of tool schemas appended to prompts, optimizing latency and reducing costs.
 
 ---
 
-## 15. Cost Optimization
-Monitor token usage associated with tool definitions. Long tool descriptions increase input token usage, inflating overall execution costs.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Defining ambiguous tool descriptions, causing models to select the wrong tool.
 * Committing API secret keys inside tool execution scripts instead of retrieving them dynamically.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -270,7 +294,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the advantage of using Model Context Protocol (MCP)?
 * **Answer:** MCP standardizes integrations by decoupling clients from specific database API formats, providing a uniform schema for tool communication.
 
@@ -282,34 +306,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This gateway acts as the integration point that allows our agent to invoke database tools and Lambda functions.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter covered the Tool Gateway architecture, the Model Context Protocol (MCP), and configuring tool schemas in `gateway_config.json`.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Expose tools using standardized MCP schemas to simplify integrations.
 * Leverage semantic routing to minimize prompt token usage.
 * Validate input arguments against strict schemas to secure backend APIs.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Write a JSON schema definition for a tool that retrieves weather updates by city.
 * Intermediate: Add validation checks to reject city strings containing numeric characters.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [Model Context Protocol Specification](https://modelcontextprotocol.io/)
 * [JSON Schema Standard Reference](https://json-schema.org/)

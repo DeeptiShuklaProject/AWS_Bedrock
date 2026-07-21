@@ -3,7 +3,7 @@
 ## 1. Introduction
 Developing Bedrock AgentCore applications begins by cloning and inspecting the official sample repository.
 
-> **Analogy:** Before modifying a machine, an engineer downloads the manufacturing blueprint files. This ensures they have the correct schematics, part numbers, and files before changing the design.
+> **Easy-to-Understand Explanation:** Developing your agent starts by getting a copy of the official starter project onto your computer. This chapter teaches you how to use Git to 'clone' (download) the sample codebase so you have a complete, working project template ready to customize.
 
 ---
 

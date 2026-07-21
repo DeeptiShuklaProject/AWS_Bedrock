@@ -3,7 +3,7 @@
 ## 1. Introduction
 Separating configuration settings from application source code is key to building reusable, secure enterprise applications.
 
-> **Analogy:** Think of configuration files as a truck's manifest and routing plan. The manifest (.env) lists credentials and the starting dock, the truck specs (pyproject.toml) list the parts, and the routing plan (bedrock_agent_core.yaml) lists the route.
+> **Easy-to-Understand Explanation:** Good software practice keeps application settings separate from actual code. This chapter explains how to use `.env` files for local credentials and `bedrock_agent_core.yaml` for deployment settings, keeping passwords safe and making it easy to switch between test and production environments.
 
 ---
 

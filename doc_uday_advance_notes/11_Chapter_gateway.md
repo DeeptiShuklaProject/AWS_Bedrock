@@ -3,7 +3,7 @@
 ## 1. Introduction
 The Tool Gateway routes request payloads to databases and external APIs securely.
 
-> **Analogy:** Think of a secure bank teller window. The teller window (Gateway) acts as a physical barrier. The customer (LLM) passes structured requests (MCP Schemas) through the tray, and the teller executes the transaction.
+> **Easy-to-Understand Explanation:** AI models cannot directly touch your database or call external websites. The Tool Gateway acts as a safe middleman, taking the AI's requests, checking them against strict safety rules (JSON schemas), and routing them to external tools using the Model Context Protocol (MCP).
 
 ---
 

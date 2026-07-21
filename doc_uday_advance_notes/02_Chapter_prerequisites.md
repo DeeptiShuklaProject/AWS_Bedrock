@@ -3,7 +3,7 @@
 ## 1. Introduction
 Developing and deploying Amazon Bedrock AgentCore applications requires establishing a robust, standardized local development environment.
 
-> **Analogy:** Before assembling a complex dining table, a carpenter organizes the workshop tool bench. This includes measuring tapes (Git), drills (Python), quick-change drill bits (`uv`), workbenches (Docker), and warehouse gate passes (AWS CLI).
+> **Easy-to-Understand Explanation:** Before building an AI agent, you need your computer set up with the right developer tools. Think of this chapter as setting up your digital workshop: installing Python to run code, Git to save project versions, Docker to run containers, 'uv' to manage libraries quickly, and AWS CLI to communicate with your cloud account.
 
 ---
 

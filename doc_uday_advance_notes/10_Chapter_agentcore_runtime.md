@@ -3,7 +3,7 @@
 ## 1. Introduction
 The AgentCore runtime hosts agent containers inside secure, isolated virtual machine environments.
 
-> **Analogy:** Think of renting a suite at a hotel. The suite (Firecracker VM) is an isolated space with its own secure lock and utilities. What happens inside does not affect other suites.
+> **Easy-to-Understand Explanation:** The AgentCore runtime hosts your AI agent inside an isolated AWS Firecracker microVM. This chapter explains how microVMs launch in seconds to create private, secure mini-virtual servers for each user session while keeping cloud costs low.
 
 ---
 

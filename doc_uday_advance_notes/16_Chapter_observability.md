@@ -3,7 +3,7 @@
 ## 1. Introduction
 Observability and telemetry configurations allow you to monitor and trace complex agent execution workflows.
 
-> **Analogy:** Think of a telemetry system and flight recorder on an aircraft. The flight recorder (CloudWatch Logs) stores real-time sensor readouts (traces and metrics) to help diagnostics if issues occur.
+> **Easy-to-Understand Explanation:** Observability means having full visibility into how your agent performs. This chapter explains how to set up OpenTelemetry logging and tracing, letting you monitor execution steps, diagnose errors, track response times, and measure AI token costs in Amazon CloudWatch.
 
 ---
 

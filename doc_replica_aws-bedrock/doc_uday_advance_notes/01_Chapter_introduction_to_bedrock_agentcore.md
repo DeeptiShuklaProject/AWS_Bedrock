@@ -3,7 +3,7 @@
 ## 1. Introduction
 Amazon Bedrock AgentCore is a containerized, code-first developer framework and runtime service designed to package, run, and scale AI-driven agentic applications on AWS.
 
-> **Analogy:** Foundation Models (Cargo Ships) transport text across oceans. Agent Reasoning Logic (Port Crane Operators) coordinates picks, transfers, and loads. Compute Runtime (Isolated Shipping Docks) hosts ships in secure Firecracker microVMs. Tool Gateway (Customs Checkpoint) verifies packages going to external databases.
+> **Easy-to-Understand Explanation:** Amazon Bedrock AgentCore acts like a complete virtual workplace for AI agents. Instead of just sending text messages back and forth to an AI model, AgentCore gives the AI a secure runtime space, access to tools (like searching databases), and memory so it can perform complex tasks autonomously on AWS.
 
 ---
 
@@ -113,7 +113,13 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Introduction to Bedrock AgentCore** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # Standard Hello World entrypoint for AgentCore
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -128,7 +134,23 @@ def handler(payload, context):
     }
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Entrypoint reading context and prompt values
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -149,7 +171,21 @@ def handler(payload, context):
     }
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Structured production entrypoint with exception handling and configuration overrides
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -179,60 +215,63 @@ def handler(payload, context):
         return {"statusCode": 500, "response": "Internal Server Error"}
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# Standard Hello World entrypoint for AgentCore
-from bedrock_agent_core import BedrockAgentCoreApp
-
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def handler(payload, context):
-    return {
-        "statusCode": 200,
-        "response": "Hello from Bedrock AgentCore!"
-    }
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Keep container images thin to minimize boot time and cold start latency.
 * Avoid writing state data to the local filesystem since microVM storage is ephemeral.
 * Always implement structured JSON logging to facilitate log aggregation in CloudWatch.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce strict IAM policies using least-privilege schemas. Ensure the agent execution role limits permission boundaries to designated Bedrock model resources and specific DynamoDB tables. Route all microVM communications through private VPC subnets using AWS PrivateLink endpoints.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Optimize container image layers by using multi-stage Dockerfiles. Cache foundation model parameters and maintain warm session microVM pools to bypass initialization cycles during high-traffic intervals.
 
 ---
 
-## 15. Cost Optimization
-Monitor token usage patterns closely. Claude 3.5 Sonnet charges separate fees for input tokens and output tokens. Implement token budgeting metrics in your tracing span logs to trace costs per user session.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Hardcoding AWS Access Keys inside configuration files (always use IAM Execution Roles instead).
 * Assuming microVM local files persist across different user sessions (use Amazon S3 for durable files).
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -253,7 +292,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
 
@@ -265,34 +304,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Enterprise customer support portals requiring complex multi-step reasoning, document summarization, and secure customer database query lookups.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This chapter establishes the core runtime foundation. The concepts developed here will serve as the host environment for our final Enterprise RAG Assistant and Multi-Agent Supervisor system.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter introduced the Bedrock AgentCore framework, comparing code-first architectures with legacy console models, and outlined the 7 core architectural pillars.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Bedrock AgentCore provides a code-first, framework-agnostic runtime for autonomous agents.
 * Security is enforced via AWS Firecracker microVMs providing isolated user session environments.
 * The framework is managed through standard git, Docker, and AWS CLI developer tools.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Install Python and verify your shell returns a valid environment version.
 * Intermediate: Draft a mock configuration file specifying Claude 3 Haiku as the target foundation model.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [Amazon Bedrock Developer Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 * [AWS Firecracker Virtualization Technology](https://firecracker-microvm.github.io/)

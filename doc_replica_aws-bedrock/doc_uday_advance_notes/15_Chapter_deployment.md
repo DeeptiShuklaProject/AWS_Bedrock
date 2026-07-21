@@ -3,7 +3,7 @@
 ## 1. Introduction
 Packaging Bedrock AgentCore applications as Docker images ensures they deploy and run consistently in production.
 
-> **Analogy:** Think of cargo shipping. Shipping goods in a standardized container (Docker Image) ensures they look and act the same whether transported by train, truck, or container ship (AWS Fargate).
+> **Easy-to-Understand Explanation:** When your agent is ready for production, you package it along with all its libraries into a lightweight Docker container image. This chapter shows how to build this image and upload it to Amazon Elastic Container Registry (ECR) so AWS can host it.
 
 ---
 
@@ -111,7 +111,13 @@ __pycache__/
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Deployment & Containerization** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 dockerfile
 # Folder Location: agentcore-samples/Dockerfile
@@ -138,7 +144,23 @@ EXPOSE 8080
 CMD ["python", "src/main.py"]
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to automate image tag assignments matching commit hashes
 import subprocess
@@ -161,7 +183,21 @@ if __name__ == "__main__":
     tag_image("123456789012.dkr.ecr.us-east-1.amazonaws.com/agentcore-app")
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete build and push automation harness handling registry login and upload
 import subprocess
@@ -193,72 +229,63 @@ if __name__ == "__main__":
     deploy_container("123456789012.dkr.ecr.us-east-1.amazonaws.com", "us-east-1")
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-dockerfile
-# Folder Location: agentcore-samples/Dockerfile
-
-# 1. Use the official slim Python runtime
-FROM python:3.11-slim
-
-# 2. Configure environment settings
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-WORKDIR /app
-
-# 3. Copy dependency manifest and install packages
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# 4. Copy application files
-COPY src/ ./src/
-
-# 5. Expose HTTP port for the listener
-EXPOSE 8080
-
-# 6. Define the start command
-CMD ["python", "src/main.py"]
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Use specific base image tags (e.g., `python:3.11-slim`) to ensure build consistency.
 * Leverage multi-stage builds to keep final production images clean and lightweight.
 * Use a `.dockerignore` file to exclude local files (like virtual environments) from container builds.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce vulnerability scanning on Amazon ECR registries to identify and patch vulnerabilities. Run containers as non-root users to limit security risks.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Order Dockerfile directives from least-frequently changed to most-frequently changed to optimize layer caching and accelerate builds.
 
 ---
 
-## 15. Cost Optimization
-Regularly delete outdated container images from Amazon ECR using lifecycle policies to minimize storage costs.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Committing local virtual environments (like `.venv/`) to images, inflating image size and build times.
 * Running containers with root privileges, increasing security vulnerability risks.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -268,7 +295,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the benefit of multi-stage Docker builds?
 * **Answer:** Multi-stage builds separate build tools from execution runtimes, keeping production images small and secure by excluding compiler tools and intermediate files.
 
@@ -280,34 +307,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Packaging and deploying web applications and agent services to AWS.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This containerization step packages our agent application into a Docker image, ready for deployment to production.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter covered packaging applications with Docker, optimizing images using multi-stage builds, and pushing images to Amazon ECR.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Containerization ensures applications run consistently across environments.
 * Multi-stage builds reduce image size and improve security.
 * Store and secure production container images in Amazon ECR.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Create a `.dockerignore` file that excludes virtual environments and git histories.
 * Intermediate: Configure a multi-stage Dockerfile that compiles build tools in stage 1 and exports the application package to stage 2.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [Docker Architecture Guide](https://docs.docker.com/get-started/overview/)
 * [Amazon ECR Developer Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)

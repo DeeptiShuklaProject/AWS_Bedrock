@@ -3,7 +3,7 @@
 ## 1. Introduction
 Deploying Amazon Bedrock AgentCore applications requires configuring access permissions and model endpoints within your AWS account.
 
-> **Analogy:** Think of a government facility access pass. The employee (Agent) must have an ID card (IAM Role), an explicit list of cleared rooms (IAM Policy), and security desk authorization to access secure documents (Model Access).
+> **Easy-to-Understand Explanation:** To let your AI agent use AWS models and services safely, you must grant it proper permissions. This chapter walks you through enabling Bedrock models in your AWS account and setting up an IAM Execution Role—a digital security badge that specifies exactly what resources your agent is allowed to access.
 
 ---
 

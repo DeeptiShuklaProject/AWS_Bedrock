@@ -3,7 +3,7 @@
 ## 1. Introduction
 The Memory Engine manages short-term conversational history and long-term user profiles.
 
-> **Analogy:** Think of a student in a classroom. The raw lecture (Raw Chat History) is too detailed to memorize. The student writes key facts in their notebook (Compacted Memory) and files it in a cabinet (DynamoDB Table) for next class.
+> **Easy-to-Understand Explanation:** AI models naturally forget past messages once a conversation ends. The Memory Engine fixes this by storing short-term chat history and long-term user preferences in an AWS DynamoDB database, summarizing long chats so the agent remembers key details without slowing down.
 
 ---
 

@@ -3,7 +3,7 @@
 ## 1. Introduction
 Understanding the layout and execution entry points of the Bedrock AgentCore repository is key to building custom agents.
 
-> **Analogy:** Before driving a new car, you review the dashboard controls. You locate the ignition key (main.py entrypoint), the fuse box (config files), and the tool kit in the glovebox (utilities).
+> **Easy-to-Understand Explanation:** Once you download the project, you need to know how it is organized. This chapter takes you on a guided tour of the files and folders, explaining where the main entry script (`src/main.py`) lives and how Python decorators link incoming web requests directly to your agent's code.
 
 ---
 
@@ -93,7 +93,13 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Repository Walkthrough** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # File: src/main.py
 # Folder Location: agentcore-samples/src/main.py
@@ -136,7 +142,23 @@ def my_agent_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
     }
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Expanded entrypoint verifying input keys and parsing context attributes
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -162,7 +184,21 @@ def check_handler(payload, context):
     }
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete handler simulating model execution routes and custom metadata returns
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -199,88 +235,63 @@ def execute_task(payload, context):
     }
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# File: src/main.py
-# Folder Location: agentcore-samples/src/main.py
-
-import os
-import sys
-import logging
-from typing import Dict, Any
-from bedrock_agent_core import BedrockAgentCoreApp
-
-# 1. Initialize Logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("AgentCoreEntrypoint")
-
-# 2. Instantiate the App Wrapper
-app = BedrockAgentCoreApp()
-
-# 3. Define the Invoke Handler
-@app.invoke
-def my_agent_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
-    """
-    Handles incoming prompts and executes the agent reasoning loop.
-    
-    Args:
-        payload (dict): Inbound JSON payload containing prompt keys.
-        context (object): Metadata injected by the runtime (e.g. session_id).
-    """
-    logger.info("Request received at agent core container")
-    
-    # Extract parameter values from the payload
-    prompt = payload.get("prompt", "")
-    session_id = getattr(context, "session_id", "local-dev-session")
-    
-    # Define simple response
-    response_text = f"Processed your prompt: '{prompt}' inside session: {session_id}"
-    
-    return {
-        "statusCode": 200,
-        "response": response_text
-    }
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Isolate application routes so that handler functions only contain coordination logic.
 * Implement logging statements at entry and exit points of handlers to simplify transaction tracing.
 * Validate JSON payload formats before initiating processing steps.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Sanitize user prompt inputs to prevent prompt injection attacks. Ensure that context objects (like authentication tokens or user scopes) are validated by backend filters before invoking core database functions.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Avoid importing large libraries inside the handler function. Load all dependencies at the module level to ensure they are parsed only once when the container boots.
 
 ---
 
-## 15. Cost Optimization
-Optimize the execution time of code paths inside your handler function. The longer a handler runs, the longer the compute microVM remains active, increasing execution costs.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Accessing payload parameters directly (e.g., `payload['prompt']`) without check validations, causing runtime KeyError crashes if keys are missing.
 * Writing resource initialization logic inside the handler function (initialize database clients outside the handler instead).
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -290,7 +301,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is a Python decorator and how is it used in AgentCore?
 * **Answer:** A decorator is a function that takes another function as an argument and extends its behavior without modifying it. In AgentCore, `@app.invoke` registers the decorated function with the runtime, routing incoming requests to it.
 
@@ -302,34 +313,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Analyzing application templates to design custom routing frameworks.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter reviewed the project's folder layout and analyzed the structure and execution flow of the core entrypoint file.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Handlers execute tasks in response to inbound container requests.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Create a file that imports the AgentCore SDK and prints the class structure.
 * Intermediate: Add a custom metadata field to the handler response dictionary and verify syntax.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [Python Decorators Guide](https://realpython.com/primer-on-python-decorators/)
 * [AWS SDK for Python (Boto3) Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)

@@ -3,7 +3,7 @@
 ## 1. Introduction
 Analyzing the implementation details of the main application file is key to customizing agent execution logic.
 
-> **Analogy:** Think of a factory assembly line. The conveyor belt (the SDK wrapper) moves products, and custom assembly machines (handler functions) perform specific modifications on items passing by.
+> **Easy-to-Understand Explanation:** This chapter breaks down the core Python application code line by line. You will learn how the application receives incoming user prompts, extracts session details, processes requests, and packages the results into clean, standard HTTP responses.
 
 ---
 
@@ -90,7 +90,13 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Understanding the Code** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # File: src/agent.py
 # Folder Location: agentcore-samples/src/agent.py
@@ -200,7 +206,23 @@ def invoke_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
         }
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Handler logging request details and validating parameters
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -222,7 +244,21 @@ def handler(payload, context):
     return {"statusCode": 200, "response": f"Processed input: '{prompt}'"}
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete handler simulating model calls and returning structured JSON metadata
 from bedrock_agent_core import BedrockAgentCoreApp
@@ -261,155 +297,63 @@ def handle_request(payload, context):
         }
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# File: src/agent.py
-# Folder Location: agentcore-samples/src/agent.py
-
-import os
-import sys
-import logging
-import json
-import time
-from typing import Dict, Any
-from bedrock_agent_core import BedrockAgentCoreApp
-
-# =====================================================================
-# 1. Structured JSON Logging Setup
-# =====================================================================
-class JSONFormatter(logging.Formatter):
-    def format(self, record):
-        log_record = {
-            "timestamp": self.formatTime(record, self.datefmt),
-            "level": record.levelname,
-            "message": record.getMessage(),
-            "module": record.module,
-        }
-        if hasattr(record, "session_id"):
-            log_record["session_id"] = record.session_id
-        return json.dumps(log_record)
-
-logger = logging.getLogger("ProductionAgent")
-handler = logging.StreamHandler(sys.stdout)
-handler.setFormatter(JSONFormatter())
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
-
-# =====================================================================
-# 2. App Wrapper and Environment Validator
-# =====================================================================
-app = BedrockAgentCoreApp()
-
-class ConfigValidator:
-    @staticmethod
-    def validate_env() -> Dict[str, str]:
-        required_vars = ["AWS_REGION", "BEDROCK_MODEL_ID"]
-        missing = [var for var in required_vars if not os.environ.get(var)]
-        if missing:
-            os.environ["AWS_REGION"] = "us-east-1"
-            os.environ["BEDROCK_MODEL_ID"] = "anthropic.claude-3-5-sonnet"
-        return {
-            "region": os.environ["AWS_REGION"],
-            "model_id": os.environ["BEDROCK_MODEL_ID"]
-        }
-
-# =====================================================================
-# 3. Core Agent Logic with Exponential Backoff
-# =====================================================================
-class ProductionAgent:
-    def __init__(self, config: Dict[str, str]):
-        self.config = config
-
-    def execute_with_retry(self, prompt: str, session_id: str, retries: int = 3) -> str:
-        extra_log = {"session_id": session_id}
-        for attempt in range(1, retries + 1):
-            try:
-                logger.info(f"Attempt {attempt}/{retries}: Invoking Bedrock Model {self.config['model_id']}", extra=extra_log)
-                
-                # In production, call the Bedrock runtime API here
-                return f"[Production Response] Processed: '{prompt}' using {self.config['model_id']}"
-                
-            except (ConnectionError, TimeoutError) as e:
-                logger.warning(f"Connection error: {str(e)}", extra=extra_log)
-                if attempt == retries:
-                    raise e
-                time.sleep(0.5 * attempt)
-            except Exception as e:
-                logger.error(f"Execution error: {str(e)}", extra=extra_log)
-                raise e
-
-# =====================================================================
-# 4. Handler Endpoint
-# =====================================================================
-@app.invoke
-def invoke_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
-    session_id = getattr(context, "session_id", "session-unknown")
-    extra_log = {"session_id": session_id}
-    
-    if not payload or "prompt" not in payload:
-        logger.error("Invalid payload structure. Prompt key missing.", extra=extra_log)
-        return {
-            "statusCode": 400,
-            "error": "Bad Request",
-            "message": "Parameter 'prompt' is missing."
-        }
-        
-    try:
-        config = ConfigValidator.validate_env()
-        agent = ProductionAgent(config)
-        result = agent.execute_with_retry(payload["prompt"], session_id)
-        return {
-            "statusCode": 200,
-            "response": result
-        }
-    except Exception as e:
-        logger.critical(f"Unhandled failure: {str(e)}", extra=extra_log)
-        return {
-            "statusCode": 500,
-            "error": "Internal Error",
-            "message": str(e)
-        }
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Keep handler functions focused on task orchestration; delegate business logic to separate modules.
 * Implement clear logging structures to capture both input parameters and execution durations.
 * Write unit tests for handler functions by passing mock payload and context arguments.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce input validation rules on incoming payloads to protect against code injection. Sanitize output responses to ensure sensitive system details are not leaked in error messages.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Load large models and database configurations outside the handler function to avoid initialization latency during request loops.
 
 ---
 
-## 15. Cost Optimization
-Optimize the execution time of code paths inside your handler function. The longer a handler runs, the longer the compute microVM remains active, increasing execution costs.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Initializing heavy client dependencies inside the handler function code, causing latency.
 * Accessing payload parameters directly without check validations, causing KeyError crashes if parameters are missing.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -419,7 +363,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: What is the benefit of decorating functions with @app.invoke?
 * **Answer:** The decorator registers the function as the agent's entrypoint, abstracting web server routing and request parsing so developers can focus on agent logic.
 
@@ -431,34 +375,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Customizing handler functions to route prompts to different agent orchestrators.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter analyzed the implementation details of the main application file, including imports, app wrappers, logging, and handlers.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Handlers process incoming request payloads and metadata.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Add a log message that prints the length of the prompt inside the handler.
 * Intermediate: Add a custom parameter verification step and return a 400 error status code if validation fails.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [Clean Code Guide for Python](https://github.com/zedr/clean-code-python)
 * [Python Logging Library Guide](https://docs.python.org/3/library/logging.html)

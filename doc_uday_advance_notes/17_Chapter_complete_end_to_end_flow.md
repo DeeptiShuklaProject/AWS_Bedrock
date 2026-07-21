@@ -3,7 +3,7 @@
 ## 1. Introduction
 Verifying the complete integration path—from client requests to database updates—ensures the agent runs securely and efficiently in production.
 
-> **Analogy:** Think of ordering food on a delivery app. You submit the order, verify identity (Access Token), the routing gate checks ingredient stocks (MCP Schema validation), and the kitchen (VM Runtime) bakes and delivers it.
+> **Easy-to-Understand Explanation:** This final chapter brings all components together into a complete working system. You will trace how a user's prompt moves from a web interface, passes through security checks, launches runtime code, calls database tools, and returns a smart response.
 
 ---
 

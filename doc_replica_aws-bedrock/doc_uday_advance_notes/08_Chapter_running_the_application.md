@@ -3,7 +3,7 @@
 ## 1. Introduction
 Testing and verifying Bedrock AgentCore applications locally ensures they function correctly before cloud deployment.
 
-> **Analogy:** Think of testing an engine in a wind tunnel before flight. The wind tunnel (local container) emulates the atmosphere of high-altitude flight (the cloud environment), letting engineers test controls (invoke requests) safely.
+> **Easy-to-Understand Explanation:** Instead of deploying code directly to the cloud to test it, you can run your agent inside a local Docker container on your computer. This chapter shows how to start the local server and send test queries to make sure everything works before deploying to AWS.
 
 ---
 
@@ -97,7 +97,13 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
+
+In this section, we analyze the hands-on code implementations for **Running the Application Locally** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
+
+---
+
+### 1. Simple Implementation Tier Walkthrough
+
 ```python
 # Verify the server is responding on local ports using requests
 import requests
@@ -114,7 +120,23 @@ if __name__ == "__main__":
     test_ping()
 ```
 
-### Intermediate Example
+#### Code Logic & Syntax Breakdown:
+* **Package Imports (`from bedrock_agent_core import ...`)**:
+  - Brings in the core `BedrockAgentCoreApp` engine. This class handles runtime container startup, manages the microVM event loop, and deserializes incoming JSON API invocations.
+* **Application Instance (`app = BedrockAgentCoreApp()`)**:
+  - Instantiates the primary application object `app`. This object serves as the main registry for invocation routes, memory session hooks, and tool bindings.
+* **Invocation Decorator (`@app.invoke`)**:
+  - A Python decorator that registers the function immediately below as the primary entrypoint for Bedrock AgentCore runtime triggers.
+* **Handler Signature (`def handler(payload, context):`)**:
+  - **`payload`**: A Python dictionary holding client parameters, user prompt strings, and input arguments.
+  - **`context`**: A metadata object containing active runtime details such as `session_id`, `actor_id`, and AWS IAM execution identities.
+* **Return Payload (`return {"statusCode": 200, "response": ...}`)**:
+  - Constructs a standard HTTP response dictionary. The `statusCode: 200` communicates success to the API Gateway, and `response` delivers the agent payload back to the client.
+
+---
+
+### 2. Intermediate Implementation Tier Walkthrough
+
 ```python
 # Python script to automate starting and testing the local server
 import subprocess
@@ -137,7 +159,21 @@ if __name__ == "__main__":
     run_local_suite()
 ```
 
-### Advanced Example
+#### Code Logic & Syntax Breakdown:
+* **System Logging Setup (`import logging` & `logger = logging.getLogger(...)`)**:
+  - Configures structured logging via Python's standard `logging` module.
+  - In production, log messages emitted by `logger.info()` stream into Amazon CloudWatch Logs for real-time monitoring and debugging.
+* **Safe Parameter Extraction (`payload.get(...)`)**:
+  - Uses `payload.get("prompt", "")` to safely retrieve user queries. Using `.get()` with a default fallback (`""`) prevents `KeyError` exceptions if optional fields are missing.
+* **Runtime Session Inspection (`getattr(context, ...)`)**:
+  - Inspects the `context` object for `session_id`. Using `getattr()` ensures compatibility when testing locally without a live AWS microVM context.
+* **Operational Telemetry (`logger.info(...)`)**:
+  - Emits formatted log entries containing session parameters and query strings to track execution flow.
+
+---
+
+### 3. Advanced Production Tier Walkthrough
+
 ```python
 # Complete regression testing harness validating multiple prompts and response formats
 import requests
@@ -171,62 +207,63 @@ if __name__ == "__main__":
     run_regression()
 ```
 
+#### Code Logic & Syntax Breakdown:
+* **Defensive Error Trapping (`try: ... except Exception as e:`)**:
+  - Wraps the entire invocation handler inside a `try-except` block to catch unhandled errors gracefully, preventing container crashes in multi-tenant runtime environments.
+* **Input Parameter Validation (`if not prompt:`)**:
+  - Inspects inbound arguments before executing core agent logic. If mandatory parameters are missing, it short-circuits execution and returns a structured `statusCode: 400` (Bad Request) payload.
+* **Environment Overrides (`os.getenv(...)`)**:
+  - Reads system environment variables (e.g., `APP_ENV`) to dynamically adapt behavior across `development`, `staging`, and `production` environments without modifying codebase files.
+* **Sanitized Production Error Response**:
+  - Logs internal error details using `logger.error(...)` while returning a clean, safe `statusCode: 500` response to prevent internal stack traces from leaking to client callers.
+
 ---
 
-## 11. Code Walkthrough
-Let's perform a line-by-line code walk of the core logic implementation:
+### Summary Sequence of Execution
 
-```python
-# Verify the server is responding on local ports using requests
-import requests
-
-def test_ping():
-    try:
-        res = requests.post("http://localhost:8000/invoke", json={"prompt": "ping"})
-        print("Server Response Code:", res.status_code)
-        print("Server Response Body:", res.json())
-    except Exception as e:
-        print("Could not connect to local server:", str(e))
-
-if __name__ == "__main__":
-    test_ping()
+```
+[Incoming Invocation] ──► [Bedrock AgentCore Runtime]
+                                  │
+                                  ▼
+                      [Route to @app.invoke Handler]
+                                  │
+                   ┌──────────────┴──────────────┐
+                   ▼                             ▼
+       [Input Validated (200)]        [Input Missing (400)]
+                   │                             │
+                   ▼                             ▼
+       [Execute Agent Core Logic]     [Return Error Payload]
+                   │
+                   ▼
+       [Deliver JSON to Client]
 ```
 
-* **`import` statements:** Load libraries and core modules required by the package.
-* **Initialization:** Instantiates execution frameworks and logs operational events.
-* **Handler logic:** Executes input validations and triggers core business routines.
-
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Check for port conflicts before starting the server to ensure port 8000 is available.
 * Monitor container logs in a separate terminal window to inspect traceback details.
 * Test edge cases (like empty payloads or long inputs) during local testing cycles.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Do not expose the local agent container to public networks; bind the listener exclusively to localhost (`127.0.0.1`). Ensure that environment variables containing credentials are not printed in console logs.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Initialize model and database clients outside the main request loop to minimize handler execution times.
 
 ---
 
-## 15. Cost Optimization
-Running containers locally does not incur AWS compute charges. You are only billed for model inference requests called through Bedrock APIs.
-
----
-
-## 16. Common Mistakes
+## 14. Common Mistakes
 * Starting the application before launching the local Docker daemon, causing build failures.
 * Sending invalid JSON request payloads, causing server parsing crashes.
 
 ---
 
-## 17. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -236,7 +273,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 16. Interview Questions
 ### Q: How do you run local integration tests for containerized agents?
 * **Answer:** Start the application container locally on a test port, and execute a test script that sends structured prompts and asserts response properties using a testing framework (like pytest).
 
@@ -248,34 +285,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 17. Real-World Use Cases
 Testing agent updates locally to verify logic before deploying code to AWS.
 
 ---
 
-## 20. Industrial Project
+## 18. Industrial Project
 Local testing validates our handler code before it is packaged into production container images in Chapter 15.
 
 ---
 
-## 21. Summary
+## 19. Summary
 This chapter covered starting the application locally using the CLI and invoking endpoints using curl to verify agent execution.
 
 ---
 
-## 22. Key Takeaways
+## 20. Key Takeaways
 * Local containers isolate applications from host configurations.
 * Invoke handlers parse prompt values and return responses.
 * Test code updates locally to verify logic before cloud deployment.
 
 ---
 
-## 23. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Launch the application on port 9000 and verify it responds to request pings.
 * Intermediate: Write a shell script that starts the container, submits a test prompt, and saves logs to a text file.
 
 ---
 
-## 24. Further Reading
+## 22. Further Reading
 * [Docker Networking Guide](https://docs.docker.com/network/)
 * [Python Requests Library Documentation](https://requests.readthedocs.io/)

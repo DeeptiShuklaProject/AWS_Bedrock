@@ -3,7 +3,7 @@
 ## 1. Introduction
 Amazon Bedrock AgentCore is a containerized, code-first developer framework and runtime service designed to package, run, and scale AI-driven agentic applications on AWS.
 
-> **Analogy:** Foundation Models (Cargo Ships) transport text across oceans. Agent Reasoning Logic (Port Crane Operators) coordinates picks, transfers, and loads. Compute Runtime (Isolated Shipping Docks) hosts ships in secure Firecracker microVMs. Tool Gateway (Customs Checkpoint) verifies packages going to external databases.
+> **Easy-to-Understand Explanation:** Amazon Bedrock AgentCore acts like a complete virtual workplace for AI agents. Instead of just sending text messages back and forth to an AI model, AgentCore gives the AI a secure runtime space, access to tools (like searching databases), and memory so it can perform complex tasks autonomously on AWS.
 
 ---
 

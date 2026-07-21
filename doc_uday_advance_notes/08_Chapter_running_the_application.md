@@ -3,7 +3,7 @@
 ## 1. Introduction
 Testing and verifying Bedrock AgentCore applications locally ensures they function correctly before cloud deployment.
 
-> **Analogy:** Think of testing an engine in a wind tunnel before flight. The wind tunnel (local container) emulates the atmosphere of high-altitude flight (the cloud environment), letting engineers test controls (invoke requests) safely.
+> **Easy-to-Understand Explanation:** Instead of deploying code directly to the cloud to test it, you can run your agent inside a local Docker container on your computer. This chapter shows how to start the local server and send test queries to make sure everything works before deploying to AWS.
 
 ---
 

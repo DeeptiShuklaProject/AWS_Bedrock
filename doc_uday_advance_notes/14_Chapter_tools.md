@@ -3,7 +3,7 @@
 ## 1. Introduction
 Custom tools extend agent capabilities by allowing them to execute code and query external web services.
 
-> **Analogy:** Think of a carpenter with a tool chest. The carpenter (the LLM) knows how to design a cabinet but has no physical hands. They select the saw (tool) from the chest (registry) and execute the cut.
+> **Easy-to-Understand Explanation:** Custom tools allow your AI agent to perform real-world actions, like looking up an order status or fetching current weather data. This chapter demonstrates how to write custom Python functions, decorate them, and let the agent call them automatically during conversations.
 
 ---
 

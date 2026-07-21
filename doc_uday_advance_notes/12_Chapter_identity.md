@@ -3,7 +3,7 @@
 ## 1. Introduction
 The Identity Engine authenticates user sessions and enforces row-level security for data access.
 
-> **Analogy:** Think of a government facility access pass. The visitor (User) registers at the desk, receives a security badge (Cognito JWT), and shows it to security guards (Identity Engine) to enter database rooms.
+> **Easy-to-Understand Explanation:** When users interact with your agent, you must verify who they are. This chapter covers user authentication using Amazon Cognito and digital security passes (JSON Web Tokens / JWTs), ensuring users can only access their own private data.
 
 ---
 

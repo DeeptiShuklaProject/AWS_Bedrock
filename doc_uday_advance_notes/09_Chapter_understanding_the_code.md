@@ -3,7 +3,7 @@
 ## 1. Introduction
 Analyzing the implementation details of the main application file is key to customizing agent execution logic.
 
-> **Analogy:** Think of a factory assembly line. The conveyor belt (the SDK wrapper) moves products, and custom assembly machines (handler functions) perform specific modifications on items passing by.
+> **Easy-to-Understand Explanation:** This chapter breaks down the core Python application code line by line. You will learn how the application receives incoming user prompts, extracts session details, processes requests, and packages the results into clean, standard HTTP responses.
 
 ---
 

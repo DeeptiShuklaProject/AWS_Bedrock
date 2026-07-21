@@ -90,176 +90,6 @@ observability:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# File: src/observability.py
-# Folder Location: agentcore-samples/src/observability.py
-
-import time
-import logging
-from typing import Dict, Any
-
-# =====================================================================
-# 1. Mock OpenTelemetry Tracer Implementation
-# =====================================================================
-class MockTracer:
-    def __init__(self, service_name: str):
-        self.service_name = service_name
-
-    def start_span(self, name: str) -> 'MockSpan':
-        return MockSpan(name)
-
-class MockSpan:
-    def __init__(self, name: str):
-        self.name = name
-        self.start_time = time.time()
-        self.attributes = {}
-        self.events = []
-
-    def set_attribute(self, key: str, value: Any):
-        self.attributes[key] = value
-
-    def add_event(self, name: str, payload: dict = None):
-        self.events.append({
-            "name": name,
-            "timestamp": time.time(),
-            "payload": payload or {}
-        })
-
-    def end(self):
-        duration = time.time() - self.start_time
-        # In production, send this span payload to the OTLP Collector endpoint
-        print(f"[Span Ended] Name: {self.name} | Duration: {duration:.4f}s | Attributes: {self.attributes}")
-
-# Instantiate global tracer
-tracer = MockTracer("bedrock-agent-core")
-
-# =====================================================================
-# 2. Instrumented Execution Loop
-# =====================================================================
-def run_agent_workflow_traced(user_prompt: str, session_id: str):
-    root_span = tracer.start_span("agent_execution_loop")
-    root_span.set_attribute("session_id", session_id)
-    root_span.set_attribute("model", "anthropic.claude-3-5-sonnet")
-    
-    try:
-        root_span.add_event("routing_started", {"prompt": user_prompt})
-        
-        # Start Child Span for Web Search Tool
-        tool_span = tracer.start_span("tool:web_search")
-        tool_span.set_attribute("tool_name", "web_search")
-        time.sleep(0.05) # Simulate latency
-        tool_span.add_event("search_api_call", {"target_url": "https://api.search.com"})
-        tool_span.end()
-        
-        # Log input and output token counts to monitor usage costs
-        input_tokens = 340
-        output_tokens = 110
-        root_span.set_attribute("input_tokens", input_tokens)
-        root_span.set_attribute("output_tokens", output_tokens)
-        root_span.set_attribute("total_cost_usd", (input_tokens * 0.003 + output_tokens * 0.015) / 1000)
-        root_span.add_event("generation_completed")
-        
-    except Exception as e:
-        root_span.set_attribute("error", True)
-        root_span.set_attribute("error_message", str(e))
-        raise e
-    finally:
-        root_span.end()
-```
-
-### Intermediate Example
-```python
-# Python script to create mock trace spans and record events
-import time
-
-class MockSpan:
-    def __init__(self, name):
-        self.name = name
-        self.start_time = time.time()
-        self.events = []
-
-    def add_event(self, event_name):
-        self.events.append({"name": event_name, "time": time.time() - self.start_time})
-
-    def end(self):
-        duration = time.time() - self.start_time
-        print(f"Span '{self.name}' completed in {duration:.4f}s. Events recorded: {len(self.events)}")
-
-if __name__ == "__main__":
-    span = MockSpan("db_lookup")
-    time.sleep(0.05)
-    span.add_event("connection_established")
-    time.sleep(0.02)
-    span.end()
-```
-
-### Advanced Example
-```python
-# Complete OpenTelemetry instrumentation script capturing custom metrics and exceptions
-import time
-import logging
-from typing import Dict, Any
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("OtelApplication")
-
-class TraceEngine:
-    def __init__(self, service_name: str):
-        self.service_name = service_name
-
-    def start_span(self, name: str) -> 'TraceSpan':
-        return TraceSpan(name)
-
-class TraceSpan:
-    def __init__(self, name: str):
-        self.name = name
-        self.start_time = time.time()
-        self.attributes: Dict[str, Any] = {}
-        self.error = False
-
-    def set_attribute(self, key: str, value: Any):
-        self.attributes[key] = value
-
-    def record_exception(self, e: Exception):
-        self.error = True
-        self.set_attribute("error.message", str(e))
-
-    def end(self):
-        duration = time.time() - self.start_time
-        log_payload = {
-            "span_name": self.name,
-            "duration_seconds": round(duration, 4),
-            "error": self.error,
-            "attributes": self.attributes
-        }
-        logger.info(f"[SPAN_EXPORT] {log_payload}")
-
-def run_instrumented_agent(prompt: str):
-    tracer = TraceEngine("bedrock-agent")
-    root_span = tracer.start_span("agent_run")
-    root_span.set_attribute("prompt", prompt)
-    try:
-        # Simulate model call child span
-        model_span = tracer.start_span("model_inference")
-        time.sleep(0.1)
-        model_span.set_attribute("tokens_input", 120)
-        model_span.set_attribute("tokens_output", 45)
-        model_span.end()
-        root_span.set_attribute("status", "success")
-    except Exception as e:
-        root_span.record_exception(e)
-        raise e
-    finally:
-        root_span.end()
-
-if __name__ == "__main__":
-    run_instrumented_agent("What is memory compaction?")
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Observability & Telemetry** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -496,35 +326,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Capture token counts from model responses to monitor costs.
 * Export traces asynchronously to prevent monitoring from adding latency to request loops.
 * Ensure child spans inherit the parent context to compile connected trace graphs.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Filter logs and trace attributes to ensure sensitive user credentials or personally identifiable information (PII) are not exported to monitoring backends.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Set up alerts in CloudWatch to notify your team when average model call latency exceeds established service level agreements (SLAs).
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Implement sampling filters in your tracer configurations to export only a percentage of successful traces to keep monitoring costs low.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Creating detached child spans by failing to inherit parent context, resulting in fragmented trace logs.
 * Neglecting to record model token usage, making it difficult to trace billing costs.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -534,7 +364,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the difference between a Trace and a Log?
 * **Answer:** A log is a text record of an isolated event. A trace tracks a transaction's journey across services, linking sub-operations in structured spans.
 
@@ -546,34 +376,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Monitoring execution times across services to optimize application performance.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This telemetry setup monitors application health, providing execution traces for our chatbot system.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered OpenTelemetry tracing, span context propagation, and exporting logs and metrics to CloudWatch.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Observability is critical for debugging complex, asynchronous agent workflows.
 * OpenTelemetry standardizes telemetry collection across backends.
 * Monitor token usage and latency metrics to optimize cost and performance.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Add a warning log statement that prints when model response sizes exceed 1000 characters.
 * Intermediate: Configure logs to export as structured JSON dictionaries.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [OpenTelemetry Python Guide](https://opentelemetry.io/docs/languages/python/)
 * [Amazon CloudWatch Logs Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)

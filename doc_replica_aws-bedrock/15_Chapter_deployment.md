@@ -111,91 +111,6 @@ __pycache__/
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-dockerfile
-# Folder Location: agentcore-samples/Dockerfile
-
-# 1. Use the official slim Python runtime
-FROM python:3.11-slim
-
-# 2. Configure environment settings
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-WORKDIR /app
-
-# 3. Copy dependency manifest and install packages
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# 4. Copy application files
-COPY src/ ./src/
-
-# 5. Expose HTTP port for the listener
-EXPOSE 8080
-
-# 6. Define the start command
-CMD ["python", "src/main.py"]
-```
-
-### Intermediate Example
-```python
-# Python script to automate image tag assignments matching commit hashes
-import subprocess
-
-def tag_image(repo_url):
-    try:
-        # Get the current git commit hash
-        commit = subprocess.check_output(["git", "rev-parse", "--short", "HEAD"]).decode().strip()
-        local_tag = "agentcore-app:latest"
-        remote_tag = f"{repo_url}:{commit}"
-        print(f"Tagging local image {local_tag} as {remote_tag}...")
-        subprocess.run(["docker", "tag", local_tag, remote_tag], check=True)
-        print("[SUCCESS] Tagged successfully!")
-        return remote_tag
-    except Exception as e:
-        print("Failed to tag image:", str(e))
-        return None
-
-if __name__ == "__main__":
-    tag_image("123456789012.dkr.ecr.us-east-1.amazonaws.com/agentcore-app")
-```
-
-### Advanced Example
-```python
-# Complete build and push automation harness handling registry login and upload
-import subprocess
-import sys
-
-def deploy_container(registry_url, region):
-    try:
-        # Authenticate with Amazon ECR
-        print("Authenticating with Amazon ECR...")
-        login_cmd = f"aws ecr get-login-password --region {region} | docker login --username AWS --password-stdin {registry_url}"
-        subprocess.run(login_cmd, shell=True, check=True)
-        
-        # Build container image
-        print("Building Docker image...")
-        subprocess.run(["docker", "build", "-t", "agentcore-app", "."], check=True)
-        
-        # Tag and push image
-        target_tag = f"{registry_url}/agentcore-app:latest"
-        subprocess.run(["docker", "tag", "agentcore-app:latest", target_tag], check=True)
-        print(f"Pushing image to ECR: {target_tag}...")
-        subprocess.run(["docker", "push", target_tag], check=True)
-        print("[SUCCESS] Container image deployed successfully!")
-    except Exception as e:
-        print("Deployment failed:", str(e))
-        sys.exit(1)
-
-if __name__ == "__main__":
-    # Example configurations
-    deploy_container("123456789012.dkr.ecr.us-east-1.amazonaws.com", "us-east-1")
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Deployment & Containerization** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -347,35 +262,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Use specific base image tags (e.g., `python:3.11-slim`) to ensure build consistency.
 * Leverage multi-stage builds to keep final production images clean and lightweight.
 * Use a `.dockerignore` file to exclude local files (like virtual environments) from container builds.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce vulnerability scanning on Amazon ECR registries to identify and patch vulnerabilities. Run containers as non-root users to limit security risks.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Order Dockerfile directives from least-frequently changed to most-frequently changed to optimize layer caching and accelerate builds.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Regularly delete outdated container images from Amazon ECR using lifecycle policies to minimize storage costs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Committing local virtual environments (like `.venv/`) to images, inflating image size and build times.
 * Running containers with root privileges, increasing security vulnerability risks.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -385,7 +300,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the benefit of multi-stage Docker builds?
 * **Answer:** Multi-stage builds separate build tools from execution runtimes, keeping production images small and secure by excluding compiler tools and intermediate files.
 
@@ -397,34 +312,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Packaging and deploying web applications and agent services to AWS.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This containerization step packages our agent application into a Docker image, ready for deployment to production.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered packaging applications with Docker, optimizing images using multi-stage builds, and pushing images to Amazon ECR.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Containerization ensures applications run consistently across environments.
 * Multi-stage builds reduce image size and improve security.
 * Store and secure production container images in Amazon ECR.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Create a `.dockerignore` file that excludes virtual environments and git histories.
 * Intermediate: Configure a multi-stage Dockerfile that compiles build tools in stage 1 and exports the application package to stage 2.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Docker Architecture Guide](https://docs.docker.com/get-started/overview/)
 * [Amazon ECR Developer Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)

@@ -97,83 +97,6 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# Verify the server is responding on local ports using requests
-import requests
-
-def test_ping():
-    try:
-        res = requests.post("http://localhost:8000/invoke", json={"prompt": "ping"})
-        print("Server Response Code:", res.status_code)
-        print("Server Response Body:", res.json())
-    except Exception as e:
-        print("Could not connect to local server:", str(e))
-
-if __name__ == "__main__":
-    test_ping()
-```
-
-### Intermediate Example
-```python
-# Python script to automate starting and testing the local server
-import subprocess
-import time
-import requests
-
-def run_local_suite():
-    print("Starting local agent container server...")
-    proc = subprocess.Popen(["agentcore", "run", "--port", "8080"])
-    time.sleep(3) # Wait for server boot
-    try:
-        res = requests.post("http://localhost:8080/invoke", json={"prompt": "test prompt"})
-        print("Verification request successful:")
-        print(res.json())
-    finally:
-        print("Terminating server process...")
-        proc.terminate()
-
-if __name__ == "__main__":
-    run_local_suite()
-```
-
-### Advanced Example
-```python
-# Complete regression testing harness validating multiple prompts and response formats
-import requests
-import sys
-
-def run_regression():
-    url = "http://localhost:8000/invoke"
-    test_cases = [
-        {"prompt": "What are key IAM features?", "expected_code": 200},
-        {"prompt": "", "expected_code": 400},
-        {"prompt": "Analyze this text payload", "expected_code": 200}
-    ]
-    all_pass = True
-    for case in test_cases:
-        print(f"Sending prompt: '{case['prompt']}'...")
-        try:
-            res = requests.post(url, json={"prompt": case["prompt"]})
-            if res.status_code != case["expected_code"]:
-                print(f"- [FAIL] Expected {case['expected_code']}, got {res.status_code}")
-                all_pass = False
-            else:
-                print(f"- [OK] Received expected status {res.status_code}")
-        except Exception as e:
-            print("Connection error:", str(e))
-            all_pass = False
-    if not all_pass:
-        sys.exit(1)
-    print("Regression testing suite completed successfully!")
-
-if __name__ == "__main__":
-    run_regression()
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Running the Application Locally** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -317,35 +240,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Check for port conflicts before starting the server to ensure port 8000 is available.
 * Monitor container logs in a separate terminal window to inspect traceback details.
 * Test edge cases (like empty payloads or long inputs) during local testing cycles.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Do not expose the local agent container to public networks; bind the listener exclusively to localhost (`127.0.0.1`). Ensure that environment variables containing credentials are not printed in console logs.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Initialize model and database clients outside the main request loop to minimize handler execution times.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Running containers locally does not incur AWS compute charges. You are only billed for model inference requests called through Bedrock APIs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Starting the application before launching the local Docker daemon, causing build failures.
 * Sending invalid JSON request payloads, causing server parsing crashes.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -355,7 +278,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: How do you run local integration tests for containerized agents?
 * **Answer:** Start the application container locally on a test port, and execute a test script that sends structured prompts and asserts response properties using a testing framework (like pytest).
 
@@ -367,34 +290,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Testing agent updates locally to verify logic before deploying code to AWS.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 Local testing validates our handler code before it is packaged into production container images in Chapter 15.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered starting the application locally using the CLI and invoking endpoints using curl to verify agent execution.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Local containers isolate applications from host configurations.
 * Invoke handlers parse prompt values and return responses.
 * Test code updates locally to verify logic before cloud deployment.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Launch the application on port 9000 and verify it responds to request pings.
 * Intermediate: Write a shell script that starts the container, submits a test prompt, and saves logs to a text file.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Docker Networking Guide](https://docs.docker.com/network/)
 * [Python Requests Library Documentation](https://requests.readthedocs.io/)

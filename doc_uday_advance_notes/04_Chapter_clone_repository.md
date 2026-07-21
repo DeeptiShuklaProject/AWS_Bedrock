@@ -93,77 +93,6 @@ git status
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# Verify git repository details using terminal commands programmatically
-import subprocess
-
-def get_git_branch():
-    try:
-        res = subprocess.run(["git", "branch", "--show-current"], capture_output=True, text=True, check=True)
-        print("Current active git branch:", res.stdout.strip())
-    except Exception as e:
-        print("Error reading branch:", str(e))
-
-if __name__ == "__main__":
-    get_git_branch()
-```
-
-### Intermediate Example
-```python
-# Script to list the contents of the root folder and verify file sizes
-import os
-
-def audit_project_root():
-    target = "."
-    print(f"Auditing directory: {os.path.abspath(target)}")
-    for item in os.listdir(target):
-        path = os.path.join(target, item)
-        size = os.path.getsize(path) if os.path.isfile(path) else "Directory"
-        print(f"- {item:<25} | Size: {size}")
-
-if __name__ == "__main__":
-    audit_project_root()
-```
-
-### Advanced Example
-```python
-# Complete diagnostic script checking for modified files and git config status
-import subprocess
-import sys
-
-def verify_repository():
-    try:
-        # Check if we are inside a git directory
-        res = subprocess.run(["git", "rev-parse", "--is-inside-work-tree"], capture_output=True, text=True, check=True)
-        if "true" not in res.stdout.lower():
-            print("Not inside a git work tree.")
-            return False
-        
-        # Retrieve remote URL information
-        res_url = subprocess.run(["git", "config", "--get", "remote.origin.url"], capture_output=True, text=True, check=True)
-        print("Remote Repository URL:", res_url.stdout.strip())
-        
-        # Check for uncommitted changes
-        res_status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, check=True)
-        changes = res_status.stdout.strip()
-        if changes:
-            print("WARNING: Uncommitted changes detected in workspace:")
-            print(changes)
-        else:
-            print("Workspace is clean and synchronized.")
-        return True
-    except Exception as e:
-        print("Git verification failed:", str(e))
-        return False
-
-if __name__ == "__main__":
-    verify_repository()
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Cloning the Code Repository** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -301,35 +230,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Create a development branch (`git checkout -b feature/agent-setup`) instead of making changes directly on `main`.
 * Configure a global `.gitignore` file to prevent system metadata files (like `.DS_Store` or `Thumbs.db`) from entering code repos.
 * Commit small, logical changes with descriptive messages to simplify rollbacks.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce signature verification using GPG keys to sign commits. Configure branch protection rules on your remote repository (e.g., GitHub or Bitbucket) to block direct force-push updates to release branches.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 If a repository contains large binary assets, use shallow clone configurations (`git clone --depth 1`) to download only the latest commits, reducing transfer times.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Git operations are processed locally or on free repository platforms. However, keep in mind that hosting private repositories with large file storage features can incur cost configurations under enterprise plans.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Committing large package binaries or local virtual environment folders to repository history.
 * Modifying files on checkout branches without first fetching the latest updates from the remote repository.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -339,7 +268,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the difference between git fetch and git pull?
 * **Answer:** Git fetch downloads remote updates and references to your local `.git` metadata folder without altering your working files. Git pull downloads these updates and immediately runs a merge command to synchronize your workspace files.
 
@@ -351,34 +280,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Retrieving standard codebase templates to establish uniform layouts for new projects.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 Cloning the repository sets up the baseline layout, including the `src/` source folders we will configure in Chapter 6.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered cloning the project repository, navigating directories, and verifying the local folder layout.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Git clone duplicates remote repositories to local workstations.
 * Standard workspaces isolate source files from local settings configurations.
 * Local changes should be managed using separate development branches.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Clone the sample repository and list root files in your shell.
 * Intermediate: Create a local git branch named `setup-phase` and verify it is active.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Pro Git Book](https://git-scm.com/book/en/v2)
 * [GitHub Documentation](https://docs.github.com/)

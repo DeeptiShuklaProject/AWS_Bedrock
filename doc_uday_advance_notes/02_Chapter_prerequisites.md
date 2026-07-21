@@ -99,74 +99,6 @@ Provide your AWS Access Key ID, Secret Access Key, Default region (e.g., `us-eas
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-json
-{
-      "UserId": "AIDAX1234567890EXAMPLE",
-      "Account": "123456789012",
-      "Arn": "arn:aws:iam::123456789012:user/developer"
-  }
-```
-
-### Intermediate Example
-```python
-# Python script to verify Docker daemon is running locally using docker-py client
-import subprocess
-
-def check_docker():
-    try:
-        res = subprocess.run(["docker", "info"], capture_output=True, text=True)
-        if res.returncode == 0:
-            print("Docker Daemon is active and responding.")
-        else:
-            print("Docker Daemon is not running or active.")
-    except FileNotFoundError:
-        print("Docker CLI binary was not found in path.")
-
-if __name__ == "__main__":
-    check_docker()
-```
-
-### Advanced Example
-```python
-# Comprehensive system pre-flight check script validating git, python, uv, docker, and aws
-import subprocess
-import sys
-
-def run_check(binary_name, args):
-    try:
-        res = subprocess.run([binary_name] + args, capture_output=True, text=True, check=True)
-        print(f"[OK] {binary_name} is active: {res.stdout.splitlines()[0]}")
-        return True
-    except Exception:
-        print(f"[FAIL] {binary_name} is missing or returned errors.")
-        return False
-
-def main():
-    checks = [
-        ("git", ["--version"]),
-        ("python", ["--version"]),
-        ("uv", ["--version"]),
-        ("docker", ["--version"]),
-        ("aws", ["sts", "get-caller-identity"])
-    ]
-    all_pass = True
-    for binary, args in checks:
-        if not run_check(binary, args):
-            all_pass = False
-    if not all_pass:
-        print("Error: Pre-flight check failed. Please install missing toolchains.")
-        sys.exit(1)
-    print("All prerequisites validated successfully!")
-
-if __name__ == "__main__":
-    main()
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Local Environment Prerequisites** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -301,35 +233,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Pin exact minor versions of Python in your workspace to match the target runtime container.
 * Configure shell completion settings for `uv` and `aws` CLI tools to accelerate development workflows.
 * Regularly prune unused Docker builder caches to reclaim local disk space.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Never store permanent AWS root credentials on your workstation. Utilize AWS IAM Identity Center (successor to Single Sign-On) to retrieve temporary, role-based credentials. Ensure local private keys and `.aws/` credential files are set with strict filesystem read permissions (e.g., `chmod 600`).
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Set `uv` to use a global package cache. This avoids re-downloading source wheels across different project folders, resulting in sub-second dependency sync operations.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Running local diagnostic commands does not incur AWS usage charges. However, ensure that active testing credentials do not spawn background compute clusters or resources that remain running in your AWS billing environment.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Committing local credentials files to public repositories.
 * Running container runtimes without administrative group privileges, leading to permission access denied errors on socket files.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -339,7 +271,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: Why is Git essential in automated CI/CD deployment pipelines?
 * **Answer:** Git acts as the source of truth for the codebase. Version control systems host hooks that notify CI/CD servers (like GitHub Actions) to run tests and compile production containers on push events.
 
@@ -351,34 +283,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Setting up new workstations for engineers joining an AI development team to ensure environment alignment.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This workspace preparation allows us to clone the agent source files and compile local container images in subsequent chapters.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered installing, configuring, and testing the core tools (Git, Python, uv, Docker, and AWS CLI) required to build Bedrock AgentCore applications.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * isolated local virtual environments prevent library conflicts.
 * Docker daemon must be active locally to emulate container deployment targets.
 * AWS CLI authentication must be completed before cloud deployment steps can proceed.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Install the `uv` toolchain and verify it responds to the version query command.
 * Intermediate: Configure an AWS CLI profile named `dev-profile` targeting the `us-west-2` region.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [AWS CLI Command Reference Guide](https://awscli.amazonaws.com/v2/documentation/api/latest/index.html)
 * [Docker Containerization Engine Documentation](https://docs.docker.com/)

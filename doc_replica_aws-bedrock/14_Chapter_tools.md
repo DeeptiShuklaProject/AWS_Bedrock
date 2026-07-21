@@ -90,129 +90,6 @@ tools:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# File: src/tools_impl.py
-# Folder Location: agentcore-samples/src/tools_impl.py
-
-import json
-from typing import Dict, Any
-
-# =====================================================================
-# 1. Define Tool Schema
-# =====================================================================
-LOOKUP_WARRANTY_SCHEMA = {
-    "name": "lookup_warranty_status",
-    "description": "Retrieve the warranty coverage status for a specific customer order ID.",
-    "inputSchema": {
-        "json": {
-            "type": "object",
-            "properties": {
-                "order_id": {
-                    "type": "string",
-                    "description": "The unique 5-digit order identifier (e.g., '12345')."
-                }
-            },
-            "required": ["order_id"]
-        }
-    }
-}
-
-# =====================================================================
-# 2. Implement Tool Executor
-# =====================================================================
-class ToolRegistry:
-    def __init__(self):
-        self.tools = {}
-
-    def register_tool(self, name: str, func):
-        self.tools[name] = func
-
-    def execute_tool(self, name: str, arguments: Dict[str, Any]) -> str:
-        if name not in self.tools:
-            return f"Error: Tool '{name}' is not registered."
-            
-        try:
-            return self.tools[name](**arguments)
-        except Exception as e:
-            return f"Execution error in tool '{name}': {str(e)}"
-
-# Define the python function
-def lookup_warranty_status(order_id: str) -> str:
-    db_mock = {
-        "12345": "Expired (254 days ago)",
-        "67890": "Active - Under coverage"
-    }
-    return db_mock.get(order_id, "Order ID not found.")
-
-# Register tool
-registry = ToolRegistry()
-registry.register_tool("lookup_warranty_status", lookup_warranty_status)
-```
-
-### Intermediate Example
-```python
-# Python script to register and execute functions dynamically
-class ToolRegistry:
-    def __init__(self):
-        self.registry = {}
-
-    def register(self, name, func):
-        self.registry[name] = func
-
-    def execute(self, name, **kwargs):
-        if name not in self.registry:
-            return f"Error: Tool '{name}' not found."
-        try:
-            return self.registry[name](**kwargs)
-        except Exception as e:
-            return f"Execution failed: {str(e)}"
-
-def add(x, y):
-    return x + y
-
-if __name__ == "__main__":
-    reg = ToolRegistry()
-    reg.register("math_add", add)
-    print("Result:", reg.execute("math_add", x=5, y=10))
-```
-
-### Advanced Example
-```python
-# Complete SDK tool implementation validating arguments and capturing execution errors
-from bedrock_agent_core import BedrockAgentCoreApp, tool
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("ToolIntegration")
-app = BedrockAgentCoreApp()
-
-@tool
-def lookup_warranty_status(order_id: str) -> str:
-    """
-    Retrieve the warranty coverage status for a customer order.
-    
-    Args:
-        order_id: The unique 5-digit order identifier.
-    """
-    db = {"12345": "Active", "67890": "Expired"}
-    try:
-        # Basic input validation
-        if not order_id.isdigit() or len(order_id) != 5:
-            return "Error: Order ID must be a 5-digit number."
-        return f"Order {order_id} warranty status: {db.get(order_id, 'Not Found')}"
-    except Exception as e:
-        logger.error(f"Tool execution error: {str(e)}")
-        return "Error: Failed to fetch warranty status."
-
-if __name__ == "__main__":
-    # Test tool locally
-    print(lookup_warranty_status(order_id="12345"))
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Custom Tools Integration** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -402,35 +279,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Design tool functions to handle exceptions gracefully, returning friendly errors to the model.
 * Add descriptive docstrings to functions to guide the model's tool selection.
 * Validate all input parameters to protect backend APIs from injection attacks.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Execute tool functions inside secure, sandboxed environments to prevent unauthorized system access. Use IAM policies to limit tools' access to only the AWS resources they require.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Set short execution timeouts on tool calls to prevent runaway scripts from stalling the main agent loop.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Monitor token usage associated with tool definitions. Long tool descriptions increase input token usage, inflating overall execution costs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Defining ambiguous descriptions, causing the model to select the wrong tool.
 * Failing to wrap tool code in try-except blocks, causing unhandled exceptions to crash the agent runtime.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -440,7 +317,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: How does the @tool decorator generate JSON schemas?
 * **Answer:** The decorator uses Python reflection and inspects type annotations and docstring parameters to construct JSON schemas for model configuration.
 
@@ -452,34 +329,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This custom tool integration allows our agent to query databases and call external APIs.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered defining parameter schemas, registering custom Python functions, and executing tools inside secure environments.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Custom tools extend agent capabilities to interact with external systems.
 * Docstrings and type annotations guide the model's tool selection.
 * Enforce parameter validation and run tools in secure sandboxes.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Write a tool that generates a random number within a minimum and maximum range.
 * Intermediate: Create a tool that queries system time, validating format strings.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [JSON Schema Standard Reference](https://json-schema.org/)
 * [Python Type Hints Documentation](https://docs.python.org/3/library/typing.html)

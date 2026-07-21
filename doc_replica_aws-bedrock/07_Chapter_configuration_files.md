@@ -99,83 +99,6 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-yaml
-# Folder Location: agentcore-samples/bedrock_agent_core.yaml
-
-agent_name: "aws_show_and_tell_agent"
-entry_point: "src/main.py"
-runtime_settings:
-  python_version: "3.11"
-  execution_role_arn: "arn:aws:iam::123456789012:role/AgentCoreExecutionRole"
-  memory_id: "agentcore-memory-user-db-987"
-```
-
-### Intermediate Example
-```python
-# Python script to parse and validate YAML metadata configuration fields
-import yaml
-
-def validate_yaml():
-    try:
-        with open("bedrock_agent_core.yaml", "r") as f:
-            config = yaml.safe_load(f)
-        agent_cfg = config.get("agent", {})
-        print("Agent Name:", agent_cfg.get("name"))
-        print("Entrypoint:", agent_cfg.get("entry_point"))
-        if not agent_cfg.get("execution_role_arn"):
-            print("WARNING: execution_role_arn is missing!")
-    except FileNotFoundError:
-        print("bedrock_agent_core.yaml file was not found.")
-
-if __name__ == "__main__":
-    validate_yaml()
-```
-
-### Advanced Example
-```python
-# Structured configuration manager class for loading and validating configurations
-import os
-import yaml
-from dotenv import load_dotenv
-
-class ConfigManager:
-    def __init__(self):
-        load_dotenv()
-        self.aws_region = os.getenv("AWS_DEFAULT_REGION", "us-east-1")
-        self.agent_config = {}
-        self.load_yaml_config()
-
-    def load_yaml_config(self):
-        path = "bedrock_agent_core.yaml"
-        if os.path.exists(path):
-            with open(path, "r") as f:
-                self.agent_config = yaml.safe_load(f).get("agent", {})
-
-    def validate(self):
-        errors = []
-        if not os.getenv("AWS_ACCESS_KEY_ID"):
-            errors.append("Missing AWS_ACCESS_KEY_ID in environment.")
-        if not self.agent_config.get("execution_role_arn"):
-            errors.append("Missing execution_role_arn in bedrock_agent_core.yaml.")
-        
-        if errors:
-            print("[CONFIG ERROR] Validation failed:")
-            for err in errors:
-                print(f"- {err}")
-            return False
-        print("[CONFIG OK] Configuration parameters validated successfully.")
-        return True
-
-if __name__ == "__main__":
-    cfg = ConfigManager()
-    cfg.validate()
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Configuration Files** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -319,35 +242,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Add `.env` to your project's `.gitignore` file to prevent committing secrets.
 * Use template files (like `template.env`) to document required keys without committing actual secrets.
 * Validate configurations on startup before running application code.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Never commit credentials or private keys to version control. In production, load secrets dynamically from AWS Secrets Manager or Systems Manager Parameter Store rather than using static local files.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Cache configuration parameters in memory to avoid repeated disk reads during execution loops.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Parsing local configuration files does not incur AWS charges. Ensure that configurations define short timeouts for third-party APIs to prevent billing for hung executions.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Committing the `.env` file to Git, exposing access keys in the commit history.
 * Defining invalid YAML syntax (like mixed tabs and spaces), causing parser crashes during startup.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -357,7 +280,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the Twelve-Factor App recommendation for configuration?
 * **Answer:** The Twelve-Factor App methodology recommends storing configuration in the environment, separating settings from the codebase. This allows the application to move between environments without modification.
 
@@ -369,34 +292,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Configuring access permissions and endpoints for development and production environments.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 These configuration files define the environment settings and entry points that authorize and run the application in Chapter 8.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered managing environment variables in `.env`, declaring packages in `pyproject.toml`, and setting up deployment settings in `bedrock_agent_core.yaml`.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Separating configuration from code simplifies multi-environment deployments.
 * Add configuration files containing secrets to your `.gitignore`.
 * Configuration files should be validated during application boot.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Add `LOG_LEVEL=DEBUG` to `.env` and read it in a Python script.
 * Intermediate: Configure `bedrock_agent_core.yaml` to reference a different IAM Role ARN and verify parsing.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [The Twelve-Factor App - Config](https://12factor.net/config)
 * [YAML Specification Guide](https://yaml.org/spec/)

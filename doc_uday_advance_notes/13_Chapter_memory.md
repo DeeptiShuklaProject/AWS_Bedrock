@@ -90,120 +90,6 @@ memory:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# File: src/memory_manager.py
-# Folder Location: agentcore-samples/src/memory_manager.py
-
-import json
-from typing import List, Dict, Any
-
-class SessionMemory:
-    def __init__(self, session_id: str):
-        self.session_id = session_id
-        self.turns: List[Dict[str, str]] = []
-
-    def add_message(self, role: str, content: str):
-        self.turns.append({"role": role, "content": content})
-
-    def get_conversation_history(self) -> List[Dict[str, str]]:
-        return self.turns
-
-class LongTermMemoryStore:
-    def __init__(self):
-        self.db: Dict[str, Dict[str, Any]] = {}
-
-    def fetch_user_profile(self, user_id: str) -> Dict[str, Any]:
-        return self.db.get(user_id, {
-            "user_id": user_id,
-            "interests": [],
-            "past_topics": [],
-            "summary": "New user. No historical context."
-        })
-
-    def update_user_profile(self, user_id: str, new_profile: Dict[str, Any]):
-        self.db[user_id] = new_profile
-
-class MemoryManager:
-    def __init__(self, db_store: LongTermMemoryStore):
-        self.db_store = db_store
-
-    def run_end_of_session_compaction(self, user_id: str, history: List[Dict[str, str]]):
-        profile = self.db_store.fetch_user_profile(user_id)
-        for turn in history:
-            content = turn["content"].lower()
-            if "like" in content or "prefer" in content:
-                preference = turn["content"].split("prefer")[-1].strip(" .")
-                if preference not in profile["interests"]:
-                    profile["interests"].append(preference)
-            if "learn" in content or "study" in content:
-                topic = turn["content"].split("study")[-1].strip(" .")
-                if topic not in profile["past_topics"]:
-                    profile["past_topics"].append(topic)
-                    
-        profile["summary"] = f"User is studying {', '.join(profile['past_topics'])}. Prefers {', '.join(profile['interests'])}."
-        self.db_store.update_user_profile(user_id, profile)
-```
-
-### Intermediate Example
-```python
-# Python script to update user profiles using mock database clients
-class MockDBStore:
-    def __init__(self):
-        self.store = {}
-
-    def get_profile(self, user_id):
-        return self.store.get(user_id, {"user_id": user_id, "facts": []})
-
-    def put_profile(self, user_id, profile):
-        self.store[user_id] = profile
-        print(f"Updated database profile for: {user_id}")
-
-if __name__ == "__main__":
-    db = MockDBStore()
-    profile = db.get_profile("user_123")
-    profile["facts"].append("Prefers Python")
-    db.put_profile("user_123", profile)
-```
-
-### Advanced Example
-```python
-# Complete memory manager with a compaction loop parsing preference keys
-import json
-
-class MemoryManager:
-    def __init__(self):
-        self.db = {}
-
-    def fetch_profile(self, user_id):
-        return self.db.get(user_id, {"user_id": user_id, "interests": [], "summary": "New User"})
-
-    def compact_history(self, user_id, history):
-        profile = self.fetch_profile(user_id)
-        for turn in history:
-            content = turn["content"].lower()
-            # Scan for preference keywords
-            if "like" in content or "prefer" in content:
-                pref = turn["content"].split("prefer")[-1].strip(" .")
-                if pref not in profile["interests"]:
-                     profile["interests"].append(pref)
-        
-        profile["summary"] = f"User prefers: {', '.join(profile['interests'])}"
-        self.db[user_id] = profile
-        print(f"Compacted Profile: {json.dumps(profile)}")
-
-if __name__ == "__main__":
-    mgr = MemoryManager()
-    chat_log = [
-        {"role": "user", "content": "I prefer working with Python"},
-        {"role": "assistant", "content": "Understood."}
-    ]
-    mgr.compact_history("user_789", chat_log)
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Memory Engine & State Management** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -384,35 +270,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Use optimistic locking to prevent parallel requests from overwriting data.
 * Trigger compaction loops asynchronously to avoid slowing down user requests.
 * Regularly archive outdated history records to optimize storage costs.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Encrypt database records at rest using AWS KMS keys. Restrict IAM permissions to ensure only the agent execution role can read and write from the memory tables.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Implement caching for user profiles to bypass database reads during high-frequency API invocations.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Configure DynamoDB auto-scaling or on-demand pricing. Prune raw history records and store only compacted summaries to minimize database storage costs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Appending raw, uncompacted dialogue history to prompts, bloating token usage and cost.
 * Running database calls synchronously inside request loops, adding execution latency.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -422,7 +308,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the benefit of memory compaction?
 * **Answer:** Memory compaction summarizes dialogue logs into key facts, keeping prompt context windows small to reduce latency and lower token costs.
 
@@ -434,34 +320,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Personalizing virtual assistants by retaining user preferences and history across sessions.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This memory engine manages agent state, enabling us to personalize our chatbot application.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered short-term session cache, long-term profile storage, and running compaction loops to manage agent state.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Appending raw history to prompts increases token costs and latency.
 * The Memory Engine utilizes DynamoDB to persist state across sessions.
 * Compaction loops summarize dialogue history into structured facts.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Modify the compaction function to extract location preference keywords.
 * Intermediate: Add expiration attributes (TTL) to raw history records to delete them after 30 days.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [LangChain Memory Integration Guide](https://python.langchain.com/docs/modules/memory/)

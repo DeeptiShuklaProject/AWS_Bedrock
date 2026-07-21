@@ -93,115 +93,6 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# File: src/main.py
-# Folder Location: agentcore-samples/src/main.py
-
-import os
-import sys
-import logging
-from typing import Dict, Any
-from bedrock_agent_core import BedrockAgentCoreApp
-
-# 1. Initialize Logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("AgentCoreEntrypoint")
-
-# 2. Instantiate the App Wrapper
-app = BedrockAgentCoreApp()
-
-# 3. Define the Invoke Handler
-@app.invoke
-def my_agent_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
-    """
-    Handles incoming prompts and executes the agent reasoning loop.
-    
-    Args:
-        payload (dict): Inbound JSON payload containing prompt keys.
-        context (object): Metadata injected by the runtime (e.g. session_id).
-    """
-    logger.info("Request received at agent core container")
-    
-    # Extract parameter values from the payload
-    prompt = payload.get("prompt", "")
-    session_id = getattr(context, "session_id", "local-dev-session")
-    
-    # Define simple response
-    response_text = f"Processed your prompt: '{prompt}' inside session: {session_id}"
-    
-    return {
-        "statusCode": 200,
-        "response": response_text
-    }
-```
-
-### Intermediate Example
-```python
-# Expanded entrypoint verifying input keys and parsing context attributes
-from bedrock_agent_core import BedrockAgentCoreApp
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("Walkthrough")
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def check_handler(payload, context):
-    if "prompt" not in payload:
-        logger.warning("Request received without prompt parameter.")
-        return {"statusCode": 400, "response": "Missing 'prompt' key."}
-    
-    prompt = payload["prompt"]
-    request_id = getattr(context, "request_id", "N/A")
-    logger.info(f"Request {request_id} content: {prompt}")
-    
-    return {
-        "statusCode": 200,
-        "response": f"Parsed request {request_id} successfully."
-    }
-```
-
-### Advanced Example
-```python
-# Complete handler simulating model execution routes and custom metadata returns
-from bedrock_agent_core import BedrockAgentCoreApp
-import time
-import logging
-
-logger = logging.getLogger("AdvancedWalkthrough")
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def execute_task(payload, context):
-    start_time = time.time()
-    prompt = payload.get("prompt", "")
-    session_id = getattr(context, "session_id", "local-dev")
-    
-    logger.info(f"Starting task processing for session: {session_id}")
-    
-    # Simulate minor internal processing time
-    time.sleep(0.01)
-    
-    duration = time.time() - start_time
-    response_payload = {
-        "text": f"Answer to '{prompt}'",
-        "metadata": {
-            "session_id": session_id,
-            "latency_seconds": round(duration, 4),
-            "status": "completed"
-        }
-    }
-    
-    return {
-        "statusCode": 200,
-        "response": response_payload
-    }
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Repository Walkthrough** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -377,35 +268,35 @@ def execute_task(payload, context):
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Isolate application routes so that handler functions only contain coordination logic.
 * Implement logging statements at entry and exit points of handlers to simplify transaction tracing.
 * Validate JSON payload formats before initiating processing steps.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Sanitize user prompt inputs to prevent prompt injection attacks. Ensure that context objects (like authentication tokens or user scopes) are validated by backend filters before invoking core database functions.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Avoid importing large libraries inside the handler function. Load all dependencies at the module level to ensure they are parsed only once when the container boots.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Optimize the execution time of code paths inside your handler function. The longer a handler runs, the longer the compute microVM remains active, increasing execution costs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Accessing payload parameters directly (e.g., `payload['prompt']`) without check validations, causing runtime KeyError crashes if keys are missing.
 * Writing resource initialization logic inside the handler function (initialize database clients outside the handler instead).
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -415,7 +306,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is a Python decorator and how is it used in AgentCore?
 * **Answer:** A decorator is a function that takes another function as an argument and extends its behavior without modifying it. In AgentCore, `@app.invoke` registers the decorated function with the runtime, routing incoming requests to it.
 
@@ -427,34 +318,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Analyzing application templates to design custom routing frameworks.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter reviewed the project's folder layout and analyzed the structure and execution flow of the core entrypoint file.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Handlers execute tasks in response to inbound container requests.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Create a file that imports the AgentCore SDK and prints the class structure.
 * Intermediate: Add a custom metadata field to the handler response dictionary and verify syntax.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Python Decorators Guide](https://realpython.com/primer-on-python-decorators/)
 * [AWS SDK for Python (Boto3) Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)

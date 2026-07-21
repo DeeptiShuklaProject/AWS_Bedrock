@@ -91,65 +91,6 @@ runtime:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# Verify session details in execution context
-def check_runtime_context(context):
-    session_id = getattr(context, "session_id", "local-session")
-    print("Running inside session VM:", session_id)
-    return session_id
-```
-
-### Intermediate Example
-```python
-# Python script to verify local file isolation under /tmp
-import os
-
-def check_file_isolation():
-    path = "/tmp/session_data.txt"
-    if os.path.exists(path):
-        with open(path, "r") as f:
-            print("Read session data:", f.read())
-    else:
-        print("No session data found. Writing default...")
-        with open(path, "w") as f:
-            f.write("Session Active")
-
-if __name__ == "__main__":
-    check_file_isolation()
-```
-
-### Advanced Example
-```python
-# Complete script validating memory limits and executing timeout handlers
-import time
-import signal
-import sys
-
-def timeout_handler(signum, frame):
-    print("[TIMEOUT] Execution time limit exceeded. Terminating task.")
-    sys.exit(1)
-
-def execute_with_bounds(duration):
-    # Register signal handler for execution timeouts
-    signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(5) # Set timeout limit to 5 seconds
-    try:
-        print(f"Executing process for {duration} seconds...")
-        time.sleep(duration)
-        signal.alarm(0) # Disable alarm on success
-        print("[SUCCESS] Task completed within limits.")
-    except Exception as e:
-        print("Execution error:", str(e))
-
-if __name__ == "__main__":
-    execute_with_bounds(3) # Succeeds
-    execute_with_bounds(10) # Triggers timeout
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **AgentCore Runtime** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -275,35 +216,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Design applications to boot quickly by minimizing the container image footprint.
 * Never write persistent data to the local filesystem; write files to S3.
 * Configure short timeouts to prevent runaway executions from inflating bills.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce strict resource allocations for RAM and CPU. Ensure that containers run as non-root users inside microVMs to prevent privilege escalation attacks.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Leverage warm starts for sequential requests to bypass boot latency and ensure fast response times.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Monitor microVM active runtimes closely. Inactive microVMs are automatically reclaimed by AWS after inactivity thresholds are met, minimizing idle resource charges.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Expecting files written to `/tmp` to persist across sessions (sessions terminate after timeouts, destroying ephemeral storage).
 * Overallocating RAM in configurations, leading to high resource reservation fees.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -324,7 +265,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the security advantage of Firecracker over standard containers?
 * **Answer:** Standard containers share the host operating system kernel, making them vulnerable to kernel exploit leaks. Firecracker runs each container inside an isolated microVM with its own kernel, securing multi-tenant environments.
 
@@ -336,34 +277,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Isolating user sessions in SaaS platforms to prevent multi-tenant data leaks.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This runtime provides the secure host environment where our agent handler executes in production.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter analyzed the virtualization architecture of AgentCore, detailing Firecracker microVMs, session isolation, and execution bounds.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Session isolation is enforced using AWS Firecracker microVMs.
 * Inactive microVMs are reclaimed to minimize idle resource charges.
 * Write persistent files to S3 because microVM storage is ephemeral.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Configure `bedrock_agent_core.yaml` to set `timeout_seconds` to 600.
 * Intermediate: Map the lifecycle of a runtime VM from boot to destruction in a flow chart.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [AWS Firecracker Architecture Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/aws-firecracker-design/aws-firecracker-design.html)
 * [AWS Lambda Execution Environments](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html)

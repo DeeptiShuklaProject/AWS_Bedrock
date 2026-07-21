@@ -99,91 +99,6 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# Verify basic connectivity to downstream APIs
-import requests
-
-def test_api_ping():
-    try:
-        res = requests.get("http://localhost:8000/status")
-        print("Status code:", res.status_code)
-        print("API Status Response:", res.json())
-    except Exception as e:
-        print("Ping check failed:", str(e))
-```
-
-### Intermediate Example
-```python
-# Python script to automate E2E execution tests
-import requests
-import time
-
-def run_integration_check():
-    url = "http://localhost:8000/invoke"
-    payload = {"prompt": "What is my profile details?"}
-    headers = {"Authorization": "Bearer mock_token_string"}
-    try:
-        print("Sending query to agent gateway...")
-        res = requests.post(url, json=payload, headers=headers)
-        print("Gateway Status Code:", res.status_code)
-        print("Agent Response payload:", res.json())
-        return res.status_code == 200
-    except Exception as e:
-        print("Integration test failed:", str(e))
-        return False
-
-if __name__ == "__main__":
-    run_integration_check()
-```
-
-### Advanced Example
-```python
-# Complete integration runner executing auth checks, tool invocations, and memory audits
-import requests
-import sys
-import time
-
-class E2EIntegrationRunner:
-    def __init__(self, endpoint):
-        self.endpoint = endpoint
-        self.token = "mock_user_access_token"
-
-    def execute_transaction(self, prompt):
-        headers = {
-            "Authorization": f"Bearer {self.token}",
-            "Content-Type": "application/json"
-        }
-        payload = {"prompt": prompt}
-        
-        print(f"[E2E] Initiating transaction prompt: '{prompt}'")
-        start = time.time()
-        try:
-            res = requests.post(self.endpoint, json=payload, headers=headers)
-            duration = time.time() - start
-            
-            if res.status_code == 200:
-                print(f"[E2E SUCCESS] Response time: {duration:.4f}s")
-                print("Agent Response:", res.json().get("response"))
-                return True
-            else:
-                print(f"[E2E FAIL] Status Code: {res.status_code} | Error: {res.text}")
-                return False
-        except Exception as e:
-            print(f"[E2E ERROR] Transaction failed: {str(e)}")
-            return False
-
-if __name__ == "__main__":
-    # Test on local port configurations
-    runner = E2EIntegrationRunner("http://localhost:8000/invoke")
-    success = runner.execute_transaction("Retrieve active stock count for item SKU SHI-001")
-    if not success:
-        sys.exit(1)
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Complete End-to-End Flow** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -335,35 +250,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Enforce access scopes on client authorization tokens.
 * Implement rate limits on gateways to protect system resources.
 * Validate input schemas on the server; never trust inputs from the client.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Use HTTPS with TLS 1.3 to encrypt all network traffic. Restrict subnets and configure Security Groups to secure communications between the gateway and microVMs.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Implement response streaming to improve perceived performance, sending token responses to client screens as they are generated.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Monitor token usage patterns across user sessions. Cache database lookups and tool responses where appropriate to minimize model invocations.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Overlooking signature verification checks on Cognito tokens, leaving APIs vulnerable to authorization bypasses.
 * Failing to implement retry logic on network connections, causing client requests to fail during minor network disruptions.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -373,7 +288,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the primary security rule for cloud deployments?
 * **Answer:** Never trust client-side data. Always validate identity tokens, restrict access scopes, and validate inputs on the server.
 
@@ -385,34 +300,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Validating billing platforms and transaction pipelines during staging deployments.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This end-to-end integration completes the agent pipeline, confirming the system is ready for production hosting.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter traced the complete request lifecycle and verified communication between the client, gateway, microVMs, tools, and databases.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Integration testing confirms communication across all system layers.
 * Secure end-to-end flows using token validation and input schema checks.
 * Displaying active loading states keeps users engaged during execution loops.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Write a list of UI state indicators (e.g., loading, reasoning, writing) representing an agent's reasoning flow.
 * Intermediate: Design a fallback plan specifying how the app should respond if the LLM invocation fails.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [AWS Architecture Center](https://aws.amazon.com/architecture/)
 * [Integration Testing Patterns Guide](https://martinfowler.com/articles/practical-test-pyramid.html)

@@ -148,119 +148,6 @@ aws bedrock list-foundation-models --query "modelSummaries[?modelId=='anthropic.
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "BedrockInference",
-      "Effect": "Allow",
-      "Action": [
-        "bedrock:InvokeModel",
-        "bedrock:InvokeModelWithResponseStream"
-      ],
-      "Resource": "*"
-    },
-    {
-      "Sid": "DynamoDBMemory",
-      "Effect": "Allow",
-      "Action": [
-        "dynamodb:GetItem",
-        "dynamodb:PutItem",
-        "dynamodb:UpdateItem",
-        "dynamodb:DeleteItem",
-        "dynamodb:Query",
-        "dynamodb:Scan"
-      ],
-      "Resource": "arn:aws:dynamodb:*:*:table/*agentcore*"
-    },
-    {
-      "Sid": "CloudWatchLogging",
-      "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
-
-### Intermediate Example
-```python
-# Python script to create the IAM execution policy programmatically
-import boto3
-import json
-
-def create_iam_policy():
-    iam = boto3.client("iam")
-    policy_doc = {
-        "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": ["bedrock:InvokeModel"],
-                "Resource": "*"
-            }
-        ]
-    }
-    try:
-        res = iam.create_policy(
-            PolicyName="AgentCoreMinimumPolicy",
-            PolicyDocument=json.dumps(policy_doc),
-            Description="Minimum execution permissions for Bedrock agents."
-        )
-        print("Policy created successfully. ARN:", res["Policy"]["Arn"])
-    except iam.exceptions.EntityAlreadyExistsException:
-        print("Policy already exists.")
-    except Exception as e:
-        print("Failed to create policy:", str(e))
-
-if __name__ == "__main__":
-    create_iam_policy()
-```
-
-### Advanced Example
-```python
-# Complete SDK implementation validating current role permissions and model execution
-import boto3
-import json
-import botocore
-
-def verify_execution_permissions():
-    # Attempt basic Claude invoke model test call
-    bedrock = boto3.client("bedrock-runtime", region_name="us-east-1")
-    payload = {
-        "anthropic_version": "bedrock-2023-05-31",
-        "max_tokens": 50,
-        "messages": [{"role": "user", "content": "Hello model"}]
-    }
-    try:
-        print("Verifying model invocation permission...")
-        res = bedrock.invoke_model(
-            modelId="anthropic.claude-3-haiku-20240307-v1:0",
-            body=json.dumps(payload)
-        )
-        res_body = json.loads(res.get("body").read())
-        print("Model response text:", res_body["content"][0]["text"])
-        print("[SUCCESS] Permissions validated!")
-    except botocore.exceptions.ClientError as e:
-        error_code = e.response["Error"]["Code"]
-        print(f"[FAIL] AWS API returned error code: {error_code}")
-        if error_code == "AccessDeniedException":
-            print("Resolution: Confirm that you have requested Model Access in the console.")
-
-if __name__ == "__main__":
-    verify_execution_permissions()
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **AWS Configuration & IAM Setup** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -440,35 +327,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Regularly audit and restrict resource wildcards (`*`) in IAM permissions.
 * Use region-specific endpoints to minimize network latency between services.
 * Set up CloudTrail alarms to detect unauthorized IAM role assumption attempts.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce strict trust policies that limit role assumption to the designated Service Principal (`agentcore.amazonaws.com`). Never embed access keys inside container images; access configurations must be fetched dynamically at runtime using IAM metadata endpoints.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Store model configurations and table metadata locally to avoid making duplicate API calls during execution boot cycles.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Requesting model access is free of charge. You are only billed when executing inference requests, based on the volume of input and output tokens processed.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Specifying `lambda.amazonaws.com` instead of `agentcore.amazonaws.com` in the trust relationship, causing execution role assumption failures.
 * Creating policies that grant wide permissions to all DynamoDB tables, violating the principle of least privilege.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -478,7 +365,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the AWS Signature Version 4 (SigV4) protocol?
 * **Answer:** SigV4 is the protocol AWS uses to authenticate API requests. It signs HTTP requests with cryptographically secure signatures generated from the caller's access keys, verifying the sender and protecting payloads from tampering.
 
@@ -490,34 +377,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Securing enterprise AI data pipelines by establishing isolated IAM roles for dev, staging, and production environments.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 The `AgentCoreExecutionRole` created here will be mapped inside `bedrock_agent_core.yaml` to authorize our agent runtime.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter walked through setting up AWS model access and creating the necessary IAM policies and roles required by the AgentCore runtime.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Model access must be explicitly enabled for each region before APIs can be invoked.
 * AgentCore requires a dedicated IAM execution role with service trust configurations.
 * IAM policies should adhere to the security principle of least privilege.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Request access to the Claude 3 Haiku model in the AWS Bedrock console.
 * Intermediate: Draft a JSON policy statement that grants read-only access to an S3 bucket named `agent-assets`.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [Amazon Bedrock Security and Permissions](https://docs.aws.amazon.com/bedrock/latest/userguide/security.html)

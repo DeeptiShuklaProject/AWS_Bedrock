@@ -94,106 +94,6 @@ identity:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# File: src/lambda_tool.py
-# Folder Location: lambda-tools/src/lambda_tool.py
-
-import json
-import boto3
-
-def lambda_handler(event, context):
-    # 1. Extract the propagated user context injected by the Gateway
-    user_context = event.get("userContext", {})
-    actor_id = user_context.get("actorId") # Cognito Sub ID
-    
-    # 2. Extract input arguments
-    arguments = event.get("arguments", {})
-    order_id = arguments.get("order_id")
-    
-    if not actor_id:
-        return {
-            "statusCode": 401,
-            "body": json.dumps({"error": "Unauthorized: Actor ID context is missing."})
-        }
-        
-    # 3. Query DynamoDB using the user context as a query key
-    dynamodb = boto3.resource("dynamodb")
-    table = dynamodb.Table("CustomerOrders")
-    
-    # Verify user identity exists in the database
-    response = table.get_item(Key={"OrderId": order_id})
-    order = response.get("Item", {})
-    
-    # Verify the order belongs to the authenticated user
-    if order.get("CustomerId") != actor_id:
-        return {
-            "statusCode": 403,
-            "body": json.dumps({"error": "Access Denied: You do not own this order record."})
-        }
-        
-    return {
-        "statusCode": 200,
-        "body": json.dumps(order)
-    }
-```
-
-### Intermediate Example
-```python
-# Python script to validate token expiration timestamps
-import time
-import jwt
-
-def check_token_expiry(token):
-    try:
-        claims = jwt.decode(token, options={"verify_signature": False})
-        exp = claims.get("exp", 0)
-        is_active = exp > time.time()
-        print(f"Token is active: {is_active} (Expires in {int(exp - time.time())} seconds)")
-        return is_active
-    except Exception as e:
-        print("Validation error:", str(e))
-        return False
-```
-
-### Advanced Example
-```python
-# Complete JWT verification engine validating signatures and extracting claims
-import urllib.request
-import json
-import jwt
-
-class JWTVerifier:
-    def __init__(self, region, user_pool_id):
-        self.jwks_url = f"https://cognito-idp.{region}.amazonaws.com/{user_pool_id}/.well-known/jwks.json"
-        self.jwks = self.load_jwks()
-
-    def load_jwks(self):
-        try:
-            res = urllib.request.urlopen(self.jwks_url)
-            return json.loads(res.read())
-        except Exception as e:
-            print("Failed to load JWKS:", str(e))
-            return {"keys": []}
-
-    def verify(self, token):
-        try:
-            # In production, select matching public key from JWKS to verify signature
-            claims = jwt.decode(token, options={"verify_signature": False})
-            print("Token verified successfully. Actor ID:", claims.get("sub"))
-            return claims
-        except Exception as e:
-            print("Token verification failed:", str(e))
-            return None
-
-if __name__ == "__main__":
-    # Example usage with mock config
-    verifier = JWTVerifier("us-east-1", "us-east-1_examplePool")
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Identity Engine & User Authentication** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -360,35 +260,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Always verify JWT cryptographic signatures against your provider's public keys.
 * Validate token expiration claims (`exp`) to block expired sessions.
 * Keep access token lifespans short to limit the impact of token leakage.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce row-level security by using the Actor ID as the partition key in database queries. Never allow the client to specify the User ID in payload arguments; extract it from verified token claims.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Cache provider public keys (JWKS) locally to avoid network requests for every token validation check.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Cognito charges based on Monthly Active Users (MAUs), offering a generous free tier that covers development and small production workloads.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Skipping token signature verification and reading claims directly, making the system vulnerable to token tampering.
 * Hardcoding provider keys instead of retrieving them dynamically from JKWS endpoints.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -398,7 +298,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the difference between an ID token and an Access token?
 * **Answer:** ID tokens contain identity claims (name, email) used by client UIs. Access tokens contain scopes and permissions used to authorize API calls.
 
@@ -410,34 +310,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Ensuring users can only retrieve and modify their own transaction records in database applications.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This engine authenticates user sessions, enabling us to isolate and secure database interactions.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered user authentication, JWT verification, and extracting user identities to secure database interactions.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * User authentication is managed using Cognito user pools.
 * Extract and propagate Actor IDs to downstream tools to secure data access.
 * Always verify JWT cryptographic signatures and expiration timestamps.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Decode a mock JWT and print the subject identifier.
 * Intermediate: Add user group validation checks to restrict access to administrator users.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Cognito User Pools Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 * [JWT Standard Specification Guide](https://jwt.io/introduction)

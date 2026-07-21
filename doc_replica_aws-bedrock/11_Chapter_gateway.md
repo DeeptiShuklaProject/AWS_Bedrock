@@ -102,99 +102,6 @@ Define registered tools in the `gateway_config.json` configuration file:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-json
-{
-  "gatewayName": "enterprise-tool-gateway",
-  "mcpServers": {
-    "database-tools": {
-      "type": "lambda",
-      "functionArn": "arn:aws:lambda:us-east-1:123456789012:function:DatabaseToolExecutor",
-      "tools": [
-        {
-          "name": "lookup_customer_profile",
-          "description": "Lookup customer tier, registration date, and email by customer ID.",
-          "inputSchema": {
-            "type": "object",
-            "properties": {
-              "customer_id": {
-                "type": "string",
-                "description": "The unique 6-digit customer identifier."
-              }
-            },
-            "required": ["customer_id"]
-          }
-        }
-      ]
-    }
-  }
-}
-```
-
-### Intermediate Example
-```python
-# Python script to validate input arguments against registered JSON schemas
-from jsonschema import validate, ValidationError
-
-tool_schema = {
-    "type": "object",
-    "properties": {
-        "sku": {"type": "string", "pattern": "^[A-Z]{3}-[0-9]{3}$"}
-    },
-    "required": ["sku"]
-}
-
-def validate_arguments(args):
-    try:
-        validate(instance=args, schema=tool_schema)
-        print("[OK] Arguments validated successfully!")
-        return True
-    except ValidationError as e:
-        print("[FAIL] Validation error:", e.message)
-        return False
-
-if __name__ == "__main__":
-    validate_arguments({"sku": "ABC-123"}) # Valid
-    validate_arguments({"sku": "invalid"}) # Invalid
-```
-
-### Advanced Example
-```python
-# Complete mock gateway router resolving dynamic tool execution requests
-import json
-
-class MockGatewayRouter:
-    def __init__(self):
-        self.tool_registry = {}
-
-    def register(self, name, func):
-        self.tool_registry[name] = func
-
-    def route_request(self, tool_name, arguments_json):
-        if tool_name not in self.tool_registry:
-            return {"success": False, "error": f"Tool '{tool_name}' not found."}
-        try:
-            args = json.loads(arguments_json)
-            # Execute target function
-            res = self.tool_registry[tool_name](**args)
-            return {"success": True, "output": res}
-        except Exception as e:
-            return {"success": False, "error": str(e)}
-
-def mock_db_lookup(sku):
-    db = {"SHI-001": "12 units in stock", "PAN-002": "Out of stock"}
-    return db.get(sku, "SKU not found.")
-
-if __name__ == "__main__":
-    router = MockGatewayRouter()
-    router.register("fetch_stock_level", mock_db_lookup)
-    print(router.route_request("fetch_stock_level", '{"sku": "SHI-001"}'))
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Tool Gateway** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -354,35 +261,35 @@ if __name__ == "__main__":
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Define clear descriptions in schemas to guide model selection.
 * Apply strict schemas to protect backend APIs from malformed parameters.
 * Route calls through private connections to secure network traffic.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce IAM boundary limits on gateway execution roles. Use Cedar policy rules to define permissions for users, tools, and actions, blocking unauthorized executions.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Utilize semantic routing to minimize the number of tool schemas appended to prompts, optimizing latency and reducing costs.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Monitor token usage associated with tool definitions. Long tool descriptions increase input token usage, inflating overall execution costs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Defining ambiguous tool descriptions, causing models to select the wrong tool.
 * Committing API secret keys inside tool execution scripts instead of retrieving them dynamically.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -392,7 +299,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the advantage of using Model Context Protocol (MCP)?
 * **Answer:** MCP standardizes integrations by decoupling clients from specific database API formats, providing a uniform schema for tool communication.
 
@@ -404,34 +311,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This gateway acts as the integration point that allows our agent to invoke database tools and Lambda functions.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter covered the Tool Gateway architecture, the Model Context Protocol (MCP), and configuring tool schemas in `gateway_config.json`.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Expose tools using standardized MCP schemas to simplify integrations.
 * Leverage semantic routing to minimize prompt token usage.
 * Validate input arguments against strict schemas to secure backend APIs.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Write a JSON schema definition for a tool that retrieves weather updates by city.
 * Intermediate: Add validation checks to reject city strings containing numeric characters.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Model Context Protocol Specification](https://modelcontextprotocol.io/)
 * [JSON Schema Standard Reference](https://json-schema.org/)

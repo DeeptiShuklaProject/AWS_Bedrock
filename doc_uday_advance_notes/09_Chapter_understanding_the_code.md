@@ -90,180 +90,6 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# File: src/agent.py
-# Folder Location: agentcore-samples/src/agent.py
-
-import os
-import sys
-import logging
-import json
-import time
-from typing import Dict, Any
-from bedrock_agent_core import BedrockAgentCoreApp
-
-# =====================================================================
-# 1. Structured JSON Logging Setup
-# =====================================================================
-class JSONFormatter(logging.Formatter):
-    def format(self, record):
-        log_record = {
-            "timestamp": self.formatTime(record, self.datefmt),
-            "level": record.levelname,
-            "message": record.getMessage(),
-            "module": record.module,
-        }
-        if hasattr(record, "session_id"):
-            log_record["session_id"] = record.session_id
-        return json.dumps(log_record)
-
-logger = logging.getLogger("ProductionAgent")
-handler = logging.StreamHandler(sys.stdout)
-handler.setFormatter(JSONFormatter())
-logger.addHandler(handler)
-logger.setLevel(logging.INFO)
-
-# =====================================================================
-# 2. App Wrapper and Environment Validator
-# =====================================================================
-app = BedrockAgentCoreApp()
-
-class ConfigValidator:
-    @staticmethod
-    def validate_env() -> Dict[str, str]:
-        required_vars = ["AWS_REGION", "BEDROCK_MODEL_ID"]
-        missing = [var for var in required_vars if not os.environ.get(var)]
-        if missing:
-            os.environ["AWS_REGION"] = "us-east-1"
-            os.environ["BEDROCK_MODEL_ID"] = "anthropic.claude-3-5-sonnet"
-        return {
-            "region": os.environ["AWS_REGION"],
-            "model_id": os.environ["BEDROCK_MODEL_ID"]
-        }
-
-# =====================================================================
-# 3. Core Agent Logic with Exponential Backoff
-# =====================================================================
-class ProductionAgent:
-    def __init__(self, config: Dict[str, str]):
-        self.config = config
-
-    def execute_with_retry(self, prompt: str, session_id: str, retries: int = 3) -> str:
-        extra_log = {"session_id": session_id}
-        for attempt in range(1, retries + 1):
-            try:
-                logger.info(f"Attempt {attempt}/{retries}: Invoking Bedrock Model {self.config['model_id']}", extra=extra_log)
-                
-                # In production, call the Bedrock runtime API here
-                return f"[Production Response] Processed: '{prompt}' using {self.config['model_id']}"
-                
-            except (ConnectionError, TimeoutError) as e:
-                logger.warning(f"Connection error: {str(e)}", extra=extra_log)
-                if attempt == retries:
-                    raise e
-                time.sleep(0.5 * attempt)
-            except Exception as e:
-                logger.error(f"Execution error: {str(e)}", extra=extra_log)
-                raise e
-
-# =====================================================================
-# 4. Handler Endpoint
-# =====================================================================
-@app.invoke
-def invoke_handler(payload: Dict[str, Any], context: Any) -> Dict[str, Any]:
-    session_id = getattr(context, "session_id", "session-unknown")
-    extra_log = {"session_id": session_id}
-    
-    if not payload or "prompt" not in payload:
-        logger.error("Invalid payload structure. Prompt key missing.", extra=extra_log)
-        return {
-            "statusCode": 400,
-            "error": "Bad Request",
-            "message": "Parameter 'prompt' is missing."
-        }
-        
-    try:
-        config = ConfigValidator.validate_env()
-        agent = ProductionAgent(config)
-        result = agent.execute_with_retry(payload["prompt"], session_id)
-        return {
-            "statusCode": 200,
-            "response": result
-        }
-    except Exception as e:
-        logger.critical(f"Unhandled failure: {str(e)}", extra=extra_log)
-        return {
-            "statusCode": 500,
-            "error": "Internal Error",
-            "message": str(e)
-        }
-```
-
-### Intermediate Example
-```python
-# Handler logging request details and validating parameters
-from bedrock_agent_core import BedrockAgentCoreApp
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("AppHandler")
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def handler(payload, context):
-    logger.info("Received invocation request.")
-    prompt = payload.get("prompt")
-    if not prompt:
-        return {"statusCode": 400, "response": "Missing 'prompt' in payload."}
-    
-    session_id = getattr(context, "session_id", "local-dev")
-    logger.info(f"Processing prompt for session: {session_id}")
-    return {"statusCode": 200, "response": f"Processed input: '{prompt}'"}
-```
-
-### Advanced Example
-```python
-# Complete handler simulating model calls and returning structured JSON metadata
-from bedrock_agent_core import BedrockAgentCoreApp
-import logging
-import json
-
-logger = logging.getLogger("ProductionApp")
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def handle_request(payload, context):
-    try:
-        prompt = payload.get("prompt", "")
-        session_id = getattr(context, "session_id", "local-session")
-        logger.info(f"Invoking agent loop for session: {session_id}")
-        
-        if not prompt.strip():
-            return {"statusCode": 400, "response": {"error": "Empty prompt received."}}
-            
-        # Mock core processing workflow
-        response_data = {
-            "text": f"Completed processing for prompt: '{prompt}'",
-            "tokens_used": len(prompt.split()) * 2,
-            "success": True
-        }
-        
-        return {
-            "statusCode": 200,
-            "response": response_data
-        }
-    except Exception as e:
-        logger.error(f"Execution error in handler: {str(e)}")
-        return {
-            "statusCode": 500,
-            "response": {"error": "Internal Server Error"}
-        }
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Understanding the Code** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -504,35 +330,35 @@ def handle_request(payload, context):
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Keep handler functions focused on task orchestration; delegate business logic to separate modules.
 * Implement clear logging structures to capture both input parameters and execution durations.
 * Write unit tests for handler functions by passing mock payload and context arguments.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce input validation rules on incoming payloads to protect against code injection. Sanitize output responses to ensure sensitive system details are not leaked in error messages.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Load large models and database configurations outside the handler function to avoid initialization latency during request loops.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Optimize the execution time of code paths inside your handler function. The longer a handler runs, the longer the compute microVM remains active, increasing execution costs.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Initializing heavy client dependencies inside the handler function code, causing latency.
 * Accessing payload parameters directly without check validations, causing KeyError crashes if parameters are missing.
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -542,7 +368,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the benefit of decorating functions with @app.invoke?
 * **Answer:** The decorator registers the function as the agent's entrypoint, abstracting web server routing and request parsing so developers can focus on agent logic.
 
@@ -554,34 +380,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Customizing handler functions to route prompts to different agent orchestrators.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter analyzed the implementation details of the main application file, including imports, app wrappers, logging, and handlers.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Handlers process incoming request payloads and metadata.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Add a log message that prints the length of the prompt inside the handler.
 * Intermediate: Add a custom parameter verification step and return a 400 error status code if validation fails.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Clean Code Guide for Python](https://github.com/zedr/clean-code-python)
 * [Python Logging Library Guide](https://docs.python.org/3/library/logging.html)

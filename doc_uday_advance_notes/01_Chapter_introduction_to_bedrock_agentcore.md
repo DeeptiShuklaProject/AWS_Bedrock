@@ -113,75 +113,6 @@ agent:
 ---
 
 ## 10. Hands-on Examples
-### Simple Example
-```python
-# Standard Hello World entrypoint for AgentCore
-from bedrock_agent_core import BedrockAgentCoreApp
-
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def handler(payload, context):
-    return {
-        "statusCode": 200,
-        "response": "Hello from Bedrock AgentCore!"
-    }
-```
-
-### Intermediate Example
-```python
-# Entrypoint reading context and prompt values
-from bedrock_agent_core import BedrockAgentCoreApp
-import logging
-
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("IntroAgent")
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def handler(payload, context):
-    prompt = payload.get("prompt", "")
-    session_id = getattr(context, "session_id", "local-session")
-    logger.info(f"Processing session {session_id} with prompt: {prompt}")
-    return {
-        "statusCode": 200,
-        "response": f"Acknowledged prompt: '{prompt}' inside session {session_id}"
-    }
-```
-
-### Advanced Example
-```python
-# Structured production entrypoint with exception handling and configuration overrides
-from bedrock_agent_core import BedrockAgentCoreApp
-import os
-import logging
-
-logger = logging.getLogger("ProductionIntroAgent")
-app = BedrockAgentCoreApp()
-
-@app.invoke
-def handler(payload, context):
-    try:
-        prompt = payload.get("prompt")
-        if not prompt:
-            return {"statusCode": 400, "response": "Error: Missing required prompt parameter."}
-        
-        environment = os.getenv("APP_ENV", "development")
-        session_id = getattr(context, "session_id", "local-session")
-        logger.info(f"[ENV={environment}] Invoking production agent for session {session_id}")
-        
-        return {
-            "statusCode": 200,
-            "response": f"Processed input in {environment} environment for session {session_id}."
-        }
-    except Exception as e:
-        logger.error(f"Unhandled exception in handler: {str(e)}")
-        return {"statusCode": 500, "response": "Internal Server Error"}
-```
-
----
-
-## 11. Code Walkthrough
 
 In this section, we analyze the hands-on code implementations for **Introduction to Bedrock AgentCore** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
@@ -317,35 +248,35 @@ def handler(payload, context):
 
 ---
 
-## 12. Production Best Practices
+## 11. Production Best Practices
 * Keep container images thin to minimize boot time and cold start latency.
 * Avoid writing state data to the local filesystem since microVM storage is ephemeral.
 * Always implement structured JSON logging to facilitate log aggregation in CloudWatch.
 
 ---
 
-## 13. Security Considerations
+## 12. Security Considerations
 Enforce strict IAM policies using least-privilege schemas. Ensure the agent execution role limits permission boundaries to designated Bedrock model resources and specific DynamoDB tables. Route all microVM communications through private VPC subnets using AWS PrivateLink endpoints.
 
 ---
 
-## 14. Performance Optimization
+## 13. Performance Optimization
 Optimize container image layers by using multi-stage Dockerfiles. Cache foundation model parameters and maintain warm session microVM pools to bypass initialization cycles during high-traffic intervals.
 
 ---
 
-## 15. Cost Optimization
+## 14. Cost Optimization
 Monitor token usage patterns closely. Claude 3.5 Sonnet charges separate fees for input tokens and output tokens. Implement token budgeting metrics in your tracing span logs to trace costs per user session.
 
 ---
 
-## 16. Common Mistakes
+## 15. Common Mistakes
 * Hardcoding AWS Access Keys inside configuration files (always use IAM Execution Roles instead).
 * Assuming microVM local files persist across different user sessions (use Amazon S3 for durable files).
 
 ---
 
-## 17. Troubleshooting
+## 16. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -366,7 +297,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Interview Questions
+## 17. Interview Questions
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
 
@@ -378,34 +309,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 19. Real-World Use Cases
+## 18. Real-World Use Cases
 Enterprise customer support portals requiring complex multi-step reasoning, document summarization, and secure customer database query lookups.
 
 ---
 
-## 20. Industrial Project
+## 19. Industrial Project
 This chapter establishes the core runtime foundation. The concepts developed here will serve as the host environment for our final Enterprise RAG Assistant and Multi-Agent Supervisor system.
 
 ---
 
-## 21. Summary
+## 20. Summary
 This chapter introduced the Bedrock AgentCore framework, comparing code-first architectures with legacy console models, and outlined the 7 core architectural pillars.
 
 ---
 
-## 22. Key Takeaways
+## 21. Key Takeaways
 * Bedrock AgentCore provides a code-first, framework-agnostic runtime for autonomous agents.
 * Security is enforced via AWS Firecracker microVMs providing isolated user session environments.
 * The framework is managed through standard git, Docker, and AWS CLI developer tools.
 
 ---
 
-## 23. Practice Exercises
+## 22. Practice Exercises
 * Beginner: Install Python and verify your shell returns a valid environment version.
 * Intermediate: Draft a mock configuration file specifying Claude 3 Haiku as the target foundation model.
 
 ---
 
-## 24. Further Reading
+## 23. Further Reading
 * [Amazon Bedrock Developer Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 * [AWS Firecracker Virtualization Technology](https://firecracker-microvm.github.io/)

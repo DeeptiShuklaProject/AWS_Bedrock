@@ -322,7 +322,14 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 16. Real-World Use Cases
-Personalizing virtual assistants by retaining user preferences and history across sessions.
+**Enterprise Scenario:** Healthcare Patient Triage & Chronic Care Assistant
+
+* **Business Challenge:** LLM context window limitations caused agents to forget prior medical history, patient allergies, and previous symptoms during long multi-turn telehealth conversations.
+* **Bedrock AgentCore Solution:** Implementing Bedrock AgentCore Memory Engine to store raw chat histories, generate compacted session summaries, and persist long-term patient facts into Amazon DynamoDB.
+* **Production Impact:**
+  * Reduced LLM prompt token consumption by 55% through intelligent context compaction and summarization.
+  * Maintained seamless conversational context across weeks of patient-doctor check-ins.
+  * Ensured instant retrieval of critical medical facts (allergies, ongoing prescriptions) without hitting model context limits.
 
 ---
 

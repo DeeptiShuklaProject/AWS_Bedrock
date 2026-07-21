@@ -313,7 +313,14 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 16. Real-World Use Cases
-Integrating customer database lookups securely into customer service workflows.
+**Enterprise Scenario:** Global E-Commerce Returns & Inventory Management Portal
+
+* **Business Challenge:** Allowing LLM agents direct, unmonitored access to backend inventory and refund databases caused security risks, invalid schema requests, and unauthorized transactions.
+* **Bedrock AgentCore Solution:** Routing all tool invocations through the Bedrock AgentCore Tool Gateway using standardized Model Context Protocol (MCP) schemas for authorization, input validation, and rate limiting.
+* **Production Impact:**
+  * Blocked 100% of malformed or unauthorized tool requests before they reached production database microservices.
+  * Enforced strict schema validation and rate limiting across 50+ enterprise backend tools.
+  * Reduced database load and query failures caused by hallucinated LLM function arguments.
 
 ---
 

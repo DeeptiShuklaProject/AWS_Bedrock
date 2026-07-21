@@ -379,7 +379,14 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 16. Real-World Use Cases
-Securing enterprise AI data pipelines by establishing isolated IAM roles for dev, staging, and production environments.
+**Enterprise Scenario:** Enterprise Insurance Claims & Underwriting Platform (Fintech/Insurtech)
+
+* **Business Challenge:** Autonomous AI agents handling sensitive medical claims records required granular access to Amazon Bedrock models and S3 buckets without risking over-privileged wildcard (`*`) IAM permissions or exposed API credentials.
+* **Bedrock AgentCore Solution:** Designing dedicated IAM Execution Roles with strict least-privilege policies, resource-level ARN constraints, temporary security credentials, and Amazon Bedrock model activation policies for production dev, staging, and prod accounts.
+* **Production Impact:**
+  * Passed stringent HIPAA and SOC2 Type II compliance audits with zero over-privileged permission warnings.
+  * Enforced strict environment isolation between Development, Staging, and Production AWS accounts.
+  * Prevented potential credential leakage by eliminating long-lived AWS IAM access keys in favor of temporary IAM role assumption.
 
 ---
 

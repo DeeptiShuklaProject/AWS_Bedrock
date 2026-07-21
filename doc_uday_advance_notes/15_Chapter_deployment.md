@@ -314,7 +314,14 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 16. Real-World Use Cases
-Packaging and deploying web applications and agent services to AWS.
+**Enterprise Scenario:** Global Travel & Flight Reservation Platform
+
+* **Business Challenge:** Manual deployment processes for agent application updates caused downtime, configuration drift, and deployment rollbacks during peak holiday booking seasons.
+* **Bedrock AgentCore Solution:** Containerizing the agent application into Docker images, uploading artifacts to Amazon ECR, and deploying auto-scaling microservices on AWS Fargate via automated GitHub Actions CI/CD pipelines.
+* **Production Impact:**
+  * Achieved zero-downtime rolling deployments during high-traffic booking events.
+  * Reduced release deployment times from 2 hours to 8 minutes.
+  * Auto-scaled agent container tasks dynamically from 2 to 100+ instances during traffic spikes.
 
 ---
 

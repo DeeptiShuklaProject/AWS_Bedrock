@@ -312,7 +312,14 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 16. Real-World Use Cases
-Ensuring users can only retrieve and modify their own transaction records in database applications.
+**Enterprise Scenario:** Commercial Banking & Credit Application System
+
+* **Business Challenge:** Financial regulators required absolute proof that AI agents act strictly within the authenticated permissions of the logged-in user, preventing privilege escalation.
+* **Bedrock AgentCore Solution:** Integrating Amazon Cognito JWT authentication into the AgentCore Identity Engine, passing verified Actor IDs through tool invocation contexts, and enforcing IAM policies at runtime.
+* **Production Impact:**
+  * Ensured strict user-level data segregation across millions of active banking sessions.
+  * Prevented privilege escalation attacks where an agent might attempt unauthorized loan approvals.
+  * Provided tamper-proof audit trails matching every agent action directly to a verified customer identity.
 
 ---
 

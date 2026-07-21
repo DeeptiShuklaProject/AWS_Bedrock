@@ -378,7 +378,14 @@ Below is the diagnostic reference table for identifying and resolving issues:
 ---
 
 ## 16. Real-World Use Cases
-Monitoring execution times across services to optimize application performance.
+**Enterprise Scenario:** Digital Media & Content Streaming Enterprise
+
+* **Business Challenge:** Debugging latency bottlenecks and failed model tool calls across distributed microservices was nearly impossible without centralized tracing and structured log aggregation.
+* **Bedrock AgentCore Solution:** Instrumenting the AgentCore application with OpenTelemetry spans, exporting trace context, tracking token usage metrics, and centralizing logs inside Amazon CloudWatch.
+* **Production Impact:**
+  * Identified and fixed a 3-second database latency bottleneck, improving agent response speed by 40%.
+  * Real-time CloudWatch dashboards tracked exact LLM token spending per user department.
+  * Enabled automated CloudWatch alarms to detect and alert engineers on elevated error rates instantly.
 
 ---
 

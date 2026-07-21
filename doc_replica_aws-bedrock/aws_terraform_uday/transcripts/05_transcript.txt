@@ -1,7 +1,0 @@
-Lesson 05: Parameterizing Terraform Configurations
-
-1. Create a `variables.tf` file.
-2. Inject values using command-line arguments, environment variables, or a `terraform.tfvars` file:
-   ```bash
-   terraform plan -var="environment=prod"
-   ```

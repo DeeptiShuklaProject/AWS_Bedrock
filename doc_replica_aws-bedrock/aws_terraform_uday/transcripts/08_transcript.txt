@@ -1,5 +1,0 @@
-Lesson 08: Deploying EC2 Web Servers
-
-1. Configure `aws_instance` with the `user_data` shell script.
-2. Initialize and apply.
-3. Fetch the public IP and test connectivity using curl.

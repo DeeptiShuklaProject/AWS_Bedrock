@@ -1645,32 +1645,24 @@ CHAPTER_FILENAMES = {
 
 def main():
     print("Running 24-heading migration script...")
-    replica_dir1 = r"c:\Users\nishu\workspace\wscs_bedrock\doc_replica_aws-bedrock\doc_uday_advance_notes"
-    replica_dir2 = r"c:\Users\nishu\workspace\wscs_bedrock\doc_replica_aws-bedrock"
 
     os.makedirs(TARGET_DIR, exist_ok=True)
-    os.makedirs(replica_dir1, exist_ok=True)
-    os.makedirs(replica_dir2, exist_ok=True)
 
     # Clean up legacy 0X_Chapter_... files
-    for d in [TARGET_DIR, replica_dir1, replica_dir2]:
-        for f in os.listdir(d):
-            if f.endswith(".md") and f[0].isdigit() and "_Chapter_" in f:
-                try:
-                    os.remove(os.path.join(d, f))
-                    print(f"Cleaned up legacy file {f} from {d}")
-                except Exception as e:
-                    pass
+    for f in os.listdir(TARGET_DIR):
+        if f.endswith(".md") and f[0].isdigit() and "_Chapter_" in f:
+            try:
+                os.remove(os.path.join(TARGET_DIR, f))
+                print(f"Cleaned up legacy file {f} from {TARGET_DIR}")
+            except Exception as e:
+                pass
 
     # Generate each chapter with new Chapter_XX_YY.md filename
     for chap_num, fname in sorted(CHAPTER_FILENAMES.items()):
         file_path = os.path.join(TARGET_DIR, fname)
         generate_chapter_file(chap_num, file_path)
-        shutil.copy(file_path, os.path.join(replica_dir1, fname))
-        shutil.copy(file_path, os.path.join(replica_dir2, fname))
-        print(f"Synced {fname} to replica directories.")
 
-    print("All chapters successfully migrated and synced in Chapter_XX_YY format!")
+    print("All chapters successfully migrated in Chapter_XX_YY format!")
 
 if __name__ == '__main__':
     main()

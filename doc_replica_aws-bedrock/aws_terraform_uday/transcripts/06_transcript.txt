@@ -1,8 +1,0 @@
-Lesson 06: Output Variables Walkthrough
-
-1. Create `outputs.tf`.
-2. Run `terraform apply`.
-3. Read sensitive outputs using the CLI query tool:
-   ```bash
-   terraform output database_connection_string
-   ```

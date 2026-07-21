@@ -1,4 +1,0 @@
-Lesson 14: CI/CD Pipeline Setup
-
-1. Register at app.terraform.io.
-2. Connect VCS provider, select repository, and apply configurations.

@@ -1,5 +1,0 @@
-Lesson 11: PostgreSQL Setup
-
-1. Add the RDS database configurations.
-2. Prompt for database passwords via variables.
-3. Run apply and check the DB connection endpoint.

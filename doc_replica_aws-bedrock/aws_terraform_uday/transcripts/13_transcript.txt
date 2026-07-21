@@ -1,4 +1,0 @@
-Lesson 13: Importing Modular Frameworks
-
-1. Reference official modules from the registry.
-2. Run `terraform init` to download modules.

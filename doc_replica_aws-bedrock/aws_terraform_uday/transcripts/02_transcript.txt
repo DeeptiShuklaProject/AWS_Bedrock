@@ -1,8 +1,0 @@
-Lesson 02: VS Code and AWS CLI Walkthrough
-
-1. Install VS Code and the Terraform Extension.
-2. Initialize your local shell configuration:
-   ```bash
-   aws configure --profile dev-user
-   ```
-3. Run `terraform fmt` to automatically clean up any spacing issues before committing.

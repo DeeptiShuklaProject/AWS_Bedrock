@@ -1,5 +1,0 @@
-Lesson 07: Implementing Local Values
-
-1. Scaffold local declarations at the top of your configurations.
-2. Reference them using the `local.` prefix.
-3. Validate output naming patterns using `terraform plan`.

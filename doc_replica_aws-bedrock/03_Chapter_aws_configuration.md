@@ -344,18 +344,13 @@ Store model configurations and table metadata locally to avoid making duplicate 
 
 ---
 
-## 14. Cost Optimization
-Requesting model access is free of charge. You are only billed when executing inference requests, based on the volume of input and output tokens processed.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Specifying `lambda.amazonaws.com` instead of `agentcore.amazonaws.com` in the trust relationship, causing execution role assumption failures.
 * Creating policies that grant wide permissions to all DynamoDB tables, violating the principle of least privilege.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -365,7 +360,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the AWS Signature Version 4 (SigV4) protocol?
 * **Answer:** SigV4 is the protocol AWS uses to authenticate API requests. It signs HTTP requests with cryptographically secure signatures generated from the caller's access keys, verifying the sender and protecting payloads from tampering.
 
@@ -377,34 +372,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Securing enterprise AI data pipelines by establishing isolated IAM roles for dev, staging, and production environments.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 The `AgentCoreExecutionRole` created here will be mapped inside `bedrock_agent_core.yaml` to authorize our agent runtime.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter walked through setting up AWS model access and creating the necessary IAM policies and roles required by the AgentCore runtime.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Model access must be explicitly enabled for each region before APIs can be invoked.
 * AgentCore requires a dedicated IAM execution role with service trust configurations.
 * IAM policies should adhere to the security principle of least privilege.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Request access to the Claude 3 Haiku model in the AWS Bedrock console.
 * Intermediate: Draft a JSON policy statement that grants read-only access to an S3 bucket named `agent-assets`.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [Amazon Bedrock Security and Permissions](https://docs.aws.amazon.com/bedrock/latest/userguide/security.html)

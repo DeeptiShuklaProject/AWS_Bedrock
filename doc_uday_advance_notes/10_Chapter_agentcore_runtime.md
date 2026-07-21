@@ -233,18 +233,13 @@ Leverage warm starts for sequential requests to bypass boot latency and ensure f
 
 ---
 
-## 14. Cost Optimization
-Monitor microVM active runtimes closely. Inactive microVMs are automatically reclaimed by AWS after inactivity thresholds are met, minimizing idle resource charges.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Expecting files written to `/tmp` to persist across sessions (sessions terminate after timeouts, destroying ephemeral storage).
 * Overallocating RAM in configurations, leading to high resource reservation fees.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -265,7 +260,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the security advantage of Firecracker over standard containers?
 * **Answer:** Standard containers share the host operating system kernel, making them vulnerable to kernel exploit leaks. Firecracker runs each container inside an isolated microVM with its own kernel, securing multi-tenant environments.
 
@@ -277,34 +272,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Isolating user sessions in SaaS platforms to prevent multi-tenant data leaks.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This runtime provides the secure host environment where our agent handler executes in production.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter analyzed the virtualization architecture of AgentCore, detailing Firecracker microVMs, session isolation, and execution bounds.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Session isolation is enforced using AWS Firecracker microVMs.
 * Inactive microVMs are reclaimed to minimize idle resource charges.
 * Write persistent files to S3 because microVM storage is ephemeral.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Configure `bedrock_agent_core.yaml` to set `timeout_seconds` to 600.
 * Intermediate: Map the lifecycle of a runtime VM from boot to destruction in a flow chart.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [AWS Firecracker Architecture Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/aws-firecracker-design/aws-firecracker-design.html)
 * [AWS Lambda Execution Environments](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html)

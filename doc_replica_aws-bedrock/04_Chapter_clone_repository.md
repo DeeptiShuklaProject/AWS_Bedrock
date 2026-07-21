@@ -247,18 +247,13 @@ If a repository contains large binary assets, use shallow clone configurations (
 
 ---
 
-## 14. Cost Optimization
-Git operations are processed locally or on free repository platforms. However, keep in mind that hosting private repositories with large file storage features can incur cost configurations under enterprise plans.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Committing large package binaries or local virtual environment folders to repository history.
 * Modifying files on checkout branches without first fetching the latest updates from the remote repository.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -268,7 +263,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the difference between git fetch and git pull?
 * **Answer:** Git fetch downloads remote updates and references to your local `.git` metadata folder without altering your working files. Git pull downloads these updates and immediately runs a merge command to synchronize your workspace files.
 
@@ -280,34 +275,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Retrieving standard codebase templates to establish uniform layouts for new projects.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 Cloning the repository sets up the baseline layout, including the `src/` source folders we will configure in Chapter 6.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered cloning the project repository, navigating directories, and verifying the local folder layout.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Git clone duplicates remote repositories to local workstations.
 * Standard workspaces isolate source files from local settings configurations.
 * Local changes should be managed using separate development branches.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Clone the sample repository and list root files in your shell.
 * Intermediate: Create a local git branch named `setup-phase` and verify it is active.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Pro Git Book](https://git-scm.com/book/en/v2)
 * [GitHub Documentation](https://docs.github.com/)

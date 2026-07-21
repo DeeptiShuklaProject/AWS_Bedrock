@@ -259,18 +259,13 @@ Cache configuration parameters in memory to avoid repeated disk reads during exe
 
 ---
 
-## 14. Cost Optimization
-Parsing local configuration files does not incur AWS charges. Ensure that configurations define short timeouts for third-party APIs to prevent billing for hung executions.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Committing the `.env` file to Git, exposing access keys in the commit history.
 * Defining invalid YAML syntax (like mixed tabs and spaces), causing parser crashes during startup.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -280,7 +275,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the Twelve-Factor App recommendation for configuration?
 * **Answer:** The Twelve-Factor App methodology recommends storing configuration in the environment, separating settings from the codebase. This allows the application to move between environments without modification.
 
@@ -292,34 +287,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Configuring access permissions and endpoints for development and production environments.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 These configuration files define the environment settings and entry points that authorize and run the application in Chapter 8.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered managing environment variables in `.env`, declaring packages in `pyproject.toml`, and setting up deployment settings in `bedrock_agent_core.yaml`.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Separating configuration from code simplifies multi-environment deployments.
 * Add configuration files containing secrets to your `.gitignore`.
 * Configuration files should be validated during application boot.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Add `LOG_LEVEL=DEBUG` to `.env` and read it in a Python script.
 * Intermediate: Configure `bedrock_agent_core.yaml` to reference a different IAM Role ARN and verify parsing.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [The Twelve-Factor App - Config](https://12factor.net/config)
 * [YAML Specification Guide](https://yaml.org/spec/)

@@ -296,18 +296,13 @@ Set short execution timeouts on tool calls to prevent runaway scripts from stall
 
 ---
 
-## 14. Cost Optimization
-Monitor token usage associated with tool definitions. Long tool descriptions increase input token usage, inflating overall execution costs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Defining ambiguous descriptions, causing the model to select the wrong tool.
 * Failing to wrap tool code in try-except blocks, causing unhandled exceptions to crash the agent runtime.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -317,7 +312,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: How does the @tool decorator generate JSON schemas?
 * **Answer:** The decorator uses Python reflection and inspects type annotations and docstring parameters to construct JSON schemas for model configuration.
 
@@ -329,34 +324,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This custom tool integration allows our agent to query databases and call external APIs.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered defining parameter schemas, registering custom Python functions, and executing tools inside secure environments.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Custom tools extend agent capabilities to interact with external systems.
 * Docstrings and type annotations guide the model's tool selection.
 * Enforce parameter validation and run tools in secure sandboxes.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Write a tool that generates a random number within a minimum and maximum range.
 * Intermediate: Create a tool that queries system time, validating format strings.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [JSON Schema Standard Reference](https://json-schema.org/)
 * [Python Type Hints Documentation](https://docs.python.org/3/library/typing.html)

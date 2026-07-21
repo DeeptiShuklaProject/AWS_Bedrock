@@ -287,18 +287,13 @@ Implement caching for user profiles to bypass database reads during high-frequen
 
 ---
 
-## 14. Cost Optimization
-Configure DynamoDB auto-scaling or on-demand pricing. Prune raw history records and store only compacted summaries to minimize database storage costs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Appending raw, uncompacted dialogue history to prompts, bloating token usage and cost.
 * Running database calls synchronously inside request loops, adding execution latency.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -308,7 +303,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the benefit of memory compaction?
 * **Answer:** Memory compaction summarizes dialogue logs into key facts, keeping prompt context windows small to reduce latency and lower token costs.
 
@@ -320,34 +315,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Personalizing virtual assistants by retaining user preferences and history across sessions.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This memory engine manages agent state, enabling us to personalize our chatbot application.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered short-term session cache, long-term profile storage, and running compaction loops to manage agent state.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Appending raw history to prompts increases token costs and latency.
 * The Memory Engine utilizes DynamoDB to persist state across sessions.
 * Compaction loops summarize dialogue history into structured facts.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Modify the compaction function to extract location preference keywords.
 * Intermediate: Add expiration attributes (TTL) to raw history records to delete them after 30 days.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [LangChain Memory Integration Guide](https://python.langchain.com/docs/modules/memory/)

@@ -265,18 +265,13 @@ Optimize container image layers by using multi-stage Dockerfiles. Cache foundati
 
 ---
 
-## 14. Cost Optimization
-Monitor token usage patterns closely. Claude 3.5 Sonnet charges separate fees for input tokens and output tokens. Implement token budgeting metrics in your tracing span logs to trace costs per user session.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Hardcoding AWS Access Keys inside configuration files (always use IAM Execution Roles instead).
 * Assuming microVM local files persist across different user sessions (use Amazon S3 for durable files).
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -297,7 +292,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
 
@@ -309,34 +304,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Enterprise customer support portals requiring complex multi-step reasoning, document summarization, and secure customer database query lookups.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This chapter establishes the core runtime foundation. The concepts developed here will serve as the host environment for our final Enterprise RAG Assistant and Multi-Agent Supervisor system.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter introduced the Bedrock AgentCore framework, comparing code-first architectures with legacy console models, and outlined the 7 core architectural pillars.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Bedrock AgentCore provides a code-first, framework-agnostic runtime for autonomous agents.
 * Security is enforced via AWS Firecracker microVMs providing isolated user session environments.
 * The framework is managed through standard git, Docker, and AWS CLI developer tools.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Install Python and verify your shell returns a valid environment version.
 * Intermediate: Draft a mock configuration file specifying Claude 3 Haiku as the target foundation model.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Amazon Bedrock Developer Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 * [AWS Firecracker Virtualization Technology](https://firecracker-microvm.github.io/)

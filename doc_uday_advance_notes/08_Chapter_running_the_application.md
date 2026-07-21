@@ -257,18 +257,13 @@ Initialize model and database clients outside the main request loop to minimize 
 
 ---
 
-## 14. Cost Optimization
-Running containers locally does not incur AWS compute charges. You are only billed for model inference requests called through Bedrock APIs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Starting the application before launching the local Docker daemon, causing build failures.
 * Sending invalid JSON request payloads, causing server parsing crashes.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -278,7 +273,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: How do you run local integration tests for containerized agents?
 * **Answer:** Start the application container locally on a test port, and execute a test script that sends structured prompts and asserts response properties using a testing framework (like pytest).
 
@@ -290,34 +285,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Testing agent updates locally to verify logic before deploying code to AWS.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 Local testing validates our handler code before it is packaged into production container images in Chapter 15.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered starting the application locally using the CLI and invoking endpoints using curl to verify agent execution.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Local containers isolate applications from host configurations.
 * Invoke handlers parse prompt values and return responses.
 * Test code updates locally to verify logic before cloud deployment.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Launch the application on port 9000 and verify it responds to request pings.
 * Intermediate: Write a shell script that starts the container, submits a test prompt, and saves logs to a text file.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Docker Networking Guide](https://docs.docker.com/network/)
 * [Python Requests Library Documentation](https://requests.readthedocs.io/)

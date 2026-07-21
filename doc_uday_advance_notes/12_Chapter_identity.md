@@ -277,18 +277,13 @@ Cache provider public keys (JWKS) locally to avoid network requests for every to
 
 ---
 
-## 14. Cost Optimization
-Cognito charges based on Monthly Active Users (MAUs), offering a generous free tier that covers development and small production workloads.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Skipping token signature verification and reading claims directly, making the system vulnerable to token tampering.
 * Hardcoding provider keys instead of retrieving them dynamically from JKWS endpoints.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -298,7 +293,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the difference between an ID token and an Access token?
 * **Answer:** ID tokens contain identity claims (name, email) used by client UIs. Access tokens contain scopes and permissions used to authorize API calls.
 
@@ -310,34 +305,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Ensuring users can only retrieve and modify their own transaction records in database applications.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This engine authenticates user sessions, enabling us to isolate and secure database interactions.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered user authentication, JWT verification, and extracting user identities to secure database interactions.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * User authentication is managed using Cognito user pools.
 * Extract and propagate Actor IDs to downstream tools to secure data access.
 * Always verify JWT cryptographic signatures and expiration timestamps.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Decode a mock JWT and print the subject identifier.
 * Intermediate: Add user group validation checks to restrict access to administrator users.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Cognito User Pools Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 * [JWT Standard Specification Guide](https://jwt.io/introduction)

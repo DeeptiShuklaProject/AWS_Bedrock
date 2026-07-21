@@ -343,18 +343,13 @@ Set up alerts in CloudWatch to notify your team when average model call latency 
 
 ---
 
-## 14. Cost Optimization
-Implement sampling filters in your tracer configurations to export only a percentage of successful traces to keep monitoring costs low.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Creating detached child spans by failing to inherit parent context, resulting in fragmented trace logs.
 * Neglecting to record model token usage, making it difficult to trace billing costs.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -364,7 +359,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the difference between a Trace and a Log?
 * **Answer:** A log is a text record of an isolated event. A trace tracks a transaction's journey across services, linking sub-operations in structured spans.
 
@@ -376,34 +371,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Monitoring execution times across services to optimize application performance.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This telemetry setup monitors application health, providing execution traces for our chatbot system.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered OpenTelemetry tracing, span context propagation, and exporting logs and metrics to CloudWatch.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Observability is critical for debugging complex, asynchronous agent workflows.
 * OpenTelemetry standardizes telemetry collection across backends.
 * Monitor token usage and latency metrics to optimize cost and performance.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Add a warning log statement that prints when model response sizes exceed 1000 characters.
 * Intermediate: Configure logs to export as structured JSON dictionaries.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [OpenTelemetry Python Guide](https://opentelemetry.io/docs/languages/python/)
 * [Amazon CloudWatch Logs Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)

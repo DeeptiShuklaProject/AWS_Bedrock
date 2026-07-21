@@ -279,18 +279,13 @@ Order Dockerfile directives from least-frequently changed to most-frequently cha
 
 ---
 
-## 14. Cost Optimization
-Regularly delete outdated container images from Amazon ECR using lifecycle policies to minimize storage costs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Committing local virtual environments (like `.venv/`) to images, inflating image size and build times.
 * Running containers with root privileges, increasing security vulnerability risks.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -300,7 +295,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the benefit of multi-stage Docker builds?
 * **Answer:** Multi-stage builds separate build tools from execution runtimes, keeping production images small and secure by excluding compiler tools and intermediate files.
 
@@ -312,34 +307,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Packaging and deploying web applications and agent services to AWS.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This containerization step packages our agent application into a Docker image, ready for deployment to production.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered packaging applications with Docker, optimizing images using multi-stage builds, and pushing images to Amazon ECR.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Containerization ensures applications run consistently across environments.
 * Multi-stage builds reduce image size and improve security.
 * Store and secure production container images in Amazon ECR.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Create a `.dockerignore` file that excludes virtual environments and git histories.
 * Intermediate: Configure a multi-stage Dockerfile that compiles build tools in stage 1 and exports the application package to stage 2.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Docker Architecture Guide](https://docs.docker.com/get-started/overview/)
 * [Amazon ECR Developer Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)

@@ -278,18 +278,13 @@ Utilize semantic routing to minimize the number of tool schemas appended to prom
 
 ---
 
-## 14. Cost Optimization
-Monitor token usage associated with tool definitions. Long tool descriptions increase input token usage, inflating overall execution costs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Defining ambiguous tool descriptions, causing models to select the wrong tool.
 * Committing API secret keys inside tool execution scripts instead of retrieving them dynamically.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -299,7 +294,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the advantage of using Model Context Protocol (MCP)?
 * **Answer:** MCP standardizes integrations by decoupling clients from specific database API formats, providing a uniform schema for tool communication.
 
@@ -311,34 +306,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Integrating customer database lookups securely into customer service workflows.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This gateway acts as the integration point that allows our agent to invoke database tools and Lambda functions.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered the Tool Gateway architecture, the Model Context Protocol (MCP), and configuring tool schemas in `gateway_config.json`.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Expose tools using standardized MCP schemas to simplify integrations.
 * Leverage semantic routing to minimize prompt token usage.
 * Validate input arguments against strict schemas to secure backend APIs.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Write a JSON schema definition for a tool that retrieves weather updates by city.
 * Intermediate: Add validation checks to reject city strings containing numeric characters.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Model Context Protocol Specification](https://modelcontextprotocol.io/)
 * [JSON Schema Standard Reference](https://json-schema.org/)

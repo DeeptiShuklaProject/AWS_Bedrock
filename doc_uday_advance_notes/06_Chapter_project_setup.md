@@ -259,18 +259,13 @@ Leverage `uv`'s global package caching. It shares package compilations across wo
 
 ---
 
-## 14. Cost Optimization
-Package sync operations are performed locally and do not consume cloud resources or incur AWS charges.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Committing the `.venv` folder to Git, bloating the repository size.
 * Installing packages globally using administrative permissions instead of isolating them in a local virtual environment.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -280,7 +275,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: Why is pyproject.toml preferred over setup.py in modern Python?
 * **Answer:** It standardizes configuration by replacing execution scripts (`setup.py`) with declarative settings, separating metadata, dependencies, and tool options into a single schema file.
 
@@ -292,34 +287,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Establishing clean workspaces for new Python projects to manage dependencies.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This setup configures the Python environment, allowing us to import the SDK and run the application in Chapter 8.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered setting up isolated Python virtual environments, managing dependencies in `pyproject.toml`, and using `uv` to synchronize packages.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Virtual environments prevent package conflicts.
 * Lockfiles ensure reproducible builds across environments.
 * The `uv` toolchain accelerates package management tasks.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Delete the `.venv` folder and run `uv sync` to restore the environment.
 * Intermediate: Add the `requests` library to `pyproject.toml` and synchronize packages to verify lockfile updates.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [uv Package Manager Documentation](https://docs.astral.sh/uv/)
 * [PEP 518 - Specifying Build Requirements](https://peps.python.org/pep-0518/)

@@ -347,18 +347,13 @@ Load large models and database configurations outside the handler function to av
 
 ---
 
-## 14. Cost Optimization
-Optimize the execution time of code paths inside your handler function. The longer a handler runs, the longer the compute microVM remains active, increasing execution costs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Initializing heavy client dependencies inside the handler function code, causing latency.
 * Accessing payload parameters directly without check validations, causing KeyError crashes if parameters are missing.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -368,7 +363,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is the benefit of decorating functions with @app.invoke?
 * **Answer:** The decorator registers the function as the agent's entrypoint, abstracting web server routing and request parsing so developers can focus on agent logic.
 
@@ -380,34 +375,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Customizing handler functions to route prompts to different agent orchestrators.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter analyzed the implementation details of the main application file, including imports, app wrappers, logging, and handlers.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Handlers process incoming request payloads and metadata.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Add a log message that prints the length of the prompt inside the handler.
 * Intermediate: Add a custom parameter verification step and return a 400 error status code if validation fails.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Clean Code Guide for Python](https://github.com/zedr/clean-code-python)
 * [Python Logging Library Guide](https://docs.python.org/3/library/logging.html)

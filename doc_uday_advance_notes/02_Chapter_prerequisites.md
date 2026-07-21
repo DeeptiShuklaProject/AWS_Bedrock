@@ -250,18 +250,13 @@ Set `uv` to use a global package cache. This avoids re-downloading source wheels
 
 ---
 
-## 14. Cost Optimization
-Running local diagnostic commands does not incur AWS usage charges. However, ensure that active testing credentials do not spawn background compute clusters or resources that remain running in your AWS billing environment.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Committing local credentials files to public repositories.
 * Running container runtimes without administrative group privileges, leading to permission access denied errors on socket files.
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -271,7 +266,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: Why is Git essential in automated CI/CD deployment pipelines?
 * **Answer:** Git acts as the source of truth for the codebase. Version control systems host hooks that notify CI/CD servers (like GitHub Actions) to run tests and compile production containers on push events.
 
@@ -283,34 +278,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Setting up new workstations for engineers joining an AI development team to ensure environment alignment.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This workspace preparation allows us to clone the agent source files and compile local container images in subsequent chapters.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter covered installing, configuring, and testing the core tools (Git, Python, uv, Docker, and AWS CLI) required to build Bedrock AgentCore applications.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * isolated local virtual environments prevent library conflicts.
 * Docker daemon must be active locally to emulate container deployment targets.
 * AWS CLI authentication must be completed before cloud deployment steps can proceed.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Install the `uv` toolchain and verify it responds to the version query command.
 * Intermediate: Configure an AWS CLI profile named `dev-profile` targeting the `us-west-2` region.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [AWS CLI Command Reference Guide](https://awscli.amazonaws.com/v2/documentation/api/latest/index.html)
 * [Docker Containerization Engine Documentation](https://docs.docker.com/)

@@ -285,18 +285,13 @@ Avoid importing large libraries inside the handler function. Load all dependenci
 
 ---
 
-## 14. Cost Optimization
-Optimize the execution time of code paths inside your handler function. The longer a handler runs, the longer the compute microVM remains active, increasing execution costs.
-
----
-
-## 15. Common Mistakes
+## 14. Common Mistakes
 * Accessing payload parameters directly (e.g., `payload['prompt']`) without check validations, causing runtime KeyError crashes if keys are missing.
 * Writing resource initialization logic inside the handler function (initialize database clients outside the handler instead).
 
 ---
 
-## 16. Troubleshooting
+## 15. Troubleshooting
 Below is the diagnostic reference table for identifying and resolving issues:
 
 | Symptom | Root Cause | Solution |
@@ -306,7 +301,7 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 17. Interview Questions
+## 16. Interview Questions
 ### Q: What is a Python decorator and how is it used in AgentCore?
 * **Answer:** A decorator is a function that takes another function as an argument and extends its behavior without modifying it. In AgentCore, `@app.invoke` registers the decorated function with the runtime, routing incoming requests to it.
 
@@ -318,34 +313,34 @@ Below is the diagnostic reference table for identifying and resolving issues:
 
 ---
 
-## 18. Real-World Use Cases
+## 17. Real-World Use Cases
 Analyzing application templates to design custom routing frameworks.
 
 ---
 
-## 19. Industrial Project
+## 18. Industrial Project
 This walkthrough defines the structural template for our main agent script (`src/main.py`) which we will expand in subsequent chapters.
 
 ---
 
-## 20. Summary
+## 19. Summary
 This chapter reviewed the project's folder layout and analyzed the structure and execution flow of the core entrypoint file.
 
 ---
 
-## 21. Key Takeaways
+## 20. Key Takeaways
 * Handlers execute tasks in response to inbound container requests.
 * Python decorators bind routing endpoints to functions.
 * Initializing resources at the module level minimizes execution latency.
 
 ---
 
-## 22. Practice Exercises
+## 21. Practice Exercises
 * Beginner: Create a file that imports the AgentCore SDK and prints the class structure.
 * Intermediate: Add a custom metadata field to the handler response dictionary and verify syntax.
 
 ---
 
-## 23. Further Reading
+## 22. Further Reading
 * [Python Decorators Guide](https://realpython.com/primer-on-python-decorators/)
 * [AWS SDK for Python (Boto3) Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)

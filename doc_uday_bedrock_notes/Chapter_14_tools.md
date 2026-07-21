@@ -104,8 +104,6 @@ tools:
 
 ## 10. Hands-on Examples
 
-### Interactive Python Playground
-
 In this section, we analyze the hands-on code implementations for **Custom Tools Integration** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -465,8 +463,6 @@ Below is the diagnostic reference table for identifying and resolving issues:
   explanation="Pydantic-defined tools allow foundation models to execute validated API and database calls safely." 
 />
 
-
-
 ### Q: How does the @tool decorator generate JSON schemas?
 * **Answer:** The decorator uses Python reflection and inspects type annotations and docstring parameters to construct JSON schemas for model configuration.
 
@@ -495,32 +491,6 @@ This custom tool integration allows our agent to query databases and call extern
 
 ---
 
-
-
-### Hands-on Code Playground #1
-
-### Hands-on Code Playground #2
-
-### Hands-on Code Playground #3
-
-### Hands-on Code Playground #4
-
-### Hands-on Code Playground #5
-
-### Hands-on Code Playground #6
-
-### Hands-on Code Playground #7
-
-### Hands-on Code Playground #8
-
-### Hands-on Code Playground #9
-
-### Hands-on Code Playground #10
-
-
-
-### Hands-on Code Playground #1
-
 <InteractiveExample 
   language="python"
   instruction="Initialization & Runtime Setup for 14 Tools."
@@ -533,10 +503,6 @@ print('Python Version:', sys.version.split()[0])
 print('Agent Module:', '14 Tools')
 print('Status: Active & Ready')"
 />
-
-
-
-### Hands-on Code Playground #2
 
 <InteractiveExample 
   language="python"
@@ -555,10 +521,6 @@ print('Loaded Configuration:')
 print(json.dumps(config, indent=2))"
 />
 
-
-
-### Hands-on Code Playground #3
-
 <InteractiveExample 
   language="python"
   instruction="Defensive Error Handling & Payload Parsing for 14 Tools."
@@ -575,10 +537,6 @@ def process_request(payload):
 
 print(process_request({'prompt': 'Execute query', 'session_id': 'sess-102'}))"
 />
-
-
-
-### Hands-on Code Playground #4
 
 <InteractiveExample 
   language="python"
@@ -604,10 +562,6 @@ res = invoke_claude_model('Summarize system health')
 print('Model Response:', res['content'][0]['text'])"
 />
 
-
-
-### Hands-on Code Playground #5
-
 <InteractiveExample 
   language="python"
   instruction="ReAct Reasoning Loop Execution for 14 Tools."
@@ -621,10 +575,6 @@ def run_react_cycle(user_input):
 
 run_react_cycle('Check database log entries')"
 />
-
-
-
-### Hands-on Code Playground #6
 
 <InteractiveExample 
   language="python"
@@ -644,10 +594,6 @@ query = SystemQuerySchema(target_system='AgentCore-Runtime', limit=5)
 print('Tool Result:', execute_tool(query))"
 />
 
-
-
-### Hands-on Code Playground #7
-
 <InteractiveExample 
   language="python"
   instruction="MicroVM Session State & Memory Engine for 14 Tools."
@@ -666,10 +612,6 @@ mem.add_message('assistant', 'How can I assist you?')
 mem.add_message('user', 'Show memory status.')
 print('Active Memory Context:', mem.get_context())"
 />
-
-
-
-### Hands-on Code Playground #8
 
 <InteractiveExample 
   language="python"
@@ -694,10 +636,6 @@ def log_otel_span(span_name, duration_ms, status_code='OK'):
 log_otel_span('14 Tools_Invocation', 142)"
 />
 
-
-
-### Hands-on Code Playground #9
-
 <InteractiveExample 
   language="python"
   instruction="Docker Container Health Check Simulation for 14 Tools."
@@ -716,10 +654,6 @@ def check_container_health():
 
 check_container_health()"
 />
-
-
-
-### Hands-on Code Playground #10
 
 <InteractiveExample 
   language="python"

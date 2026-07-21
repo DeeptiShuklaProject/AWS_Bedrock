@@ -127,8 +127,6 @@ agent:
 
 ## 10. Hands-on Examples
 
-### Interactive Python Playground
-
 In this section, we analyze the hands-on code implementations for **Introduction to Bedrock AgentCore** step-by-step, explaining the architecture, syntax choices, logic flow, and production patterns across all three implementation tiers.
 
 ---
@@ -445,8 +443,6 @@ Below is the diagnostic reference table for identifying and resolving issues:
   explanation="Pydantic-defined tools allow foundation models to execute validated API and database calls safely." 
 />
 
-
-
 ### Q: What is the primary architectural difference between Bedrock Agents and Bedrock AgentCore?
 * **Answer:** Bedrock Agents is a console-first service where agent orchestration is handled by AWS. Bedrock AgentCore is code-first and containerized, giving developers full control over Python frameworks (like LangChain or CrewAI) while AWS handles runtime hosting, security isolation, and scaling.
 
@@ -475,32 +471,6 @@ This chapter establishes the core runtime foundation. The concepts developed her
 
 ---
 
-
-
-### Hands-on Code Playground #1
-
-### Hands-on Code Playground #2
-
-### Hands-on Code Playground #3
-
-### Hands-on Code Playground #4
-
-### Hands-on Code Playground #5
-
-### Hands-on Code Playground #6
-
-### Hands-on Code Playground #7
-
-### Hands-on Code Playground #8
-
-### Hands-on Code Playground #9
-
-### Hands-on Code Playground #10
-
-
-
-### Hands-on Code Playground #1
-
 <InteractiveExample 
   language="python"
   instruction="Initialization & Runtime Setup for 01 Introduction To Bedrock Agentcore."
@@ -513,10 +483,6 @@ print('Python Version:', sys.version.split()[0])
 print('Agent Module:', '01 Introduction To Bedrock Agentcore')
 print('Status: Active & Ready')"
 />
-
-
-
-### Hands-on Code Playground #2
 
 <InteractiveExample 
   language="python"
@@ -535,10 +501,6 @@ print('Loaded Configuration:')
 print(json.dumps(config, indent=2))"
 />
 
-
-
-### Hands-on Code Playground #3
-
 <InteractiveExample 
   language="python"
   instruction="Defensive Error Handling & Payload Parsing for 01 Introduction To Bedrock Agentcore."
@@ -555,10 +517,6 @@ def process_request(payload):
 
 print(process_request({'prompt': 'Execute query', 'session_id': 'sess-102'}))"
 />
-
-
-
-### Hands-on Code Playground #4
 
 <InteractiveExample 
   language="python"
@@ -584,10 +542,6 @@ res = invoke_claude_model('Summarize system health')
 print('Model Response:', res['content'][0]['text'])"
 />
 
-
-
-### Hands-on Code Playground #5
-
 <InteractiveExample 
   language="python"
   instruction="ReAct Reasoning Loop Execution for 01 Introduction To Bedrock Agentcore."
@@ -601,10 +555,6 @@ def run_react_cycle(user_input):
 
 run_react_cycle('Check database log entries')"
 />
-
-
-
-### Hands-on Code Playground #6
 
 <InteractiveExample 
   language="python"
@@ -624,10 +574,6 @@ query = SystemQuerySchema(target_system='AgentCore-Runtime', limit=5)
 print('Tool Result:', execute_tool(query))"
 />
 
-
-
-### Hands-on Code Playground #7
-
 <InteractiveExample 
   language="python"
   instruction="MicroVM Session State & Memory Engine for 01 Introduction To Bedrock Agentcore."
@@ -646,10 +592,6 @@ mem.add_message('assistant', 'How can I assist you?')
 mem.add_message('user', 'Show memory status.')
 print('Active Memory Context:', mem.get_context())"
 />
-
-
-
-### Hands-on Code Playground #8
 
 <InteractiveExample 
   language="python"
@@ -674,10 +616,6 @@ def log_otel_span(span_name, duration_ms, status_code='OK'):
 log_otel_span('01 Introduction To Bedrock Agentcore_Invocation', 142)"
 />
 
-
-
-### Hands-on Code Playground #9
-
 <InteractiveExample 
   language="python"
   instruction="Docker Container Health Check Simulation for 01 Introduction To Bedrock Agentcore."
@@ -696,10 +634,6 @@ def check_container_health():
 
 check_container_health()"
 />
-
-
-
-### Hands-on Code Playground #10
 
 <InteractiveExample 
   language="python"

@@ -3,7 +3,7 @@ import re
 import shutil
 
 # Output path to write the upgraded files
-TARGET_DIR = r"c:\Users\nishu\workspace\wscs_bedrock\doc_uday_advance_notes"
+TARGET_DIR = r"c:\Users\nishu\workspace\wscs_bedrock\doc_bedrock_notes"
 BACKUP_DIR = os.path.join(TARGET_DIR, "backup")
 
 # The 24 standard headings in order

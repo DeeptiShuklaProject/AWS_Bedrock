@@ -339,23 +339,23 @@ This memory engine manages agent state, enabling us to personalize our chatbot a
 ---
 
 ## 18. Summary
-This chapter covered short-term session cache, long-term profile storage, and running compaction loops to manage agent state.
+This chapter explored the Bedrock AgentCore Memory Engine, detailing how short-term session caching, long-term profile persistence, and background compaction loops manage conversational state across multi-turn interactions.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Context Compaction Efficiency:** Continuously appending full chat histories to LLM prompts increases token costs and latency; intelligent compaction summaries solve context bloat.
+* **Durable State Persistence:** The Memory Engine leverages Amazon DynamoDB to persist user session state, preferences, and facts across independent agent invocations.
+* **Background Compaction Loops:** Background compaction processes asynchronously condense raw multi-turn dialogue into structured memory facts without blocking user responses.
+
+Mastering state management enables your agents to maintain rich, personalized, and long-term conversational memory while optimizing token costs and latency.
 
 ---
 
-## 19. Key Takeaways
-* Appending raw history to prompts increases token costs and latency.
-* The Memory Engine utilizes DynamoDB to persist state across sessions.
-* Compaction loops summarize dialogue history into structured facts.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Modify the compaction function to extract location preference keywords.
 * Intermediate: Add expiration attributes (TTL) to raw history records to delete them after 30 days.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [LangChain Memory Integration Guide](https://python.langchain.com/docs/modules/memory/)

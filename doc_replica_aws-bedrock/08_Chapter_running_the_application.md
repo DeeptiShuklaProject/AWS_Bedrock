@@ -309,23 +309,23 @@ Local testing validates our handler code before it is packaged into production c
 ---
 
 ## 18. Summary
-This chapter covered starting the application locally using the CLI and invoking endpoints using curl to verify agent execution.
+This chapter demonstrated how to run the Bedrock AgentCore application locally, simulate invocation events using local CLI payloads, and inspect execution logs to verify agent logic before cloud deployment.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Local Container Sandbox:** Running applications in local containers isolates execution from host environment quirks and matches cloud runtime behavior.
+* **Payload & Context Deserialization:** Inbound invocation handlers receive structured prompt payloads and context metadata, allowing robust local testing of parameter handling.
+* **Rapid Verification Feedback Loops:** Testing code and prompt modifications locally reduces feedback loops from minutes to seconds and saves cloud compute costs.
+
+Mastering local execution and testing workflows empowers you to iterate quickly and deploy verified code to AWS with complete confidence.
 
 ---
 
-## 19. Key Takeaways
-* Local containers isolate applications from host configurations.
-* Invoke handlers parse prompt values and return responses.
-* Test code updates locally to verify logic before cloud deployment.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Launch the application on port 9000 and verify it responds to request pings.
 * Intermediate: Write a shell script that starts the container, submits a test prompt, and saves logs to a text file.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Docker Networking Guide](https://docs.docker.com/network/)
 * [Python Requests Library Documentation](https://requests.readthedocs.io/)

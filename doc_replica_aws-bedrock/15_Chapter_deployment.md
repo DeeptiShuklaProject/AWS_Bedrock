@@ -331,23 +331,23 @@ This containerization step packages our agent application into a Docker image, r
 ---
 
 ## 18. Summary
-This chapter covered packaging applications with Docker, optimizing images using multi-stage builds, and pushing images to Amazon ECR.
+This chapter demonstrated how to containerize Bedrock AgentCore applications with Docker, optimize image size using multi-stage builds, publish images to Amazon ECR, and automate serverless deployment to AWS Fargate via GitHub Actions CI/CD pipelines.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Containerization Parity:** Packaging applications inside Docker containers ensures consistent execution across development, staging, and production environments.
+* **Multi-Stage Build Optimization:** Utilizing multi-stage Dockerfiles minimizes final image sizes, accelerates deployment times, and reduces container attack surfaces.
+* **Automated ECR & Fargate Deployment:** Storing production images in Amazon ECR and deploying to AWS Fargate enables zero-downtime rolling updates and auto-scaling.
+
+Automating your deployment pipeline ensures predictable, repeatable, and scalable cloud delivery for production agent services.
 
 ---
 
-## 19. Key Takeaways
-* Containerization ensures applications run consistently across environments.
-* Multi-stage builds reduce image size and improve security.
-* Store and secure production container images in Amazon ECR.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Create a `.dockerignore` file that excludes virtual environments and git histories.
 * Intermediate: Configure a multi-stage Dockerfile that compiles build tools in stage 1 and exports the application package to stage 2.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Docker Architecture Guide](https://docs.docker.com/get-started/overview/)
 * [Amazon ECR Developer Guide](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html)

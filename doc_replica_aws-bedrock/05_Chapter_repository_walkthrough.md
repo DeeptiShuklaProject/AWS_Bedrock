@@ -337,23 +337,23 @@ This walkthrough defines the structural template for our main agent script (`src
 ---
 
 ## 18. Summary
-This chapter reviewed the project's folder layout and analyzed the structure and execution flow of the core entrypoint file.
+This chapter analyzed the internal directory architecture of the AgentCore starter project and examined the entrypoint file structure. We investigated how entrypoint routing, configuration binding, and modular organization create a clean, testable application layout.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Event-Driven Invocation Handlers:** Handler functions act as the central entrypoints that execute business logic in response to inbound container requests.
+* **Route Registration via Decorators:** Python decorators (`@app.invoke`) elegantly bind runtime entrypoints to specific handler functions without boilerplate routing code.
+* **Module-Level Initialization:** Initializing heavy resources (such as SDK clients and database connections) at the module level minimizes cold-start latency during container execution.
+
+Understanding code anatomy and modular design patterns enables you to build scalable agent codebases that are easy to extend, test, and debug.
 
 ---
 
-## 19. Key Takeaways
-* Handlers execute tasks in response to inbound container requests.
-* Python decorators bind routing endpoints to functions.
-* Initializing resources at the module level minimizes execution latency.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Create a file that imports the AgentCore SDK and prints the class structure.
 * Intermediate: Add a custom metadata field to the handler response dictionary and verify syntax.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Python Decorators Guide](https://realpython.com/primer-on-python-decorators/)
 * [AWS SDK for Python (Boto3) Docs](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)

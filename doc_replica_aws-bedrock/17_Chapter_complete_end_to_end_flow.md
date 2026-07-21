@@ -325,23 +325,23 @@ This end-to-end integration completes the agent pipeline, confirming the system 
 ---
 
 ## 18. Summary
-This chapter traced the complete request lifecycle and verified communication between the client, gateway, microVMs, tools, and databases.
+This chapter synthesized all 7 architectural pillars of Bedrock AgentCore into a complete end-to-end system workflow, tracing user request execution from the client UI through authentication, memory lookups, tool gateway routing, microVM execution, and CloudWatch telemetry.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Full Architecture Integration:** End-to-end integration testing validates seamless inter-service communication across client, security, memory, runtime, tool, and observability layers.
+* **Defense-in-Depth Security:** Secure end-to-end execution requires enforcing JWT authentication, least-privilege IAM policies, microVM isolation, and strict tool schema validation at every boundary.
+* **Optimized User Experience:** Implementing clear status telemetry and loading feedback keeps users engaged during multi-step agent planning and execution loops.
+
+By completing this final synthesis, you have mastered the complete architecture required to design, build, deploy, and operate production-ready autonomous AI agent systems on AWS.
 
 ---
 
-## 19. Key Takeaways
-* Integration testing confirms communication across all system layers.
-* Secure end-to-end flows using token validation and input schema checks.
-* Displaying active loading states keeps users engaged during execution loops.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Write a list of UI state indicators (e.g., loading, reasoning, writing) representing an agent's reasoning flow.
 * Intermediate: Design a fallback plan specifying how the app should respond if the LLM invocation fails.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [AWS Architecture Center](https://aws.amazon.com/architecture/)
 * [Integration Testing Patterns Guide](https://martinfowler.com/articles/practical-test-pyramid.html)

@@ -330,23 +330,23 @@ This gateway acts as the integration point that allows our agent to invoke datab
 ---
 
 ## 18. Summary
-This chapter covered the Tool Gateway architecture, the Model Context Protocol (MCP), and configuring tool schemas in `gateway_config.json`.
+This chapter detailed the Agent Tool Gateway architecture, demonstrating how the Model Context Protocol (MCP) standardizes tool integration, input validation, and semantic routing across enterprise backend services.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Standardized MCP Tool Schemas:** Exposing tools via standardized Model Context Protocol schemas simplifies integration across disparate backend systems and model frameworks.
+* **Semantic Tool Routing:** Gateway semantic routing directs agent requests to the exact required tool, drastically reducing LLM prompt token consumption and latency.
+* **Strict Input Schema Validation:** Validating tool invocation arguments against predefined JSON schemas protects downstream backend microservices from malformed inputs.
+
+Implementing the Tool Gateway ensures secure, scalable, and standardized tool orchestration across all enterprise AI workflows.
 
 ---
 
-## 19. Key Takeaways
-* Expose tools using standardized MCP schemas to simplify integrations.
-* Leverage semantic routing to minimize prompt token usage.
-* Validate input arguments against strict schemas to secure backend APIs.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Write a JSON schema definition for a tool that retrieves weather updates by city.
 * Intermediate: Add validation checks to reject city strings containing numeric characters.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Model Context Protocol Specification](https://modelcontextprotocol.io/)
 * [JSON Schema Standard Reference](https://json-schema.org/)

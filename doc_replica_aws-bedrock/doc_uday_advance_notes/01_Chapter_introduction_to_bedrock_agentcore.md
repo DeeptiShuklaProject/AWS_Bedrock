@@ -328,23 +328,23 @@ This chapter establishes the core runtime foundation. The concepts developed her
 ---
 
 ## 18. Summary
-This chapter introduced the Bedrock AgentCore framework, comparing code-first architectures with legacy console models, and outlined the 7 core architectural pillars.
+This chapter provided a foundational introduction to Amazon Bedrock AgentCore, detailing its role as a code-first, framework-agnostic runtime for building, executing, and scaling autonomous AI agents on AWS. We compared traditional console-driven LLM configurations with modern containerized agent development, demonstrating how AgentCore bridges the gap between raw AI model prompts and production enterprise software systems through its 7 core architectural pillars.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Code-First & Framework-Agnostic Runtime:** Bedrock AgentCore grants full programmatic control over agent reasoning loops, supporting frameworks like LangChain, CrewAI, and custom Python loops without vendor lock-in.
+* **Hardware-Level Isolation via MicroVMs:** Enterprise security is strictly enforced at runtime by hosting each user session inside isolated AWS Firecracker microVM containers to prevent cross-tenant data leakage.
+* **Standardized Developer Tooling:** The entire agent application lifecycle is managed using standard software engineering tools, including Git version control, Docker containerization, and the AWS CLI.
+
+Mastering these foundational principles equips you to move beyond basic stateless LLM prompts and build secure, resilient, and enterprise-ready autonomous AI applications on AWS.
 
 ---
 
-## 19. Key Takeaways
-* Bedrock AgentCore provides a code-first, framework-agnostic runtime for autonomous agents.
-* Security is enforced via AWS Firecracker microVMs providing isolated user session environments.
-* The framework is managed through standard git, Docker, and AWS CLI developer tools.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Install Python and verify your shell returns a valid environment version.
 * Intermediate: Draft a mock configuration file specifying Claude 3 Haiku as the target foundation model.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Amazon Bedrock Developer Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html)
 * [AWS Firecracker Virtualization Technology](https://firecracker-microvm.github.io/)

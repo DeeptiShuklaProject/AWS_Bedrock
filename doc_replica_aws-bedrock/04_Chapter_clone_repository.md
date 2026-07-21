@@ -299,23 +299,23 @@ Cloning the repository sets up the baseline layout, including the `src/` source 
 ---
 
 ## 18. Summary
-This chapter covered cloning the project repository, navigating directories, and verifying the local folder layout.
+This chapter covered cloning the official Bedrock AgentCore starter repository, navigating its directory layout, and verifying local project structure. We explored how a standardized repository template accelerates developer onboarding and maintains consistency across distributed engineering teams.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Source Control Standardization:** Git cloning establishes a local working copy of production-ready templates, providing a clean baseline for feature development.
+* **Workspace Isolation:** Standard directory conventions strictly segregate application source code from local environment settings, preventing accidental commit of local artifacts.
+* **Branching Best Practices:** Managing feature updates in separate Git development branches protects main production branches and streamlines code review workflows.
+
+Adopting a structured repository layout ensures that your agent codebases remain maintainable, collaborative, and immediately compatible with automated deployment pipelines.
 
 ---
 
-## 19. Key Takeaways
-* Git clone duplicates remote repositories to local workstations.
-* Standard workspaces isolate source files from local settings configurations.
-* Local changes should be managed using separate development branches.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Clone the sample repository and list root files in your shell.
 * Intermediate: Create a local git branch named `setup-phase` and verify it is active.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Pro Git Book](https://git-scm.com/book/en/v2)
 * [GitHub Documentation](https://docs.github.com/)

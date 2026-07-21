@@ -302,23 +302,23 @@ This workspace preparation allows us to clone the agent source files and compile
 ---
 
 ## 18. Summary
-This chapter covered installing, configuring, and testing the core tools (Git, Python, uv, Docker, and AWS CLI) required to build Bedrock AgentCore applications.
+This chapter walked through setting up, configuring, and verifying the complete local developer toolchain required to build and run Bedrock AgentCore applications. We established workstation readiness by installing Python 3.12+, configuring `uv` for lightning-fast virtual environment management, verifying Docker container engine execution, and authenticating the AWS CLI.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Isolated Virtual Environments:** Utilizing virtual environments prevents system-wide Python package pollution and guarantees that project dependencies remain strictly isolated.
+* **Local Container Emulation:** Maintaining an active local Docker daemon enables developers to emulate cloud execution targets locally before deploying containers to AWS Fargate.
+* **Cloud Credential Authentication:** Completing AWS CLI configuration and credential verification is an essential prerequisite before any cloud resource provisioning or deployment steps can occur.
+
+By standardizing your local development environment, you eliminate "works on my machine" inconsistencies and establish a predictable, production-grade foundation for developing Bedrock AgentCore applications.
 
 ---
 
-## 19. Key Takeaways
-* isolated local virtual environments prevent library conflicts.
-* Docker daemon must be active locally to emulate container deployment targets.
-* AWS CLI authentication must be completed before cloud deployment steps can proceed.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Install the `uv` toolchain and verify it responds to the version query command.
 * Intermediate: Configure an AWS CLI profile named `dev-profile` targeting the `us-west-2` region.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [AWS CLI Command Reference Guide](https://awscli.amazonaws.com/v2/documentation/api/latest/index.html)
 * [Docker Containerization Engine Documentation](https://docs.docker.com/)

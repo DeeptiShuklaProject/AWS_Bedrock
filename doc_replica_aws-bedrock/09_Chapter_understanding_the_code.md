@@ -399,23 +399,23 @@ This walkthrough defines the structural template for our main agent script (`src
 ---
 
 ## 18. Summary
-This chapter analyzed the implementation details of the main application file, including imports, app wrappers, logging, and handlers.
+This chapter performed a deep-dive analysis of handler implementation details, examining how incoming payloads are received, how defensive error handling is applied, and how structured JSON responses are returned to callers.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Payload & Metadata Extraction:** Handlers receive client prompts inside `payload` and runtime details inside `context`, requiring defensive parameter parsing (`payload.get`).
+* **Decorator-Based Event Routing:** Python decorators bind incoming container events directly to handler functions, maintaining a clean event-driven architecture.
+* **Defensive Error Handling:** Wrapping core logic in `try-except` blocks ensures that unhandled exceptions produce sanitized HTTP error responses rather than container crashes.
+
+Writing clean, defensive handler code ensures high availability, reliable error reporting, and robust operational stability for production agent services.
 
 ---
 
-## 19. Key Takeaways
-* Handlers process incoming request payloads and metadata.
-* Python decorators bind routing endpoints to functions.
-* Initializing resources at the module level minimizes execution latency.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Add a log message that prints the length of the prompt inside the handler.
 * Intermediate: Add a custom parameter verification step and return a 400 error status code if validation fails.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Clean Code Guide for Python](https://github.com/zedr/clean-code-python)
 * [Python Logging Library Guide](https://docs.python.org/3/library/logging.html)

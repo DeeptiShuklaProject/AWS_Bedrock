@@ -311,23 +311,23 @@ These configuration files define the environment settings and entry points that 
 ---
 
 ## 18. Summary
-This chapter covered managing environment variables in `.env`, declaring packages in `pyproject.toml`, and setting up deployment settings in `bedrock_agent_core.yaml`.
+This chapter detailed how to manage application settings across environments using `bedrock_agent_core.yaml` for deployment parameters and `.env` files for local environment variables and sensitive credentials.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Decoupling Configuration from Code:** Separating application logic from environment configuration simplifies multi-region and multi-environment deployments.
+* **Credential Protection & `.gitignore`:** Environment files containing sensitive keys or local overrides must always be excluded from Git repositories to prevent credential leaks.
+* **Boot-Time Validation:** Validating configuration schemas during container startup ensures early detection of missing or invalid environment variables.
+
+By implementing strict configuration management, you guarantee secure key handling, seamless multi-environment deployments, and operational flexibility.
 
 ---
 
-## 19. Key Takeaways
-* Separating configuration from code simplifies multi-environment deployments.
-* Add configuration files containing secrets to your `.gitignore`.
-* Configuration files should be validated during application boot.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Add `LOG_LEVEL=DEBUG` to `.env` and read it in a Python script.
 * Intermediate: Configure `bedrock_agent_core.yaml` to reference a different IAM Role ARN and verify parsing.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [The Twelve-Factor App - Config](https://12factor.net/config)
 * [YAML Specification Guide](https://yaml.org/spec/)

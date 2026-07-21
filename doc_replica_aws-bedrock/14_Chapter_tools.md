@@ -348,23 +348,23 @@ This custom tool integration allows our agent to query databases and call extern
 ---
 
 ## 18. Summary
-This chapter covered defining parameter schemas, registering custom Python functions, and executing tools inside secure environments.
+This chapter covered building, registering, and executing custom Python tools using the Model Context Protocol (MCP), enabling agents to interact securely with external databases, APIs, and business systems.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Extending Agent Capabilities:** Custom tools empower AI models to perform real-world actions, retrieve dynamic enterprise data, and trigger external workflows.
+* **Descriptive Tool Annotations:** Providing detailed docstrings and explicit type hints guides the LLM to accurately select and invoke the appropriate tool for a given user prompt.
+* **Input Validation & Sandboxed Execution:** Enforcing pydantic parameter validation and executing tools inside secure sandboxes protects infrastructure from invalid or malicious calls.
+
+Designing robust custom tools enables your agents to execute complex business workflows safely, accurately, and autonomously.
 
 ---
 
-## 19. Key Takeaways
-* Custom tools extend agent capabilities to interact with external systems.
-* Docstrings and type annotations guide the model's tool selection.
-* Enforce parameter validation and run tools in secure sandboxes.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Write a tool that generates a random number within a minimum and maximum range.
 * Intermediate: Create a tool that queries system time, validating format strings.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [JSON Schema Standard Reference](https://json-schema.org/)
 * [Python Type Hints Documentation](https://docs.python.org/3/library/typing.html)

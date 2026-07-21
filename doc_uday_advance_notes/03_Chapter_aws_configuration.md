@@ -396,23 +396,23 @@ The `AgentCoreExecutionRole` created here will be mapped inside `bedrock_agent_c
 ---
 
 ## 18. Summary
-This chapter walked through setting up AWS model access and creating the necessary IAM policies and roles required by the AgentCore runtime.
+This chapter focused on configuring AWS account permissions, activating Amazon Bedrock model access, and establishing granular IAM policies and execution roles. We explored how AWS security boundaries enforce least-privilege access to prevent unauthorized resource usage and protect sensitive enterprise cloud assets.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Explicit Regional Model Activation:** Access to foundation models (such as Anthropic Claude) must be explicitly requested and granted in each target AWS region in the Bedrock console before API calls can succeed.
+* **Dedicated Service Trust Roles:** AgentCore requires dedicated IAM execution roles configured with explicit trust relationships allowing `agentcore.amazonaws.com` to safely assume credentials at runtime.
+* **Least-Privilege Resource Policies:** IAM policies must specify exact resource ARNs and restricted action arrays to minimize security exposure in production environments.
+
+By mastering AWS configuration and IAM role delegation, you ensure that your autonomous agents operate securely within strict compliance and security boundaries on AWS.
 
 ---
 
-## 19. Key Takeaways
-* Model access must be explicitly enabled for each region before APIs can be invoked.
-* AgentCore requires a dedicated IAM execution role with service trust configurations.
-* IAM policies should adhere to the security principle of least privilege.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Request access to the Claude 3 Haiku model in the AWS Bedrock console.
 * Intermediate: Draft a JSON policy statement that grants read-only access to an S3 bucket named `agent-assets`.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [AWS IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [Amazon Bedrock Security and Permissions](https://docs.aws.amazon.com/bedrock/latest/userguide/security.html)

@@ -329,23 +329,23 @@ This engine authenticates user sessions, enabling us to isolate and secure datab
 ---
 
 ## 18. Summary
-This chapter covered user authentication, JWT verification, and extracting user identities to secure database interactions.
+This chapter covered user authentication, JWT token validation, and the AgentCore Identity Engine, demonstrating how user identity and permissions are securely propagated across agent reasoning loops and backend tool calls.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Cognito User Pool Integration:** User authentication is managed via Amazon Cognito, securing agent endpoints with industry-standard OAuth2/OIDC JWT tokens.
+* **Actor ID Propagation:** Extracting and forwarding verified Actor IDs through invocation context ensures that downstream tools execute operations within the user's permission boundaries.
+* **Cryptographic Signature Verification:** Always verify JWT cryptographic signatures, issuer claims, and expiration timestamps before processing agent requests.
+
+Enforcing robust identity verification guarantees tenant data isolation, prevents privilege escalation, and ensures regulatory compliance.
 
 ---
 
-## 19. Key Takeaways
-* User authentication is managed using Cognito user pools.
-* Extract and propagate Actor IDs to downstream tools to secure data access.
-* Always verify JWT cryptographic signatures and expiration timestamps.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Decode a mock JWT and print the subject identifier.
 * Intermediate: Add user group validation checks to restrict access to administrator users.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [Cognito User Pools Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 * [JWT Standard Specification Guide](https://jwt.io/introduction)

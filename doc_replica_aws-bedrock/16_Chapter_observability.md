@@ -395,23 +395,23 @@ This telemetry setup monitors application health, providing execution traces for
 ---
 
 ## 18. Summary
-This chapter covered OpenTelemetry tracing, span context propagation, and exporting logs and metrics to CloudWatch.
+This chapter focused on implementing end-to-end observability, instrumenting applications with OpenTelemetry spans, propagating trace context across tool calls, and monitoring operational metrics in Amazon CloudWatch.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Distributed Agent Tracing:** Centralized OpenTelemetry tracing is critical for diagnosing performance bottlenecks and debugging complex, asynchronous agent reasoning loops.
+* **Standardized Telemetry Collection:** OpenTelemetry provides a vendor-neutral standard for collecting metrics, logs, and traces across distributed cloud microservices.
+* **Token Spend & Latency Optimization:** Real-time CloudWatch dashboards and metrics enable precise monitoring of LLM token spend, execution latency, and error rates.
+
+Comprehensive observability equips engineering teams to optimize performance, control model invocation costs, and maintain high operational reliability in production.
 
 ---
 
-## 19. Key Takeaways
-* Observability is critical for debugging complex, asynchronous agent workflows.
-* OpenTelemetry standardizes telemetry collection across backends.
-* Monitor token usage and latency metrics to optimize cost and performance.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Add a warning log statement that prints when model response sizes exceed 1000 characters.
 * Intermediate: Configure logs to export as structured JSON dictionaries.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [OpenTelemetry Python Guide](https://opentelemetry.io/docs/languages/python/)
 * [Amazon CloudWatch Logs Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html)

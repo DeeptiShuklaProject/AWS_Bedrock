@@ -296,23 +296,23 @@ This runtime provides the secure host environment where our agent handler execut
 ---
 
 ## 18. Summary
-This chapter analyzed the virtualization architecture of AgentCore, detailing Firecracker microVMs, session isolation, and execution bounds.
+This chapter explored the virtualization architecture of the Bedrock AgentCore Runtime, examining how AWS Firecracker microVMs provide secure, lightweight, and hardware-isolated execution environments for autonomous agent workloads.
+
+Key architectural insights and practical lessons learned in this chapter include:
+* **Session Isolation via Firecracker MicroVMs:** Each agent execution context runs within a dedicated Firecracker microVM, delivering hardware-level security and multi-tenant isolation.
+* **Automated Lifecycle Reclamation:** Inactive microVM instances are automatically reclaimed by the runtime manager to optimize resource utilization and eliminate idle compute charges.
+* **Ephemeral Container Storage:** MicroVM local file storage is transient; persistent artifacts, session state, and files must be stored in Amazon S3 or DynamoDB.
+
+Understanding the underlying virtualization architecture allows you to architect secure, cost-effective, and highly scalable agent applications on AWS.
 
 ---
 
-## 19. Key Takeaways
-* Session isolation is enforced using AWS Firecracker microVMs.
-* Inactive microVMs are reclaimed to minimize idle resource charges.
-* Write persistent files to S3 because microVM storage is ephemeral.
-
----
-
-## 20. Practice Exercises
+## 19. Practice Exercises
 * Beginner: Configure `bedrock_agent_core.yaml` to set `timeout_seconds` to 600.
 * Intermediate: Map the lifecycle of a runtime VM from boot to destruction in a flow chart.
 
 ---
 
-## 21. Further Reading
+## 20. Further Reading
 * [AWS Firecracker Architecture Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/aws-firecracker-design/aws-firecracker-design.html)
 * [AWS Lambda Execution Environments](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-context.html)

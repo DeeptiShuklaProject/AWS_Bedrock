@@ -1356,10 +1356,14 @@ def generate_chapter_file(chap_num, file_path):
     print(f"Generating enhanced 24-heading version for Chapter {chap_num}...")
     
     # Read the pristine backup file to extract original contents
-    backup_file_path = os.path.join(BACKUP_DIR, os.path.basename(file_path))
-    if not os.path.exists(backup_file_path):
-        backup_file_path = backup_file_path + ".bak"
-    if not os.path.exists(backup_file_path):
+    backup_file_path = None
+    if os.path.exists(BACKUP_DIR):
+        for b_file in os.listdir(BACKUP_DIR):
+            if b_file.startswith(f"{chap_num}_") or b_file.startswith(f"Chapter_{chap_num}_"):
+                backup_file_path = os.path.join(BACKUP_DIR, b_file)
+                break
+
+    if not backup_file_path or not os.path.exists(backup_file_path):
         print(f"No backup file found for Chapter {chap_num}! Skipping.")
         return
 
@@ -1619,32 +1623,54 @@ def generate_chapter_file(chap_num, file_path):
 
     print(f"Successfully upgraded Chapter {chap_num}!")
 
+CHAPTER_FILENAMES = {
+    "01": "Chapter_01_introduction_to_bedrock_agentcore.md",
+    "02": "Chapter_02_prerequisites.md",
+    "03": "Chapter_03_aws_configuration.md",
+    "04": "Chapter_04_clone_repository.md",
+    "05": "Chapter_05_repository_walkthrough.md",
+    "06": "Chapter_06_project_setup.md",
+    "07": "Chapter_07_configuration_files.md",
+    "08": "Chapter_08_running_the_application.md",
+    "09": "Chapter_09_understanding_the_code.md",
+    "10": "Chapter_10_agentcore_runtime.md",
+    "11": "Chapter_11_gateway.md",
+    "12": "Chapter_12_identity.md",
+    "13": "Chapter_13_memory.md",
+    "14": "Chapter_14_tools.md",
+    "15": "Chapter_15_deployment.md",
+    "16": "Chapter_16_observability.md",
+    "17": "Chapter_17_complete_end_to_end_flow.md",
+}
+
 def main():
     print("Running 24-heading migration script...")
-    # List all markdown files in TARGET_DIR
-    files = [f for f in os.listdir(TARGET_DIR) if f.endswith(".md") and f[0].isdigit()]
-    files.sort()
-
-    for f in files:
-        chap_num = f.split("_")[0]
-        file_path = os.path.join(TARGET_DIR, f)
-        generate_chapter_file(chap_num, file_path)
-
-    print("All chapters successfully migrated to 24-heading format!")
-
-    # Sync to replica directories
     replica_dir1 = r"c:\Users\nishu\workspace\wscs_bedrock\doc_replica_aws-bedrock\doc_uday_advance_notes"
     replica_dir2 = r"c:\Users\nishu\workspace\wscs_bedrock\doc_replica_aws-bedrock"
 
+    os.makedirs(TARGET_DIR, exist_ok=True)
     os.makedirs(replica_dir1, exist_ok=True)
     os.makedirs(replica_dir2, exist_ok=True)
 
-    for f in os.listdir(TARGET_DIR):
-        if f.endswith(".md") and f[0].isdigit():
-            src_file = os.path.join(TARGET_DIR, f)
-            shutil.copy(src_file, os.path.join(replica_dir1, f))
-            shutil.copy(src_file, os.path.join(replica_dir2, f))
-            print(f"Synced {f} to replica directories.")
+    # Clean up legacy 0X_Chapter_... files
+    for d in [TARGET_DIR, replica_dir1, replica_dir2]:
+        for f in os.listdir(d):
+            if f.endswith(".md") and f[0].isdigit() and "_Chapter_" in f:
+                try:
+                    os.remove(os.path.join(d, f))
+                    print(f"Cleaned up legacy file {f} from {d}")
+                except Exception as e:
+                    pass
+
+    # Generate each chapter with new Chapter_XX_YY.md filename
+    for chap_num, fname in sorted(CHAPTER_FILENAMES.items()):
+        file_path = os.path.join(TARGET_DIR, fname)
+        generate_chapter_file(chap_num, file_path)
+        shutil.copy(file_path, os.path.join(replica_dir1, fname))
+        shutil.copy(file_path, os.path.join(replica_dir2, fname))
+        print(f"Synced {fname} to replica directories.")
+
+    print("All chapters successfully migrated and synced in Chapter_XX_YY format!")
 
 if __name__ == '__main__':
     main()

@@ -29,23 +29,23 @@ Asynchronous multi-agent interactions can be complex and difficult to debug. Sta
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: OpenTelemetry**
->
-> * **Simple Explanation:** An open-source standard for collecting traces, metrics, and logs.
-> * **Why it exists:** Decouples instrumentation from specific monitoring backends.
-> * **Where is it used:** Instrumenting application workflows.
+**📦 Technical Term: OpenTelemetry**
 
-> **📦 Technical Term: Trace Span**
->
-> * **Simple Explanation:** A record of a single operation within a transaction, containing metadata and timestamps.
-> * **Why it exists:** Tracks execution duration and captures errors.
-> * **Where is it used:** Tracing tool execution steps.
+* **Simple Explanation:** An open-source standard for collecting traces, metrics, and logs.
+* **Why it exists:** Decouples instrumentation from specific monitoring backends.
+* **Where is it used:** Instrumenting application workflows.
 
-> **📦 Technical Term: CloudWatch Logs**
->
-> * **Simple Explanation:** A managed service on AWS used to store, monitor, and access log files.
-> * **Why it exists:** Centralizes application logs for auditing and debugging.
-> * **Where is it used:** Accessing execution logs.
+**📦 Technical Term: Trace Span**
+
+* **Simple Explanation:** A record of a single operation within a transaction, containing metadata and timestamps.
+* **Why it exists:** Tracks execution duration and captures errors.
+* **Where is it used:** Tracing tool execution steps.
+
+**📦 Technical Term: CloudWatch Logs**
+
+* **Simple Explanation:** A managed service on AWS used to store, monitor, and access log files.
+* **Why it exists:** Centralizes application logs for auditing and debugging.
+* **Where is it used:** Accessing execution logs.
 
 ---
 

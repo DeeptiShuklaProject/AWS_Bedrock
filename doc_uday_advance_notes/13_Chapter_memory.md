@@ -29,23 +29,23 @@ Models are stateless and do not remember past interactions. Appending raw histor
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Short-Term Memory**
->
-> * **Simple Explanation:** Dialogue cache storing conversation turns within an active session.
-> * **Why it exists:** Tracks dialogue turns during an active chat session.
-> * **Where is it used:** The temporary session cache.
+**📦 Technical Term: Short-Term Memory**
 
-> **📦 Technical Term: Long-Term Memory**
->
-> * **Simple Explanation:** Durable storage hosting user profile facts and preferences across sessions.
-> * **Why it exists:** Personalizes responses over weeks or months.
-> * **Where is it used:** DynamoDB table records.
+* **Simple Explanation:** Dialogue cache storing conversation turns within an active session.
+* **Why it exists:** Tracks dialogue turns during an active chat session.
+* **Where is it used:** The temporary session cache.
 
-> **📦 Technical Term: Compaction Loop**
->
-> * **Simple Explanation:** A process that summarizes raw history logs into structured key facts.
-> * **Why it exists:** Minimizes prompt context size and cost.
-> * **Where is it used:** The memory compaction workflow.
+**📦 Technical Term: Long-Term Memory**
+
+* **Simple Explanation:** Durable storage hosting user profile facts and preferences across sessions.
+* **Why it exists:** Personalizes responses over weeks or months.
+* **Where is it used:** DynamoDB table records.
+
+**📦 Technical Term: Compaction Loop**
+
+* **Simple Explanation:** A process that summarizes raw history logs into structured key facts.
+* **Why it exists:** Minimizes prompt context size and cost.
+* **Where is it used:** The memory compaction workflow.
 
 ---
 

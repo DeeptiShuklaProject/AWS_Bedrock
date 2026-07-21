@@ -29,23 +29,23 @@ Models can only process and generate text; they cannot access databases or run c
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Tool Registry**
->
-> * **Simple Explanation:** A central repository class that manages tool functions and metadata schemas.
-> * **Why it exists:** Coordinates tool registrations and lookup operations.
-> * **Where is it used:** The tool registry module.
+**📦 Technical Term: Tool Registry**
 
-> **📦 Technical Term: JSON Schema**
->
-> * **Simple Explanation:** A JSON object declaring parameter names, types, and descriptions for validation.
-> * **Why it exists:** Enforces parameter schemas before functions execute.
-> * **Where is it used:** The parameters definition dictionary.
+* **Simple Explanation:** A central repository class that manages tool functions and metadata schemas.
+* **Why it exists:** Coordinates tool registrations and lookup operations.
+* **Where is it used:** The tool registry module.
 
-> **📦 Technical Term: @tool Decorator**
->
-> * **Simple Explanation:** A decorator helper that generates JSON schemas from Python function docstrings.
-> * **Why it exists:** Simplifies tool definition and registration.
-> * **Where is it used:** Decorating Python functions.
+**📦 Technical Term: JSON Schema**
+
+* **Simple Explanation:** A JSON object declaring parameter names, types, and descriptions for validation.
+* **Why it exists:** Enforces parameter schemas before functions execute.
+* **Where is it used:** The parameters definition dictionary.
+
+**📦 Technical Term: @tool Decorator**
+
+* **Simple Explanation:** A decorator helper that generates JSON schemas from Python function docstrings.
+* **Why it exists:** Simplifies tool definition and registration.
+* **Where is it used:** Decorating Python functions.
 
 ---
 

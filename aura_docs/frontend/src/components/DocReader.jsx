@@ -644,13 +644,20 @@ const MermaidDiagram = ({ code }) => {
         setError(null);
         mermaid.initialize({
           startOnLoad: false,
-          theme: 'dark',
+          theme: 'base',
           securityLevel: 'loose',
+          fontFamily: 'Inter, system-ui, sans-serif',
           themeVariables: {
-            background: '#1e1e2e',
-            primaryColor: '#bb9af7',
-            primaryTextColor: '#c0caf5',
-            lineColor: '#565f89'
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '14px',
+            primaryColor: '#6366f1',
+            primaryTextColor: '#ffffff',
+            primaryBorderColor: '#4f46e5',
+            lineColor: '#64748b',
+            secondaryColor: '#f1f5f9',
+            tertiaryColor: '#e2e8f0',
+            edgeLabelBackground: '#ffffff',
+            nodeTextColor: '#ffffff'
           }
         });
         await mermaid.parse(code);
@@ -695,14 +702,15 @@ const MermaidDiagram = ({ code }) => {
     <div 
       className="mermaid-diagram-container"
       style={{
-        background: 'rgba(30, 30, 46, 0.4)',
+        background: 'var(--hover-bg)',
         border: '1px solid var(--border-color)',
-        borderRadius: '8px',
-        padding: '16px',
-        margin: '16px 0',
+        borderRadius: '12px',
+        padding: '24px 16px',
+        margin: '24px 0',
         display: 'flex',
         justifyContent: 'center',
-        overflowX: 'auto'
+        overflowX: 'auto',
+        boxShadow: 'var(--shadow-sm)'
       }}
       dangerouslySetInnerHTML={{ __html: svg }} 
     />

@@ -29,23 +29,23 @@ Agents must interact with data on behalf of specific users while maintaining pri
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: JWT**
->
-> * **Simple Explanation:** A compact, cryptographically signed token format used to exchange claims securely.
-> * **Why it exists:** Enables stateless user authentication across services.
-> * **Where is it used:** Passing user sessions in request headers.
+**📦 Technical Term: JWT**
 
-> **📦 Technical Term: Actor ID**
->
-> * **Simple Explanation:** The unique user identifier extracted from the access token claims.
-> * **Why it exists:** Associates database operations with the active user.
-> * **Where is it used:** The database partition key mapping.
+* **Simple Explanation:** A compact, cryptographically signed token format used to exchange claims securely.
+* **Why it exists:** Enables stateless user authentication across services.
+* **Where is it used:** Passing user sessions in request headers.
 
-> **📦 Technical Term: Cognito User Pool**
->
-> * **Simple Explanation:** A managed user directory on AWS that handles sign-up and sign-in flows.
-> * **Why it exists:** Simplifies user authentication management.
-> * **Where is it used:** The central identity provider.
+**📦 Technical Term: Actor ID**
+
+* **Simple Explanation:** The unique user identifier extracted from the access token claims.
+* **Why it exists:** Associates database operations with the active user.
+* **Where is it used:** The database partition key mapping.
+
+**📦 Technical Term: Cognito User Pool**
+
+* **Simple Explanation:** A managed user directory on AWS that handles sign-up and sign-in flows.
+* **Why it exists:** Simplifies user authentication management.
+* **Where is it used:** The central identity provider.
 
 ---
 

@@ -30,23 +30,23 @@ AI application architecture is shifting from simple, stateless prompt-response m
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Amazon Bedrock**
->
-> * **Simple Explanation:** A managed AWS service that exposes foundational LLMs via a secure, consolidated API interface.
-> * **Why it exists:** Avoids the overhead of managing expensive GPU instances locally.
-> * **Where is it used:** Enterprise LLM applications, retrieval-augmented generation systems.
+**📦 Technical Term: Amazon Bedrock**
 
-> **📦 Technical Term: AgentCore**
->
-> * **Simple Explanation:** A code-first runtime infrastructure designed specifically to run secure, stateful AI agents.
-> * **Why it exists:** Enforces resource limits, data isolation, and seamless IAM integration.
-> * **Where is it used:** Production hosting of conversational and task-oriented agents.
+* **Simple Explanation:** A managed AWS service that exposes foundational LLMs via a secure, consolidated API interface.
+* **Why it exists:** Avoids the overhead of managing expensive GPU instances locally.
+* **Where is it used:** Enterprise LLM applications, retrieval-augmented generation systems.
 
-> **📦 Technical Term: Foundation Model**
->
-> * **Simple Explanation:** Large-scale neural networks trained on diverse web-scale data.
-> * **Why it exists:** Provides general-purpose reasoning, text generation, and planning capabilities.
-> * **Where is it used:** Serves as the central cognitive engine of the agent.
+**📦 Technical Term: AgentCore**
+
+* **Simple Explanation:** A code-first runtime infrastructure designed specifically to run secure, stateful AI agents.
+* **Why it exists:** Enforces resource limits, data isolation, and seamless IAM integration.
+* **Where is it used:** Production hosting of conversational and task-oriented agents.
+
+**📦 Technical Term: Foundation Model**
+
+* **Simple Explanation:** Large-scale neural networks trained on diverse web-scale data.
+* **Why it exists:** Provides general-purpose reasoning, text generation, and planning capabilities.
+* **Where is it used:** Serves as the central cognitive engine of the agent.
 
 ---
 
@@ -64,14 +64,24 @@ AI application architecture is shifting from simple, stateless prompt-response m
 The following architectural details outline the components and relationship schemas active in this module:
 
 ```mermaid
-graph TD
+graph TB
     Client[React / CLI Client] -->|Inbound Prompt| Runtime[1. Agent Runtime VM<br/>Firecracker microVM]
-    Runtime -->|Load Context| Memory[2. Memory Engine<br/>DynamoDB / Short-Term Cache]
-    Runtime -->|Invoke Tool| Gateway[3. Tool Gateway<br/>Model Context Protocol - MCP]
-    Runtime -->|Propagate Context| Identity[4. Identity Engine<br/>Cognito / Actor ID]
-    Runtime -->|Inspect Metrics| Observability[5. Observability<br/>OpenTelemetry / CloudWatch]
-    Runtime -->|Authorize Tool| Policy[6. Policy Engine<br/>Cedar Access Rules]
-    Runtime -->|Verify Output| Evaluations[7. Evaluation Suite<br/>Response Correctness]
+    
+    subgraph Memory & Tools
+        Runtime -->|Load Context| Memory[2. Memory Engine<br/>DynamoDB / Cache]
+        Runtime -->|Invoke Tool| Gateway[3. Tool Gateway<br/>Model Context Protocol]
+    end
+    
+    subgraph Identity & Ops
+        Runtime -->|Propagate Context| Identity[4. Identity Engine<br/>Cognito / Actor ID]
+        Runtime -->|Inspect Metrics| Observability[5. Observability<br/>OpenTelemetry / CloudWatch]
+    end
+    
+    subgraph Policy & Quality
+        Runtime -->|Authorize Tool| Policy[6. Policy Engine<br/>Cedar Access Rules]
+        Runtime -->|Verify Output| Evaluations[7. Evaluation Suite<br/>Response Correctness]
+    end
+
     Runtime -->|Conversational Call| FMs[Amazon Bedrock FMs<br/>Claude / Llama]
 ```
 

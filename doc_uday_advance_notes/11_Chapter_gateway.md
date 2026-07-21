@@ -29,23 +29,23 @@ Models can only process and generate text; they cannot access databases or run c
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: MCP**
->
-> * **Simple Explanation:** An open protocol standardizing communication between AI agents and external tools.
-> * **Why it exists:** Simplifies integrations across services.
-> * **Where is it used:** Defining tools in gateway configuration files.
+**📦 Technical Term: MCP**
 
-> **📦 Technical Term: Tool Gateway**
->
-> * **Simple Explanation:** An API broker routing model requests to downstream functions.
-> * **Why it exists:** Centralizes security, logging, and rate limiting.
-> * **Where is it used:** The gateway routing interface.
+* **Simple Explanation:** An open protocol standardizing communication between AI agents and external tools.
+* **Why it exists:** Simplifies integrations across services.
+* **Where is it used:** Defining tools in gateway configuration files.
 
-> **📦 Technical Term: Semantic Routing**
->
-> * **Simple Explanation:** Selecting relevant tools based on prompt meaning rather than keyword matches.
-> * **Why it exists:** Minimizes prompt token usage and cost.
-> * **Where is it used:** Filtering active tools.
+**📦 Technical Term: Tool Gateway**
+
+* **Simple Explanation:** An API broker routing model requests to downstream functions.
+* **Why it exists:** Centralizes security, logging, and rate limiting.
+* **Where is it used:** The gateway routing interface.
+
+**📦 Technical Term: Semantic Routing**
+
+* **Simple Explanation:** Selecting relevant tools based on prompt meaning rather than keyword matches.
+* **Why it exists:** Minimizes prompt token usage and cost.
+* **Where is it used:** Filtering active tools.
 
 ---
 

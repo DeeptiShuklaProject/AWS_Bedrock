@@ -987,46 +987,74 @@ body {
 /* Custom Mermaid Contrast & Legibility Overrides   */
 /* ================================================= */
 .mermaid-diagram-container {
-  color: #c0caf5 !important;
+  color: var(--text-primary);
 }
 
-/* Force all text inside node elements to be clearly readable */
+.mermaid-diagram-container svg {
+  max-width: 100% !important;
+  height: auto !important;
+  min-width: 550px;
+}
+
+/* Force node rects and text to have crisp high contrast */
+.mermaid-diagram-container .node rect,
+.mermaid-diagram-container .node polygon,
+.mermaid-diagram-container .node circle {
+  fill: #1e293b !important;
+  stroke: #475569 !important;
+  stroke-width: 1.5px !important;
+  rx: 6px !important;
+  ry: 6px !important;
+}
+
 .mermaid-diagram-container text,
 .mermaid-diagram-container p,
 .mermaid-diagram-container span,
 .mermaid-diagram-container div,
 .mermaid-diagram-container .nodeLabel {
-  fill: #c0caf5 !important;
-  color: #c0caf5 !important;
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
 }
 
-/* Subgraph labels are on a light background, so make them dark & bold */
+/* Subgraph labels */
 .mermaid-diagram-container .subgraphLabel,
 .mermaid-diagram-container .subgraphLabel * {
-  fill: #18181b !important;
-  color: #18181b !important;
+  fill: var(--text-primary) !important;
+  color: var(--text-primary) !important;
   font-weight: 800 !important;
+  font-size: 14px !important;
 }
 
-/* Make connection lines (arrows) high-contrast and clear */
+/* Connection lines (arrows) */
 .mermaid-diagram-container .edgePath .path {
-  stroke: #bb9af7 !important;
-  stroke-width: 1.5px !important;
+  stroke: #6366f1 !important;
+  stroke-width: 2px !important;
 }
 
-/* Style connection markers (arrowheads) */
+/* Connection markers (arrowheads) */
 .mermaid-diagram-container marker path,
 .mermaid-diagram-container .marker {
-  fill: #bb9af7 !important;
-  stroke: #bb9af7 !important;
+  fill: #6366f1 !important;
+  stroke: #6366f1 !important;
 }
 
-/* Make edge labels readable */
+/* Edge text labels */
 .mermaid-diagram-container .edgeLabel,
 .mermaid-diagram-container .edgeLabel * {
-  fill: #fafafa !important;
-  color: #fafafa !important;
-  background-color: #1a1b26 !important;
+  fill: #0f172a !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+}
+
+.mermaid-diagram-container .edgeLabel span {
+  background-color: #ffffff !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
 }
 
 

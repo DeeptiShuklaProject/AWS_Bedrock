@@ -29,23 +29,23 @@ Enterprise applications utilize clean code architectures to decouple framework c
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: SDK Wrapper**
->
-> * **Simple Explanation:** A library class that abstracts container lifecycle hooks and request routing details.
-> * **Why it exists:** Simplifies web listener configuration and request handling.
-> * **Where is it used:** The `BedrockAgentCoreApp` class.
+**📦 Technical Term: SDK Wrapper**
 
-> **📦 Technical Term: Decorator**
->
-> * **Simple Explanation:** A design pattern that extends function behavior without modifying the function's code.
-> * **Why it exists:** Registers handlers with framework routers.
-> * **Where is it used:** The `@app.invoke` decorator.
+* **Simple Explanation:** A library class that abstracts container lifecycle hooks and request routing details.
+* **Why it exists:** Simplifies web listener configuration and request handling.
+* **Where is it used:** The `BedrockAgentCoreApp` class.
 
-> **📦 Technical Term: Execution Context**
->
-> * **Simple Explanation:** An object containing metadata parameters injected by the runtime environment.
-> * **Why it exists:** Provides execution details like session IDs and user scopes.
-> * **Where is it used:** The `context` handler parameter.
+**📦 Technical Term: Decorator**
+
+* **Simple Explanation:** A design pattern that extends function behavior without modifying the function's code.
+* **Why it exists:** Registers handlers with framework routers.
+* **Where is it used:** The `@app.invoke` decorator.
+
+**📦 Technical Term: Execution Context**
+
+* **Simple Explanation:** An object containing metadata parameters injected by the runtime environment.
+* **Why it exists:** Provides execution details like session IDs and user scopes.
+* **Where is it used:** The `context` handler parameter.
 
 ---
 

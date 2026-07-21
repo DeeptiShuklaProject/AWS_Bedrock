@@ -29,23 +29,23 @@ A standard development environment minimizes the risk of configuration discrepan
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: SDK**
->
-> * **Simple Explanation:** A collection of pre-written libraries and utilities used to build applications for a platform.
-> * **Why it exists:** Eliminates the need to write raw HTTP requests for API actions.
-> * **Where is it used:** Python script imports like `import boto3`.
+**📦 Technical Term: SDK**
 
-> **📦 Technical Term: AWS CLI**
->
-> * **Simple Explanation:** A command-line tool used to control and automate AWS services through script queries.
-> * **Why it exists:** Allows developers to manage cloud assets without clicking the AWS web console.
-> * **Where is it used:** Configuring access keys and initiating deployment pipelines.
+* **Simple Explanation:** A collection of pre-written libraries and utilities used to build applications for a platform.
+* **Why it exists:** Eliminates the need to write raw HTTP requests for API actions.
+* **Where is it used:** Python script imports like `import boto3`.
 
-> **📦 Technical Term: Virtual Environment**
->
-> * **Simple Explanation:** An isolated workspace that hosts a local copy of Python and specific package dependencies.
-> * **Why it exists:** Prevents version conflicts between different Python projects running on the same host.
-> * **Where is it used:** Locally installed pip libraries.
+**📦 Technical Term: AWS CLI**
+
+* **Simple Explanation:** A command-line tool used to control and automate AWS services through script queries.
+* **Why it exists:** Allows developers to manage cloud assets without clicking the AWS web console.
+* **Where is it used:** Configuring access keys and initiating deployment pipelines.
+
+**📦 Technical Term: Virtual Environment**
+
+* **Simple Explanation:** An isolated workspace that hosts a local copy of Python and specific package dependencies.
+* **Why it exists:** Prevents version conflicts between different Python projects running on the same host.
+* **Where is it used:** Locally installed pip libraries.
 
 ---
 

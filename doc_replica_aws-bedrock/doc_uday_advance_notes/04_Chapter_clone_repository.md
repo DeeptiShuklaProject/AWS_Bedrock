@@ -28,23 +28,23 @@ Version control systems (like Git) maintain the chronological history of a codeb
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Repository**
->
-> * **Simple Explanation:** A digital directory storing the project's source code, history, and configuration files.
-> * **Why it exists:** Allows developers to track revisions and roll back changes.
-> * **Where is it used:** A hosted repository on GitHub.
+**📦 Technical Term: Repository**
 
-> **📦 Technical Term: Git Clone**
->
-> * **Simple Explanation:** The command that copies a remote repository to a local workstation.
-> * **Why it exists:** Enables local development and editing of codebase files.
-> * **Where is it used:** Running `git clone <url>` in terminal.
+* **Simple Explanation:** A digital directory storing the project's source code, history, and configuration files.
+* **Why it exists:** Allows developers to track revisions and roll back changes.
+* **Where is it used:** A hosted repository on GitHub.
 
-> **📦 Technical Term: Workspace**
->
-> * **Simple Explanation:** The local folder on your workstation where you edit code and run test scripts.
-> * **Why it exists:** Contains untracked development configuration files like `.env`.
-> * **Where is it used:** Your active project directory.
+**📦 Technical Term: Git Clone**
+
+* **Simple Explanation:** The command that copies a remote repository to a local workstation.
+* **Why it exists:** Enables local development and editing of codebase files.
+* **Where is it used:** Running `git clone <url>` in terminal.
+
+**📦 Technical Term: Workspace**
+
+* **Simple Explanation:** The local folder on your workstation where you edit code and run test scripts.
+* **Why it exists:** Contains untracked development configuration files like `.env`.
+* **Where is it used:** Your active project directory.
 
 ---
 

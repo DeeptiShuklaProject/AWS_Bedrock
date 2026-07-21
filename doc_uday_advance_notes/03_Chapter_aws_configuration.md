@@ -29,23 +29,23 @@ By default, AWS blocks all access to foundation models to prevent unexpected bil
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: IAM Policy**
->
-> * **Simple Explanation:** A JSON document defining permissions by detailing allowed actions on specific resource ARNs.
-> * **Why it exists:** Ensures the application cannot invoke unauthorized APIs.
-> * **Where is it used:** Attached policy document limits access to DynamoDB tables.
+**📦 Technical Term: IAM Policy**
 
-> **📦 Technical Term: IAM Role**
->
-> * **Simple Explanation:** An IAM identity that trusted entities (like services or user accounts) assume to acquire temporary credentials.
-> * **Why it exists:** Allows services to access resources without hardcoded passwords.
-> * **Where is it used:** The role assumed by the microVM at runtime.
+* **Simple Explanation:** A JSON document defining permissions by detailing allowed actions on specific resource ARNs.
+* **Why it exists:** Ensures the application cannot invoke unauthorized APIs.
+* **Where is it used:** Attached policy document limits access to DynamoDB tables.
 
-> **📦 Technical Term: Model Access Table**
->
-> * **Simple Explanation:** A console settings pane where developers agree to terms of service to activate Bedrock model APIs.
-> * **Why it exists:** Required to enable third-party model invoke endpoints.
-> * **Where is it used:** Requesting access for Anthropic Claude 3.5 Sonnet.
+**📦 Technical Term: IAM Role**
+
+* **Simple Explanation:** An IAM identity that trusted entities (like services or user accounts) assume to acquire temporary credentials.
+* **Why it exists:** Allows services to access resources without hardcoded passwords.
+* **Where is it used:** The role assumed by the microVM at runtime.
+
+**📦 Technical Term: Model Access Table**
+
+* **Simple Explanation:** A console settings pane where developers agree to terms of service to activate Bedrock model APIs.
+* **Why it exists:** Required to enable third-party model invoke endpoints.
+* **Where is it used:** Requesting access for Anthropic Claude 3.5 Sonnet.
 
 ---
 

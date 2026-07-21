@@ -28,23 +28,23 @@ AI applications contain multiple dependencies: frontend UIs, authentication prov
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Integration Testing**
->
-> * **Simple Explanation:** Testing how multiple application components function together as a unified system.
-> * **Why it exists:** Verifies system communication under production conditions.
-> * **Where is it used:** Running end-to-end execution tests.
+**📦 Technical Term: Integration Testing**
 
-> **📦 Technical Term: Orchestration Flow**
->
-> * **Simple Explanation:** The execution sequence coordinate by the runtime manager to process queries.
-> * **Why it exists:** Maintains secure resource boundaries during runs.
-> * **Where is it used:** The VM request-to-response trace.
+* **Simple Explanation:** Testing how multiple application components function together as a unified system.
+* **Why it exists:** Verifies system communication under production conditions.
+* **Where is it used:** Running end-to-end execution tests.
 
-> **📦 Technical Term: Security Gateway**
->
-> * **Simple Explanation:** The entrypoint that validates credentials and checks input schemas.
-> * **Why it exists:** Protects backend APIs from malicious queries.
-> * **Where is it used:** The Cognito and Gateway routers.
+**📦 Technical Term: Orchestration Flow**
+
+* **Simple Explanation:** The execution sequence coordinate by the runtime manager to process queries.
+* **Why it exists:** Maintains secure resource boundaries during runs.
+* **Where is it used:** The VM request-to-response trace.
+
+**📦 Technical Term: Security Gateway**
+
+* **Simple Explanation:** The entrypoint that validates credentials and checks input schemas.
+* **Why it exists:** Protects backend APIs from malicious queries.
+* **Where is it used:** The Cognito and Gateway routers.
 
 ---
 

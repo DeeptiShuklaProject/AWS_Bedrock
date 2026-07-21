@@ -28,23 +28,23 @@ Dependency drift occurs when package updates introduce breaking changes. To ensu
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Package Manager**
->
-> * **Simple Explanation:** A tool that automates installing, updating, and removing software packages.
-> * **Why it exists:** Simplifies dependency resolution and version management.
-> * **Where is it used:** The `uv` or `pip` command-line tools.
+**📦 Technical Term: Package Manager**
 
-> **📦 Technical Term: Virtual Environment**
->
-> * **Simple Explanation:** An isolated directory tree containing its own Python installation and packages.
-> * **Why it exists:** Prevents library version conflicts between projects.
-> * **Where is it used:** The local `.venv/` folder.
+* **Simple Explanation:** A tool that automates installing, updating, and removing software packages.
+* **Why it exists:** Simplifies dependency resolution and version management.
+* **Where is it used:** The `uv` or `pip` command-line tools.
 
-> **📦 Technical Term: Lockfile**
->
-> * **Simple Explanation:** A file listing the exact version and checksum of every package in the dependency tree.
-> * **Why it exists:** Guarantees identical builds across all environments.
-> * **Where is it used:** The `uv.lock` file.
+**📦 Technical Term: Virtual Environment**
+
+* **Simple Explanation:** An isolated directory tree containing its own Python installation and packages.
+* **Why it exists:** Prevents library version conflicts between projects.
+* **Where is it used:** The local `.venv/` folder.
+
+**📦 Technical Term: Lockfile**
+
+* **Simple Explanation:** A file listing the exact version and checksum of every package in the dependency tree.
+* **Why it exists:** Guarantees identical builds across all environments.
+* **Where is it used:** The `uv.lock` file.
 
 ---
 

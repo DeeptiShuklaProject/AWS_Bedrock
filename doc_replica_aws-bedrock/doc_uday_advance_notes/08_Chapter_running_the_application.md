@@ -29,23 +29,23 @@ Waiting for cloud deployment cycles to test code changes slows development. Loca
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Container**
->
-> * **Simple Explanation:** A package containing code, runtimes, and system tools required to run an application.
-> * **Why it exists:** Ensures the application runs consistently across different host OS environments.
-> * **Where is it used:** Running the application via Docker.
+**📦 Technical Term: Container**
 
-> **📦 Technical Term: Port Binding**
->
-> * **Simple Explanation:** Mapping a container's internal network port to an external port on the host workstation.
-> * **Why it exists:** Enables external clients to send HTTP requests to the application inside the container.
-> * **Where is it used:** Mapping port 8000 to the host.
+* **Simple Explanation:** A package containing code, runtimes, and system tools required to run an application.
+* **Why it exists:** Ensures the application runs consistently across different host OS environments.
+* **Where is it used:** Running the application via Docker.
 
-> **📦 Technical Term: Invocations**
->
-> * **Simple Explanation:** Sending requests containing prompt inputs to trigger the agent's reasoning loop.
-> * **Why it exists:** Triggers execution of the core handler function.
-> * **Where is it used:** Invoking the `/invoke` endpoint.
+**📦 Technical Term: Port Binding**
+
+* **Simple Explanation:** Mapping a container's internal network port to an external port on the host workstation.
+* **Why it exists:** Enables external clients to send HTTP requests to the application inside the container.
+* **Where is it used:** Mapping port 8000 to the host.
+
+**📦 Technical Term: Invocations**
+
+* **Simple Explanation:** Sending requests containing prompt inputs to trigger the agent's reasoning loop.
+* **Why it exists:** Triggers execution of the core handler function.
+* **Where is it used:** Invoking the `/invoke` endpoint.
 
 ---
 

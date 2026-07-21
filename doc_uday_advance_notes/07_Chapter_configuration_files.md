@@ -29,23 +29,23 @@ The Twelve-Factor App methodology dictates that configuration parameters (endpoi
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Environment Variables**
->
-> * **Simple Explanation:** Variables defined in the execution environment that configure runtime settings.
-> * **Why it exists:** Separates secret credentials from the codebase.
-> * **Where is it used:** AWS access keys loaded from a local `.env` file.
+**📦 Technical Term: Environment Variables**
 
-> **📦 Technical Term: Metadata File**
->
-> * **Simple Explanation:** A settings file declaring parameters like execution entry points and IAM roles.
-> * **Why it exists:** Configures how the service runs and scales the application container.
-> * **Where is it used:** The parameters defined in `bedrock_agent_core.yaml`.
+* **Simple Explanation:** Variables defined in the execution environment that configure runtime settings.
+* **Why it exists:** Separates secret credentials from the codebase.
+* **Where is it used:** AWS access keys loaded from a local `.env` file.
 
-> **📦 Technical Term: pyproject.toml**
->
-> * **Simple Explanation:** The configuration file used to declare build options and packages.
-> * **Why it exists:** Centralizes python tool settings and dependencies.
-> * **Where is it used:** Managing packaging options.
+**📦 Technical Term: Metadata File**
+
+* **Simple Explanation:** A settings file declaring parameters like execution entry points and IAM roles.
+* **Why it exists:** Configures how the service runs and scales the application container.
+* **Where is it used:** The parameters defined in `bedrock_agent_core.yaml`.
+
+**📦 Technical Term: pyproject.toml**
+
+* **Simple Explanation:** The configuration file used to declare build options and packages.
+* **Why it exists:** Centralizes python tool settings and dependencies.
+* **Where is it used:** Managing packaging options.
 
 ---
 

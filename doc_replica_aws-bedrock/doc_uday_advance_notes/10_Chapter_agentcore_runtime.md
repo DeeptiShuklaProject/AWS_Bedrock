@@ -29,23 +29,23 @@ Deploying agents to the cloud requires secure execution environments. Traditiona
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Firecracker**
->
-> * **Simple Explanation:** An open-source virtualization technology designed to spawn secure, multitenant microVMs.
-> * **Why it exists:** Combines the security isolation of traditional VMs with container speed.
-> * **Where is it used:** The underlying hypervisor for AWS Lambda and Fargate.
+**📦 Technical Term: Firecracker**
 
-> **📦 Technical Term: Cold Start**
->
-> * **Simple Explanation:** The process of pulling container images and booting a new microVM for a session.
-> * **Why it exists:** The initial boot latency when a session starts.
-> * **Where is it used:** The initial request boot cycle.
+* **Simple Explanation:** An open-source virtualization technology designed to spawn secure, multitenant microVMs.
+* **Why it exists:** Combines the security isolation of traditional VMs with container speed.
+* **Where is it used:** The underlying hypervisor for AWS Lambda and Fargate.
 
-> **📦 Technical Term: Warm Start**
->
-> * **Simple Explanation:** Routing subsequent requests using the same session ID to an active microVM.
-> * **Why it exists:** Bypasses the boot cycle for low-latency responses.
-> * **Where is it used:** Subsequent requests within active session windows.
+**📦 Technical Term: Cold Start**
+
+* **Simple Explanation:** The process of pulling container images and booting a new microVM for a session.
+* **Why it exists:** The initial boot latency when a session starts.
+* **Where is it used:** The initial request boot cycle.
+
+**📦 Technical Term: Warm Start**
+
+* **Simple Explanation:** Routing subsequent requests using the same session ID to an active microVM.
+* **Why it exists:** Bypasses the boot cycle for low-latency responses.
+* **Where is it used:** Subsequent requests within active session windows.
 
 ---
 

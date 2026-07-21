@@ -29,23 +29,23 @@ Deploying raw code directly to servers often leads to environment discrepancies.
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: Dockerfile**
->
-> * **Simple Explanation:** A text document containing instructions to compile a Docker image.
-> * **Why it exists:** Automates container image builds.
-> * **Where is it used:** Defining container build configurations.
+**📦 Technical Term: Dockerfile**
 
-> **📦 Technical Term: ECR Registry**
->
-> * **Simple Explanation:** A managed container registry on AWS used to store, manage, and deploy container images.
-> * **Why it exists:** Secures and hosts container images for deployment.
-> * **Where is it used:** Pushing images to Amazon ECR.
+* **Simple Explanation:** A text document containing instructions to compile a Docker image.
+* **Why it exists:** Automates container image builds.
+* **Where is it used:** Defining container build configurations.
 
-> **📦 Technical Term: Multi-Stage Build**
->
-> * **Simple Explanation:** A method that uses multiple FROM statements in a Dockerfile to optimize image size.
-> * **Why it exists:** Reduces container size and enhances security.
-> * **Where is it used:** Optimizing build steps.
+**📦 Technical Term: ECR Registry**
+
+* **Simple Explanation:** A managed container registry on AWS used to store, manage, and deploy container images.
+* **Why it exists:** Secures and hosts container images for deployment.
+* **Where is it used:** Pushing images to Amazon ECR.
+
+**📦 Technical Term: Multi-Stage Build**
+
+* **Simple Explanation:** A method that uses multiple FROM statements in a Dockerfile to optimize image size.
+* **Why it exists:** Reduces container size and enhances security.
+* **Where is it used:** Optimizing build steps.
 
 ---
 

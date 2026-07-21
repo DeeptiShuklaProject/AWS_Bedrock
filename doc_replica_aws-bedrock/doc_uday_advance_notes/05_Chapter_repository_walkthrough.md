@@ -29,23 +29,23 @@ Enterprise Python applications partition code into distinct functional layers to
 ---
 
 ## 5. Core Concepts
-> **📦 Technical Term: API Endpoint**
->
-> * **Simple Explanation:** A specific URL path exposed by an application where clients can send requests to interact with services.
-> * **Why it exists:** Allows clients to invoke server functions.
-> * **Where is it used:** The `/invoke` route on the runtime container.
+**📦 Technical Term: API Endpoint**
 
-> **📦 Technical Term: JSON Payload**
->
-> * **Simple Explanation:** A text block formatted in JSON syntax that carries request parameter values.
-> * **Why it exists:** Provides structured inputs to backend applications.
-> * **Where is it used:** The request body containing user prompts.
+* **Simple Explanation:** A specific URL path exposed by an application where clients can send requests to interact with services.
+* **Why it exists:** Allows clients to invoke server functions.
+* **Where is it used:** The `/invoke` route on the runtime container.
 
-> **📦 Technical Term: YAML Configuration**
->
-> * **Simple Explanation:** A human-readable data format used to declare deployment settings.
-> * **Why it exists:** Maintains parameter values outside application code.
-> * **Where is it used:** The settings defined in `bedrock_agent_core.yaml`.
+**📦 Technical Term: JSON Payload**
+
+* **Simple Explanation:** A text block formatted in JSON syntax that carries request parameter values.
+* **Why it exists:** Provides structured inputs to backend applications.
+* **Where is it used:** The request body containing user prompts.
+
+**📦 Technical Term: YAML Configuration**
+
+* **Simple Explanation:** A human-readable data format used to declare deployment settings.
+* **Why it exists:** Maintains parameter values outside application code.
+* **Where is it used:** The settings defined in `bedrock_agent_core.yaml`.
 
 ---
 

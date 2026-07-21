@@ -1,4 +1,4 @@
-# 09_Chapter_understanding_the_code
+# Chapter_09_understanding_the_code
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

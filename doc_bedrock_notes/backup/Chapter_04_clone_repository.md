@@ -1,4 +1,4 @@
-# 04_Chapter_clone_repository
+# Chapter_04_clone_repository
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

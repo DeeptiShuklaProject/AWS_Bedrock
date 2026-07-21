@@ -1,4 +1,4 @@
-# 02_Chapter_prerequisites
+# Chapter_02_prerequisites
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

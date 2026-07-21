@@ -1,4 +1,4 @@
-# 07_Chapter_configuration_files
+# Chapter_07_configuration_files
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

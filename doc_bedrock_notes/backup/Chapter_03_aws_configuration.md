@@ -1,4 +1,4 @@
-# 03_Chapter_aws_configuration
+# Chapter_03_aws_configuration
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

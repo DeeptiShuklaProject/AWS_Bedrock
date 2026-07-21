@@ -157,12 +157,15 @@ def build_nav_from_fs(directory: str, current_dir: str) -> List[Dict[str, Any]]:
                 
         elif name.endswith(".md"):
             title_base = clean_name[:-3] if clean_name.endswith(".md") else clean_name
-            title = title_base.replace("_", " ").title()
-            if title.lower() in ("index", "readme"):
+            if title_base.startswith("Chapter_"):
+                title = title_base
+            elif title_base.lower() in ("index", "readme"):
                 dir_name = os.path.basename(current_dir)
                 dir_clean = re.sub(r'^(doc_replica_|doc_uday_|doc_)+', '', dir_name, flags=re.IGNORECASE)
                 dir_clean = re.sub(r'^\d+[\s_]+', '', dir_clean)
                 title = dir_clean.replace("_", " ").title()
+            else:
+                title = title_base.replace("_", " ").title()
             items.append({
                 "title": title,
                 "href": rel_path

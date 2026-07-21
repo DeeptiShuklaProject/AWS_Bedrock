@@ -1,4 +1,4 @@
-# 06_Chapter_project_setup
+# Chapter_06_project_setup
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

@@ -1,4 +1,4 @@
-# 01_Chapter_introduction_to_bedrock_agentcore
+# Chapter_01_introduction_to_bedrock_agentcore
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn:

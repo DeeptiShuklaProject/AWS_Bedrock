@@ -1,4 +1,4 @@
-# 10_Chapter_agentcore_runtime
+# Chapter_10_agentcore_runtime
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn:

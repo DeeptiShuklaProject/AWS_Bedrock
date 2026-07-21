@@ -1,4 +1,4 @@
-# 05_Chapter_repository_walkthrough
+# Chapter_05_repository_walkthrough
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn:

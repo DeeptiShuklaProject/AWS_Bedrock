@@ -1,4 +1,4 @@
-# 16_Chapter_observability
+# Chapter_16_observability
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

@@ -1,4 +1,4 @@
-# 08_Chapter_running_the_application
+# Chapter_08_running_the_application
 
 ## 🎯 Learning Objectives
 In this chapter, you will learn how to:

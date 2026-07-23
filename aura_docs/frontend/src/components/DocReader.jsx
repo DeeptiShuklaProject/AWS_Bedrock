@@ -629,6 +629,51 @@ const InteractiveWidget = ({ type, rawData, selectedKb }) => {
 };
 
 
+const transformMermaidCode = (rawCode) => {
+  if (!rawCode) return rawCode;
+  const trimmed = rawCode.trim();
+  if (trimmed.startsWith('architecture-beta')) {
+    const lines = trimmed.split('\n');
+    let groupLabel = 'AWS Cloud';
+    let groupId = 'aws';
+    const services = [];
+    const connections = [];
+
+    lines.forEach(line => {
+      const l = line.trim();
+      if (l.startsWith('group ')) {
+        const match = l.match(/group\s+(\w+)(?:\([^)]*\))?\[([^\]]+)\]/);
+        if (match) {
+          groupId = match[1];
+          groupLabel = match[2];
+        }
+      } else if (l.startsWith('service ')) {
+        const match = l.match(/service\s+(\w+)(?:\([^)]*\))?\[([^\]]+)\]/);
+        if (match) {
+          services.push({ id: match[1], label: match[2] });
+        }
+      } else if (l.includes('--') || l.includes('-->')) {
+        const match = l.match(/(\w+)(?::\w+)?\s*--\s*(?::\w+)?(\w+)/);
+        if (match) {
+          connections.push({ from: match[1], to: match[2] });
+        }
+      }
+    });
+
+    let newGraph = `graph LR\n  subgraph ${groupId}["${groupLabel}"]\n`;
+    services.forEach(s => {
+      newGraph += `    ${s.id}["${s.label}"]\n`;
+    });
+    newGraph += '\n';
+    connections.forEach(c => {
+      newGraph += `    ${c.from} --> ${c.to}\n`;
+    });
+    newGraph += '  end';
+    return newGraph;
+  }
+  return rawCode;
+};
+
 // ==========================================
 // 5.5 Mermaid Diagram Renderer
 // ==========================================
@@ -660,8 +705,9 @@ const MermaidDiagram = ({ code }) => {
             nodeTextColor: '#ffffff'
           }
         });
-        await mermaid.parse(code);
-        const { svg: renderedSvg } = await mermaid.render(elementId.current, code);
+        const processedCode = transformMermaidCode(code);
+        await mermaid.parse(processedCode);
+        const { svg: renderedSvg } = await mermaid.render(elementId.current, processedCode);
         if (active) {
           setSvg(renderedSvg);
         }

@@ -39,11 +39,13 @@ def get_kb_display_name(kb_id: str) -> str:
         "doc_uday_advance_notes": "Uday Bedrock Notes",
         "doc_bedrock_notes": "Uday Bedrock Notes",
         "doc_uday_bedrock_notes": "Uday Bedrock Notes",
-        "doc_deepti_bedrock_notes": "Deepti Bedrock Notes"
+        "doc_deepti_bedrock_notes": "Deepti Bedrock Notes",
+        "doc_uday_aws_services_notes": "Uday AWS Services Notes",
+        "Uday_AWS_Services_notes": "Uday AWS Services Notes"
     }
     if kb_id in mapping:
         return mapping[kb_id]
-    suffix = kb_id.replace("doc_replica_", "").replace("doc_uday_", "")
+    suffix = kb_id.replace("doc_replica_", "").replace("doc_uday_", "").replace("doc_", "")
     return suffix.replace("_", " ").title()
 
 @app.get("/api/config")
@@ -53,12 +55,12 @@ def get_config():
 
 @app.get("/api/kbs")
 def list_knowledge_bases():
-    """List all available doc_replica_* folders in the workspace."""
+    """List all available documentation folders in the workspace."""
     kbs = []
     if os.path.exists(WORKSPACE_DIR):
         for name in os.listdir(WORKSPACE_DIR):
             full_path = os.path.join(WORKSPACE_DIR, name)
-            if os.path.isdir(full_path) and name.startswith("doc_"):
+            if os.path.isdir(full_path) and (name.startswith("doc_") or name.startswith("Uday_")):
                 kbs.append({
                     "id": name,
                     "name": get_kb_display_name(name)

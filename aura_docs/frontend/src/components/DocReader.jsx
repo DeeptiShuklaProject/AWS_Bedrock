@@ -631,7 +631,9 @@ const InteractiveWidget = ({ type, rawData, selectedKb }) => {
 
 const transformMermaidCode = (rawCode) => {
   if (!rawCode) return rawCode;
-  const trimmed = rawCode.trim();
+  let trimmed = rawCode.trim();
+
+  // Convert legacy architecture-beta blocks to graph LR
   if (trimmed.startsWith('architecture-beta')) {
     const lines = trimmed.split('\n');
     let groupLabel = 'AWS Cloud';
@@ -669,9 +671,10 @@ const transformMermaidCode = (rawCode) => {
       newGraph += `    ${c.from} --> ${c.to}\n`;
     });
     newGraph += '  end';
-    return newGraph;
+    trimmed = newGraph;
   }
-  return rawCode;
+
+  return trimmed;
 };
 
 // ==========================================
@@ -692,9 +695,17 @@ const MermaidDiagram = ({ code }) => {
           theme: 'base',
           securityLevel: 'loose',
           fontFamily: 'Inter, system-ui, sans-serif',
+          flowchart: {
+            useMaxWidth: true,
+            htmlLabels: false,
+            curve: 'basis',
+            nodeSpacing: 60,
+            rankSpacing: 60,
+            padding: 24
+          },
           themeVariables: {
             fontFamily: 'Inter, system-ui, sans-serif',
-            fontSize: '15px',
+            fontSize: '14px',
             primaryColor: '#1e293b',
             primaryTextColor: '#ffffff',
             primaryBorderColor: '#6366f1',
@@ -708,8 +719,14 @@ const MermaidDiagram = ({ code }) => {
         const processedCode = transformMermaidCode(code);
         await mermaid.parse(processedCode);
         const { svg: renderedSvg } = await mermaid.render(elementId.current, processedCode);
+        
+        // Strip out hardcoded width/height and problematic inline max-width styles injected by Mermaid
+        let responsiveSvg = renderedSvg.replace(/width="[^"]*"/i, 'width="100%"');
+        responsiveSvg = responsiveSvg.replace(/height="[^"]*"/i, 'height="auto"');
+        responsiveSvg = responsiveSvg.replace(/style="max-width:[^"]*"/i, '');
+
         if (active) {
-          setSvg(renderedSvg);
+          setSvg(responsiveSvg);
         }
       } catch (err) {
         console.error("Mermaid parse error:", err);

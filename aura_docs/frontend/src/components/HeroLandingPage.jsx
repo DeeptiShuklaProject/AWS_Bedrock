@@ -176,18 +176,7 @@ const HeroLandingPage = ({ navItems = [], onOpenSearch, onOpenQuizzes, onOpenPla
       </div>
 
       {/* Interactive Code Playground Promo Banner */}
-      <div 
-        style={{
-          background: 'linear-gradient(135deg, rgba(6,182,212,0.14) 0%, rgba(30,41,59,0.95) 100%)',
-          border: '1px solid rgba(6,182,212,0.35)',
-          borderRadius: '24px',
-          padding: '36px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '28px'
-        }}
-      >
+      <div className="promo-banner-card">
         <div>
           <div style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--accent-cyan)', textTransform: 'uppercase', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Terminal size={16} />

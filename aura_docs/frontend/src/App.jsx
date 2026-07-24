@@ -32,11 +32,11 @@ const App = () => {
   const [activeHeadingId, setActiveHeadingId] = useState('');
   const [readingProgress, setReadingProgress] = useState(0);
 
-  // Force dark slate theme
+  // Dynamic Theme Handler (Dark / Light)
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    localStorage.setItem('kb-theme', 'dark');
-  }, []);
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('kb-theme', theme);
+  }, [theme]);
 
   // Global Keyboard Shortcut listener (Cmd+K / Ctrl+K)
   useEffect(() => {

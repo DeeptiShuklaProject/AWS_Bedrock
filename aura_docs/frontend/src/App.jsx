@@ -1,46 +1,84 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import DocReader from './components/DocReader';
+import TableOfContents from './components/TableOfContents';
+import SearchModal from './components/SearchModal';
+import ImageViewerModal from './components/ImageViewerModal';
+import QuizModule from './components/QuizModule';
+import HeroLandingPage from './components/HeroLandingPage';
 import ChatPanel from './components/ChatPanel';
-import { Sun, Moon, MessageSquare, Database, Sparkles, RefreshCw } from 'lucide-react';
+import CodePlaygroundModal from './components/CodePlaygroundModal';
+import { Sparkles, X } from 'lucide-react';
 
 const App = () => {
-  // Theme state
-  const [theme, setTheme] = useState(() => localStorage.getItem('kb-theme') || 'light');
-  
-  // Knowledge Base States
+  const [theme, setTheme] = useState('dark');
   const [kbs, setKbs] = useState([]);
   const [selectedKb, setSelectedKb] = useState('');
   
-  // Navigation & Document States
+  const [activeView, setActiveView] = useState('home');
   const [navItems, setNavItems] = useState([]);
   const [activeDoc, setActiveDoc] = useState('');
   const [docContent, setDocContent] = useState('');
   const [docLoading, setDocLoading] = useState(false);
   
-  // Chat States
-  const [messages, setMessages] = useState([]);
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(true);
-  const [hasApiKey, setHasApiKey] = useState(true);
-  
-  // Indexing State
-  const [isIndexing, setIsIndexing] = useState(false);
-  const [indexStatus, setIndexStatus] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isPlaygroundOpen, setIsPlaygroundOpen] = useState(false);
+  const [playgroundInitialCode, setPlaygroundInitialCode] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
-  // Apply theme class
+  const [docHeadings, setDocHeadings] = useState([]);
+  const [activeHeadingId, setActiveHeadingId] = useState('');
+  const [readingProgress, setReadingProgress] = useState(0);
+
+  // Force dark slate theme
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('kb-theme', theme);
-  }, [theme]);
+    document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('kb-theme', 'dark');
+  }, []);
 
-  // Sync selected KB and activeDoc to localStorage and URL search parameters
+  // Global Keyboard Shortcut listener (Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
+
+  // Track Scroll Progress & Active Heading
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        const progress = (window.scrollY / totalHeight) * 100;
+        setReadingProgress(Math.min(Math.max(progress, 0), 100));
+      }
+
+      if (docHeadings.length > 0) {
+        const scrollPos = window.scrollY + 120;
+        for (let i = docHeadings.length - 1; i >= 0; i--) {
+          const el = document.getElementById(docHeadings[i].id);
+          if (el && el.offsetTop <= scrollPos) {
+            setActiveHeadingId(docHeadings[i].id);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [docHeadings]);
+
+  // Sync state with URL Search Parameters
   useEffect(() => {
     if (!selectedKb) return;
     localStorage.setItem('kb-selected-id', selectedKb);
-    if (activeDoc) {
-      localStorage.setItem(`kb-active-doc-${selectedKb}`, activeDoc);
-    }
     
     const url = new URL(window.location.href);
     const urlKb = url.searchParams.get('kb');
@@ -52,13 +90,13 @@ const App = () => {
       changed = true;
     }
     
-    if (activeDoc) {
+    if (activeView === 'doc' && activeDoc) {
       if (urlDoc !== activeDoc) {
         url.searchParams.set('doc', activeDoc);
         changed = true;
       }
     } else {
-      if (urlDoc && urlKb !== selectedKb) {
+      if (urlDoc) {
         url.searchParams.delete('doc');
         changed = true;
       }
@@ -67,47 +105,36 @@ const App = () => {
     if (changed) {
       window.history.replaceState({}, '', url.toString());
     }
-  }, [selectedKb, activeDoc]);
+  }, [selectedKb, activeDoc, activeView]);
 
-  // Load KBs and Config on startup
+  // Fetch Knowledge Bases List
   useEffect(() => {
-    const fetchConfig = async () => {
-      try {
-        const response = await fetch('/api/config');
-        const data = await response.json();
-        setHasApiKey(data.has_api_key);
-        setIsChatOpen(data.has_api_key); // Automatically close panel if key is missing
-      } catch (e) {
-        console.error('Failed to load application config:', e);
-      }
-    };
-
     const fetchKbs = async () => {
       try {
         const response = await fetch('/api/kbs');
         const data = await response.json();
-        setKbs(data);
-        if (data.length > 0) {
+        setKbs(Array.isArray(data) ? data : []);
+
+        if (Array.isArray(data) && data.length > 0) {
           const params = new URLSearchParams(window.location.search);
           const urlKb = params.get('kb');
+          const urlDoc = params.get('doc');
           const hasUrlKb = data.some(kb => kb.id === urlKb);
           
           if (hasUrlKb) {
             setSelectedKb(urlKb);
+            if (urlDoc) {
+              setActiveDoc(urlDoc);
+              setActiveView('doc');
+            }
           } else {
             const cachedKb = localStorage.getItem('kb-selected-id');
             const hasCached = data.some(kb => kb.id === cachedKb);
             if (hasCached) {
               setSelectedKb(cachedKb);
             } else {
-              // Fallback default (prioritize Custom Notes, then Bedrock)
-              const notesKb = data.find(kb => kb.id === 'doc_replica_notes');
-              if (notesKb) {
-                setSelectedKb(notesKb.id);
-              } else {
-                const bedrockKb = data.find(kb => kb.id === 'doc_replica_amazon');
-                setSelectedKb(bedrockKb ? bedrockKb.id : data[0].id);
-              }
+              const udayKb = data.find(kb => kb.id === 'Uday_AWS_Services_notes');
+              setSelectedKb(udayKb ? udayKb.id : data[0].id);
             }
           }
         }
@@ -116,318 +143,243 @@ const App = () => {
       }
     };
 
-    fetchConfig();
     fetchKbs();
   }, []);
 
-  // Load Navigation tree when KB changes
+  // Fetch Navigation Tree when selected KB changes
   useEffect(() => {
     if (!selectedKb) return;
-    
-    let active = true;
-    // Immediately clear stale doc state to prevent cross-KB fetch race condition
-    setActiveDoc('');
-    setDocContent('');
-    
-    const fetchNavigation = async () => {
+
+    const fetchNavTree = async () => {
       try {
         const response = await fetch(`/api/kbs/${selectedKb}/navigation`);
         const data = await response.json();
-        
-        if (!active) return;
-        
-        // Normalize all href paths to use forward slashes
-        const normalizePaths = (items) => {
-          if (!items) return items;
-          return items.map(item => {
-            const newItem = { ...item };
-            if (newItem.href) {
-              newItem.href = newItem.href.replace(/\\/g, '/');
-            }
-            if (newItem.contents) {
-              newItem.contents = normalizePaths(newItem.contents);
-            }
-            return newItem;
-          });
-        };
-        const normalizedData = normalizePaths(data);
-        setNavItems(normalizedData);
-        
-        // Reset chat state
-        setMessages([]);
-        
-        // Helper to check if a document path exists in the navigation tree
-        const checkDocExists = (items, targetHref) => {
-          if (!items) return false;
-          for (const item of items) {
-            if (item.href === targetHref) return true;
-            if (item.contents && checkDocExists(item.contents, targetHref)) return true;
-          }
-          return false;
-        };
-        
-        // Determine which active doc to select (URL bookmark, cached doc, or first item)
+        setNavItems(Array.isArray(data) ? data : []);
+
         const params = new URLSearchParams(window.location.search);
-        const urlKb = params.get('kb');
-        const urlDoc = params.get('doc') ? params.get('doc').replace(/\\/g, '/') : null;
-        
-        if (urlKb === selectedKb && urlDoc && checkDocExists(normalizedData, urlDoc)) {
+        const urlDoc = params.get('doc');
+        if (urlDoc) {
           setActiveDoc(urlDoc);
-        } else {
-          const cachedDoc = localStorage.getItem(`kb-active-doc-${selectedKb}`);
-          const normalizedCachedDoc = cachedDoc ? cachedDoc.replace(/\\/g, '/') : null;
-          if (normalizedCachedDoc && checkDocExists(normalizedData, normalizedCachedDoc)) {
-            setActiveDoc(normalizedCachedDoc);
-          } else if (normalizedData && normalizedData.length > 0) {
-            const findFirstDoc = (items) => {
-              for (const item of items) {
-                if (item.href) return item.href;
-                if (item.contents && item.contents.length > 0) {
-                  const found = findFirstDoc(item.contents);
-                  if (found) return found;
-                }
-              }
-              return '';
-            };
-            const firstDoc = findFirstDoc(normalizedData);
-            setActiveDoc(firstDoc);
-          } else {
-            setActiveDoc('');
-            setDocContent('');
-          }
+          setActiveView('doc');
         }
       } catch (e) {
-        console.error('Failed to load navigation:', e);
-        if (active) {
-          setActiveDoc('');
-          setDocContent('');
-        }
+        console.error('Failed to load navigation tree:', e);
       }
     };
-    
-    fetchNavigation();
-    return () => {
-      active = false;
-    };
+
+    fetchNavTree();
   }, [selectedKb]);
 
-  // Load Document Content when activeDoc changes
+  // Fetch Document Content when activeDoc or selectedKb changes
   useEffect(() => {
-    if (!selectedKb || !activeDoc) return;
-    
-    let active = true;
-    const fetchDoc = async () => {
+    if (!selectedKb || !activeDoc || activeView !== 'doc') return;
+
+    const fetchDocContent = async () => {
       setDocLoading(true);
       try {
-        const normalizedDoc = activeDoc.replace(/\\/g, '/');
-        const response = await fetch(`/api/kbs/${selectedKb}/document?path=${encodeURIComponent(normalizedDoc)}`);
-        if (!response.ok) throw new Error('Document not found');
-        const data = await response.json();
-        if (active) {
-          setDocContent(data.content);
+        const encodedDocPath = encodeURIComponent(activeDoc);
+        const response = await fetch(`/api/kbs/${selectedKb}/document?path=${encodedDocPath}`);
+        if (response.ok) {
+          const data = await response.json();
+          setDocContent(data.content || '');
+        } else {
+          setDocContent(`# Error Loading Document\n\nFailed to load content for \`${activeDoc}\`.`);
         }
       } catch (e) {
-        console.error('Failed to load document:', e);
-        if (active) {
-          setDocContent(`# Error\nCould not load document: ${activeDoc}`);
-        }
+        setDocContent(`# Error Loading Document\n\nNetwork or server error: ${e.message}`);
       } finally {
-        if (active) {
-          setDocLoading(false);
+        setDocLoading(false);
+      }
+    };
+
+    fetchDocContent();
+  }, [selectedKb, activeDoc, activeView]);
+
+  const handleSelectDoc = (docPath) => {
+    setActiveDoc(docPath);
+    setActiveView('doc');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectHeading = (headingId) => {
+    let el = document.getElementById(headingId);
+    if (!el) {
+      const headings = document.querySelectorAll('.doc-content h1, .doc-content h2, .doc-content h3, .doc-content h4');
+      for (const h of headings) {
+        if (h.id === headingId || h.id.toLowerCase() === headingId.toLowerCase()) {
+          el = h;
+          break;
         }
       }
-    };
-    
-    fetchDoc();
-    return () => {
-      active = false;
-    };
-  }, [activeDoc, selectedKb]);
-
-  // Toggle theme
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
-
-  // Trigger Indexing
-  const handleIndexKb = async () => {
-    if (!selectedKb || isIndexing) return;
-    setIsIndexing(true);
-    setIndexStatus('Indexing...');
-    try {
-      const response = await fetch(`/api/kbs/${selectedKb}/index`, {
-        method: 'POST'
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setIndexStatus('✓ Indexed!');
-        setTimeout(() => setIndexStatus(''), 3000);
-      } else {
-        setIndexStatus('❌ Failed');
-        alert(data.detail || 'Indexing failed');
-      }
-    } catch (e) {
-      console.error('Indexing failed:', e);
-      setIndexStatus('❌ Failed');
-    } finally {
-      setIsIndexing(false);
+    }
+    if (el) {
+      const topOffset = el.getBoundingClientRect().top + window.scrollY - 95;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
   };
 
-  // Send Message to Agent
-  const handleSendMessage = async (text) => {
-    // Add user message
-    const userMsg = { sender: 'user', text };
-    setMessages(prev => [...prev, userMsg]);
-    
-    setIsGenerating(true);
-    try {
-      const response = await fetch(`/api/kbs/${selectedKb}/chat`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: text })
-      });
-      const data = await response.json();
-      
-      const agentMsg = {
-        sender: 'agent',
-        text: data.answer,
-        sources: data.sources
-      };
-      
-      setMessages(prev => [...prev, agentMsg]);
-    } catch (e) {
-      console.error('Chat failed:', e);
-      setMessages(prev => [...prev, {
-        sender: 'agent',
-        text: '❌ Sorry, I failed to process your question. Please make sure the backend server is running and the Gemini API key is configured.'
-      }]);
-    } finally {
-      setIsGenerating(false);
-    }
+  const handleOpenPlaygroundWithCode = (codeSnippet) => {
+    setPlaygroundInitialCode(codeSnippet || '');
+    setIsPlaygroundOpen(true);
   };
 
   return (
-    <div className="app-container">
+    <div className="app-layout">
+      {/* Top Reading Progress Bar */}
+      {activeView === 'doc' && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            height: '3px',
+            background: 'var(--primary-gradient)',
+            width: `${readingProgress}%`,
+            zIndex: 50,
+            transition: 'width 0.15s ease'
+          }}
+        />
+      )}
+
       {/* Top Navbar */}
-      <header className="top-bar">
-        <div className="logo-section">
-          <span className="logo-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" style={{ display: 'block' }}>
-              <defs>
-                <linearGradient id="auraDiagGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ff79c6" />
-                  <stop offset="50%" stopColor="#bd93f9" />
-                  <stop offset="100%" stopColor="#00f2fe" />
-                </linearGradient>
-                <radialGradient id="auraPinkRadial" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#ff79c6" stopOpacity="0.5" />
-                  <stop offset="60%" stopColor="#bd93f9" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#bd93f9" stopOpacity="0" />
-                </radialGradient>
-                <radialGradient id="auraTealRadial" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#00f2fe" stopOpacity="0.4" />
-                  <stop offset="60%" stopColor="#50fa7b" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#50fa7b" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-              <circle className="aura-wave-1" cx="12" cy="12" r="9.5" fill="url(#auraPinkRadial)" />
-              <circle className="aura-wave-2" cx="12" cy="12" r="8.5" fill="url(#auraTealRadial)" />
-              <path d="M5.5 6.5h6l3.5 3.5v9.5a1 1 0 0 1-1 1h-8.5a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1z" stroke="url(#auraDiagGrad)" strokeWidth="1.5" strokeLinejoin="round" opacity="0.45" />
-              <path d="M8.5 3.5H14l3.5 3.5V17.5a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1z" stroke="url(#auraDiagGrad)" strokeWidth="1.8" strokeLinejoin="round" />
-              <path d="M14 3.5V7h3.5" stroke="url(#auraDiagGrad)" strokeWidth="1.8" strokeLinejoin="round" />
-              <path d="M11 9.5h3.5M11 12h3.5M11 14.5h2" stroke="url(#auraDiagGrad)" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-          </span>
-          <span>AuraDocs</span>
-        </div>
-        
-        <div className="controls-section">
-          {/* KB Dropdown Selector */}
-          <div className="kb-selector-container">
-            <select 
-              value={selectedKb} 
-              onChange={(e) => setSelectedKb(e.target.value)}
-              className="kb-dropdown"
-              disabled={isIndexing}
-            >
-              {kbs.map(kb => (
-                <option key={kb.id} value={kb.id}>{kb.name}</option>
-              ))}
-            </select>
-          </div>
-
-          {/* Index Button (Only show if API key is active) */}
-          {hasApiKey && (
-            <button 
-              onClick={handleIndexKb} 
-              className="icon-btn action-btn secondary-btn"
-              disabled={isIndexing || !selectedKb}
-              title="Rebuild Semantic Vector Index for this KB"
-            >
-              <RefreshCw size={14} className={isIndexing ? 'loader-spinner' : ''} />
-              <span>{indexStatus || 'Index KB'}</span>
-            </button>
-          )}
-
-          {/* Multi-Theme Selector */}
-          <div className="theme-selector-container">
-            <select 
-              value={theme} 
-              onChange={(e) => setTheme(e.target.value)}
-              className="theme-dropdown"
-              title="Select Theme"
-            >
-              <option value="dark">Dark Theme</option>
-              <option value="light">Light Theme</option>
-              <option value="cyberpunk">Cyberpunk</option>
-              <option value="catppuccin">Catppuccin</option>
-            </select>
-          </div>
-
-          {/* Toggle Chat (Only show if API key is active) */}
-          {hasApiKey && (
-            <button 
-              onClick={() => setIsChatOpen(!isChatOpen)} 
-              className={`icon-btn ${isChatOpen ? 'secondary-btn' : ''}`}
-              title="Toggle AI Assistant"
-              style={isChatOpen ? { backgroundColor: 'var(--hover-bg)' } : {}}
-            >
-              <MessageSquare size={16} />
-            </button>
-          )}
-        </div>
-      </header>
+      <Navbar
+        kbs={kbs}
+        selectedKb={selectedKb}
+        onSelectKb={(kbId) => {
+          setSelectedKb(kbId);
+          setActiveView('home');
+        }}
+        onOpenSearch={() => setIsSearchOpen(true)}
+        onOpenQuizzes={() => setActiveView('quizzes')}
+        onOpenPlayground={() => handleOpenPlaygroundWithCode('')}
+        activeView={activeView}
+        setActiveView={setActiveView}
+        theme={theme}
+        setTheme={setTheme}
+      />
 
       {/* Main Workspace Layout */}
-      <main className={`app-workspace ${isChatOpen && hasApiKey ? 'chat-open' : ''}`}>
-        {/* Sidebar Nav */}
-        <Sidebar 
-          navItems={navItems} 
-          activeDoc={activeDoc} 
-          onSelectDoc={setActiveDoc} 
+      <div className="main-workspace">
+        {/* Left Sidebar */}
+        <Sidebar
+          navItems={navItems}
+          activeDoc={activeDoc}
+          onSelectDoc={handleSelectDoc}
+          onOpenQuizzes={() => setActiveView('quizzes')}
         />
 
-        {/* Document Reader */}
-        <DocReader 
-          activeDoc={activeDoc} 
-          docContent={docContent} 
-          isLoading={docLoading} 
-          onSelectDoc={setActiveDoc}
-          selectedKb={selectedKb}
-          theme={theme}
-        />
+        {/* Central Canvas Area */}
+        <main className={`canvas-area ${activeView === 'doc' ? 'has-toc' : ''}`}>
+          {activeView === 'home' && (
+            <HeroLandingPage
+              navItems={navItems}
+              onOpenSearch={() => setIsSearchOpen(true)}
+              onOpenQuizzes={() => setActiveView('quizzes')}
+              onOpenPlayground={() => handleOpenPlaygroundWithCode('')}
+              onSelectDoc={handleSelectDoc}
+            />
+          )}
 
-        {/* AI Chat Agent (Only render if key is active) */}
-        {isChatOpen && hasApiKey && (
-          <ChatPanel 
-            messages={messages} 
-            onSendMessage={handleSendMessage} 
-            isGenerating={isGenerating} 
-            onSelectDoc={setActiveDoc}
-          />
+          {activeView === 'quizzes' && (
+            <QuizModule
+              onBackToDocs={() => setActiveView('home')}
+            />
+          )}
+
+          {activeView === 'doc' && (
+            <div style={{ display: 'flex', width: '100%', gap: '28px' }}>
+              <DocReader
+                activeDoc={activeDoc}
+                docContent={docContent}
+                isLoading={docLoading}
+                onSelectDoc={handleSelectDoc}
+                navItems={navItems}
+                onExtractHeadings={setDocHeadings}
+                onOpenImage={(src, alt) => setSelectedImage({ src, alt })}
+                onOpenPlayground={handleOpenPlaygroundWithCode}
+              />
+
+              <TableOfContents
+                headings={docHeadings}
+                activeHeadingId={activeHeadingId}
+                onSelectHeading={handleSelectHeading}
+              />
+            </div>
+          )}
+        </main>
+
+        {/* Floating AI Chat Assistant Toggle */}
+        <button
+          onClick={() => setIsChatOpen(prev => !prev)}
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 40,
+            background: isChatOpen ? 'var(--accent-rose)' : 'var(--primary-gradient)',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '16px',
+            padding: '12px 20px',
+            fontWeight: 800,
+            fontSize: '0.88rem',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            boxShadow: 'var(--shadow-lg)'
+          }}
+        >
+          {isChatOpen ? <X size={18} /> : <Sparkles size={18} />}
+          <span>{isChatOpen ? 'Close Chat' : 'Ask AI Agent'}</span>
+        </button>
+
+        {/* AI Chat Drawer */}
+        {isChatOpen && (
+          <div 
+            style={{
+              position: 'fixed',
+              bottom: '80px',
+              right: '24px',
+              zIndex: 40,
+              width: '400px',
+              height: '560px',
+              borderRadius: '24px',
+              background: 'var(--bg-card)',
+              border: '1px solid var(--border-color)',
+              boxShadow: 'var(--shadow-lg)',
+              overflow: 'hidden'
+            }}
+          >
+            <ChatPanel
+              selectedKb={selectedKb}
+              activeDoc={activeDoc}
+              onClose={() => setIsChatOpen(false)}
+              onSelectDoc={handleSelectDoc}
+            />
+          </div>
         )}
-      </main>
+      </div>
+
+      {/* Modals */}
+      <SearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        navItems={navItems}
+        onSelectDoc={handleSelectDoc}
+      />
+
+      <CodePlaygroundModal
+        isOpen={isPlaygroundOpen}
+        initialCode={playgroundInitialCode}
+        onClose={() => setIsPlaygroundOpen(false)}
+      />
+
+      <ImageViewerModal
+        src={selectedImage?.src}
+        alt={selectedImage?.alt}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 };

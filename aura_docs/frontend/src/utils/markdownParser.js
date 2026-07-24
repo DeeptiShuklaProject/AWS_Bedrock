@@ -135,7 +135,15 @@ export function parseMarkdown(mdText) {
       if (match) {
         const level = match[1].length;
         const text = match[2];
-        html.push(`<h${level} id="${text.toLowerCase().replace(/\s+/g, "-")}">${parseInline(text)}</h${level}>`);
+        const headingId = text
+          .toLowerCase()
+          .trim()
+          .replace(/<[^>]*>/g, '')
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+
+        html.push(`<h${level} id="${headingId}">${parseInline(text)}</h${level}>`);
         continue;
       }
     }

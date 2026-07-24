@@ -220,9 +220,9 @@ def get_kb_document(kb_id: str, path: str = Query(..., description="Relative pat
         if os.path.exists(md_path):
             target_path = md_path
 
-    # Fallback: search recursively if not found at exact path (for nested files with flat TOC references)
+    # Fallback 1: Search recursively for filename (case-insensitive)
     if not os.path.exists(target_path):
-        filename = os.path.basename(target_path)
+        filename = os.path.basename(target_path).lower()
         if filename.endswith(".html"):
             filename = filename[:-5] + ".md"
         elif not filename.endswith(".md"):
@@ -230,14 +230,40 @@ def get_kb_document(kb_id: str, path: str = Query(..., description="Relative pat
             
         found_path = None
         for root, dirs, files in os.walk(kb_dir):
-            if filename in files:
-                found_path = os.path.join(root, filename)
+            for f in files:
+                if f.lower() == filename:
+                    found_path = os.path.join(root, f)
+                    break
+            if found_path:
                 break
         if found_path:
             target_path = found_path
 
-    if not os.path.exists(target_path) or not os.path.isfile(target_path):
-        raise HTTPException(status_code=404, detail=f"Document {path} not found")
+    # Fallback 2: If requested path points to a directory or non-existent chapter, return first .md file in that folder or KB
+    if not os.path.exists(target_path):
+        # Try finding first .md file inside target directory if path was a folder
+        potential_dir = os.path.join(kb_dir, path)
+        if not os.path.exists(potential_dir):
+            potential_dir = os.path.dirname(os.path.join(kb_dir, path))
+            
+        found_first_md = None
+        if os.path.exists(potential_dir) and os.path.isdir(potential_dir):
+            for root, dirs, files in os.walk(potential_dir):
+                md_files = [f for f in sorted(files) if f.endswith(".md")]
+                if md_files:
+                    found_first_md = os.path.join(root, md_files[0])
+                    break
+        
+        # Global fallback: pick first .md file in the entire KB folder
+        if not found_first_md:
+            for root, dirs, files in os.walk(kb_dir):
+                md_files = [f for f in sorted(files) if f.endswith(".md")]
+                if md_files:
+                    found_first_md = os.path.join(root, md_files[0])
+                    break
+                    
+        if found_first_md:
+            target_path = found_first_md
         
     try:
         with open(target_path, "r", encoding="utf-8") as f:
